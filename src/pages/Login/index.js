@@ -5,6 +5,7 @@
 import api from '../../services/api';
 
  import './styles.css';
+ import '../../global.css';
 
 function Login(){
     const [id, setId] = useState('');
@@ -30,28 +31,28 @@ function Login(){
 
     return(
         <div className="login-container">
-            <section className="form">
-                <form onSubmit={handleLogin}>
-                <h1>LOGIN</h1>
-                    <input
-                     placeholder="Email"
-                     value ={id}
-                     onChange={e => setId(e.target.value)}
-                      />
+            <div className="content">
+                <section className="form">
+                    <form onSubmit={handleLogin}>
+                    <h1>LOGIN</h1>
+                        <input
+                        placeholder="E-mail"
+                        value ={id}
+                        onChange={e => setId(e.target.value)}
+                        />
 
-                    <input
-                     placeholder="Senha"
-                     value ={passwd}
-                     onChange={e => setPasswd(e.target.value)}
-                      />
+                        <input
+                        placeholder="Senha"
+                        value ={passwd}
+                        onChange={e => setPasswd(e.target.value)}
+                        />
 
-                    {/* <Link to="/esquecisenha">
-                        Esqueci minha senha
-                    </Link> */}
-                    <button className="button" type="submit">Entrar</button>
-                </form>
-                <button className="button" type="submit">Cadastrar</button>
-            </section>
+                        <button className="button" type="submit"> Entrar </button>
+                    </form>
+
+                    <Link className="button" to="/register"> Cadastrar </Link>
+                </section>
+            </div>
         </div>
     );
  }

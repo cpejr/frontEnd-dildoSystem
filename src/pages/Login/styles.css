@@ -10,6 +10,18 @@
     justify-content: center;
 }
 
+.login-container .content {
+    padding: 40px;
+    background: #DAA621;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.login-container .content form input {
+    margin-top: 4px;
+}
+
 .login-container section.form {
     width: 100%;
     max-width: 350px;
@@ -19,6 +31,7 @@
 .login-container section.form form h1 {
     font-size: 32px;
     margin-bottom: 32px;
+    text-align: center;
 }
 
 .login-container section.form form a {

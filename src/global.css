@@ -33,10 +33,10 @@ form input {
 .button {
     width: 100%;
     height: 60px;
-    background:#FFF;
+    background:#a17402;
     border: 0;
     border-radius: 8px;
-    color:#FFF;
+    color:#000;
     font-weight: 700;
     margin-top: 16px;
     display: inline-block;
@@ -48,4 +48,19 @@ form input {
 
 .button:hover {
     filter: brightness(90%);
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2;
+}
+
+.back-link:hover {
+    opacity: 0.8;
 }
