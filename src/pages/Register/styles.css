@@ -22,8 +22,14 @@
 
 .register-container .content h1 {
     font-size: 32px;
+    font-weight: 300;
     text-align: center;
-    padding: 5px;
+}
+
+.line {
+    height: 1px;
+    width: 80%;
+    background-color: #707070;
 }
 
 .register-container .content form {
