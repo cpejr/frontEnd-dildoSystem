@@ -12,10 +12,12 @@
 
 .register-container .content {
     padding: 40px;
-    background: #DAA621;
+    background: #FFF;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .register-container .content h1 {
