@@ -1,9 +1,8 @@
 .register-container {
     width: 100%;
     max-width: 1120px;
-    height: 100vh;
+    height: 130vh;
     margin: 0 auto;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,10 +19,25 @@
     justify-content: center;
 }
 
-.register-container .content h1 {
+.register-container section h1 {
     font-size: 32px;
     font-weight: 300;
     text-align: center;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.register-container section {
+    width: 100%;
+    max-width: 350px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .line {
@@ -37,14 +51,14 @@
     max-width: 450px;
 }
 
-.register-container .content form input {
-    margin-top: 4px;
+.input-register {
+    margin-bottom: 10px !important;
 }
 
 .register-container .content form .input-group {
     display: flex;
 }
 
-.register-container .content form .input-group input + input {
-    margin-left: 4px;
+.flex-row .input-register + .input-register {
+    margin-left: 5px;
 }

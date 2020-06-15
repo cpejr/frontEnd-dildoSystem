@@ -61,132 +61,180 @@ function Register() {
     return (
         <div className="register-container">
             <div className="content">
-                <h1>CADASTRO</h1>
-                <div className="line" />
-
-                <form onSubmit={handleRegister}>
-                    <TextField
-                        variant="outlined"
-                        placeholder="Nome"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-
-                    <TextField
-                        variant="outlined"
-                        placeholder="E-mail"
-                        type="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-
-                    <TextField
-                        variant="outlined"
-                        placeholder="Senha"
-                        type="password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-
-
-                    <TextField
-                        id="select"
-                        label="Tipo"
-                        variant="outlined"
-                        value="20"
-                        value={type}
-                        onChange={e => setType(e.target.value)}
-                        select>
-                        <MenuItem value="10">Ten</MenuItem>
-                        <MenuItem value="20">Twenty</MenuItem>
-                    </TextField>
-
-                    <TextField
-                        variant="outlined"
-                        placeholder="CPF"
-                        type="number"
-                        value={cpf}
-                        onChange={e => setCpf(e.target.value)}
-                    />
-
-                    <TextField
-                        variant="outlined"
-                        type="date"
-                        placeholder="Data de Aniversario"
-                        value={birthdate}
-                        onChange={e => setBirthdate(e.target.value)}
-                    />
-
-                    <TextField
-                        variant="outlined"
-                        placeholder="CEP"
-                        value={zipcode}
-                        onChange={e => setZipcode(e.target.value)}
-                    />
-
-                    <TextField
-                        variant="outlined"
-                        placeholder="Telefone"
-                        type="tel"
-                        value={phonenumber}
-                        onChange={e => setPhonenumber(e.target.value)}
-                    />
-
-                    <div className="input-group">
+                <section className="form">
+                    <h1>CADASTRO</h1>
+                    <div className="line" />
+                    <div className="container"/>
+                    <div className="d-flex flex-column">
                         <TextField
+                            className="input-register"
                             variant="outlined"
-                            placeholder="UF"
-                            style={{ width: 80 }}
-                            value={state}
-                            onChange={e => setState(e.target.value)}
+                            label="Nome"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
 
                         <TextField
+                            className="input-register"
                             variant="outlined"
-                            placeholder="Cidade"
-                            value={city}
-                            onChange={e => setCity(e.target.value)}
+                            label="E-mail"
+                            type="email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
+
+                        <TextField
+                            className="input-register"
+                            variant="outlined"
+                            label="Senha"
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                        <div className="d-flex flex-row">
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="CPF"
+                                type="number"
+                                value={cpf}
+                                onChange={e => setCpf(e.target.value)}
+                            />
+                            <TextField
+                                className="input-register"
+                                id="select"
+                                label="Tipo"
+                                variant="outlined"
+                                value="20"
+                                style={{ width: 130 }}
+                                value={type}
+                                onChange={e => setType(e.target.value)}
+                                select>
+                                <MenuItem value="retailer">Varejista</MenuItem>
+                                <MenuItem value="wholesaler">Atacadista</MenuItem>
+                            </TextField>
+
+                        </div>
+                        <div className="d-flex flex-row">
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Data de Aniversario"
+                                // type="date"
+                                value={birthdate}
+                                onChange={e => setBirthdate(e.target.value)}
+                            />
+
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Telefone"
+                                type="tel"
+                                value={phonenumber}
+                                onChange={e => setPhonenumber(e.target.value)}
+                            />
+                        </div>
+
+                        <TextField
+                            className="input-register"
+                            variant="outlined"
+                            label="CEP"
+                            value={zipcode}
+                            onChange={e => setZipcode(e.target.value)}
+                        />
+                        <div className="d-flex flex-row">
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Rua"
+                                // style={{ width: 330 }}
+                                value={street}
+                                onChange={e => setStreet(e.target.value)}
+                            />
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Numero"
+                                // style={{ width: 90 }}
+                                type="number"
+                                value={number}
+                                onChange={e => setNumber(e.target.value)}
+                            />
+                        </div>
+                        <div className="d-flex flex-row">
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Complemento"
+                                value={complement}
+                                onChange={e => setComplement(e.target.value)}
+                            />
+
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Bairro"
+                                value={neighborhood}
+                                onChange={e => setNeighborhood(e.target.value)}
+                            />
+                        </div>
+                        <div className="d-flex flex-row">
+                            <TextField
+                                className="input-register"
+                                variant="outlined"
+                                label="Cidade"
+                                value={city}
+                                onChange={e => setCity(e.target.value)}
+                            />
+                            <TextField
+                                className="input-register"
+                                id="select"
+                                variant="outlined"
+                                label="UF"
+                                value={state}
+                                onChange={e => setState(e.target.value)}
+                                select>
+                                <MenuItem value="AC">AC</MenuItem>
+                                <MenuItem value="AL">AL</MenuItem>
+                                <MenuItem value="AP">AP</MenuItem>
+                                <MenuItem value="AM">AM</MenuItem>
+                                <MenuItem value="BA">BA</MenuItem>
+                                <MenuItem value="CE">CE</MenuItem>
+                                <MenuItem value="DF">DF</MenuItem>
+                                <MenuItem value="ES">ES</MenuItem>
+                                <MenuItem value="GO">GO</MenuItem>
+                                <MenuItem value="MA">MA</MenuItem>
+                                <MenuItem value="MT">MT</MenuItem>
+                                <MenuItem value="MS">MS</MenuItem>
+                                <MenuItem value="MG">MG</MenuItem>
+                                <MenuItem value="PA">PA</MenuItem>
+                                <MenuItem value="PB">PB</MenuItem>
+                                <MenuItem value="PR">PR</MenuItem>
+                                <MenuItem value="PE">PE</MenuItem>
+                                <MenuItem value="PI">PI</MenuItem>
+                                <MenuItem value="RJ">RJ</MenuItem>
+                                <MenuItem value="RN">RN</MenuItem>
+                                <MenuItem value="RS">RS</MenuItem>
+                                <MenuItem value="RO">RO</MenuItem>
+                                <MenuItem value="RR">RR</MenuItem>
+                                <MenuItem value="SC">SC</MenuItem>
+                                <MenuItem value="SP">SP</MenuItem>
+                                <MenuItem value="SE">SE</MenuItem>
+                                <MenuItem value="TO">TO</MenuItem>
+                            </TextField>
+
+                        </div>
+
+
+
+                        <Button className="button" type="submit" variant="contained" color="primary" onClick={handleRegister}> Cadastrar </Button>
+
                     </div>
-                    <div className="input-group">
-                        <TextField
-                            variant="outlined"
-                            placeholder="Bairro"
-                            value={neighborhood}
-                            onChange={e => setNeighborhood(e.target.value)}
-                        />
-
-                        <TextField
-                            variant="outlined"
-                            placeholder="Rua"
-                            value={street}
-                            onChange={e => setStreet(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-group">
-                        <TextField
-                            variant="outlined"
-                            placeholder="Numero"
-                            value={number}
-                            onChange={e => setNumber(e.target.value)}
-                        />
-
-                        <TextField
-                            variant="outlined"
-                            placeholder="Complemento"
-                            value={complement}
-                            onChange={e => setComplement(e.target.value)}
-                        />
-                    </div>
-
-                    <Button className="button" type="submit" variant="contained" color="primary" onClick={handleRegister}> Cadastrar </Button>
-
-                </form>
-
+                </section>
                 <Link className="back-link" to="/login">
                     <FiArrowLeft size={20} color="#a17402" />
                          Login
-                </Link>
+                    </Link>
             </div>
         </div>
     );
