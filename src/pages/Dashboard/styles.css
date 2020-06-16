@@ -1,0 +1,16 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+.navbar{
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #DAA621;
+}
+
+.topBackground{
+    line-height:0;
+    border-top: 100px solid #DDBD69;
+}
