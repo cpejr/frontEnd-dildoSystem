@@ -1,11 +1,14 @@
 
 .navbar{
-    font-family: 'Roboto', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    background: var(--primary);
+    background: var(--mainColor);
 }
 
 .topBackground{
-    line-height:0;
     border-top: 100px solid #DDBD69;
+}
+
+.division{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
