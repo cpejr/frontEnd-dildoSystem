@@ -10,52 +10,143 @@ import { FiArrowLeft } from 'react-icons/fi';
 function Register() {
 
     const [name, setName] = useState('');
+    const [nameError, setNameError] = useState();
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState();
     const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState();
     const [type, setType] = useState('');
+    const [typeError, setTypeError] = useState();
     const [cpf, setCpf] = useState('');
+    const [cpfError, setCpfError] = useState();
     const [birthdate, setBirthdate] = useState('');
+    const [birthdateError, setBirthdateError] = useState();
     const [zipcode, setZipcode] = useState('');
+    const [zipcodeError, setZipcodeError] = useState();
     const [phonenumber, setPhonenumber] = useState('');
+    const [phonenumberError, setPhonenumberError] = useState();
     const [state, setState] = useState('');
+    const [stateError, setStateError] = useState();
     const [city, setCity] = useState('');
+    const [cityError, setCityError] = useState();
     const [neighborhood, setNeighborhood] = useState('');
+    const [neighborhoodError, setNeighborhoodError] = useState('');
     const [street, setStreet] = useState('');
+    const [streetError, setStreetError] = useState();
     const [number, setNumber] = useState('');
+    const [numberError, setNumberError] = useState();
     const [complement, setComplement] = useState('');
+    // const [complementError, setComplementError] = useState();
+
 
     const history = useHistory();
 
+    function validateFields() {
+        function validateEmpty(value, setError, error){
+            if (value.trim().length < 1) {
+                setError('Esse campo não pode estar vazio')
+                return false;
+            }
+            if (error) setError();
+            return true;
+        }
+        if (!validateEmpty(name, setNameError, nameError))
+            return false; 
+
+        if (email.trim().length < 1) {
+            setEmailError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (emailError) setEmailError();
+
+        if (password.trim().length < 1) {
+            setPasswordError('Esse campo não pode estar vazio')
+            return false;
+        }else if (password.length < 6){
+            setPasswordError('A senha deve conter no mínimo 6 caracteres')
+            return false;
+        }
+        if (passwordError) setPasswordError();
+
+        if (!validateEmpty(type, setTypeError, typeError))
+            return false;
+
+        if (cpf.trim().length < 1) {
+            setCpfError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (cpfError) setCpfError();
+
+        if (birthdate.trim().length < 1) {
+            setBirthdateError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (birthdateError) setBirthdateError();
+
+        if (zipcode.trim().length < 1) {
+            setZipcodeError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (zipcodeError) setZipcodeError();
+
+        if (phonenumber.trim().length < 1) {
+            setPhonenumberError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (phonenumberError) setPhonenumberError();
+
+        if (!validateEmpty(state, setStateError, stateError))
+            return false;
+
+        if (!validateEmpty(city, setCityError, cityError))
+            return false;
+
+        if (!validateEmpty(neighborhood, setNeighborhoodError, neighborhoodError))
+            return false;
+        
+        if (!validateEmpty(street, setStreetError, streetError))
+            return false;
+
+        if (number.trim().length < 1) {
+            setNumberError('Esse campo não pode estar vazio')
+            return false;
+        }
+        if (numberError) setNumberError();
+        return (true);
+    };
+
     async function handleRegister(e) {
         e.preventDefault();
+        if (validateFields()) {
+            const data = {
+                name,
+                email,
+                password,
+                type,
+                cpf,
+                birthdate,
+                zipcode,
+                phonenumber,
+                state,
+                city,
+                neighborhood,
+                street,
+                number,
+                complement,
+            };
 
-        const data = {
-            name,
-            email,
-            password,
-            type,
-            cpf,
-            birthdate,
-            zipcode,
-            phonenumber,
-            state,
-            city,
-            neighborhood,
-            street,
-            number,
-            complement,
-        };
+            try {
+                const response = await api.post('/user', data);
 
-        try {
-            const response = await api.post('/register', data);
+                alert(`Seu ID de acesso: ${response.data.id}`);
 
-            alert(`Seu ID de acesso: ${response.data.id}`);
+                history.push('/login');
 
-            history.push('/login');
-
-        } catch (err) {
-            alert('Erro ao cadastrar usuario!');
+            } catch (err) {
+                alert('Erro ao cadastrar usuario!');
+            }
         }
+
     }
 
     return (
@@ -75,6 +166,8 @@ function Register() {
                             label="Nome"
                             value={name}
                             onChange={e => setName(e.target.value)}
+                            error={nameError}
+                            helperText={nameError}
                         />
 
                         <TextField
@@ -84,6 +177,8 @@ function Register() {
                             type="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
+                            error={emailError}
+                            helperText={emailError}
                         />
 
                         <TextField
@@ -93,6 +188,8 @@ function Register() {
                             type="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
+                            error={passwordError}
+                            helperText={passwordError}
                         />
                         <div className="d-flex flex-row w-100">
                             <TextField
@@ -102,6 +199,8 @@ function Register() {
                                 type="number"
                                 value={cpf}
                                 onChange={e => setCpf(e.target.value)}
+                                error={cpfError}
+                                helperText={cpfError}
                             />
                             <TextField
                                 className="input-register"
@@ -111,6 +210,8 @@ function Register() {
                                 value="20"
                                 style={{ width: 130 }}
                                 value={type}
+                                error={typeError}
+                                helperText={typeError}
                                 onChange={e => setType(e.target.value)}
                                 select>
                                 <MenuItem value="retailer">Varejista</MenuItem>
@@ -126,6 +227,8 @@ function Register() {
                                 // type="date"
                                 value={birthdate}
                                 onChange={e => setBirthdate(e.target.value)}
+                                error={birthdateError}
+                                helperText={birthdateError}
                             />
 
                             <TextField
@@ -135,6 +238,8 @@ function Register() {
                                 type="tel"
                                 value={phonenumber}
                                 onChange={e => setPhonenumber(e.target.value)}
+                                error={phonenumberError}
+                                helperText={phonenumberError}
                             />
                         </div>
 
@@ -144,6 +249,8 @@ function Register() {
                             label="CEP"
                             value={zipcode}
                             onChange={e => setZipcode(e.target.value)}
+                            error={zipcodeError}
+                            helperText={zipcodeError}
                         />
                         <div className="d-flex flex-row w-100">
                             <TextField
@@ -153,6 +260,8 @@ function Register() {
                                 // style={{ width: 330 }}
                                 value={street}
                                 onChange={e => setStreet(e.target.value)}
+                                error={streetError}
+                                helperText={streetError}
                             />
                             <TextField
                                 className="input-register"
@@ -162,6 +271,8 @@ function Register() {
                                 type="number"
                                 value={number}
                                 onChange={e => setNumber(e.target.value)}
+                                error={numberError}
+                                helperText={numberError}
                             />
                         </div>
                         <div className="d-flex flex-row w-100">
@@ -179,6 +290,8 @@ function Register() {
                                 label="Bairro"
                                 value={neighborhood}
                                 onChange={e => setNeighborhood(e.target.value)}
+                                error={neighborhoodError}
+                                helperText={neighborhoodError}
                             />
                         </div>
                         <div className="d-flex flex-row w-100">
@@ -188,6 +301,8 @@ function Register() {
                                 label="Cidade"
                                 value={city}
                                 onChange={e => setCity(e.target.value)}
+                                error={cityError}
+                                helperText={cityError}
                             />
                             <TextField
                                 className="input-register"
@@ -195,6 +310,8 @@ function Register() {
                                 variant="outlined"
                                 label="UF"
                                 value={state}
+                                error={stateError}
+                                helperText={stateError}
                                 onChange={e => setState(e.target.value)}
                                 select>
                                 <MenuItem value="AC">AC</MenuItem>
