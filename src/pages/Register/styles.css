@@ -1,19 +1,24 @@
 .register-container {
     width: 100%;
-    max-width: 1120px;
-    height: 130vh;
+    flex-grow: 1;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: var(--primary);
 }
 
 .register-container .content {
     padding: 40px;
+    width: auto;
+    height: auto;
+    max-width: 800px;
     background: #FFF;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     align-content: center;
     justify-content: center;
@@ -25,19 +30,30 @@
     text-align: center;
 }
 
-.container {
-    margin-top: 20px;
-}
 
 .register-container section {
     width: 100%;
-    max-width: 350px;
     justify-content: center;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     align-items: center;
     margin-top: 10px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2;
+    align-self: flex-start;
+}
+
+.back-link:hover {
+    opacity: 0.8;
 }
 
 .line {
@@ -47,12 +63,12 @@
 }
 
 .register-container .content form {
-    width: 100%;
-    max-width: 450px;
+    width: 100% !important;
 }
 
 .input-register {
     margin-bottom: 10px !important;
+    width: 100%;
 }
 
 .register-container .content form .input-group {
@@ -61,4 +77,9 @@
 
 .flex-row .input-register + .input-register {
     margin-left: 5px;
+}
+@media screen and (max-width:504px){    
+.register-container .content{
+    border-radius: 0;
+}
 }

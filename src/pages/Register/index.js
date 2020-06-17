@@ -61,11 +61,14 @@ function Register() {
     return (
         <div className="register-container">
             <div className="content">
+                <Link className="back-link" to="/login">
+                    <FiArrowLeft size={20} color="#a17402" />
+                         Login
+                    </Link>
                 <section className="form">
                     <h1>CADASTRO</h1>
-                    <div className="line" />
-                    <div className="container"/>
-                    <div className="d-flex flex-column">
+                    <div className="line mb-4" />
+                    <div className="d-flex flex-column w-100">
                         <TextField
                             className="input-register"
                             variant="outlined"
@@ -91,7 +94,7 @@ function Register() {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row w-100">
                             <TextField
                                 className="input-register"
                                 variant="outlined"
@@ -115,7 +118,7 @@ function Register() {
                             </TextField>
 
                         </div>
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row w-100">
                             <TextField
                                 className="input-register"
                                 variant="outlined"
@@ -142,7 +145,7 @@ function Register() {
                             value={zipcode}
                             onChange={e => setZipcode(e.target.value)}
                         />
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row w-100">
                             <TextField
                                 className="input-register"
                                 variant="outlined"
@@ -161,7 +164,7 @@ function Register() {
                                 onChange={e => setNumber(e.target.value)}
                             />
                         </div>
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row w-100">
                             <TextField
                                 className="input-register"
                                 variant="outlined"
@@ -178,7 +181,7 @@ function Register() {
                                 onChange={e => setNeighborhood(e.target.value)}
                             />
                         </div>
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row w-100">
                             <TextField
                                 className="input-register"
                                 variant="outlined"
@@ -231,10 +234,6 @@ function Register() {
 
                     </div>
                 </section>
-                <Link className="back-link" to="/login">
-                    <FiArrowLeft size={20} color="#a17402" />
-                         Login
-                    </Link>
             </div>
         </div>
     );
