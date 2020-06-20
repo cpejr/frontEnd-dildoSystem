@@ -1,0 +1,6 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    background: var(--mainColor);
+    height: 10vh;
+}
