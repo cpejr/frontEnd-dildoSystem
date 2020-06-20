@@ -6,9 +6,17 @@ import AdminDashboard from '../../components/AdminDashboard';
 import './styles.css';
 
 function Admin() {
+    let [nome, setNome] = useState('Nome do usuario');
+    let [type, setType] = useState('Tipo');
 
     return (
-        <AdminDashboard name="Nome do usuario" type="Tipo" />
+        <div>
+            <AdminDashboard name={nome} type={type} />
+            <div className="content">
+                
+            </div>
+        </div>
     );
 }
+
 export default Admin;

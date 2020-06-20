@@ -48,6 +48,10 @@
     align-content: flex-end;
 }
 
+.navbar .userDiv .user {
+    margin-right: 1vw;
+}
+
 @media screen and (max-width:480px) {
     .navbar {
         height: 15vh;
