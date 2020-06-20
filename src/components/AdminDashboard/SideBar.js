@@ -43,6 +43,8 @@ export default function SideBar(props) {
                     <ListItemText>Pedidos Pendentes</ListItemText>
                 </ListItem>
 
+                <Divider />
+
                 <ListItem button onClick={props.handleDrawerClose}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
