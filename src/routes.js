@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Admin from './pages/Admin';
 
 function Routes() {
     return(
@@ -12,6 +13,7 @@ function Routes() {
                 <Route path='/login' exact component={Login} />
                 <Route path='/register' exact component={Register} />
                 <Route path='/dashboard' exact component={Dashboard} />
+                <Route path='/admin' exact component={Admin} />
             </Switch>
         </BrowserRouter>
     );
