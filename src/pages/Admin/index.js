@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { IconButton } from '@material-ui/core';
-import { MenuIcon } from '@material-ui/icons';
+import { Menu } from '@material-ui/icons';
 
 import api from '../../services/api';
 
-
+import Logo from '../../images/CASULUS01LOGODESIGN.svg';
+import Text from '../../images/CASULUS01LOGONAME.svg';
 import SideBar from "./SideBar";
 import './styles.css';
 
@@ -22,15 +23,28 @@ function Admin() {
 
     return (
         <div className="navbar">
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                style={{ position: "fixed", "z-index": "1" }}
-            >
-                <MenuIcon fontSize="large" />
-            </IconButton>
-            <SideBar drawer={drawer} handleDrawerClose={handleDrawerClose} />
+
+            <div className="menuDiv">
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    style={{ position: "fixed", "z-index": "1" }}
+                >
+                    <Menu fontSize="large" />
+                </IconButton>
+                <SideBar drawer={drawer} handleDrawerClose={handleDrawerClose} />
+            </div>
+
+            <div className="iconDiv">
+                <img className="logo" src={Logo} alt="logo" />
+                <img className="text" src={Text} alt="text" />
+            </div>
+
+            <div>
+                Usuario
+            </div>
+
         </div>
     );
 }

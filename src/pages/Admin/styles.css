@@ -1,6 +1,31 @@
 .navbar{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: var(--mainColor);
+    height: 20vh;
+}
+
+.navbar .menuDiv{
     height: 10vh;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    justify-self: center;
+}
+
+.navbar .iconDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.iconDiv img{
+    height: 18vh;
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    padding: 0;
 }
