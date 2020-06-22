@@ -14,7 +14,7 @@
     color: red;
 }
 
-.login-container .content {
+.login-container .login-content {
     padding: 30px;
     background: #FFF;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@
     align-items: center;
 }
 
-.login-container .content input {
+.login-container .login-content input {
     margin-top: 4px;
 }
 

@@ -12,7 +12,7 @@ function Admin() {
     return (
         <div>
             <AdminDashboard name={nome} type={type} />
-            <div className="content">
+            <div className="admin-content">
                 
             </div>
         </div>
