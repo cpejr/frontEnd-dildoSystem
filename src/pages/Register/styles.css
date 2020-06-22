@@ -78,6 +78,7 @@
 .flex-row .input-register + .input-register {
     margin-left: 5px;
 }
+
 @media screen and (max-width:504px){    
 .register-container .content{
     border-radius: 0;
