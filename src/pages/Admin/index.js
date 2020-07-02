@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
-
+import Footer from '../../components/Footer';
 import AdminDashboard from '../../components/AdminDashboard';
 import './styles.css';
 
@@ -15,6 +15,7 @@ function Admin() {
             <div className="admin-content">
                 
             </div>
+            <Footer />
         </div>
     );
 }
