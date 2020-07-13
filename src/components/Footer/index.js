@@ -9,14 +9,15 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 export default function Footer() {
   return (
     <div className="Footer">
+      <div className="FooterWrapper">
       <div id="LogoFooter">
         <img className="logos" src={Logos} alt="logo" />
       </div>
       <div id="TextoFooter">
         <p>
-          Lorem Ipsum is simply dummy text of the printing and <br />
-          typesetting industry. Lorem Ipsum has been the industry's <br />
-          standard dummy text ever since the 1500s, when an unknown <br />
+          Lorem Ipsum is simply dummy text of the printing and 
+          typesetting industry. Lorem Ipsum has been the industry's 
+          standard dummy text ever since the 1500s, when an unknown 
           printer took a gallery of type and scrambled.
         </p>
         <div className="icons">
@@ -33,6 +34,7 @@ export default function Footer() {
           Hotline: +46 131 138 138
         </spam>
       </div>
+    </div>
     </div>
   );
 }

@@ -12,8 +12,9 @@
 }
 
 #ContatoFooter {
-    padding-left: 60px;
+    padding-left: 30px;
     font-weight: bolder;
+    padding-right: 30px;
 }
 .icons {
     display: flex;
@@ -21,3 +22,32 @@
     width: 30%;
     
 }
+.FooterWrapper {
+  display: flex;
+
+}
+
+@media screen and (min-width: 801px) {
+    div.Footer {
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 800px) {
+    div.Footer {
+      flex-direction: column;
+      align-items: center;
+    }
+    div.FooterWrapper {
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+    div.icons {
+      width: 75%;
+    }
+    #ContatoFooter {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  
