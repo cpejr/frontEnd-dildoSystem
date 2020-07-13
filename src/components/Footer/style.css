@@ -2,9 +2,9 @@
     display: flex;
     justify-content: center;
     position: absolute;
-    right: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .logos {
@@ -24,7 +24,7 @@
 }
 .FooterWrapper {
   display: flex;
-
+  max-width: 800px;
 }
 
 @media screen and (min-width: 801px) {
