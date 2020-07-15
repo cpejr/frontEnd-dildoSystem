@@ -23,8 +23,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin-right: auto;
     padding: 0;
+    margin-left: 200px;
 }
 
 .navbar .iconDiv img {
@@ -33,6 +34,12 @@
     justify-self: center;
     margin: 0;
     padding: 0;
+    
+}
+
+.navbar .iconDiv img.text {
+    position: relative;
+    left: -4vh;
 }
 
 .navbar .userDiv {

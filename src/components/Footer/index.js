@@ -11,7 +11,7 @@ export default function Footer() {
     <div className="Footer">
       <div className="FooterWrapper">
       <div id="LogoFooter">
-        <img className="logos" src={Logos} alt="logo" />
+        <img className="logos" src={Logos} alt="logos" />
       </div>
       <div id="TextoFooter">
         <p>

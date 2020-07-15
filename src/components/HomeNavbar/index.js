@@ -43,7 +43,7 @@ function HomeNavbar() {
                                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                             </NavDropdown>
-                            <img className="logo" src={Logo} alt="logo" />
+                            <img className="logodashboard" src={Logo} alt="logo" />
                             
 
                                 <NavDropdown className="menu-item" title="Sado" id="basic-nav-dropdown4">
