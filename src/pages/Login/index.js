@@ -20,10 +20,11 @@ function Login() {
         try {
             const response = await api.post('login', { email, password: passwd });
 
-            localStorage.setItem('name', response.data.name);
-            localStorage.setItem('accessToken', response.data.id);
+            localStorage.setItem('name', response.data.user.name);
+            localStorage.setItem('userId', response.data.user.id);
+            localStorage.setItem('userType', response.data.user.type);
+            localStorage.setItem('accessToken', response.data.accessToken);
 
-            console.log(response.data.name);
             history.push("products");
         } catch (err) {
             setError(err.response.data.message);
