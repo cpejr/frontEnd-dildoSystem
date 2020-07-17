@@ -8,12 +8,18 @@ import Logo from '../../images/CASULUS00LOGO.svg';
 import api from '../../services/api';
 
 import HomeNavbar from '../../components/HomeNavbar';
+import ProductCard from '../../components/ProductCard';
 
 import './styles.css';
 
 function Dashboard() {
     return (
-        <HomeNavbar />
+        <div>
+            <HomeNavbar />
+            <ProductCard titulo={"Titulo do produto"} preco={"Preço"} img={"Teste"} />
+            <ProductCard titulo={"Titulo do produto"} preco={"Preço"} img={"Teste"} />
+        </div>
+
     );
 }
 export default Dashboard;
