@@ -10,12 +10,13 @@ function Admin() {
     let [type, setType] = useState('Tipo');
 
     return (
+        <div className="admin-page">
         <div>
             <AdminDashboard name={nome} type={type} />
             <div className="admin-content">
-                
             </div>
             <Footer />
+        </div>
         </div>
     );
 }
