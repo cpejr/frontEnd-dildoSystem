@@ -1,0 +1,89 @@
+.main-container {
+  margin-top: 50px;
+}
+
+.farol {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 20px 0;
+}
+
+.farol div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 32%;
+  height: auto;
+  border-radius: 10px;
+  color: white;
+  padding: 20px 0;
+}
+
+.farol h4 {
+  font-size: 18px;
+  text-align: center;
+}
+
+h4.titulo {
+  color: #707070;
+}
+
+.farol .pendentes {
+  background-color: #BF3838;
+}
+
+.farol .acabando {
+  background-color: #E4B53F;
+}
+
+.farol .aguardando-aprovacao {
+  background-color: #4BBC4C;
+}
+
+.pedidos-pendentes {
+  width: 70%;
+  max-height: 500px;
+  border-radius: 10px;
+  background-color: white;
+  padding: 20px;
+}
+
+.tabela {
+  padding-top: 20px;
+}
+
+.cabecalho {
+  display: flex;
+  font-weight: bold;
+}
+.product-container {
+  display: flex;
+}
+
+.nome {
+  width: 20%;
+}
+.email {
+  width: 20%;
+}
+.user-type {
+  width: 15%;
+}
+.data {
+  width: 15%;
+}
+.valor {
+  width: 20%;
+}
+.status {
+  width: 10%;
+}
+.status-box {
+  color:white;
+  font-weight: bold;
+  font-size: 12px;
+  width: 90%;
+  text-align: center;
+}

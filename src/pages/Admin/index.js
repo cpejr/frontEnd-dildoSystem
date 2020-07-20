@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
-import Footer from '../../components/Footer';
+
 import AdminDashboard from '../../components/AdminDashboard';
+import Main from './Main';
 import './styles.css';
+
+
 
 function Admin() {
     let [nome, setNome] = useState('Nome do usuario');
@@ -11,12 +14,13 @@ function Admin() {
 
     return (
         <div className="admin-page">
-        <div>
-            <AdminDashboard name={nome} type={type} />
-            <div className="admin-content">
+            <div>
+                <AdminDashboard name={nome} type={type} />
+                <div className="admin-content">
+                    <Main />
+                </div>
+
             </div>
-            <Footer />
-        </div>
         </div>
     );
 }
