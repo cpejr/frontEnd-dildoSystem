@@ -1,0 +1,86 @@
+.cart-container{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.cart-content{
+    max-width: 50%;
+    border: 1px solid #B8B8B6;
+    border-radius: 12px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+}
+
+.cart-content h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border-bottom: 1px solid #B8B8B6;
+    padding: 12px;
+    color: #3B3B3B;
+    margin: auto;
+}
+
+.cart-content h2 button{
+    border: 0;
+    background-color: transparent;
+    color: #3B3B3B;
+    position: absolute;
+    right: 26%;
+}
+
+/* .cart-content p{
+    display: flex;
+    padding-left: 40px;
+    padding-top: 10px;
+    border-bottom: 1px solid #B8B8B6;
+    font-family: 'Roboto', sans-serif;
+    color: #707070;
+} */
+
+
+.button-area{
+    justify-content: center;
+    display: flex;
+    padding: 20px;  
+}
+
+.cart-primary-button{
+    background-color: #14BC48;
+    border-radius: 8px;
+    border: 0 solid transparent;
+    width: 310px;
+    height: 35px;
+    color: white;
+    margin: 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.cart-primary-button:hover{
+    background-color: #0f8b36;
+}
+
+.cart-secondary-button{
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #14BC48;
+    width: 310px;
+    height: 35px;
+    color: #14BC48;
+    margin: 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.cart-secondary-button:hover{
+    background-color: rgb(230, 230, 230);
+    border: 1px solid #0f8b0f;
+}
