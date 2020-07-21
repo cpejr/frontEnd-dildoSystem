@@ -5,9 +5,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Cart from './pages/Cart';
+
 
 function Routes() {
-    return(
+    return(  
         <BrowserRouter>
             <Switch>
                 <Route path='/' exact component={Dashboard} />
@@ -16,6 +18,7 @@ function Routes() {
                 <Route path='/dashboard' exact component={Dashboard} />
                 <Route path='/admin' exact component={Admin} />
                 <Route path='/products' exact component={Dashboard} />
+                <Route path='/cart' exact component={Cart} />
             </Switch>
         </BrowserRouter>
     );

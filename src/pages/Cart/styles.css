@@ -1,0 +1,222 @@
+.cart-container{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.cart-content{
+    width: 80%;
+    margin-top: 20px;
+    border: 1px solid #B8B8B6;
+    border-radius: 12px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+}
+
+.cart-content h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border-bottom: 1px solid #B8B8B6;
+    padding: 12px;
+    color: #3B3B3B;
+    margin: auto;
+}
+
+.cart-content h2 button{
+    border: 0;
+    background-color: transparent;
+    color: #3B3B3B;
+    position: absolute;
+    right: 11%;
+}
+
+/* .cart-content p{
+    display: flex;
+    padding-left: 40px;
+    padding-top: 10px;
+    border-bottom: 1px solid #B8B8B6;
+    font-family: 'Roboto', sans-serif;
+    color: #707070;
+} */
+
+
+.button-area{
+    justify-content: center;
+    display: flex;
+    padding: 20px;  
+    align-items: center;
+}
+
+.cart-primary-button{
+    background-color: #14BC48;
+    border-radius: 8px;
+    border: 0 solid transparent;
+    width: 50%;
+    height: 35px;
+    color: white;
+    margin: 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.cart-primary-button:hover{
+    background-color: #0f8b36;
+}
+.button-area a {
+    width: 50%;
+}
+.cart-secondary-button{
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #14BC48;
+    width: 100%;
+    height: auto;
+    color: #14BC48;
+    margin: 10px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.cart-secondary-button:hover{
+    background-color: rgb(230, 230, 230);
+    border: 1px solid #0f8b0f;
+}
+.cart-card{
+    display: flex;
+    padding: 0 5%;
+    margin-bottom: 20px;
+    flex-direction: row;
+}
+.cart-img {
+    width: 20%;
+    background-color: #B8B8B6;
+    margin-right: 10px;
+    border-radius: 16px;
+}
+.info-text{
+    width: 60%;
+}
+.size-quantity,
+.itemQuantity {
+    display: flex;
+    align-items: center;
+}
+.size-quantity select {
+    margin-right: 10px;
+    border: 1px solid #929292;
+    border-radius: 10px;
+    padding: 2px 4px;
+    color: #636060;
+}
+.delete-price{
+    position: absolute;
+    right: 15%;
+    text-align: end;
+}
+.itemQuantity p{
+    margin: 0 15px;
+}
+.itemQuantity .less {
+    color: #D3CECE;
+}
+.info-text h4 {
+    font-size: 25px;
+}
+.deliver-date {
+    border-bottom: 1px solid #B8B8B6;
+    padding: 5px;
+}
+.borderEmpty{
+    width: 90%;
+    border-bottom: 1px solid #B8B8B6;
+    margin: 0 5%;
+}
+.description p{
+    color: #7A7A7A;
+    font-size: 12px;
+}
+.full-price p {
+    color: #727070;
+    text-decoration: line-through;
+    margin-bottom: 0;
+}
+.discount-price p{
+    font-weight: bold;
+    color: #3B3B3B;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.delete-price .delete{
+    color: #3B3B3B;
+    cursor: pointer;
+}
+.itemQuantity svg {
+    cursor: pointer;
+}
+.cardText {
+    display: flex;
+}
+
+@media (max-width: 1000px) {
+    .cart-img {
+        width: 25%;
+    }
+}
+@media (max-width: 800px) {
+    .cart-img {
+        width: 30%;
+    }
+}
+@media (max-width: 600px) {
+    .info-text h4 {
+        font-size: 15px;
+    }
+    .full-price p {
+        font-size: 10px;
+    }
+    .discount-price p {
+        font-size: 14px;
+    }
+    .info-text {
+        width: 50%;
+    }
+    .size-quantity select {
+        width: 100px;
+    }
+    .cart-card {
+        padding: 0 5%;
+        flex-direction: column;
+    }
+    .cart-img .empty{
+        width: 100px;
+        height: 100px;
+    }
+    .cart-img {
+        width: 100%;
+    }
+    .delete-price{
+        bottom: 0;
+    }
+    .cardText{
+        margin-top: 20px;
+    }
+    .button-area {
+        padding: 0; 
+    }
+    .button-area a,
+    .button-area .cart-primary-button{
+        width: 50%;
+    }
+    .cart-secondary-button {
+        width: 100%;
+        height: auto;
+        font-size: 12px;
+        margin: 6px -6px;
+    }
+}
