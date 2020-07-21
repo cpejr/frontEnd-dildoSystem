@@ -1,0 +1,190 @@
+.tudo {
+  padding: 10%;
+  padding-top: 2%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  background-color: #f8f8f4;
+}
+
+.product-title-page {
+  width: 100%;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  padding: 2%;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
+}
+
+.form-wrapper p {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+  width: 20%;
+  opacity: 0.65;
+}
+.config-form .MuiFormControlLabel-root {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-wrapper label {
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+
+.left-form {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+  border-right: 1px solid rgba(112, 112, 112, 0.33);
+  padding-right: 5%;
+}
+
+.general-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.general-form p {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+  width: 20%;
+}
+
+.general-form label {
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+
+.form-wrapper input,
+.form-wrapper textarea {
+  border-radius: 5px;
+  border: 1px solid grey;
+  border-color: #8f8f8f;
+  padding: 0.514286em 0.94286em;
+}
+
+.price-form {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.price-form p {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+  width: 20%;
+}
+
+.price-form label {
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+
+.price-form .input-group{
+    width: 60%;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-side input{
+    width: 20%;
+  }
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.images-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.images-form span {
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+
+.product-form {
+  display: flex;
+}
+
+.right-form-dois {
+  display: flex;
+  flex-direction: column;
+}
+
+.config-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-form{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.product-button {
+    position: absolute;
+    right: 0;
+    width: 40%;
+}
+
+.product-button button{
+    border-radius: 10px;
+    background-color: #4bbc4c;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 30%;
+    box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
+}
+
+#cars{
+    padding: 3%;
+    border-radius: 5px;
+}
+
+.images-form input{
+    padding: 0;
+}
+
+/* /* .images-form #inputGroupFileAddon01{
+  border-color: #8f8f8f;
+}
+
+.images-form #inputGroupFile01{
+  border-color: #8f8f8f;
+} */
+
+.price-form #inputGroupPrepend3{
+  border-color: #8f8f8f;
+}
+
+
+.price-form #validationDefaultUsername{
+    border-color: #4bbc4c;
+}
+
+.price-form #inputGroupPrepend2{
+    border-color: #50a762;
+    background-color: #d6f6d9;
+}
