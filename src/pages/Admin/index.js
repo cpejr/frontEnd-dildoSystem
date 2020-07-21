@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
+
+import {LoginContext} from '../../Contexts/LoginContext';
 
 import api from '../../services/api';
 
@@ -14,19 +16,34 @@ function Admin(props) {
     let [nome, setNome] = useState('Nome do usuario');
     let [type, setType] = useState('Tipo');
 
+    const history = useHistory();
+
     return (
-        <div className="admin-page">
+        <LoginContext.Consumer>
+            {
+                value => {
+                    if (value.type === 'admin') {
+                        return (
+                            <div className="admin-page">
+                                <div>
+                                    <AdminDashboard name={value.name} type={value.type} />
+                                    <div className="admin-content">
+                                        <Route exact path={props.match.path} component={Main} />
+                                        <Route path={`${props.match.path}/cart`} component={Cart} /> 
+                                    </div>
 
-            <div>
-                <AdminDashboard name={nome} type={type} />
-                <div className="admin-content">
-                    {/* <Main /> */}
-                    <Route exact path={props.match.path} component={Main} />
-                    {/* <Route path={`${props.match.path}/cart`} component={Cart} /> */}
-                </div>
+                                </div>
+                            </div>
+                        );
+                    } else {
+                        history.push('/');
+                    }
+                }
 
-            </div>
-        </div>
+            }
+
+        </LoginContext.Consumer>
+
     );
 }
 

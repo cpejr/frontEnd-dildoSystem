@@ -9,18 +9,19 @@ import Cart from './pages/Cart';
 
 
 function Routes() {
-    return(  
-        <BrowserRouter>
-            <Switch>
-                <Route path='/' exact component={Dashboard} />
-                <Route path='/login' exact component={Login} />
-                <Route path='/register' exact component={Register} />
-                <Route path='/dashboard' exact component={Dashboard} />
-                <Route path='/admin' component={Admin} />
-                <Route path='/products' exact component={Dashboard} />
-                <Route path='/cart' exact component={Cart} />
-            </Switch>
-        </BrowserRouter>
+
+    return (
+            <BrowserRouter>
+                <Switch>
+                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/login' exact component={Login} />
+                    <Route path='/register' exact component={Register} />
+                    <Route path='/dashboard' exact component={Dashboard} />
+                    <Route path='/admin' component={Admin} />
+                    <Route path='/products' exact component={Dashboard} />
+                    <Route path='/cart' exact component={Cart} />
+                </Switch>
+            </BrowserRouter>
     );
 }
 
