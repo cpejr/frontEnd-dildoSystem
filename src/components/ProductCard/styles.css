@@ -1,0 +1,36 @@
+.Card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    width: 15%;
+    margin-top: 50px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+
+    transition: box-shadow 0.2s;
+}
+
+.Card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#titulo-card {
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+#preco-card {
+    color: orange;
+}
+
+#botao-comprar {
+    display: flex;
+    justify-content: center;
+    background-color: green;
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin-top: 10px;
+}
