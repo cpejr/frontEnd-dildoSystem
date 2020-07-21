@@ -10,7 +10,7 @@
 }
 
 .cart-content{
-    max-width: 50%;
+    width: 80%;
     border: 1px solid #B8B8B6;
     border-radius: 12px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
@@ -33,7 +33,7 @@
     background-color: transparent;
     color: #3B3B3B;
     position: absolute;
-    right: 26%;
+    right: 11%;
 }
 
 /* .cart-content p{
@@ -83,4 +83,124 @@
 .cart-secondary-button:hover{
     background-color: rgb(230, 230, 230);
     border: 1px solid #0f8b0f;
+}
+.cart-card{
+    display: flex;
+    padding: 0 5%;
+    margin-bottom: 20px;
+    flex-direction: row;
+}
+.cart-img {
+    width: 20%;
+    background-color: #B8B8B6;
+    margin-right: 10px;
+    border-radius: 16px;
+}
+.info-text{
+    width: 60%;
+}
+.size-quantity,
+.itemQuantity {
+    display: flex;
+    align-items: center;
+}
+.size-quantity select {
+    margin-right: 10px;
+    border: 1px solid #929292;
+    border-radius: 10px;
+    padding: 2px 4px;
+    color: #636060;
+}
+.delete-price{
+    position: absolute;
+    right: 15%;
+    text-align: end;
+}
+.itemQuantity p{
+    margin: 0 15px;
+}
+.itemQuantity .less {
+    color: #D3CECE;
+}
+.info-text h4 {
+    font-size: 25px;
+}
+.deliver-date {
+    border-bottom: 1px solid #B8B8B6;
+    padding: 5px;
+}
+.borderEmpty{
+    width: 90%;
+    border-bottom: 1px solid #B8B8B6;
+    margin: 0 5%;
+}
+.description p{
+    color: #7A7A7A;
+    font-size: 12px;
+}
+.full-price p {
+    color: #727070;
+    text-decoration: line-through;
+    margin-bottom: 0;
+}
+.discount-price p{
+    font-weight: bold;
+    color: #3B3B3B;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.delete-price .delete{
+    color: #3B3B3B;
+    cursor: pointer;
+}
+.itemQuantity svg {
+    cursor: pointer;
+}
+.cardText {
+    display: flex;
+}
+
+@media (max-width: 1000px) {
+    .cart-img {
+        width: 25%;
+    }
+}
+@media (max-width: 800px) {
+    .cart-img {
+        width: 30%;
+    }
+}
+@media (max-width: 600px) {
+    .info-text h4 {
+        font-size: 15px;
+    }
+    .full-price p {
+        font-size: 10px;
+    }
+    .discount-price p {
+        font-size: 14px;
+    }
+    .info-text {
+        width: 50%;
+    }
+    .size-quantity select {
+        width: 100px;
+    }
+    .cart-card {
+        padding: 0 5%;
+        flex-direction: column;
+    }
+    .cart-img .empty{
+        width: 100px;
+        height: 100px;
+    }
+    .cart-img {
+        width: 100%;
+    }
+    .delete-price{
+        bottom: 0;
+    }
+    .cardText{
+        margin-top: 20px;
+    }
 }
