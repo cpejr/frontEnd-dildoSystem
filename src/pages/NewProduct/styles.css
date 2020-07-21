@@ -1,27 +1,151 @@
 .tudo {
-  padding: 10%;
-  padding-top: 2%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  flex-direction: column;
   background-color: #f8f8f4;
 }
-
 .product-title-page {
   width: 100%;
+  margin-left: 10%;
 }
-
-.form-wrapper {
+form {
   display: flex;
   justify-content: center;
+}
+.form-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 80%;
   padding: 2%;
   border-radius: 5px;
   background-color: white;
   box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
 }
+.left-form{
+  width: 59%;
+  margin-right: 2.5%;
+}
+.right-form-dois {
+  width: 35%;
+}
+.general-form {
+  display: flex;
+  flex-direction: column;
+}
+.productTitle {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+  width: 140px;
+  margin-bottom: 5px;
+  color: #707070;
+}
+.general-form label {
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+.general-form input {
+  border-radius: 5px;
+  border: 1px solid grey;
+  border-color: #8f8f8f;
+  padding: 4px 8px;
+}
+.general-form textarea {
+  border-radius: 5px;
+  border: 1px solid grey;
+  border-color: #8f8f8f;
+  padding: 2px 8px;
+}
+.price-form {
+  display: flex;
+}
+.price-form .left-side,
+.price-form .right-side {
+  width: 50%;
+}
+.price-form .left-side .mb-3 .input-group,
+.price-form .right-side .mb-3 .input-group {
+  width: 80%;
+}
+.price-form .left-side .mb-3 .promotionalPrice .form-control,
+.price-form .right-side .mb-3 .promotionalPrice .form-control,
+.price-form .left-side .mb-3 .promotionalPrice .input-group-text,
+.price-form .right-side .mb-3 .promotionalPrice .input-group-text{
+  border: 1px solid #50A762;
+}
+.price-form .left-side .mb-3 .promotionalPrice .input-group-text,
+.price-form .right-side .mb-3 .promotionalPrice .input-group-text{
+  background-color: #D6F6D9;
+}
+.price-form label{
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+.switchConfig {
+  display: flex;
+  align-items: center;
+}
+.switchConfig .MuiFormControlLabel-root {
+  margin-right: 0;
+}
+.images-form .custom-file-input,
+.images-form .custom-file-label {
+  cursor: pointer;
+}
+.images-form .input-group {
+  width: 50%;
+}
+.stock-form .mb-3 .input-group {
+  width: 60%;
+}
+.stock-form .mb-3 .input-group #setProductWeightSpan {
+  padding: 0 28px;
+}
+.separator {
+  width: 1px;
+  height: 500px;
+  background-color: #707070;
+  opacity: 0.48;
+  margin-right: 2.5%;
+}
+.productCategoiries{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+.category-form .categoryLeft,
+.category-form .categoryRight {
+  width: 50%;
+}
+.productCategoiries label{
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+  color: #8f8f8f;
+}
+.category-form .categoryLeft select,
+.category-form .categoryRight select {
+  border-radius: 5px;
+  border: 1px solid grey;
+  border-color: #8f8f8f;
+  padding: 4px 8px;
+}
+.product-button button{
+  border-radius: 10px;
+  background-color: #4bbc4c;
+  color: white;
+  border: none;
+  padding: 5px;
+  width: 30%;
+  box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
+}
+/* 
+
+
 
 .form-wrapper p {
   font-weight: bold;
@@ -165,7 +289,7 @@
 
 .images-form input{
     padding: 0;
-}
+} */
 
 /* /* .images-form #inputGroupFileAddon01{
   border-color: #8f8f8f;
@@ -175,7 +299,7 @@
   border-color: #8f8f8f;
 } */
 
-.price-form #inputGroupPrepend3{
+/* .price-form #inputGroupPrepend3{
   border-color: #8f8f8f;
 }
 
@@ -187,4 +311,4 @@
 .price-form #inputGroupPrepend2{
     border-color: #50a762;
     background-color: #d6f6d9;
-}
+} */
