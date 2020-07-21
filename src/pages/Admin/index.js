@@ -22,7 +22,7 @@ function Admin(props) {
                 <div className="admin-content">
                     {/* <Main /> */}
                     <Route exact path={props.match.path} component={Main} />
-                    <Route path={`${props.match.path}/cart`} component={Cart} />
+                    {/* <Route path={`${props.match.path}/cart`} component={Cart} /> */}
                 </div>
 
             </div>
