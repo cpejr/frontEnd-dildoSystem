@@ -4,13 +4,13 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     
 }
 
 .cart-content{
     width: 80%;
+    margin-top: 20px;
     border: 1px solid #B8B8B6;
     border-radius: 12px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
@@ -50,13 +50,14 @@
     justify-content: center;
     display: flex;
     padding: 20px;  
+    align-items: center;
 }
 
 .cart-primary-button{
     background-color: #14BC48;
     border-radius: 8px;
     border: 0 solid transparent;
-    width: 310px;
+    width: 50%;
     height: 35px;
     color: white;
     margin: 10px 10px;
@@ -67,13 +68,15 @@
 .cart-primary-button:hover{
     background-color: #0f8b36;
 }
-
+.button-area a {
+    width: 50%;
+}
 .cart-secondary-button{
     background-color: white;
     border-radius: 8px;
     border: 1px solid #14BC48;
-    width: 310px;
-    height: 35px;
+    width: 100%;
+    height: auto;
     color: #14BC48;
     margin: 10px 10px;
     font-family: 'Roboto', sans-serif;
@@ -202,5 +205,18 @@
     }
     .cardText{
         margin-top: 20px;
+    }
+    .button-area {
+        padding: 0; 
+    }
+    .button-area a,
+    .button-area .cart-primary-button{
+        width: 50%;
+    }
+    .cart-secondary-button {
+        width: 100%;
+        height: auto;
+        font-size: 12px;
+        margin: 6px -6px;
     }
 }
