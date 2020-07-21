@@ -13,25 +13,10 @@ import ProductCard from '../../components/ProductCard';
 import './styles.css';
 
 function Dashboard() {
-
-    const [products, setProducts] = useState([]);
-
-    var config = {
-        headers: {'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMCwibmFtZSI6IkFydGh1ciIsImVtYWlsIjoiQXJ0aHVyMkBnbWFpbC5jb20iLCJmaXJlYmFzZSI6Ik1wbjI3M1FkRWxjeHF2WVlzdUZ1T2UyTkhFNjMiLCJ0eXBlIjoiYWRtaW4iLCJjcGYiOiIxNTExMjM1ODQzOSIsImJpcnRoZGF0ZSI6IjA5LzAxLzIwMDEiLCJ6aXBjb2RlIjoiMzE3NTg0NCIsInBob25lbnVtYmVyIjoiOTg1NzQ2NzM4NCIsInN0YXRlIjoiTWluYXMgR2VyYWlzIiwiY2l0eSI6IkJlbG8gSG9yaXpvbnRlIiwibmVpZ2hib3Job29kIjoiVW5pw6NvIiwic3RyZWV0IjoiTmVsc29uIiwibnVtYmVyIjoiMTIzIiwiY29tcGxlbWVudCI6ImFwdCAxMDEiLCJjcmVhdGVkX2F0IjoiMjAyMC0wNS0wNSAyMTo1NjozOCIsInVwZGF0ZWRfYXQiOiIyMDIwLTA1LTA1IDIxOjU2OjM4In0sImlhdCI6MTU5NDc1OTkxMiwiZXhwIjoxNTk3MzUxOTEyfQ.QYtnKluLPjux8TmPzeOei3MHEY3PEEAdccKS6o8xOZM'}
-    }
-
-    useEffect(() => {
-        api.get('products', config).then(response => {
-            setProducts(response.data)
-        });
-    }, [])
-
     return (
         <div>
             <HomeNavbar />
-            {products.map(product => (
-                <ProductCard titulo={product.name} preco={product.client_price} img={product.image_id} />
-            ))}
+            <ProductCard />
         </div>
 
     );
