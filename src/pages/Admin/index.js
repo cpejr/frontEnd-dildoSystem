@@ -6,8 +6,9 @@ import api from '../../services/api';
 import AdminDashboard from '../../components/AdminDashboard';
 import Main from './Main';
 import './styles.css';
-import Cart from '../Cart';
 
+import Cart from '../Cart';
+import NewProduct from '../../components/NnEProduct';
 
 
 function Admin(props) {
@@ -22,7 +23,7 @@ function Admin(props) {
                 <div className="admin-content">
                     {/* <Main /> */}
                     <Route exact path={props.match.path} component={Main} />
-                    {/* <Route path={`${props.match.path}/cart`} component={Cart} /> */}
+                    { <Route path={`${props.match.path}/newproduct`} component={NewProduct} /> }
                 </div>
 
             </div>
