@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Cart from './pages/Cart';
+import NewProduct from './pages/NewProduct'
 
 
 function Routes() {
@@ -16,8 +17,9 @@ function Routes() {
                 <Route path='/login' exact component={Login} />
                 <Route path='/register' exact component={Register} />
                 <Route path='/dashboard' exact component={Dashboard} />
-                <Route path='/admin' exact component={Admin} />
+                <Route path='/admin' component={Admin} />
                 <Route path='/products' exact component={Dashboard} />
+                <Route path='/newproducts' exact component={NewProduct} />
                 <Route path='/cart' exact component={Cart} />
             </Switch>
         </BrowserRouter>
