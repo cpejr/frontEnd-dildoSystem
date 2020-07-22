@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Cart from './pages/Cart';
 import NewProduct from './pages/NewProduct'
+import PersistentDrawerLeft from './pages/TestAdmin';
+import Main from './pages/Admin/Main';
 
 
 function Routes() {
@@ -21,6 +23,7 @@ function Routes() {
                 <Route path='/products' exact component={Dashboard} />
                 <Route path='/newproducts' exact component={NewProduct} />
                 <Route path='/cart' exact component={Cart} />
+                <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main/><Main/><Main/><Main/><Main/></PersistentDrawerLeft>}/>
             </Switch>
         </BrowserRouter>
     );

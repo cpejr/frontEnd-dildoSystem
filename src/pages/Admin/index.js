@@ -9,6 +9,7 @@ import './styles.css';
 
 import Cart from '../Cart';
 import NewProduct from '../../components/NnEProduct';
+import PersistentDrawerLeft from '../TestAdmin';
 
 
 function Admin(props) {
@@ -18,7 +19,7 @@ function Admin(props) {
     return (
         <div className="admin-page">
 
-            <div>
+            { <div>
                 <AdminDashboard name={nome} type={type} />
                 <div className="admin-content">
                     {/* <Main /> */}
@@ -26,7 +27,10 @@ function Admin(props) {
                     { <Route path={`${props.match.path}/newproduct`} component={NewProduct} /> }
                 </div>
 
-            </div>
+            </div> }
+            {/* <PersistentDrawerLeft>
+                <Main />
+            </PersistentDrawerLeft> */}
         </div>
     );
 }
