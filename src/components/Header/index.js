@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import SearchIcon from '@material-ui/icons/Search';
@@ -10,6 +11,8 @@ import './index.css';
 
 export default function Header() {
 
+    let history = useHistory();
+
     return (
         <div id="Header">
             <div className="headerSuperior">
@@ -17,7 +20,9 @@ export default function Header() {
                     <SearchIcon class="fa fa-search form-control-feedback searchIcon" />
                     <input type="text" class="form-control searchInput" placeholder="Search" />
                 </div>
-                <ShoppingCartOutlinedIcon />
+                <div onClick={()=>{history.push('/cart')}}>
+                    <ShoppingCartOutlinedIcon />
+                </div>
                 <PersonOutlinedIcon />
             </div>
             <div className="headerInferior">

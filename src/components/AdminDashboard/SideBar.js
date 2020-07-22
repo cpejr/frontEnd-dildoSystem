@@ -11,21 +11,21 @@ export default function SideBar(props) {
     return (
         <Drawer open={props.drawer} onClose={props.handleDrawerClose} >
             <List>
-                <ListItem button component={Link} to="/dashboard" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
                     <ListItemIcon><Home /></ListItemIcon>
                     <ListItemText>Dashboard</ListItemText>
                 </ListItem>
 
                 <Divider />
 
-                <ListItem button component={Link} to="/newProduct" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/newproducts" onClick={props.handleDrawerClose}>
                     <ListItemIcon><LibraryAddCheck /></ListItemIcon>
                     <ListItemText>Novo Produto</ListItemText>
                 </ListItem>
 
                 <Divider />
 
-                <ListItem button component={Link} to="/editProducts" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/editproducts" onClick={props.handleDrawerClose}>
                     <ListItemIcon><LocalOffer /></ListItemIcon>
                     <ListItemText>Editar Produto</ListItemText>
                 </ListItem>
