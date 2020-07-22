@@ -4,11 +4,9 @@
   }
   .product-title-page {
     width: 100%;
-    margin-left: 10%;
   }
   form {
     display: flex;
-    justify-content: center;
   }
   .form-wrapper {
     display: flex;

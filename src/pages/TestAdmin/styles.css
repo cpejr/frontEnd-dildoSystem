@@ -1,0 +1,24 @@
+
+.userDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    color: black;
+}
+
+.userDiv div {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-content: flex-end;
+}
+
+.main-admin-container {
+    margin-left: 50px;
+    margin-top: 100px;
+}
+
+.LogoutSidebar {
+    margin-top: 230%;
+}

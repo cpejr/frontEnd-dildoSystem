@@ -30,7 +30,7 @@ function Admin(props) {
                     if (value.type === 'admin') {
                         return (
                             <div>
-                              <AdminDashboard2 name={nome} type={type}>
+                              <AdminDashboard2 name={value.name} type={value.type}>
                                 {/* <Main /> */}
                                 <Route exact path={props.match.path} component={Main} />
                                 {
