@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -17,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Main from '../Admin/Main';
+import { PersonOutline } from '@material-ui/icons';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
@@ -85,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft(props) {
+export default function AdminDashboard2(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(window.innerWidth > 1000
@@ -108,7 +107,7 @@ export default function PersistentDrawerLeft(props) {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar style={{height: 75}}>
+        <Toolbar style={{height: 75, display: "flex"}}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -122,6 +121,10 @@ export default function PersistentDrawerLeft(props) {
               <img className="logo" src={Logo} alt="logo" width="75" height="75" />
               <img className="text" src={Text} alt="text" width="75" height="75" />
           </div>
+          <div className="userDiv">
+                <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
+                <div><PersonOutline /></div>
+            </div>
         </Toolbar>
       </AppBar>
       <Drawer
