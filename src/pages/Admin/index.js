@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { Route } from "react-router-dom";
+
+import React, { useState } from 'react';
+import { Route, useHistory } from 'react-router-dom';
+
+import {LoginContext} from '../../Contexts/LoginContext';
+
 
 import api from "../../services/api";
 
@@ -13,30 +17,41 @@ import PersistentDrawerLeft from "../TestAdmin";
 import AdminDashboard2 from "../TestAdmin";
 
 function Admin(props) {
-  let [nome, setNome] = useState("Nome do usuario");
-  let [type, setType] = useState("Tipo");
 
-  return (
-    <div className="admin-page">
-      {
-        <div>
-          <AdminDashboard2 name={nome} type={type}>
-            {/* <Main /> */}
-            <Route exact path={props.match.path} component={Main} />
+    let [nome, setNome] = useState('Nome do usuario');
+    let [type, setType] = useState('Tipo');
+
+    const history = useHistory();
+
+    return (
+        <LoginContext.Consumer>
             {
-              <Route
-                path={`${props.match.path}/newproduct`}
-                component={NewProduct}
-              />
+                value => {
+                    if (value.type === 'admin') {
+                        return (
+                            <div>
+                              <AdminDashboard2 name={nome} type={type}>
+                                {/* <Main /> */}
+                                <Route exact path={props.match.path} component={Main} />
+                                {
+                                  <Route
+                                    path={`${props.match.path}/newproduct`}
+                                    component={NewProduct}
+                                  />
+                                }
+                              </AdminDashboard2>
+                            </div>
+                        );
+                    } else {
+                        history.push('/');
+                    }
+                }
+
             }
-          </AdminDashboard2>
-        </div>
-      }
-      {/* <PersistentDrawerLeft>
-                <Main />
-            </PersistentDrawerLeft> */}
-    </div>
-  );
+        </LoginContext.Consumer>
+
+    );
+
 }
 
 export default Admin;

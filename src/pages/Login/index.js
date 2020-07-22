@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from '@material-ui/core'
 
+import {LoginContext} from '../../Contexts/LoginContext';
+
 import api from '../../services/api';
 
 import './styles.css';
@@ -14,7 +16,7 @@ function Login() {
     const [error, setError] = useState();
     const history = useHistory();
 
-    async function handleLogin(e) {
+    async function handleLogin(e, setLoggedIn) {
         e.preventDefault();
 
         try {
@@ -25,7 +27,9 @@ function Login() {
             localStorage.setItem('userType', response.data.user.type);
             localStorage.setItem('accessToken', response.data.accessToken);
 
-            history.push("products");
+            setLoggedIn(true);
+
+            history.push("/admin");
         } catch (err) {
             setError(err.response.data.message);
             console.log(err);
@@ -71,7 +75,13 @@ function Login() {
                         {error && <p className="errortext">
                             {error}
                         </p>}
-                        <Button className="button" type="submit" variant="contained" color="primary" onClick={handleLogin}> Entrar </Button>
+                        <LoginContext.Consumer>
+                            {
+                                context => 
+                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context.setLoggedIn)}> Entrar </Button>)
+                            }
+                        </LoginContext.Consumer>
+                        
                     </div>
                     <Link className="link" to="/register">
                         <Button className="button" type="submit" color="primary" variant="outlined"> Cadastrar </Button>
