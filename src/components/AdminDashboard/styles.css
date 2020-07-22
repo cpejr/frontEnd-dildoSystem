@@ -42,13 +42,15 @@
     left: -4vh;
 }
 
-.navbar .userDiv {
+.userDiv {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
+    color: black;
 }
 
-.navbar .userDiv div {
+.userDiv div {
     display: flex;
     flex-direction: column;
     justify-content: right;
@@ -56,7 +58,7 @@
 }
 
 .navbar .userDiv .user {
-    margin-right: 1vw;
+    margin-left: 1vw;
 }
 
 @media screen and (max-width: 510px) {
