@@ -30,7 +30,7 @@ export default function AdminDashboard(props) {
                     color="inherit"
                     aria-label="open drawer"
                     onClick={handleDrawerOpen}
-                    style={{ position: "fixed", "z-index": "1" }}
+                    style={{ position: "fixed", "zIndex": "1" }}
                 >
                     <Menu fontSize="large" />
                 </IconButton>

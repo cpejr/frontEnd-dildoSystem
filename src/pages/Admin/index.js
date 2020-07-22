@@ -1,18 +1,23 @@
+
 import React, { useState } from 'react';
 import { Route, useHistory } from 'react-router-dom';
 
 import {LoginContext} from '../../Contexts/LoginContext';
 
-import api from '../../services/api';
 
-import AdminDashboard from '../../components/AdminDashboard';
-import Main from './Main';
-import './styles.css';
-import Cart from '../Cart';
+import api from "../../services/api";
 
+import AdminDashboard from "../../components/AdminDashboard";
+import Main from "./Main";
+import "./styles.css";
 
+import Cart from "../Cart";
+import NewProduct from "../../components/NnEProduct";
+import PersistentDrawerLeft from "../TestAdmin";
+import AdminDashboard2 from "../TestAdmin";
 
 function Admin(props) {
+
     let [nome, setNome] = useState('Nome do usuario');
     let [type, setType] = useState('Tipo');
 
@@ -24,15 +29,17 @@ function Admin(props) {
                 value => {
                     if (value.type === 'admin') {
                         return (
-                            <div className="admin-page">
-                                <div>
-                                    <AdminDashboard name={value.name} type={value.type} />
-                                    <div className="admin-content">
-                                        <Route exact path={props.match.path} component={Main} />
-                                        <Route path={`${props.match.path}/cart`} component={Cart} /> 
-                                    </div>
-
-                                </div>
+                            <div>
+                              <AdminDashboard2 name={nome} type={type}>
+                                {/* <Main /> */}
+                                <Route exact path={props.match.path} component={Main} />
+                                {
+                                  <Route
+                                    path={`${props.match.path}/newproduct`}
+                                    component={NewProduct}
+                                  />
+                                }
+                              </AdminDashboard2>
                             </div>
                         );
                     } else {
@@ -41,10 +48,10 @@ function Admin(props) {
                 }
 
             }
-
         </LoginContext.Consumer>
 
     );
+
 }
 
 export default Admin;

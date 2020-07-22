@@ -1,0 +1,202 @@
+#Header {
+    font-family: 'Roboto Mono', monospace;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    z-index: 9999;
+}
+
+#Header .headerSuperior {
+    width: 100%;
+    background-color: #DDBD69;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 55px;
+    padding-right: 20px;
+}
+#Header .headerInferior {
+    background-color: #DAA621;
+    display: flex;
+    align-items: center;
+    /* min-height: 60px; */
+    height: 75px;
+}
+
+#Header .headerInferior a {
+    color: #000000;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+#Header .headerInferior .links {
+    margin: 0 auto;
+}
+#Header .headerInferior .links.active {
+    right: 0;
+}
+
+#Header .headerInferior .links.active a {
+    opacity: 1;
+} 
+#Header .headerSuperior .form-group {
+    margin-bottom: 0;
+}
+#Header .headerSuperior .has-search .form-control {
+    padding-left: 35px;
+    border-radius: 20px;
+}
+#Header .headerSuperior .MuiSvgIcon-root{
+    margin: 0 15px;
+}
+#Header .headerSuperior .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #616161;
+}
+.dropbtn {
+    background-color: transparent;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 70px;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .logoCasulusDashboard {
+    border-radius: 50%;
+    border: none;
+    position: relative;
+    top: -30px;
+    width: 10%;
+    border: none;
+    margin: 0 20px;
+}
+.headerImg {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .dropbtn {
+        background-color: transparent;
+        color: black;
+        padding: 14px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+    }
+}
+@media (max-width: 1050px){
+    .dropbtn {
+        background-color: transparent;
+        color: black;
+        padding: 10px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+    }
+}
+@media (max-width: 950px){
+    .dropbtn {
+    background-color: transparent;
+    color: black;
+    padding: 10px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    }
+}
+@media (max-width: 890px){
+    .dropbtn {
+        background-color: transparent;
+        color: black;
+        padding: 10px;
+        font-size: 12px;
+        border: none;
+        cursor: pointer;
+}
+}
+@media (max-width: 890px) {
+    .emptyDiv {
+        height: 75px;
+        background-color: #daa621;
+        width: 100%;
+        margin-bottom: 20px;
+        border: none;
+    }
+    .dropdown {
+        display: contents;
+      }
+    .logoCasulusDashboard {
+        display: none;
+      }
+      .headerImg {
+        display: block;
+        height: 75px;
+        margin: 0;
+    }
+    #Header .headerInferior .links {
+        position: fixed;
+        z-index: 999;
+        right: -100%;
+        top: 0;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        min-height: 100%;
+        -ms-overflow-style: none;
+        /* padding-top: 70px; */
+        overflow-y: scroll;
+        transition: all 0.5s ease-out;
+    }
+    #Header .headerInferior .links::-webkit-scrollbar {
+        display: none;
+    }
+    #Header .headerSuperior {
+        display: none;
+    }
+    #Header .headerInferior .links a, #Header .links .linksSuperior .linguagens h3 {
+        opacity: 0;
+        margin-bottom: 25px;
+    }
+    .dropdown-content {
+        position: initial;
+    }
+    
+}
