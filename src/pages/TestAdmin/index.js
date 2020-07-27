@@ -17,13 +17,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { PersonOutline } from '@material-ui/icons';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
 
-import './styles.css';
+import '../../components/AdminDashboard/styles.css';
 
 const drawerWidth = 240;
 
@@ -145,47 +143,22 @@ export default function AdminDashboard2(props) {
         </div>
         <Divider />
         <List>
-                <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Home /></ListItemIcon>
-                    <ListItemText>Dashboard</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/admin/newproduct" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LibraryAddCheck /></ListItemIcon>
-                    <ListItemText>Novo Produto</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/editproducts" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LocalOffer /></ListItemIcon>
-                    <ListItemText>Editar Produto</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/pendingUsers" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Group /></ListItemIcon>
-                    <ListItemText>Usuários Pendentes</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/pendingOrders" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><ChromeReaderMode /></ListItemIcon>
-                    <ListItemText>Pedidos Pendentes</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/login" onClick={props.handleDrawerClose} style={{position: 'fixed', bottom: 0}}>
-                    <ListItemIcon><ExitToApp /></ListItemIcon>
-                    <ListItemText>Sair</ListItemText>
-                </ListItem>
-
-            </List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {

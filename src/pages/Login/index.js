@@ -16,20 +16,25 @@ function Login() {
     const [error, setError] = useState();
     const history = useHistory();
 
-    async function handleLogin(e, setLoggedIn) {
+    async function handleLogin(e, setAccessToken, handleLogin, context) {
         e.preventDefault();
 
         try {
             const response = await api.post('login', { email, password: passwd });
 
-            localStorage.setItem('name', response.data.user.name);
-            localStorage.setItem('userId', response.data.user.id);
-            localStorage.setItem('userType', response.data.user.type);
+            console.log(response);
+
             localStorage.setItem('accessToken', response.data.accessToken);
 
-            setLoggedIn(true);
+            await setAccessToken(response.data.accessToken);
 
+            console.log(context.accessToken);
+
+            await handleLogin();
+
+            console.log('about to push');
             history.push("/admin");
+
         } catch (err) {
             setError(err.response.data.message);
             console.log(err);
@@ -78,7 +83,7 @@ function Login() {
                         <LoginContext.Consumer>
                             {
                                 context => 
-                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context.setLoggedIn)}> Entrar </Button>)
+                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context.setAccessToken, context.handleLogin, context)}> Entrar </Button>)
                             }
                         </LoginContext.Consumer>
                         
