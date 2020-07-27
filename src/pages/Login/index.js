@@ -26,13 +26,12 @@ function Login() {
 
             localStorage.setItem('accessToken', response.data.accessToken);
 
-            await setAccessToken(response.data.accessToken);
-
-            console.log(context.accessToken);
+            await context.setNewToken();
 
             await handleLogin();
 
             console.log('about to push');
+
             history.push("/admin");
 
         } catch (err) {
