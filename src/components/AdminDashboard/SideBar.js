@@ -46,7 +46,7 @@ export default function SideBar(props) {
 
                 <Divider />
 
-                <ListItem className="sair-sidebar" button component={Link} to="/login" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/login" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
                 </ListItem>

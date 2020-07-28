@@ -61,6 +61,10 @@
     margin-left: 1vw;
 }
 
+.LogoutSidebar {
+    margin-top: 230%;
+}
+
 @media screen and (max-width: 510px) {
     .navbar {
         height: 15vh;
