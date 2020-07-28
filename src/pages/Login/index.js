@@ -31,8 +31,6 @@ function Login() {
         try {
             const response = await api.post('login', { email, password: passwd });
 
-            console.log(response);
-
             localStorage.setItem('accessToken', response.data.accessToken);
 
             const user = response.data.user;
@@ -45,12 +43,6 @@ function Login() {
                 context.setAccessToken(response.data.accessToken),
             ]);
             setChanged(true);
-
-            // await handleLogin();
-
-            // console.log('about to push');
-
-            // history.push("/admin");
 
         } catch (err) {
             setError(err.response.data.message);

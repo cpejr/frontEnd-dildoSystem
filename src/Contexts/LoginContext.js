@@ -43,7 +43,6 @@ function LoginContextProvider(props) {
             setUserType(resp.data.user.user.type),
             setLoggedIn(true)
           ]);
-          console.log('verified')
           setChanged(true);
         } else {
           await Promise.all([
@@ -59,64 +58,6 @@ function LoginContextProvider(props) {
     }
   }, [])
 
-  // const [tokenChanged, setTokenChanged] = useState(false);
-  // const [dataChanged, setDataChanged] = useState(false);
-
-  // useEffect(() => {
-  //   if (tokenChanged) {
-
-  //     setTokenChanged(false);
-  //   }
-  // }, [tokenChanged]);
-
-  // useEffect(() => {
-  //   if (dataChanged) {
-
-  //     setDataChanged(false);
-  //   }
-  // }, [dataChanged]);
-
-  // async function setNewToken() {
-  //   await setAccessToken(localStorage.getItem('accessToken'));
-  //   setTokenChanged(true);
-  // }
-
-  // async function handleLogin() {
-  //   try {
-  //     //await setAccessToken(localStorage.getItem('accessToken'));
-
-  //     console.log(accessToken);
-
-  //     const config = {
-  //       headers: { authorization: `Bearer ${accessToken}` }
-  //     }
-
-  //     const resp = await api.get('verify', config);
-
-  //     if (resp.data.verified) {
-  //       await Promise.all([
-  //         setUsername(resp.data.user.user.name),
-  //         setUserId(resp.data.user.user.id),
-  //         setUserType(resp.data.user.user.type),
-  //         setLoggedIn(true)
-  //       ]);
-  //       //setDataChanged(true);
-  //     } else {
-  //       await Promise.all([
-  //         setUsername(''),
-  //         setUserId(0),
-  //         setUserType('retailer'),
-  //         setLoggedIn(false),
-  //       ]);
-  //       //setDataChanged(true);
-  //     }
-
-  //     console.log("userType");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   const userInfo = {
     loggedIn: loggedIn,
     name: username,
@@ -129,8 +70,6 @@ function LoginContextProvider(props) {
     setId: setUserId,
     setType: setUserType,
     setAccessToken: setAccessToken,
-    // handleLogin: handleLogin,
-    // setNewToken: setNewToken
   };
 
   return (
