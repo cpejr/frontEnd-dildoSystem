@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-import useStateWithPromise from './useStateWithPromise';
+import useStateWithPromise from "./useStateWithPromise";
 
-import api from '../services/api';
+import api from "../services/api";
 
 const LoginContext = React.createContext({});
 
 function LoginContextProvider(props) {
   const [loggedIn, setLoggedIn] = useStateWithPromise(false);
-  const [username, setUsername] = useStateWithPromise('');
+  const [username, setUsername] = useStateWithPromise("");
   const [userId, setUserId] = useStateWithPromise(0);
-  const [userType, setUserType] = useStateWithPromise('retailer');
-  const [accessToken, setAccessToken] = useStateWithPromise('');
+  const [userType, setUserType] = useStateWithPromise("retailer");
+  const [accessToken, setAccessToken] = useStateWithPromise("");
 
   const history = useHistory();
   const [changed, setChanged] = useState(false);
@@ -24,31 +24,31 @@ function LoginContextProvider(props) {
       history.push(location);
       setChanged(false);
     }
-  }, [changed])
+  }, [changed]);
 
   useEffect(() => {
-    const newToken = localStorage.getItem('accessToken');
+    const newToken = localStorage.getItem("accessToken");
     if (newToken && !accessToken) {
       async function grabData() {
         const config = {
-          headers: { authorization: `Bearer ${newToken}` }
-        }
+          headers: { authorization: `Bearer ${newToken}` },
+        };
 
-        const resp = await api.get('verify', config);
+        const resp = await api.get("verify", config);
 
         if (resp.data.verified) {
           await Promise.all([
             setUsername(resp.data.user.user.name),
             setUserId(resp.data.user.user.id),
             setUserType(resp.data.user.user.type),
-            setLoggedIn(true)
+            setLoggedIn(true),
           ]);
           setChanged(true);
         } else {
           await Promise.all([
-            setUsername(''),
+            setUsername(""),
             setUserId(0),
-            setUserType('retailer'),
+            setUserType("retailer"),
             setLoggedIn(false),
           ]);
           setChanged(true);
@@ -56,7 +56,14 @@ function LoginContextProvider(props) {
       }
       grabData();
     }
-  }, [])
+  }, []);
+
+  function handleLogout() {
+    setLoggedIn(false);
+    localStorage.removeItem("accessToken");
+    api.defaults.headers.authorization = undefined;
+    history.push("/login");
+  }
 
   const userInfo = {
     loggedIn: loggedIn,
@@ -70,6 +77,7 @@ function LoginContextProvider(props) {
     setId: setUserId,
     setType: setUserType,
     setAccessToken: setAccessToken,
+    handleLogout
   };
 
   return (

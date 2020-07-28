@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,6 +24,7 @@ import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
 
 import './styles.css';
+import { LoginContext } from '../../Contexts/LoginContext';
 
 const drawerWidth = 240;
 
@@ -99,6 +100,8 @@ export default function AdminDashboard2(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = useContext(LoginContext) 
 
   return (
     <div className={classes.root}>
@@ -179,12 +182,14 @@ export default function AdminDashboard2(props) {
                 </ListItem>
 
                 <Divider />
-
-                <ListItem button component={Link} to="/login" onClick={props.handleDrawerClose} style={{position: 'fixed', bottom: 0}}>
+              <LoginContext.Consumer>
+                {
+                  context => (
+                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0}}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
-                </ListItem>
-
+                </ListItem>)}
+              </LoginContext.Consumer>
             </List>
       </Drawer>
       <main
