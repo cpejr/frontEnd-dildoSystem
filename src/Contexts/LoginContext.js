@@ -60,6 +60,7 @@ function LoginContextProvider(props) {
 
   function handleLogout() {
     setLoggedIn(false);
+    setAccessToken('');
     localStorage.removeItem("accessToken");
     api.defaults.headers.authorization = undefined;
     history.push("/login");
