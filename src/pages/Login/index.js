@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from '@material-ui/core'
@@ -16,7 +16,16 @@ function Login() {
     const [error, setError] = useState();
     const history = useHistory();
 
-    async function handleLogin(e, setAccessToken, handleLogin, context) {
+    const [changed, setChanged] = useState(false);
+
+    useEffect(() => {
+      if(changed) {
+          history.push('/admin');
+          setChanged(false);
+      }
+    }, [changed])
+
+    async function handleLogin(e,  context) {
         e.preventDefault();
 
         try {
@@ -26,13 +35,22 @@ function Login() {
 
             localStorage.setItem('accessToken', response.data.accessToken);
 
-            await context.setNewToken();
+            const user = response.data.user;
 
-            await handleLogin();
+            await Promise.all([
+                context.setLoggedIn(true),
+                context.setName(user.name),
+                context.setId(user.id),
+                context.setType(user.type),
+                context.setAccessToken(response.data.accessToken),
+            ]);
+            setChanged(true);
 
-            console.log('about to push');
+            // await handleLogin();
 
-            history.push("/admin");
+            // console.log('about to push');
+
+            // history.push("/admin");
 
         } catch (err) {
             setError(err.response.data.message);
@@ -82,7 +100,7 @@ function Login() {
                         <LoginContext.Consumer>
                             {
                                 context => 
-                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context.setAccessToken, context.handleLogin, context)}> Entrar </Button>)
+                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context)}> Entrar </Button>)
                             }
                         </LoginContext.Consumer>
                         
