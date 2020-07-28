@@ -1,4 +1,6 @@
-import React, { useState, useEffect, forceUpdate } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useHistory } from 'react-router-dom';
 
 import useStateWithPromise from './useStateWithPromise';
 
@@ -13,19 +15,63 @@ function LoginContextProvider(props) {
   const [userType, setUserType] = useStateWithPromise('retailer');
   const [accessToken, setAccessToken] = useStateWithPromise('');
 
+  const history = useHistory();
+  const [changed, setChanged] = useState(false);
+  const [location, setLocation] = useState(history.location.pathname);
+
+  useEffect(() => {
+    if (changed) {
+      history.push(location);
+      setChanged(false);
+    }
+  }, [changed])
+
+  useEffect(() => {
+    const newToken = localStorage.getItem('accessToken');
+    if (newToken && !accessToken) {
+      async function grabData() {
+        const config = {
+          headers: { authorization: `Bearer ${newToken}` }
+        }
+
+        const resp = await api.get('verify', config);
+
+        if (resp.data.verified) {
+          await Promise.all([
+            setUsername(resp.data.user.user.name),
+            setUserId(resp.data.user.user.id),
+            setUserType(resp.data.user.user.type),
+            setLoggedIn(true)
+          ]);
+          console.log('verified')
+          setChanged(true);
+        } else {
+          await Promise.all([
+            setUsername(''),
+            setUserId(0),
+            setUserType('retailer'),
+            setLoggedIn(false),
+          ]);
+          setChanged(true);
+        }
+      }
+      grabData();
+    }
+  }, [])
+
   // const [tokenChanged, setTokenChanged] = useState(false);
   // const [dataChanged, setDataChanged] = useState(false);
 
   // useEffect(() => {
   //   if (tokenChanged) {
-      
+
   //     setTokenChanged(false);
   //   }
   // }, [tokenChanged]);
 
   // useEffect(() => {
   //   if (dataChanged) {
-      
+
   //     setDataChanged(false);
   //   }
   // }, [dataChanged]);

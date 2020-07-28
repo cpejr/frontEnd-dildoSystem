@@ -9,21 +9,25 @@ import Cart from './pages/Cart';
 import NewProduct from './pages/NewProduct'
 import PersistentDrawerLeft from './pages/TestAdmin';
 import Main from './pages/Admin/Main';
+import LoginContextProvider from './Contexts/LoginContext';
 
 
 function Routes() {
-    return(  
+    return (
         <BrowserRouter>
             <Switch>
-                <Route path='/' exact component={Dashboard} />
-                <Route path='/login' exact component={Login} />
-                <Route path='/register' exact component={Register} />
-                <Route path='/dashboard' exact component={Dashboard} />
-                <Route path='/admin' component={Admin} />
-                <Route path='/products' exact component={Dashboard} />
-                <Route path='/newproducts' exact component={NewProduct} />
-                <Route path='/cart' exact component={Cart} />
-                <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main/><Main/><Main/><Main/><Main/></PersistentDrawerLeft>}/>
+                <LoginContextProvider>
+                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/login' exact component={Login} />
+                    <Route path='/register' exact component={Register} />
+                    <Route path='/dashboard' exact component={Dashboard} />
+                    <Route path='/admin' component={Admin} />
+                    <Route path='/products' exact component={Dashboard} />
+                    <Route path='/newproducts' exact component={NewProduct} />
+                    <Route path='/cart' exact component={Cart} />
+                    <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main /><Main /><Main /><Main /><Main /></PersistentDrawerLeft>} />
+                </LoginContextProvider>
+
             </Switch>
         </BrowserRouter>
     );
