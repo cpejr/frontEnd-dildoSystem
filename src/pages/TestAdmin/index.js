@@ -185,7 +185,7 @@ export default function AdminDashboard2(props) {
               <LoginContext.Consumer>
                 {
                   context => (
-                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0}}>
+                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
                 </ListItem>)}
