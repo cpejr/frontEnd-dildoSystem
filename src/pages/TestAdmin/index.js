@@ -176,7 +176,7 @@ export default function AdminDashboard2(props) {
 
                 <Divider />
 
-                <ListItem button component={Link} to="/pendingOrders" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/admin/pendingorder" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ChromeReaderMode /></ListItemIcon>
                     <ListItemText>Pedidos Pendentes</ListItemText>
                 </ListItem>

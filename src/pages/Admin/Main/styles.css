@@ -62,22 +62,22 @@ h4.titulo {
   display: flex;
 }
 
-.nome {
+.product-container .nome, .cabecalho .nome {
   width: 20%;
 }
-.email {
+.product-container .email, .cabecalho .email {
   width: 20%;
 }
-.user-type {
+.product-container .user-type, .cabecalho .user-type {
   width: 15%;
 }
-.data {
+.product-container .data, .cabecalho .data {
   width: 15%;
 }
-.valor {
+.product-container .valor, .cabecalho .valor {
   width: 20%;
 }
-.status {
+.product-container .status, .cabecalho .status {
   width: 10%;
 }
 .status-box {

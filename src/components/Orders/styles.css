@@ -1,0 +1,148 @@
+.order-all h4 {
+    color: #707070;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: auto;
+    width: 70%;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.order-data {
+    display: grid;
+    flex-direction: block;
+    grid-template-columns: repeat(2, 300px);
+    padding: 10px;
+    grid-gap: 60px;
+}
+
+.order-item{
+    display: flex;
+    flex-direction: column;
+    color:black;
+    font-size: 16px;
+}
+
+#orderdetails {
+    margin-top: 60px;
+    display: flex;
+    
+}
+
+.order-details{
+    display:flex;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    font-weight: bolder;
+    font-size: 16px;
+    border-bottom: #707070 solid 2px;
+}
+
+.order-table {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    font-weight: normal;
+    font-size: 16px;
+    border-bottom: #707070 solid 1px;
+}
+
+.order-product-name{
+    width: 25%;
+}
+
+.order-product-quantity{
+    width: 25%;
+}
+.order-product-unityPrice{
+    width: 25%;
+}
+.order-product-price{
+    width: 25%;
+}
+
+.order-delivery {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin-left: 1%;
+    margin-bottom: 0;
+    margin-right: 4.5%;
+    color: black;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.order-select {
+    display: flex;
+    width: 60%;
+    border-radius: 5px;
+    margin-top: 3%;
+}
+.order-label {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-track {
+    border-radius: 5px;
+    width: 70%;
+    border: 1px solid #707070;
+    margin-top: 3%;
+}
+.order-mode {
+    margin-top: 3%;
+    font-weight: 400;
+}
+
+.order-save-button{
+display: flex;
+margin-left: 70%;
+margin-top: 2%;
+margin-bottom: 1%;
+}
+
+.order-button{
+    background-color: #4BBC4C;
+    color: white;
+    border: transparent;
+    border-radius: 14px;
+    height: 160%;
+    width: 75%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.order-button:hover{
+    background-color: #40b642;
+}
+
+.order-value{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    width: 50%;
+    margin-left: 0;
+}
+
+.order-request-value{
+    color: black;
+    font-size: 16px;
+    font-weight: bolder;
+    width: 100%;
+}

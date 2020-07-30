@@ -39,7 +39,7 @@ export default function SideBar(props) {
 
                 <Divider />
 
-                <ListItem button component={Link} to="/pendingOrders" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/pendingorders" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ChromeReaderMode /></ListItemIcon>
                     <ListItemText>Pedidos Pendentes</ListItemText>
                 </ListItem>

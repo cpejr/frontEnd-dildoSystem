@@ -15,6 +15,8 @@ import Cart from "../Cart";
 import NewProduct from "../../components/NnEProduct";
 import PersistentDrawerLeft from "../TestAdmin";
 import AdminDashboard2 from "../TestAdmin";
+import PendingOrders from "../PendingOrders";
+import Orders from "../../components/Orders";
 
 function Admin(props) {
 
@@ -37,8 +39,14 @@ function Admin(props) {
                                   <Route
                                     path={`${props.match.path}/newproduct`}
                                     component={NewProduct}
-                                  />
+                                  />                            
                                 }
+                                 {
+                                   <Route
+                                    path={`${props.match.path}/pendingorder`}
+                                    component={Orders}
+                                  />
+                                 }
                               </AdminDashboard2>
                             </div>
                         );
