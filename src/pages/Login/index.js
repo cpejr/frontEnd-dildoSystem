@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from '@material-ui/core'
@@ -16,20 +16,34 @@ function Login() {
     const [error, setError] = useState();
     const history = useHistory();
 
-    async function handleLogin(e, setLoggedIn) {
+    const [changed, setChanged] = useState(false);
+
+    useEffect(() => {
+      if(changed) {
+          history.push('/admin');
+          setChanged(false);
+      }
+    }, [changed])
+
+    async function handleLogin(e,  context) {
         e.preventDefault();
 
         try {
             const response = await api.post('login', { email, password: passwd });
 
-            localStorage.setItem('name', response.data.user.name);
-            localStorage.setItem('userId', response.data.user.id);
-            localStorage.setItem('userType', response.data.user.type);
             localStorage.setItem('accessToken', response.data.accessToken);
 
-            setLoggedIn(true);
+            const user = response.data.user;
 
-            history.push("/admin");
+            await Promise.all([
+                context.setLoggedIn(true),
+                context.setName(user.name),
+                context.setId(user.id),
+                context.setType(user.type),
+                context.setAccessToken(response.data.accessToken),
+            ]);
+            setChanged(true);
+
         } catch (err) {
             setError(err.response.data.message);
             console.log(err);
@@ -78,7 +92,7 @@ function Login() {
                         <LoginContext.Consumer>
                             {
                                 context => 
-                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context.setLoggedIn)}> Entrar </Button>)
+                                (<Button className="button" type="submit" variant="contained" color="primary" onClick={e => handleLogin(e, context)}> Entrar </Button>)
                             }
                         </LoginContext.Consumer>
                         

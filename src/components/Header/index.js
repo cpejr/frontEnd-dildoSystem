@@ -17,9 +17,9 @@ export default function Header() {
     return (
         <div id="Header">
             <div className="headerSuperior">
-                <div class="form-group has-search">
-                    <SearchIcon class="fa fa-search form-control-feedback searchIcon" />
-                    <input type="text" class="form-control searchInput" placeholder="Search" />
+                <div className="form-group has-search">
+                    <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
+                    <input type="text" className="form-control searchInput" placeholder="Search" />
                 </div>
                 <div onClick={() => { history.push('/cart') }}>
                     <ShoppingCartOutlinedIcon />
@@ -30,7 +30,7 @@ export default function Header() {
                 <img className="headerImg" src={LogoName} alt="logo" />
                 <div className="links">
                     <div className="emptyDiv"> </div>
-                    <div classNameName="empty" />
+                    <div className="empty" />
                     <div className="dropdown">
                         <button className="dropbtn">Cosméticos <KeyboardArrowDownIcon /> </button>
                         <div className="dropdown-content">
@@ -121,7 +121,7 @@ export default function Header() {
                         </div>
                     </div>
                 </div>
-                <div classNameName="empty" />
+                <div className="empty" />
                 <Burger />
             </div>
         </div>

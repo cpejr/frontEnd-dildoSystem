@@ -1,29 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+
+import { useHistory } from "react-router-dom";
+
+import useStateWithPromise from "./useStateWithPromise";
+
+import api from "../services/api";
 
 const LoginContext = React.createContext({});
 
 function LoginContextProvider(props) {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [userId, setUserId] = useState(0);
-  const [userType, setUserType] = useState('admin');
+  const [loggedIn, setLoggedIn] = useStateWithPromise(false);
+  const [username, setUsername] = useStateWithPromise("");
+  const [userId, setUserId] = useStateWithPromise(0);
+  const [userType, setUserType] = useStateWithPromise("retailer");
+  const [accessToken, setAccessToken] = useStateWithPromise("");
+
+  const history = useHistory();
+  const [changed, setChanged] = useState(false);
+  const [location, setLocation] = useState(history.location.pathname);
 
   useEffect(() => {
-    setUsername(localStorage.getItem('name'));
-    setUserId(localStorage.getItem('userId'));
-    setUserType(localStorage.getItem('userType'));
-  }, [loggedIn]);
+    if (changed) {
+      history.push(location);
+      setChanged(false);
+    }
+  }, [changed]);
+
+  useEffect(() => {
+    const newToken = localStorage.getItem("accessToken");
+    if (newToken && !accessToken) {
+      async function grabData() {
+        const config = {
+          headers: { authorization: `Bearer ${newToken}` },
+        };
+
+        const resp = await api.get("verify", config);
+
+        if (resp.data.verified) {
+          await Promise.all([
+            setUsername(resp.data.user.user.name),
+            setUserId(resp.data.user.user.id),
+            setUserType(resp.data.user.user.type),
+            setLoggedIn(true),
+          ]);
+          setChanged(true);
+        } else {
+          await Promise.all([
+            setUsername(""),
+            setUserId(0),
+            setUserType("retailer"),
+            setLoggedIn(false),
+          ]);
+          setChanged(true);
+        }
+      }
+      grabData();
+    }
+  }, []);
+
+  function handleLogout() {
+    setLoggedIn(false);
+    setAccessToken('');
+    localStorage.removeItem("accessToken");
+    api.defaults.headers.authorization = undefined;
+    history.push("/login");
+  }
 
   const userInfo = {
     loggedIn: loggedIn,
     name: username,
     id: userId,
     type: userType,
+    accessToken: accessToken,
 
     setLoggedIn: setLoggedIn,
     setName: setUsername,
     setId: setUserId,
     setType: setUserType,
+    setAccessToken: setAccessToken,
+    handleLogout
   };
 
   return (
@@ -35,4 +90,4 @@ function LoginContextProvider(props) {
 
 export default LoginContextProvider;
 
-export {LoginContext};
+export { LoginContext };
