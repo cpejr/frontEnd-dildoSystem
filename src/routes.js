@@ -11,6 +11,7 @@ import PersistentDrawerLeft from './pages/TestAdmin';
 import Main from './pages/Admin/Main';
 import LoginContextProvider from './Contexts/LoginContext';
 import PendingOrders from './pages/PendingOrders';
+import EditProducts from './pages/EditProduct'
 
 
 function Routes() {
@@ -25,6 +26,7 @@ function Routes() {
                     <Route path='/admin' component={Admin} />
                     <Route path='/products' exact component={Dashboard} />
                     <Route path='/newproducts' exact component={NewProduct} />
+                    <Route path='/editproducts' exact component={EditProducts} />
                     <Route path='/pendingorders' exact component ={PendingOrders} />
                     <Route path='/cart' exact component={Cart} />
                     <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main /><Main /><Main /><Main /><Main /></PersistentDrawerLeft>} />
