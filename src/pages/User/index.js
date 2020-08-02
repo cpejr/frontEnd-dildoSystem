@@ -31,7 +31,8 @@ function User(props) {
                    path={`${props.match.path}/myrequests`}
                    component={MyRequests}
                  />    
-                }             
+                }
+                {             
                   <Route
                     path={`${props.match.path}/usersettings`}
                     component={ProfileSettings}
