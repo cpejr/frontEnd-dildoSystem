@@ -6,6 +6,7 @@ import { Route, useHistory } from "react-router-dom";
 import MyRequests from "../MyRequests";
 import { LoginContext } from "../../Contexts/LoginContext";
 import WishList from "../../components/WishList";
+import ProfileSettings from "../../components/ProfileSettings";
 
 function User(props) {
 
@@ -31,6 +32,12 @@ function User(props) {
                    component={MyRequests}
                  />    
                 }             
+                  <Route
+                    path={`${props.match.path}/usersettings`}
+                    component={ProfileSettings}
+                  />                            
+                }
+                
               </UserSidebar>
             </div>
           );
