@@ -1,0 +1,16 @@
+.user-bar-container {
+    height: 100%;
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+}
+.user-bar-container .MuiDrawer-paper {
+    top: 0;
+    left: 0;
+    width: 260px;
+    min-height: 100%;
+    display: flex;
+    outline: 0;
+    position: sticky;
+    flex-direction: column;
+}

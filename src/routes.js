@@ -11,7 +11,9 @@ import PersistentDrawerLeft from './pages/TestAdmin';
 import Main from './pages/Admin/Main';
 import LoginContextProvider from './Contexts/LoginContext';
 import PendingOrders from './pages/PendingOrders';
-import EditProducts from './pages/EditProduct'
+import EditProducts from './pages/EditProduct';
+import User from './pages/User';
+import MyRequests from './pages/MyRequests';
 
 
 function Routes() {
@@ -29,6 +31,7 @@ function Routes() {
                     <Route path='/editproducts' exact component={EditProducts} />
                     <Route path='/pendingorders' exact component ={PendingOrders} />
                     <Route path='/cart' exact component={Cart} />
+                    <Route path='/user' component={User} />
                     <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main /><Main /><Main /><Main /><Main /></PersistentDrawerLeft>} />
                 </LoginContextProvider>
 
@@ -37,4 +40,4 @@ function Routes() {
     );
 }
 
-export default Routes;
+export default Routes; 
