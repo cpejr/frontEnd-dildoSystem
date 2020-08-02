@@ -23,9 +23,14 @@ function User(props) {
                   <Route
                     path={`${props.match.path}/wishlist`}
                     component={WishList}
-                  />                            
+                  />                                    
                 }
-                
+                {
+                   <Route
+                   path={`${props.match.path}/myrequests`}
+                   component={MyRequests}
+                 />    
+                }             
               </UserSidebar>
             </div>
           );
