@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     border-radius: 15px;
-    width: 15%;
+    width: 225px;
+    height: 325px;
+    margin: 20px 10px;
     margin-top: 50px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-
     transition: box-shadow 0.2s;
 }
 
@@ -14,13 +16,20 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.Card img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 #titulo-card {
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 18px;
+    color: var(--text-color);
+    text-align: center;
 }
 
 #preco-card {
-    color: orange;
+    color: var(--text-color);
 }
 
 #botao-comprar {
@@ -33,4 +42,10 @@
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     margin-top: 10px;
+}
+
+.products-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

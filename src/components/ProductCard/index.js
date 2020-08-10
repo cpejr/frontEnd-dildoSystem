@@ -9,7 +9,7 @@ export default function ProductCard(props) {
     const [products, setProducts] = useState([]);
 
     var config = {
-        headers: { 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMCwibmFtZSI6IkFydGh1ciIsImVtYWlsIjoiQXJ0aHVyMkBnbWFpbC5jb20iLCJmaXJlYmFzZSI6Ik1wbjI3M1FkRWxjeHF2WVlzdUZ1T2UyTkhFNjMiLCJ0eXBlIjoiYWRtaW4iLCJjcGYiOiIxNTExMjM1ODQzOSIsImJpcnRoZGF0ZSI6IjA5LzAxLzIwMDEiLCJ6aXBjb2RlIjoiMzE3NTg0NCIsInBob25lbnVtYmVyIjoiOTg1NzQ2NzM4NCIsInN0YXRlIjoiTWluYXMgR2VyYWlzIiwiY2l0eSI6IkJlbG8gSG9yaXpvbnRlIiwibmVpZ2hib3Job29kIjoiVW5pw6NvIiwic3RyZWV0IjoiTmVsc29uIiwibnVtYmVyIjoiMTIzIiwiY29tcGxlbWVudCI6ImFwdCAxMDEiLCJjcmVhdGVkX2F0IjoiMjAyMC0wNS0wNSAyMTo1NjozOCIsInVwZGF0ZWRfYXQiOiIyMDIwLTA1LTA1IDIxOjU2OjM4In0sImlhdCI6MTU5NDc1OTkxMiwiZXhwIjoxNTk3MzUxOTEyfQ.QYtnKluLPjux8TmPzeOei3MHEY3PEEAdccKS6o8xOZM' }
+        headers: { 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiQXJ0aHVyIiwiZmlyZWJhc2UiOiJNcG4yNzNRZEVsY3hxdllZc3VGdU9lMk5IRTYzIiwidHlwZSI6ImFkbWluIiwiY3BmIjoiMTUxMTIzNTg0MzkiLCJiaXJ0aGRhdGUiOiIwOS8wMS8yMDAxIiwiemlwY29kZSI6IjMxNzU4NDQiLCJwaG9uZW51bWJlciI6Ijk4NTc0NjczODQiLCJzdGF0ZSI6Ik1pbmFzIEdlcmFpcyIsImNpdHkiOiJCZWxvIEhvcml6b250ZSIsIm5laWdoYm9yaG9vZCI6IlVuacOjbyIsInN0cmVldCI6Ik5lbHNvbiIsIm51bWJlciI6IjEyMyIsImNvbXBsZW1lbnQiOiJhcHQgMTAxIiwiY3JlYXRlZF9hdCI6IjIwMjAtMDgtMTAgMTQ6NTk6MjMiLCJ1cGRhdGVkX2F0IjoiMjAyMC0wOC0xMCAxNDo1OToyMyIsImFwcHJvdmVkIjoiZmFsc2UifSwiaWF0IjoxNTk3MDkxNTk4LCJleHAiOjE1OTk2ODM1OTh9.2okxqbbhK9CPvHxhwnaUfBLuJu_cG73kwUyaZf_9ryU' }
     }
 
     useEffect(() => {
@@ -19,20 +19,20 @@ export default function ProductCard(props) {
         });
     }, [])
 
+
     return (
-        <div>
+        <div className="products-container">
             {products.map(product => (
 
                 <div className="Card">
                     <Link to="">
-                        <img src="" alt={product.img} />
+                        <img src={`https://docs.google.com/uc?id=${product.image_id}`} alt={product.name} />
+                        <p id="titulo-card">
+                            {product.name}
+                        </p>
                     </Link>
-
-                    <p id="titulo-card">
-                        {product.titulo}
-                    </p>
-
-                    <span id="preco-card">{product.preco}</span>
+                    
+                    <span id="preco-card">{`R$ ${Number(product.client_price).toFixed(2)}`}</span>
 
                     <Link id="botao-comprar" to="">
                         <span>COMPRAR</span>
