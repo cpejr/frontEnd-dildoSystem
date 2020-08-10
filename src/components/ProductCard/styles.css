@@ -1,3 +1,17 @@
+.products-container-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.products-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 10px;
+}
+
 .Card {
     display: flex;
     flex-direction: column;
@@ -44,8 +58,14 @@
     margin-top: 10px;
 }
 
-.products-container {
+.loader-button {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 250px;
+    color: white;
+    background-color: green;
+    border-radius: 20px;
 }
+
