@@ -5,22 +5,22 @@ import OrderArray from './order.js'
 
 
 const OrderPedidos = [
-{
+{   
     name: 'Sabonete Haus Preto',
     quantity: 2,
     unity: 15.00,
 }, 
-{
+{   
     name: 'Sabonete Haus Branco',
     quantity: 2,
     unity: 15.00,
 },
-{
+{   
     name: 'Sabonete Haus Azul',
     quantity: 2,
     unity: 15.00,
 },
-{
+{   
     name: 'Sabonete Haus Black',
     quantity: 2,
     unity: 15.00,
