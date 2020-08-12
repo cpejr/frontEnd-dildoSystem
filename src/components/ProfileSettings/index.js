@@ -5,7 +5,7 @@ import { IoMdKey } from "react-icons/io";
 export default function ProfileSettings() {
   return (
     <div className="settings-container">
-      <h4>Configurações</h4>
+      <h4>Meus Dados</h4>
       <div className="settings-content">
         <div className="settings-data">
           <div className="settings-img"></div>

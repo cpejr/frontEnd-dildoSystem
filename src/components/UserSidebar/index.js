@@ -180,7 +180,7 @@ export default function UserSidebar(props) {
 
                 <ListItem button component={Link} to="/user/usersettings" onClick={props.handleDrawerClose}>
                     <ListItemIcon><SettingsIcon /></ListItemIcon>
-                    <ListItemText>Configurações</ListItemText>
+                    <ListItemText>Meus Dados</ListItemText>
                 </ListItem>
                 <Divider />
 

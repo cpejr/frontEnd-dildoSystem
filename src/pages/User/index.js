@@ -15,7 +15,7 @@ function User(props) {
   return (
     <LoginContext.Consumer>
       {(value) => {
-        if (value.type === "retailer" || "wholesaler") {
+        if (value.userType === "wholesaler" || "retailer") {
           return (
             <div>
               <UserSidebar name={value.name} type={value.type}>

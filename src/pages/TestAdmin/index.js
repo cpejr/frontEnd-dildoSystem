@@ -162,14 +162,14 @@ export default function AdminDashboard2(props) {
 
                 <Divider />
 
-                <ListItem button component={Link} to="/editproducts" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="" onClick={props.handleDrawerClose}>
                     <ListItemIcon><LocalOffer /></ListItemIcon>
                     <ListItemText>Editar Produto</ListItemText>
                 </ListItem>
 
                 <Divider />
 
-                <ListItem button component={Link} to="/pendingUsers" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
                     <ListItemIcon><Group /></ListItemIcon>
                     <ListItemText>Usuários Pendentes</ListItemText>
                 </ListItem>

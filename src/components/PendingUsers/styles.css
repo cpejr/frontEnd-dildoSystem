@@ -1,0 +1,101 @@
+.pending-users-container{
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.pending-users-container h4{
+    color: #707070;
+}
+
+
+.pending-users-content{
+    background-color: white;
+    height: auto;
+    width: 100%;
+    border-radius: 10px;
+    padding-top: 15px;
+    margin-top: 5px;
+}
+
+.pending-users-data{
+    border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+    padding-bottom: 8px;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+}
+
+.pending-users-container h5{
+    color: #707070;
+    margin-left: 20px;
+}
+
+.pending-users-item{
+    display: flex;
+    color: #707070;
+    margin-top: 8px;
+    margin-left: 12px;
+}
+
+.pending-users-item strong{
+    margin-right: 8px;
+}
+
+.pending-users-button-area{
+    width: 20%;
+    margin-top: auto;
+    display: flex;
+    margin-bottom: 20px;
+    
+}
+
+.pending-users-info{
+    width: 80%;
+}
+
+.pending-users-accept-button{
+    margin-right: 15px;
+    color: #4BBC4C;
+    cursor: pointer;
+}
+
+.pending-users-refuse-button{
+    color: #FF0000;
+    cursor: pointer;
+}
+
+@media (max-width: 600px){
+    .pending-users-container{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .pending-users-data{
+        display: block;
+    }
+
+    .pending-users-info{
+        width: 100%;
+    }
+
+    .pending-users-container h5{
+        margin-left: 10px;
+    }
+
+    .pending-users-item{
+        display: block;
+    }
+
+    .pending-users-item strong{
+        font-size: 14px;
+    }
+
+    .pending-users-button-area{
+        width: 25%;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        display: flex;
+        margin-left: auto;
+    }
+
+  }
+  

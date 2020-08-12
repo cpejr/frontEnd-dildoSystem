@@ -11,12 +11,11 @@ import AdminDashboard from "../../components/AdminDashboard";
 import Main from "./Main";
 import "./styles.css";
 
-import Cart from "../Cart";
 import NewProduct from "../../components/NnEProduct";
 import PersistentDrawerLeft from "../TestAdmin";
 import AdminDashboard2 from "../TestAdmin";
-import PendingOrders from "../PendingOrders";
 import Orders from "../../components/Orders";
+import PendingUsers from '../../components/PendingUsers';
 
 function Admin(props) {
 
@@ -45,6 +44,12 @@ function Admin(props) {
                                    <Route
                                     path={`${props.match.path}/pendingorder`}
                                     component={Orders}
+                                  />
+                                 }
+                                 {
+                                   <Route
+                                    path={`${props.match.path}/pendingusers`}
+                                    component={PendingUsers}
                                   />
                                  }
                               </AdminDashboard2>

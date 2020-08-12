@@ -29,7 +29,6 @@ function Routes() {
                     <Route path='/products' exact component={Dashboard} />
                     <Route path='/newproducts' exact component={NewProduct} />
                     <Route path='/editproducts' exact component={EditProducts} />
-                    <Route path='/pendingorders' exact component ={PendingOrders} />
                     <Route path='/cart' exact component={Cart} />
                     <Route path='/user' component={User} />
                     <Route path="/testadmin" component={() => <PersistentDrawerLeft><Main /><Main /><Main /><Main /><Main /></PersistentDrawerLeft>} />
