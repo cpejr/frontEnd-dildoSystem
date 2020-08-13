@@ -3,11 +3,24 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import './styles.css'
+import { FiFilter } from 'react-icons/fi';
+
+// props.filters = {
+//     max_price: Número representando preço máximo
+//     min_price: Número representando preço mínimo
+//     order_by: Booleano que indica se resultados devem ser ordenados 
+//         por preço (vai usar o preço certo)
+//     order_ascending: Booleano que indica ordem crescente ou decrescente
+//         (true para crescente)
+//     search: string com o nome pesquisado
+//     subcategory_id: id da subcategoria em que se pesquisa
+// }
 
 export default function ProductCard(props) {
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
+    const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
 
     const config = {
@@ -15,8 +28,19 @@ export default function ProductCard(props) {
     }
 
     useEffect(() => {
-        api.get('products', config).then(response => {
-            setProducts(response.data)
+        let newQueries = '';
+        const keys = Object.keys(props.filters);
+        keys.forEach(key => {
+            if(props.filters[key]) {
+                newQueries += `&${key}=${props.filters[key]}`;
+            }
+        });
+        setQueries(newQueries);
+
+        const url = `products?page=${page}${newQueries}`
+        
+        api.get(url, config).then(response => {
+            setProducts(response.data) 
             console.log(response.data)
         });
     }, []);
@@ -36,7 +60,10 @@ export default function ProductCard(props) {
 
     async function loadFollowingPage() {
         const currentPos = scrollPosition;
-        const nextPage = await api.get(`products?page=${page+1}`, config);
+
+        const url = `products?page=${page+1}${queries}`;
+
+        const nextPage = await api.get(url, config);
         setProducts([...products, ...nextPage.data]);
         setPage(page+1);
         window.scrollTo(0, currentPos);
