@@ -14,11 +14,17 @@ import ProductCard from '../../components/ProductCard';
 import './styles.css';
 
 function Dashboard() {
+    const [max_price, setMax_Price] = useState();
+    const [min_price, setMin_Price] = useState();
+    const [order_by, setOrder_by] = useState();
+    const [order_ascending, setOrder_ascending] = useState();
+    const [search, setSearch] = useState('cheiroso');
+    const [subcategory_id, setSubcategory_id] = useState();
     return (
         <div>
             <Header />
             {/* <HomeNavbar /> */}
-            <ProductCard />
+            <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
         </div>
 
     );
