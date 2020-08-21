@@ -33,7 +33,6 @@ function LoginContextProvider(props) {
         const config = {
           headers: { authorization: `Bearer ${newToken}` },
         };
-
         const resp = await api.get("verify", config);
 
         if (resp.data.verified) {
@@ -71,7 +70,7 @@ function LoginContextProvider(props) {
     name: username,
     id: userId,
     type: userType,
-    accessToken: accessToken,
+    accessToken: accessToken, 
 
     setLoggedIn: setLoggedIn,
     setName: setUsername,
