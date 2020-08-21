@@ -1,57 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
-import Pedido from './Pedido'
-import './styles.css';
-
-const pedidos = [
-  {
-    nome: 'Jonas',
-    email: 'jonas@jonas.com',
-    userType: 'varejista',
-    data: '11/05/2020',
-    valor: 'R$ 100,00',
-    status: 'Pago'
-  },
-  {
-    nome: 'Jonas',
-    email: 'jonas@jonas.com',
-    userType: 'varejista',
-    data: '11/05/2020',
-    valor: 'R$ 100,00',
-    status: 'Pendente'
-  },
-  {
-    nome: 'Jonas',
-    email: 'jonas@jonas.com',
-    userType: 'varejista',
-    data: '11/05/2020',
-    valor: 'R$ 100,00',
-    status: 'Postado'
-  }
-];
+import Pedido from "./Pedido";
+import "./styles.css";
 
 function Main() {
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    api.get("orders?byStatus=pending", {
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        },
+      })
+      .then((response) => {
+        setOrders(response.data);
+        console.log('orders', response.data)
+      });
+  }, []);
+
+  useEffect(() => {
+    api.get("lowStock", {
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        },
+      })
+      .then((response) => {
+        setProducts(response.data.products);
+      });
+  }, []);
+
+  useEffect(() => {
+    api.get("users?status=pending", {
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        },
+      })
+      .then((response) => {
+        setUsers(response.data);
+      });
+  }, []);
 
   return (
     <div className="main-container">
       <h4 className="titulo">Dashboard</h4>
       <div className="farol">
-        <div className="pendentes">
+        <div className="pendentes" key={orders.id}>
           <h4>Pedidos pendentes:</h4>
-          <h3>5</h3>
+          <h3>{orders.length}</h3>
         </div>
         <div className="acabando">
           <h4>Produtos com pouco estoque:</h4>
-          <h3>10</h3>
+          <h3>{products.length}</h3>
         </div>
         <div className="aguardando-aprovacao">
           <h4>Usuários aguardando aprovação</h4>
-          <h3>2</h3>
+          <h3>{users.length}</h3>
         </div>
       </div>
-    
+
       <div className="pedidos-pendentes">
         <h4 className="titulo">Pedidos pendentes</h4>
         <div className="tabela">
@@ -63,10 +73,11 @@ function Main() {
             <div className="valor">Valor do pedido</div>
             <div className="status">Status</div>
           </div>
-          {pedidos.map((pedido, index) => <Pedido key={`pedido-${index}`} pedido={pedido}/>)}
+          {orders.map((pedido, index) => (
+            <Pedido key={`pedido-${index}`} pedido={pedido} />
+          ))}
         </div>
       </div>
-
     </div>
   );
 }

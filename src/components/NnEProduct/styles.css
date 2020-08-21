@@ -1,9 +1,11 @@
-.tudo {
+.new-product-all {
     width: 100%;
     background-color: #f8f8f4;
   }
+
   .product-title-page {
-    width: 100%;
+    min-width: 100%;
+    color: #707070;
   }
   form {
     display: flex;
