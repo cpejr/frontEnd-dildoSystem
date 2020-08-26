@@ -14,6 +14,7 @@ import PendingOrders from './pages/PendingOrders';
 import EditProducts from './pages/EditProduct';
 import User from './pages/User';
 import MyRequests from './pages/MyRequests';
+import ForgottenPassword from './pages/ForgottenPassword';
 
 
 function Routes() {
@@ -23,6 +24,7 @@ function Routes() {
                 <LoginContextProvider>
                     <Route path='/' exact component={Dashboard} />
                     <Route path='/login' exact component={Login} />
+                    <Route path='/forgottenPassword' exact component={ForgottenPassword} />
                     <Route path='/register' exact component={Register} />
                     <Route path='/dashboard' exact component={Dashboard} />
                     <Route path='/admin' component={Admin} />
