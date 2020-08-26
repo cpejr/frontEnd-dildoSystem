@@ -19,7 +19,7 @@
     justify-content: space-between;
     border-radius: 15px;
     width: 225px;
-    height: 325px;
+    height: 350px;
     margin: 20px 10px;
     margin-top: 50px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -31,19 +31,46 @@
 }
 
 .Card img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+}
+
+.image-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #titulo-card {
     margin-bottom: 0;
     font-size: 18px;
+    line-height: 20px;;
     color: var(--text-color);
     text-align: center;
 }
 
-#preco-card {
+.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preco-card {
     color: var(--text-color);
+    font-size: 20px;
+}
+.preco-card.cortado {
+    color: darkred;
+    font-size: 14px;
+    text-decoration: line-through;
+    margin-bottom: 0;
+}
+
+.preco-promocao {
+    font-size: 24px;
+    margin: 0;
+    color: green;
 }
 
 #botao-comprar {

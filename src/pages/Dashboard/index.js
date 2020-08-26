@@ -18,7 +18,7 @@ function Dashboard() {
     const [min_price, setMin_Price] = useState();
     const [order_by, setOrder_by] = useState();
     const [order_ascending, setOrder_ascending] = useState();
-    const [search, setSearch] = useState('cheiroso');
+    const [search, setSearch] = useState();
     const [subcategory_id, setSubcategory_id] = useState();
     return (
         <div>
