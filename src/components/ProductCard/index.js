@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FiFilter } from 'react-icons/fi';
+import ImageLoader from 'react-loading-image';
+
 import api from '../../services/api';
 
 import './styles.css'
-import { FiFilter } from 'react-icons/fi';
+import loading from '../../images/Loading.gif';
+
 
 // props.filters = {
 //     max_price: Número representando preço máximo
@@ -16,6 +20,46 @@ import { FiFilter } from 'react-icons/fi';
 //     subcategory_id: id da subcategoria em que se pesquisa
 // }
 
+function PriceElement(props) {
+
+    const product = props.product;
+
+    if (product.wholesaler_price) {
+        if (product.on_sale_wholesaler) {
+            return (
+                <div className="price-container">
+                    <p className="preco-card cortado">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</p>
+
+                    <p className="preco-promocao">
+                        {`R$ ${Number(props.product.wholesaler_sale_price).toFixed(2)}`}
+                    </p>
+                </div>
+            )
+        } else {
+            return (
+                <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span>
+            )
+
+        } 
+    } else {
+        if (product.on_sale_client) {
+            return (
+                <div className="price-container">
+                    <p className="preco-card cortado">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</p>
+
+                    <p className="preco-promocao">
+                        {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
+                    </p>
+                </div>
+            )
+        } else {
+            return (
+                <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
+            )
+        } 
+    }
+}
+
 export default function ProductCard(props) {
 
     const [products, setProducts] = useState([]);
@@ -23,31 +67,43 @@ export default function ProductCard(props) {
     const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
 
+    const accessToken = localStorage.getItem('accessToken')
+
     const config = {
-        headers: { 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiQXJ0aHVyIiwiZmlyZWJhc2UiOiJNcG4yNzNRZEVsY3hxdllZc3VGdU9lMk5IRTYzIiwidHlwZSI6ImFkbWluIiwiY3BmIjoiMTUxMTIzNTg0MzkiLCJiaXJ0aGRhdGUiOiIwOS8wMS8yMDAxIiwiemlwY29kZSI6IjMxNzU4NDQiLCJwaG9uZW51bWJlciI6Ijk4NTc0NjczODQiLCJzdGF0ZSI6Ik1pbmFzIEdlcmFpcyIsImNpdHkiOiJCZWxvIEhvcml6b250ZSIsIm5laWdoYm9yaG9vZCI6IlVuacOjbyIsInN0cmVldCI6Ik5lbHNvbiIsIm51bWJlciI6IjEyMyIsImNvbXBsZW1lbnQiOiJhcHQgMTAxIiwiY3JlYXRlZF9hdCI6IjIwMjAtMDgtMTAgMTQ6NTk6MjMiLCJ1cGRhdGVkX2F0IjoiMjAyMC0wOC0xMCAxNDo1OToyMyIsImFwcHJvdmVkIjoiZmFsc2UifSwiaWF0IjoxNTk3MDkxNTk4LCJleHAiOjE1OTk2ODM1OTh9.2okxqbbhK9CPvHxhwnaUfBLuJu_cG73kwUyaZf_9ryU' }
+        headers: { 'authorization': `Bearer ${accessToken}` }
     }
 
     useEffect(() => {
         let newQueries = '';
         const keys = Object.keys(props.filters);
         keys.forEach(key => {
-            if(props.filters[key]) {
+            if (props.filters[key]) {
                 newQueries += `&${key}=${props.filters[key]}`;
             }
         });
         setQueries(newQueries);
 
-        const url = `products?page=${page}${newQueries}`
-        
-        api.get(url, config).then(response => {
-            setProducts(response.data) 
-            console.log(response.data)
-        });
+        const url = `products?page=${page}${newQueries}`;
+        console.log(url);
+
+        if (accessToken) {
+            api.get(url, config).then(response => {
+                setProducts(response.data)
+                console.log(response.data)
+            });
+        } else {
+            api.get(url).then(response => {
+                setProducts(response.data)
+                console.log(response.data)
+            });
+        }
+
+
     }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -61,11 +117,18 @@ export default function ProductCard(props) {
     async function loadFollowingPage() {
         const currentPos = scrollPosition;
 
-        const url = `products?page=${page+1}${queries}`;
+        const url = `products?page=${page + 1}${queries}`;
 
-        const nextPage = await api.get(url, config);
+        let nextPage;
+
+        if (accessToken) {
+            nextPage = await api.get(url, config);
+        } else {
+            nextPage = await api.get(url);
+        }
+
         setProducts([...products, ...nextPage.data]);
-        setPage(page+1);
+        setPage(page + 1);
         window.scrollTo(0, currentPos);
     }
 
@@ -75,14 +138,17 @@ export default function ProductCard(props) {
                 {products.map(product => (
 
                     <div className="Card">
-                        <Link to="">
-                            <img src={`https://docs.google.com/uc?id=${product.image_id}`} alt={product.name} />
+                        <Link to="" className="image-text-container">
+                            <ImageLoader
+                                src={`https://docs.google.com/uc?id=${product.image_id}`}
+                                loading={() => <img src={loading} alt="Loading..." />}
+                                error={() => <div>Error</div>} />
                             <p id="titulo-card">
-                                {product.name}
+                                {product.name + ' aaaaaaaaaaaa aaaaaaaaaa'}
                             </p>
                         </Link>
 
-                        <span id="preco-card">{`R$ ${Number(product.client_price).toFixed(2)}`}</span>
+                        <PriceElement product={product} />
 
                         <Link id="botao-comprar" to="">
                             <span>COMPRAR</span>
