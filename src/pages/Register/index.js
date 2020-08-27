@@ -143,6 +143,7 @@ function Register() {
                 history.push('/login');
 
             } catch (err) {
+                console.log(err);
                 alert('Erro ao cadastrar usuario!');
             }
         }
@@ -156,6 +157,7 @@ function Register() {
                     <FiArrowLeft size={20} color="#a17402" />
                          Login
                     </Link>
+                    <form>
                 <section className="form">
                     <h1>CADASTRO</h1>
                     <div className="line mb-4" />
@@ -351,6 +353,7 @@ function Register() {
 
                     </div>
                 </section>
+                </form>
             </div>
         </div>
     );
