@@ -5,5 +5,14 @@
 }
 
 .successText {
+  padding-top: 10px;
   color: green;
+  font-weight: bold;
+}
+
+.return-buttons {
+  display: flex;
+  width: 280px;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
