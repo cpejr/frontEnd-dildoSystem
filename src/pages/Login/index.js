@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from '@material-ui/core'
+import { FiArrowLeft } from 'react-icons/fi';
 
 import {LoginContext} from '../../Contexts/LoginContext';
 
@@ -52,11 +53,19 @@ function Login() {
 
     return (
         <div className="login-container">
+                          
             <div className="login-content">
+            <Link className="back-link" to="/">
+                    <FiArrowLeft size={20} color="#a17402" />
+                         Loja
+                    </Link>
+                <form>
                 <section className="form">
                     <h1>LOGIN</h1>
                     <div className="line" />
                     <div className="mt-4">
+                       
+                       
                         <TextField
                             className="input"
                             InputProps={{
@@ -97,10 +106,15 @@ function Login() {
                         </LoginContext.Consumer>
                         
                     </div>
+                    
                     <Link className="link" to="/register">
                         <Button className="button" type="submit" color="primary" variant="outlined"> Cadastrar </Button>
                     </Link>
+                    <Link className="link" to="/ForgottenPassword">
+                        <Button className="button" type="submit" color="primary" variant="outlined"> Esqueci Minha Senha </Button>
+                    </Link>
                 </section>
+                </form>
             </div>
         </div>
     );

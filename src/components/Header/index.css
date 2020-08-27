@@ -44,7 +44,7 @@
     margin-bottom: 0;
 }
 #Header .headerSuperior .has-search .form-control {
-    padding-left: 35px;
+    padding-left: 5vh;
     border-radius: 20px;
 }
 #Header .headerSuperior .MuiSvgIcon-root{

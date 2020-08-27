@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiMail } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from '@material-ui/core'
-
+import { FiArrowLeft } from 'react-icons/fi';
 
 import api from '../../services/api';
 
@@ -38,6 +38,10 @@ function ForgottenPassword() {
   return (
     <div className="login-container">
       <div className="login-content">
+      <Link className="back-link" to="/login">
+                    <FiArrowLeft size={20} color="#a17402" />
+                         Login
+                    </Link>
         <section className="form">
           <h1>Esqueci minha senha</h1>
           <div className="line" />
@@ -61,7 +65,7 @@ function ForgottenPassword() {
               
 
            
-            <Button className="button" type="submit" color="primary" variant="outlined"> Enviar e-mail de recuperação </Button>
+            <Button className="button" type="submit" color="primary" variant="contained"> Enviar e-mail de recuperação </Button>
             {error && <p className="errortext">
                 {error}
               </p>}
