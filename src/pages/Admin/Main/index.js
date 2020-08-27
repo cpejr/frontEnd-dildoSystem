@@ -5,6 +5,8 @@ import api from "../../../services/api";
 import Pedido from "./Pedido";
 import "./styles.css";
 
+
+
 function Main() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
@@ -63,20 +65,16 @@ function Main() {
       </div>
 
       <div className="pedidos-pendentes">
-        <h4 className="titulo">Pedidos pendentes</h4>
-        <div className="tabela">
-          <div className="cabecalho">
-            <div className="nome">Nome</div>
-            <div className="email">E-mail</div>
-            <div className="user-type">Tipo de usuário</div>
-            <div className="data">Data de compra</div>
-            <div className="valor">Valor do pedido</div>
-            <div className="status">Status</div>
-          </div>
-          {orders.map((pedido, index) => (
+        <h4 className="titulo">Últimos Pedidos</h4>     
+        <div>
+        {orders.map((pedido, index) => (
             <Pedido key={`pedido-${index}`} pedido={pedido} />
           ))}
         </div>
+
+
+
+
       </div>
     </div>
   );

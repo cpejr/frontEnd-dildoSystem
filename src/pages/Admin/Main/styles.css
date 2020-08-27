@@ -1,10 +1,13 @@
 .main-container {
   margin-top: 50px;
-  margin-left: 15%;
-  margin-right: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .farol {
+  max-width: 1000px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -23,6 +26,9 @@
   padding: 20px 0;
 }
 
+.orders-item a{
+  color: black;
+}
 .farol h4 {
   font-size: 18px;
   text-align: center;
@@ -45,6 +51,7 @@ h4.titulo {
 }
 
 .pedidos-pendentes {
+  max-width: 1000px;
   width: 100%;
   max-height: 500px;
   border-radius: 10px;
@@ -86,6 +93,109 @@ h4.titulo {
   color:white;
   font-weight: bold;
   font-size: 12px;
-  width: 90%;
+  width: 100%;
   text-align: center;
+}
+
+/* OUTROS */
+.orders-container{
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.orders-container h4{
+  color: #707070;
+}
+
+
+.orders-content{
+  background-color: white;
+  height: auto;
+  width: 100%;
+  border-radius: 10px;
+  padding-top: 15px;
+  margin-top: 5px;
+}
+
+.orders-data{
+  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+  padding-bottom: 8px;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+}
+
+.orders-container h6{
+  font-size: "1.5vh";
+  color: #707070;
+  margin-left: 20px;
+}
+
+.orders-item{
+  display: flex;
+  color: #707070;
+  margin-top: 8px;
+  margin-left: 12px;
+}
+
+.orders-item strong{
+  margin-right: 8px;
+}
+
+.orders-button-area{
+  width: 20%;
+  margin-top: auto;
+  display: flex;
+  margin-bottom: 20px;
+  
+}
+
+.orders-info{
+  width: 80%;
+}
+
+.orders-accept-button{
+  margin-right: 15px;
+  color: #4BBC4C;
+  cursor: pointer;
+}
+
+.orders-refuse-button{
+  color: #FF0000;
+  cursor: pointer;
+}
+
+@media (max-width: 600px){
+  .orders-container{
+      margin-right: 0;
+      margin-left: 0;
+  }
+  .orders-data{
+      display: block;
+  }
+
+  .orders-info{
+      width: 100%;
+  }
+
+  .orders-container h5{
+      margin-left: 10px;
+  }
+
+  .orders-item{
+      display: block;
+  }
+
+  .orders-item strong{
+      font-size: 14px;
+  }
+
+  .orders-button-area{
+      width: 25%;
+      margin-bottom: 0px;
+      margin-top: 0px;
+      display: flex;
+      margin-left: auto;
+  }
+
 }

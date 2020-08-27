@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import {Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import SearchIcon from '@material-ui/icons/Search';
@@ -24,7 +24,10 @@ export default function Header() {
                 <div onClick={() => { history.push('/cart') }}>
                     <ShoppingCartOutlinedIcon />
                 </div>
+                <div onClick={() => { history.push('/admin') }}>
                 <PersonOutlinedIcon />
+                </div>
+
             </div>
             <div className="headerInferior">
                 <img className="headerImg" src={LogoName} alt="logo" />
