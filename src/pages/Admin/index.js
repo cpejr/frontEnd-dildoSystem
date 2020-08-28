@@ -16,6 +16,7 @@ import PersistentDrawerLeft from "../TestAdmin";
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from '../../components/PendingUsers';
+import Products from '../../components/Products/index.js'
 
 function Admin(props) {
 
@@ -52,6 +53,18 @@ function Admin(props) {
                                     component={PendingUsers}
                                   />
                                  }
+                                 {
+                                   <Route
+                                    path={`${props.match.path}/products`}
+                                    component={Products}
+                                  />
+                                 }
+                                 {/* {
+                                   <Route
+                                    path={`${props.match.path}/products/edit`}
+                                    component={EditProducts}
+                                  />
+                                 } */}
                               </AdminDashboard2>
                             </div>
                         );

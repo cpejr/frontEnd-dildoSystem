@@ -225,8 +225,12 @@ function Register() {
                             <TextField
                                 className="input-register"
                                 variant="outlined"
-                                label="Data de Aniversario"
-                                // type="date"
+                                id="date"
+                                label="Data de Nascimento"
+                                type="date"
+                                InputLabelProps={{
+                                    shrink: true,
+                                  }}
                                 value={birthdate}
                                 onChange={e => setBirthdate(e.target.value)}
                                 error={birthdateError}
@@ -248,6 +252,7 @@ function Register() {
                         <TextField
                             className="input-register"
                             variant="outlined"
+                            defaultValue="kowqkeo"
                             label="CEP"
                             value={zipcode}
                             onChange={e => setZipcode(e.target.value)}
