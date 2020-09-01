@@ -18,16 +18,6 @@ export default function Header() {
 
     let history = useHistory();
 
-    useEffect(() => {
-        if(localStorage.accessToken){
-            setIconsVisible(true);
-            setIsLoginButtonVisible(false);
-         } else {
-            setIconsVisible(false);
-            setIsLoginButtonVisible(true); 
-         }
-        }
-    );
     return (
         <div id="Header">
             <div className="headerSuperior">

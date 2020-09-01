@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
+import api from "../../services/api";
 
-import UsuariosPendentes from './UsuariosPendentes';
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
+
+import UsuariosPendentes from "./UsuariosPendentes";
 import "./styles.css";
 
-const usuariospendentes = [
+/* const usuariospendentes = [
   {
     name: 'Alceu Carvalho de Pinto',
     cpf: '121.241.322-54',
@@ -20,14 +22,38 @@ const usuariospendentes = [
     email: 'adqfgr@msn.com',
     telefone: '(31) 931233321'
   },
-]
+] */
 
 export default function PendingUsers() {
+  const [usuariospendentes, setusuariospendentes] = useState([]);
+  const [update, setUpdate] = useState(false);
+
+  useEffect(() => {
+    api
+      .get("users?user_status=pending", {
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setusuariospendentes(response.data);
+        console.log(usuariospendentes);
+      });
+  }, [update]);
+
   return (
     <div className="pending-users-container">
       <h4>Usuários Pendentes</h4>
       <div className="pending-users-content">
-        {usuariospendentes.map((pendingusers, index) => <UsuariosPendentes key ={`pendingusers-${index}`} pendingusers={pendingusers} />)}
+        {usuariospendentes.map((pendingusers, index) => (
+          <UsuariosPendentes
+            key={`pendingusers-${index}`}
+            pendingusers={pendingusers}
+            update={update}
+            setUpdate={setUpdate}
+          />
+        ))}
       </div>
     </div>
   );

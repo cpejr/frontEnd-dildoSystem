@@ -36,7 +36,7 @@ function Main() {
   }, []);
 
   useEffect(() => {
-    api.get("users?status=pending", {
+    api.get("users?user_status=pending", {
         headers: {
           authorization: "Bearer " + localStorage.accessToken,
         },
