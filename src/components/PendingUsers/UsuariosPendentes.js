@@ -67,7 +67,7 @@ export default function UsuariosPendentes(props) {
           </div>
           <div className="pending-users-item">
             <strong>Telefone:</strong>
-            <p>{props.pendingusers.telefone}</p>
+            <p>{props.pendingusers.phonenumber}</p>
           </div>
         </div>
         <div className="pending-users-button-area">

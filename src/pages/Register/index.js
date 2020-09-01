@@ -35,7 +35,7 @@ function Register() {
     const [streetError, setStreetError] = useState();
     const [number, setNumber] = useState('');
     const [numberError, setNumberError] = useState();
-    const [complement, setComplement] = useState('');
+    const [complement, setComplement] = useState();
     // const [complementError, setComplementError] = useState();
 
 
@@ -138,7 +138,7 @@ function Register() {
             try {
                 const response = await api.post('/user', data);
 
-                alert(`Seu ID de acesso: ${response.data.id}`);
+                alert(`Cadastro realizado com sucesso!`);
 
                 history.push('/login');
 
