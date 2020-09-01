@@ -210,3 +210,11 @@
         color: #000000;
     }
 }
+.iconsDashboard{
+    display: flex;
+    flex-direction: row;
+}
+
+.loginButton{
+    margin-left: 2vh;
+}
