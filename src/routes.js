@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import LoginContextProvider from './Contexts/LoginContext';
 import User from './pages/User';
 import ForgottenPassword from './pages/ForgottenPassword';
+import ProductPage from './pages/ProductPage';
 
 
 function Routes() {
@@ -23,6 +24,7 @@ function Routes() {
                     <Route path='/admin' component={Admin} />
                     <Route path='/cart' exact component={Cart} />
                     <Route path='/user' component={User} />
+                    <Route path='/product/:id' component={ProductPage}/>
                 </LoginContextProvider>
 
             </Switch>
