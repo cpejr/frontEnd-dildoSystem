@@ -1,5 +1,6 @@
-import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import SearchIcon from '@material-ui/icons/Search';
@@ -17,6 +18,16 @@ export default function Header() {
 
     let history = useHistory();
 
+    useEffect(() => {
+        if(localStorage.accessToken){
+            setIconsVisible(true);
+            setIsLoginButtonVisible(false);
+         } else {
+            setIconsVisible(false);
+            setIsLoginButtonVisible(true); 
+         }
+        }
+    );
     return (
         <div id="Header">
             <div className="headerSuperior">
@@ -24,6 +35,7 @@ export default function Header() {
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
                     <input type="text" className="form-control searchInput" placeholder="Search" />
                 </div>
+
                 <Link to="/cart" className="icon-link">
                     <ShoppingCartOutlinedIcon />
                 </Link>
@@ -52,6 +64,7 @@ export default function Header() {
                     }
 
                 </LoginContext.Consumer>
+
 
             </div>
             <div className="headerInferior">

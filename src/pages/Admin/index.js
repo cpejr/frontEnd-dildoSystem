@@ -14,6 +14,7 @@ import NnEProduct from "../../components/NnEProduct";
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from '../../components/PendingUsers';
+import Products from '../../components/Products/index.js'
 
 function Admin(props) {
 
@@ -66,6 +67,7 @@ function Admin(props) {
     </LoginContext.Consumer>
 
   );
+
 
 }
 

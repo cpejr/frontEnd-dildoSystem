@@ -62,6 +62,7 @@
     border-radius: 20px;
 }
 #Header .headerSuperior .MuiSvgIcon-root{
+    color: black;
     margin: 0 15px;
 }
 #Header .headerSuperior .has-search .form-control-feedback {
@@ -220,5 +221,15 @@
     .dropdown-content {
         position: initial;
     }
-    
+    .icone{
+        color: #000000;
+    }
+}
+.iconsDashboard{
+    display: flex;
+    flex-direction: row;
+}
+
+.loginButton{
+    margin-left: 2vh;
 }

@@ -128,7 +128,7 @@ export default function AdminDashboard2(props) {
           </div>
           <div className="userDiv">
                 <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
-                <div><PersonOutline /></div>
+                <div><Link to="/admin"><PersonOutline /></Link></div>
             </div>
         </Toolbar>
       </AppBar>
@@ -162,9 +162,10 @@ export default function AdminDashboard2(props) {
 
                 <Divider />
 
+
                 <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
                     <ListItemIcon><LocalOffer /></ListItemIcon>
-                    <ListItemText>Editar Produto</ListItemText>
+                    <ListItemText>Produtos</ListItemText>
                 </ListItem>
 
                 <Divider />
