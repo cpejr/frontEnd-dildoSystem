@@ -28,7 +28,7 @@
     -webkit-transform: rotate(45deg) translate(-8px, -7px);
     transform: rotate(45deg)  translate(-8px, -7px);
 }
-@media(max-width:780px){
+@media(max-width:890px){
     .menuBurger{
         display: block;
     }

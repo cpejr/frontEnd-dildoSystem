@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
@@ -6,15 +7,16 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+
 import Burger from '../../components/Burger/index';
+import { LoginContext } from '../../Contexts/LoginContext';
 
 import './index.css';
+import { Button } from '@material-ui/core';
 
 export default function Header() {
 
     let history = useHistory();
-    const [isIconsVisible, setIconsVisible] = useState(false);
-    const [IsLoginButtonVisible, setIsLoginButtonVisible] = useState(false);
 
     useEffect(() => {
         if(localStorage.accessToken){
@@ -34,16 +36,34 @@ export default function Header() {
                     <input type="text" className="form-control searchInput" placeholder="Search" />
                 </div>
 
-                {isIconsVisible ? <div className="iconsDashboard"><div onClick={() => { history.push('/cart') }}>
+                <Link to="/cart" className="icon-link">
                     <ShoppingCartOutlinedIcon />
-                </div>
-                    <div onClick={() => { history.push('/admin') }}>
-                        <PersonOutlinedIcon />
-                    </div></div> : null}
+                </Link>
 
-                {IsLoginButtonVisible ? <div className="loginButton" onClick={() => { history.push('/Login') }}>
-                    <button>LOGIN</button>
-                </div> : null} 
+                <LoginContext.Consumer>
+
+                    {
+                        context => {
+                            if (context.loggedIn) {
+                                return (
+                                    <Link to={context.type==="admin"?"/admin":"/user"} className="icon-link user-info">
+                                        <PersonOutlinedIcon />
+                                        <p>{context.name}</p>
+                                    </Link>
+
+                                )
+                            } else {
+                                return (
+                                    <Link to="/login">
+                                        <Button>Entrar</Button>
+                                    </Link>
+
+                                )
+                            }
+                        }
+                    }
+
+                </LoginContext.Consumer>
 
 
             </div>
