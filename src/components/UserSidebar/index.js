@@ -184,7 +184,7 @@ export default function UserSidebar(props) {
                 </ListItem>
                 <Divider />
 
-                <ListItem button component={Link} to="/dashboard" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ReplyIcon /></ListItemIcon>
                     <ListItemText>Voltar às Compras</ListItemText>
                 </ListItem>
