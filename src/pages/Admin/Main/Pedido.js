@@ -21,7 +21,7 @@ function Pedido2(props) {
 
   return (
 <div className="orders-content">
-<h6>Dados do Pedido</h6>
+  <h6>Dados do Pedido ID:{props.pedido.id}</h6>
 <div className="orders-data">
   <div className="orders-info">
   <div className="orders-item">
