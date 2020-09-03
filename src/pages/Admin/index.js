@@ -45,7 +45,7 @@ function Admin(props) {
                   />
 
                   <Route
-                    path={`${props.match.path}/pendingorder`}
+                    path={`${props.match.path}/pendingorder/:id`}
                     component={Orders}
                   />
 
