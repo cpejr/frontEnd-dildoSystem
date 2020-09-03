@@ -2,10 +2,11 @@
 :root {
     --mainColor: #DAA621;
     --text-color: #333;
+    --green-color: #00ca1a
    
 }
 #root{
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #F8F8F4;

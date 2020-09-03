@@ -138,7 +138,7 @@ export default function ProductCard(props) {
                 {products.map(product => (
 
                     <div className="Card">
-                        <Link to="" className="image-text-container">
+                        <Link to={`/product/${product.id}` }className="image-text-container">
                             <ImageLoader
                                 src={`https://docs.google.com/uc?id=${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
