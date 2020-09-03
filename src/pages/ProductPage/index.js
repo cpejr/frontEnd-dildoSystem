@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import ImageLoader from 'react-loading-image';
+import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
+import { FiArrowLeft } from 'react-icons/fi';
 
 import './styles.css';
 import loading from '../../images/Loading.gif';
@@ -15,6 +18,17 @@ function ProductPage(props) {
   const [productData, setProductData] = useState();
   const [images, setImages] = useState([]);
   const [bigImageIndex, setBigImageIndex] = useState(0);
+
+  const [onSale, setOnSale] = useState();
+  const [price, setPrice] = useState(false);
+  const [onSalePrice, setOnSalePrice] = useState();
+
+  const [selectedSubpIndex, setSelectedSubpIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [cep, setCep] = useState('');
+
+  const user = useContext(LoginContext);
+  const history = useHistory();
 
   const accessToken = localStorage.getItem('accessToken');
 
@@ -38,8 +52,64 @@ function ProductPage(props) {
     }
   }, [])
 
+  useEffect(() => {
+    if (productData) {
+      const price = (user.type === 'wholesaler' ? productData.wholesaler_price : productData.client_price);
+      let salePrice;
+      let onSale = false;
+      if (productData.on_sale_wholesaler && user.type === 'wholesaler') {
+        salePrice = productData.wholesaler_sale_price;
+        onSale = true;
+      } else if (productData.on_sale_client && user.type === 'retailer') {
+        salePrice = productData.client_sale_price;
+        onSale = true;
+      }
+
+      setPrice(price);
+      setOnSale(onSale);
+      setOnSalePrice(salePrice);
+    }
+  }, [productData]);
+
+
   function changeBigImage(event) {
     setBigImageIndex(event.target.parentNode.getAttribute('data-index'));
+  }
+
+  function selectSubproduct(event) {
+    setSelectedSubpIndex(Number(event.target.getAttribute('data')));
+    setQuantity(1);
+  }
+
+  function incrementQuantity() {
+    if (quantity < productData.stock_quantity)
+      setQuantity(quantity + 1);
+  }
+
+  function decrementQuantity() {
+    if (quantity > 1)
+      setQuantity(quantity - 1);
+  }
+
+  function handleCepChange(event) {
+    const accepted = ['0','1','2','3','4','5','6','7','8','9', '-'];
+    
+    const indexOfChar = accepted.indexOf(event.target.value.slice(-1));
+    console.log(event.target.value)
+    if(event.target.value!='' && (indexOfChar < 0 || (indexOfChar==10 && event.target.value.length != 5 && event.target.value.length != 6))) {
+      console.log(event.target.value.length)
+      setCep(cep);
+      return;
+    }
+
+    let newCep = event.target.value;
+
+    if(newCep.length === 5 && cep.length===4) {
+      newCep += '-';
+    }
+
+    setCep(newCep);
+    
   }
 
   return (
@@ -51,6 +121,9 @@ function ProductPage(props) {
           <div className="product-page-wrapper">
             <div className="product-page-container">
               <div className="photos-column">
+                <div className="go-back-btn" onClick={()=>{history.goBack()}}>
+                  <FiArrowLeft className="icon" /> Voltar
+                </div>
                 <div className="img-container">
                   <ImageLoader
                     src={images[bigImageIndex]}
@@ -71,12 +144,59 @@ function ProductPage(props) {
                     )
                   })}
                 </div>
-
               </div>
-              <div className="info-column">
-                <h2 className="title">Nome do produto</h2>
-                <p className="description">Descrição detalhada do produto</p>
 
+              <div className="info-column">
+                <h2 className="title">{productData.name}</h2>
+                <p className="description">{productData.description}</p>
+
+                <div className="divider-line" />
+
+                <div className="prices">
+                  <h2 className={`main-price ${onSale && 'sale'}`}>{`R$ ${Number(price).toFixed(2)}`}</h2>
+                  {onSale && <h2 className="sale-price">{`R$ ${Number(onSalePrice).toFixed(2)}`}</h2>}
+                </div>
+
+                <div className="divider-line" />
+                <div className="options">
+
+                  <div className="subproduct-options">
+                    <div className="option-selector">
+                      <p>Opção: </p>
+                      {productData.subproducts.length > 0
+                        ? productData.subproducts.map((subp, index) => {
+                          return (
+                            <img
+                              src={`https://docs.google.com/uc?id=${subp.image_id} `}
+                              key={`option-${index + 1}`}
+                              data={index}
+                              className={index === selectedSubpIndex && 'selected'}
+                              onClick={selectSubproduct}
+                            />
+                          )
+                        })
+                        : <p> Única</p>}
+                    </div>
+                    {productData.subproducts.length > 0 &&
+                      <div className="chosen-option">
+                        <p style={{ "font-weight": "bold" }}>{'Selecionado:'} </p>
+                        <p> {productData.subproducts[selectedSubpIndex].name}</p>
+                      </div>
+                    }
+                  </div>
+
+                  <div className="quantity-options">
+                    <FaMinusCircle className={"quantity-changer " + (quantity <= 1 && 'locked')} onClick={decrementQuantity} />
+                    <p className="quantity-indicator">{quantity}</p>
+                    <FaPlusCircle className={"quantity-changer " + (quantity >= productData.stock_quantity && "locked")} onClick={incrementQuantity} />
+                  </div>
+                </div>
+                <button className="buy-button" onClick={()=>{console.log('Add to cart')}}>COMPRAR</button>
+                <div className="shipping">
+                  <input type="text" placeholder="Digite seu CEP" value={cep} onChange={handleCepChange} min="0" maxlength="9"/>
+                  <button>CALCULAR FRETE</button>
+                </div>
+                
               </div>
             </div>
           </div>
