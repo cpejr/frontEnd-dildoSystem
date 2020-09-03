@@ -13,14 +13,14 @@ function Main() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    api.get("orders", {
+    api.get("orders?byStatus=pending", {
         headers: {
           authorization: "Bearer " + localStorage.accessToken,
         },
       })
       .then((response) => {
         setOrders(response.data);
-        console.log(orders)
+        console.log('orders', response.data)
       });
   }, []);
 
@@ -50,7 +50,7 @@ function Main() {
     <div className="main-container">
       <h4 className="titulo">Dashboard</h4>
       <div className="farol">
-        <div className="pendentes" >
+        <div className="pendentes" key={orders.id}>
           <h4>Pedidos pendentes:</h4>
           <h3>{orders.length}</h3>
         </div>
