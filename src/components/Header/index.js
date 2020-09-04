@@ -37,9 +37,15 @@ export default function Header() {
             setSubCategories(response.data)
             console.log(response.data)
         })
-    },[])
+    }, [])
 
 
+    const categoriasSet = new Set();
+    subCategories.forEach(element => (
+        categoriasSet.add(element.catname)
+    ))
+
+    const categorias = [...categoriasSet];
 
     return (
         <div id="Header">
@@ -59,7 +65,7 @@ export default function Header() {
                         context => {
                             if (context.loggedIn) {
                                 return (
-                                    <Link to={context.type==="admin"?"/admin":"/user"} className="icon-link user-info">
+                                    <Link to={context.type === "admin" ? "/admin" : "/user"} className="icon-link user-info">
                                         <PersonOutlinedIcon />
                                         <p>{context.name}</p>
                                     </Link>
@@ -86,20 +92,26 @@ export default function Header() {
                     <div className="emptyDiv"> </div>
                     <div className="empty" />
 
-                    {categories.map(element => (
-                        <div className="dropdown">
-                        <button className="dropbtn">{element.name} <KeyboardArrowDownIcon /> </button>
-                        <div className="dropdown-content">
-                            <div className="emptyHeaderDiv"></div>
-                            {subCategories.map(subelement => (
-                                <div className="dropdownLinks">
-                                <a href="#">{subelement.name}</a>
+                    {
+                        categorias.map(element => (
+                            <div className="dropdown">
+                                <button className="dropbtn">{element} <KeyboardArrowDownIcon /> </button>
+                                <div className="dropdown-content">
+                                    <div className="emptyHeaderDiv"></div>
+                                    <div className="dropdownLinks">
+                                        {
+                                            subCategories.map(subelement => (
+                                                <div>
+                                                    {subelement.catname == element &&
+                                                        <a href="#">{subelement.subcatname}</a>}
+                                                </div>
+                                            ))}
+                                    </div>
+
+                                </div>
                             </div>
-                            ))}
-                            
-                        </div>
-                    </div>
-                    ))}
+                        ))
+                    }
 
                     {/* <div className="dropdown">
                         <button className="dropbtn">Cosméticos <KeyboardArrowDownIcon /> </button>
