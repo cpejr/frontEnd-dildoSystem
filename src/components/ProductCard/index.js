@@ -81,6 +81,7 @@ export default function ProductCard(props) {
                 newQueries += `&${key}=${props.filters[key]}`;
             }
         });
+        
         setQueries(newQueries);
 
         const url = `products?page=${page}${newQueries}`;
@@ -99,7 +100,7 @@ export default function ProductCard(props) {
         }
 
 
-    }, []);
+    }, [props.filters]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });

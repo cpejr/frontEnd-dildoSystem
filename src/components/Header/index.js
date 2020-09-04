@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
@@ -16,15 +15,25 @@ import { Button } from '@material-ui/core';
 
 export default function Header() {
 
-    let history = useHistory();
+    const [search, setSearch] = useState('');
+
+    const history = useHistory();
+
+    function handleSearch(e) {
+        e.preventDefault();
+        let newSearch = search.replace(/ /g, '%')
+        newSearch = newSearch.normalize('NFD'); //retira acentos
+        console.log(newSearch)
+        history.push(`/?search=${newSearch}`);
+    }
 
     return (
         <div id="Header">
             <div className="headerSuperior">
-                <div className="form-group has-search">
+                <form className="form-group has-search" onSubmit={handleSearch}>
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-                    <input type="text" className="form-control searchInput" placeholder="Search" />
-                </div>
+                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                </form>
 
                 <Link to="/cart" className="icon-link">
                     <ShoppingCartOutlinedIcon />
