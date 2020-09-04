@@ -24,6 +24,7 @@ function ProductPage(props) {
   const [onSalePrice, setOnSalePrice] = useState();
 
   const [selectedSubpIndex, setSelectedSubpIndex] = useState(0);
+  const [relevantStock, setRelevantStock] = useState();
   const [quantity, setQuantity] = useState(1);
   const [cep, setCep] = useState('');
 
@@ -47,6 +48,21 @@ function ProductPage(props) {
           `https://picsum.photos/id/1018/1000/600/`,
           `https://picsum.photos/id/1015/1000/600/`,
         ]);
+        console.log(response.data)
+      });
+    } else {
+      api.get(url).then(response => {
+        setProductData(response.data)
+        setImages([...images,
+        `https://docs.google.com/uc?id=${response.data.image_id}`,
+          `https://picsum.photos/id/1018/1000/600/`,
+          `https://picsum.photos/id/1015/1000/600/`,
+        ]);
+        if(response.data.subproducts.length > 0) {
+          setRelevantStock(response.data.subproducts[0].stock_quantity);
+        } else {
+          setRelevantStock(response.data.stock_quantity);
+        }
         console.log(response.data)
       });
     }
@@ -77,12 +93,14 @@ function ProductPage(props) {
   }
 
   function selectSubproduct(event) {
-    setSelectedSubpIndex(Number(event.target.getAttribute('data')));
+    const newIndex = Number(event.target.getAttribute('data'));
+    setSelectedSubpIndex(newIndex);
+    setRelevantStock(productData.subproducts[newIndex].stock_quantity);
     setQuantity(1);
   }
 
   function incrementQuantity() {
-    if (quantity < productData.stock_quantity)
+    if (quantity < relevantStock)
       setQuantity(quantity + 1);
   }
 
@@ -188,10 +206,14 @@ function ProductPage(props) {
                   <div className="quantity-options">
                     <FaMinusCircle className={"quantity-changer " + (quantity <= 1 && 'locked')} onClick={decrementQuantity} />
                     <p className="quantity-indicator">{quantity}</p>
-                    <FaPlusCircle className={"quantity-changer " + (quantity >= productData.stock_quantity && "locked")} onClick={incrementQuantity} />
+                    <FaPlusCircle className={"quantity-changer " + (quantity >= relevantStock && "locked")} onClick={incrementQuantity} />
                   </div>
                 </div>
-                <button className="buy-button" onClick={()=>{console.log('Add to cart')}}>COMPRAR</button>
+                {(relevantStock > 0 
+                  ?(<button className="buy-button" onClick={()=>{console.log('Add to cart')}}>COMPRAR</button>)
+                  :(<div className="unavailable">Produto indisponível</div>)
+                  )}
+                
                 <div className="shipping">
                   <input type="text" placeholder="Digite seu CEP" value={cep} onChange={handleCepChange} min="0" maxlength="9"/>
                   <button>CALCULAR FRETE</button>
