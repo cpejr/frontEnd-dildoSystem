@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import api from "../../services/api";
 import "./styles.css";
-import { LoginContext } from "../../Contexts/LoginContext";
+import ImageUpload from '../../components/ImageUpload';
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -62,23 +62,22 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function NewProduct(props) {
+export default function NewProduct(props, { id, className, fileName, onSubmit }) {
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
   const [client_sale_price, setClientSalePrice] = useState(0);
   const [wholesaler_price, setWholesalerPrice] = useState(0);
   const [wholesaler_sale_price, setWholesalerSalePrice] = useState(0);
-  const [on_sale_client, setOnsaleClient] = useState(0);
-  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(0);
-  const [featured, setFeatured] = useState("");
-  const [description, setDescription] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [on_sale_client, setOnsaleClient] = useState(true);
+  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
+  const [featured, setFeatured] = useState(true); 
+  const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
-  const [min_stock, setMinStock] = useState(0);
-  const [image_id, setImage] = useState('');
-  const [created_at, setCreatedAt] = useState("");
-  const [updated_at, setUpdatedAt] = useState("");
+  const [min_stock, setMinimum] = useState(0);
+  const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
+  const [category_id, setCategory] = useState();
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -96,27 +95,55 @@ export default function NewProduct(props) {
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
-  };
+    // setVisible(!visible);
+    const source = event.target.name
+      switch (source){
+        case "checkedA":
+          setVisible(!visible);
+          break;
+        case "checkedB":
+          setOnsaleClient(!on_sale_client);
+          break;
+        case "checkedC":
+          setOnsaleWholesaler(!on_sale_wholesaler);
+          break;
+        case "checkedD":
+          setFeatured(!featured);
+          break;
+        default: console.log("erro")
+      }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    
+    let data = new FormData();
+    function addToData(key, value) {
+      if (value !== undefined && value !== '')
+        data.append(key, value);
+    }
 
-    const data = {
-      name,
-      description,
-      client_price,
-      client_sale_price,
-      wholesaler_price,
-      wholesaler_sale_price,
-      stock_quantity,
-      image_id,
-    };
+    addToData('name', name);
+    addToData('description', description);
+    addToData('client_price', client_price);
+    addToData('client_sale_price', client_sale_price);
+    addToData('wholesaler_price', wholesaler_price);
+    addToData('wholesaler_sale_price', wholesaler_sale_price);
+    addToData('stock_quantity', stock_quantity);
+    addToData('min_stock', min_stock);
+    addToData('visible', visible);
+    addToData('on_sale_client', on_sale_client);
+    addToData('on_sale_wholesaler', on_sale_wholesaler);
+    addToData('featured', featured);
+    addToData('imageFile', image_id);
+    addToData('subcategory_id', subcategory_id);
 
     try {
       const response = await api.post("newProduct", data, {
           headers: {
+            "Content-Type" : "application/json",
             authorization: "Bearer " + localStorage.accessToken,
-          },
+          }
         })
         alert(`Registro concluído!`, response);
     } catch (err) {
@@ -126,14 +153,19 @@ export default function NewProduct(props) {
     }
   }
 
+  function handleImage(img) {
+    setImage(img); 
+  }
+
   return (
     <div>
       <div className="new-product-all">
-        <div className="product-title-page">
-          <h3>Novo Produto</h3>
-        </div>
+        
 
         <form onSubmit={handleSubmit}>
+        <div className="product-title-page">
+          <h3>Novo Produto</h3>
+        
           <div className="form-wrapper">
             <div className="divisor-teste">
               <div className="left-form">
@@ -267,33 +299,11 @@ export default function NewProduct(props) {
                     Principal
                   </label>
                   <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span
-                        className="input-group-text"
-                        id="inputGroupFileAddon01"
-                      >
-                        <PublishIcon style={{ fontSize: 17 }} />
-                      </span>
-                    </div>
-                    <div className="custom-file">
-                      <input
-                        type="file"
-                        className="custom-file-input"
-                        id="inputGroupFile01"
-                        aria-describedby="inputGroupFileAddon01"
-                        value={image_id}
-                        onChange={(e) => 
-                          setImage(e.target.value)
-                        }
-                      />
-                      <label
-                        className="custom-file-label"
-                        for="inputGroupFile01"
-                      >
-                        Selecione o arquivo
-                      </label>
-                    </div>
-                  </div>
+                    
+                      <ImageUpload onChange={handleImage} fileName={'imageFile'} />
+                      
+                    
+                  </div>  
 
                   <label className="images-label" htmlFor="secondary">
                     Secudárias
@@ -336,7 +346,8 @@ export default function NewProduct(props) {
                     <div className="switchConfig">
                       <FormControlLabel
                         control={
-                          <IOSSwitch
+                          <IOSSwitch  
+                            value = {visible}
                             checked={state.checkedA}
                             onChange={handleChange}
                             name="checkedA"
@@ -350,6 +361,7 @@ export default function NewProduct(props) {
                       <FormControlLabel
                         control={
                           <IOSSwitch
+                            value = {on_sale_client}
                             checked={state.checkedB}
                             onChange={handleChange}
                             name="checkedB"
@@ -363,6 +375,7 @@ export default function NewProduct(props) {
                       <FormControlLabel
                         control={
                           <IOSSwitch
+                            value = {on_sale_wholesaler}
                             checked={state.checkedC}
                             onChange={handleChange}
                             name="checkedC"
@@ -376,6 +389,7 @@ export default function NewProduct(props) {
                       <FormControlLabel
                         control={
                           <IOSSwitch
+                            value = {featured}
                             checked={state.checkedD}
                             onChange={handleChange}
                             name="checkedD"
@@ -402,6 +416,28 @@ export default function NewProduct(props) {
                           type="text"
                           value={stock_quantity}
                           onChange={(e) => setQuantity(e.target.value)}
+                          className="form-control"
+                          id="validationDefaultUsername"
+                          placeholder="0"
+                          aria-describedby="inputGroupPrepend2"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span
+                            className="input-group-text"
+                            id="inputGroupPrepend2"
+                          >
+                            Mínimo
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          value={min_stock}
+                          onChange={(e) => setMinimum(e.target.value)}
                           className="form-control"
                           id="validationDefaultUsername"
                           placeholder="0"
@@ -449,14 +485,14 @@ export default function NewProduct(props) {
                             htmlFor="main-category"
                           >
                             Principal:{" "}
-                          </label>
+                          </label> 
                           {/*DROPDOWNS*/}
                           <select name="cars" id="cars">
-                            <option value="selecionar">Selecionar</option>
-                            <option value="Cosméticos">Cosméticos</option>
-                            <option value="Acessórios">Acessórios</option>
-                            <option value="Brincadeiras">Brincadeiras</option>
-                            <option value="Próteses">Próteses</option>
+                            <option value="0" id="0">Selecionar</option>
+                            <option value="1" id="1">Cosméticos</option>
+                            <option value="2" id="2">Acessórios</option>
+                            <option value="3" id="3">Brincadeiras</option>
+                            <option value="4" id="4">Próteses</option>
                           </select>
                         </div>
                         <div className="categoriesSelection">
@@ -464,14 +500,14 @@ export default function NewProduct(props) {
                             className="category-label"
                             htmlFor="subcategory"
                           >
-                            Subcategoria:
+                            Subcategoria: 
                           </label>
-                          <select name="cars" id="cars">
-                            <option value="selecionar">Selecionar</option>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="mercedes">Mercedes</option>
-                            <option value="audi">Brincadeiras</option>
+                          <select value={subcategory_id} onChange={(e)=> setSubcategory(e.target.value)}>
+                            <option value="0" id="0">Selecionar</option>
+                            <option value="1" id="1">Volvo</option>
+                            <option value="2" id="2">Saab</option>
+                            <option value="3" id="3">Mercedes</option>
+                            <option value="4" id="3">Brincadeiras</option>
                           </select>
                         </div>
                       </div>
@@ -496,6 +532,7 @@ export default function NewProduct(props) {
                 <button type="submit">CRIAR</button>
               </div>
             )}
+          </div>
           </div>
         </form>
         </div>
