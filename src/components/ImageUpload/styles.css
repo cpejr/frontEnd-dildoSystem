@@ -1,0 +1,9 @@
+input[type='file'] {
+    color: transparent;
+  }
+
+.custom-file-label{
+    overflow: hidden;
+    line-height: 25px;
+    border-radius: 0;
+}
