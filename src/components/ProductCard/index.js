@@ -37,8 +37,9 @@ function PriceElement(props) {
             )
         } else {
             return (
+                <div className="price-container">
                 <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span>
-            )
+                </div>)
 
         } 
     } else {
@@ -145,7 +146,7 @@ export default function ProductCard(props) {
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">
-                                {product.name + ' aaaaaaaaaaaa aaaaaaaaaa'}
+                                {product.name}
                             </p>
                         </Link>
 

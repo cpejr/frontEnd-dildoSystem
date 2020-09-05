@@ -10,6 +10,7 @@ import api from '../../services/api';
 
 import HomeNavbar from '../../components/HomeNavbar';
 import ProductCard from '../../components/ProductCard';
+import ControlledCarousel from '../../components/Slider/Slider';
 
 import './styles.css';
 
@@ -29,12 +30,17 @@ function Dashboard(props) {
     })
 
     return (
-        <div>
+  <div className="content">
+        <div className="content">
             <Header />
+            </div>
+            <div className="dashboard-content">
             {/* <HomeNavbar /> */}
+            <ControlledCarousel />
             <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
+            
         </div>
-
+        </div>
     );
 };
 export default Dashboard;

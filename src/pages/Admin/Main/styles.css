@@ -113,9 +113,10 @@ h4.titulo {
   height: auto;
   box-shadow: 0px 0px 5px 0px rgba(112,144,176,0.33);
   width: 30%;
+  min-width: 30vh;
   border-radius: 10px;
-  padding-top: 15px;
-  margin-top: 5px;
+
+  margin-top: 2vh;
   padding: 1%;
 }
 .ultimos-pedidos{
@@ -125,13 +126,18 @@ h4.titulo {
   flex-wrap: wrap;
 }
 
-/* .orders-data{
-  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
-  padding-bottom: 8px;
-  margin-left: 2%;
-  margin-right: 2%;
+ .orders-data{
+display: flex;
+    flex-direction: column;
+} 
+.orders-item-edit{
   display: flex;
-} */
+  color: #707070;
+
+}
+.orders-item-edit a{
+color:black;
+}
 
 .orders-container h6{
   font-size: "1.5vh";
@@ -141,10 +147,12 @@ h4.titulo {
 
 .orders-item{
   display: flex;
+  flex-direction: column;
   color: #707070;
-  margin-top: 8px;
-  margin-left: 12px;
+
 }
+
+
 
 .orders-item strong{
   margin-right: 8px;
