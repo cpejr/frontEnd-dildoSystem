@@ -1,0 +1,52 @@
+.searchpage-content{
+  display: flex;
+  /*align-items: center;*/
+  width: 90%;
+  flex-direction: row;
+  max-width: 1400px;
+}
+
+.filters-container {
+  width: 200px;
+  height: 600px;
+  border-radius: 15px;
+
+  margin-top: 50px;
+
+  background-color: lightgrey;
+}
+
+.filters-container form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.filters-container form strong {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.filters-container form button {
+  border: 0;
+  border-radius: 10px;
+  margin-top: 30px;
+  height: 40px;
+
+  background-color: var(--green-color);
+  color: white;
+
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.price-range {
+  display: flex;
+  align-items: center;
+}
+
+.price-range input {
+  width: 50px;
+  height: 20px;
+  margin: 0 5px;
+}

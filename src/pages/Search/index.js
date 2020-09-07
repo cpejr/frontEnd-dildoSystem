@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
+import Filters from './Filters';
 
 function Search(props) {
 
@@ -17,16 +18,27 @@ function Search(props) {
     const equalsIndex = newSearch.indexOf('=') + 1;
     newSearch = newSearch.substring(equalsIndex);
     setSearch(newSearch);
-})
+  }, []);
+
+  function setFilters(min_price, max_price, order_by, order_ascending,search, subcategory_id) {
+    setMax_Price(max_price);
+    setMin_Price(min_price);
+    setOrder_by(order_by);
+    setOrder_ascending(order_ascending);
+    setSearch(search);
+    setSubcategory_id(subcategory_id);
+  }
 
   return (
     <div className="content">
       <div className="content">
         <Header />
       </div>
-      <div className="dashboard-content">
+      <div className="searchpage-content">
 
-        <ProductCard filters={{ max_price, min_price, order_by, order_ascending, search, subcategory_id }} />
+        <Filters setFilters={setFilters}/>
+
+        <ProductCard filters={{ min_price, max_price, order_by, order_ascending, search, subcategory_id }} />
 
       </div>
     </div>
