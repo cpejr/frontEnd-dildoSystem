@@ -11,6 +11,7 @@ import Main from "./Main";
 import "./styles.css";
 
 import NnEProduct from "../../components/NnEProduct";
+import ProductEditor from "../../components/ProductEditor"
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from '../../components/PendingUsers';
@@ -41,8 +42,8 @@ function Admin(props) {
                   />
 
                   <Route
-                    path={`${props.match.path}/editproduct`}
-                    component={NnEProduct}
+                    path={`${props.match.path}/editproduct/:id`}
+                    component={ProductEditor}
                   />
 
                   <Route
