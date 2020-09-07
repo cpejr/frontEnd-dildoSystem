@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Search from './pages/Search';
 import Admin from './pages/Admin';
 import Cart from './pages/Cart';
 import LoginContextProvider from './Contexts/LoginContext';
@@ -18,6 +19,7 @@ function Routes() {
             <Switch>
                 <LoginContextProvider>
                     <Route path='/' exact component={Dashboard} />
+                    <Route path='/search' exact component={Search} />
                     <Route path='/login' exact component={Login} />
                     <Route path='/forgottenPassword' exact component={ForgottenPassword} />
                     <Route path='/register' exact component={Register} />

@@ -21,6 +21,10 @@
     max-width: 1400px;
 }
 
+.dashboard-content h2 {
+    margin-top: 20px;
+}
+
 .content{
     width: 100%;
     display: flex;
