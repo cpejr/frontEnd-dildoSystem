@@ -5,6 +5,7 @@ import { TextField, InputAdornment, Button } from '@material-ui/core'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index'
 
 import api from '../../services/api';
 
@@ -40,6 +41,7 @@ function Dashboard(props) {
             <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
             
         </div>
+        <Footer />
         </div>
     );
 };

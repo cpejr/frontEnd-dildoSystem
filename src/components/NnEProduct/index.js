@@ -78,6 +78,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
+  const [weight, setWeight] = useState();
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -137,6 +138,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('featured', featured);
     addToData('imageFile', image_id);
     addToData('subcategory_id', subcategory_id);
+    addToData('weight', weight);
 
     try {
       const response = await api.post("newProduct", data, {
@@ -460,7 +462,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                           type="text"
                           className="form-control"
                           id="setProductWeight"
-                          placeholder="00.00"
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
                           aria-describedby="inputGroupPrepend2"
                           required
                         />

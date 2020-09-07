@@ -85,11 +85,12 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
+  const [weight, setWeight] = useState();
 
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [fullWidth, setFullWidth] = React.useState(true);
+  const [fullWidth, setFullWidth] = React.useState();
   const [maxWidth, setMaxWidth] = React.useState('md');
 
   const handleMaxWidthChange = (event) => {
@@ -110,7 +111,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
   };
 
   const [state, setState] = React.useState({
-    checkedA: true,
+    checkedA: false,
     checkedB: true,
     checkedC: true,
     checkedD: true,
@@ -136,14 +137,20 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
         setClientSalePrice(response.data.client_sale_price);
         setWholesalerPrice(response.data.wholesaler_price);
         setWholesalerSalePrice(response.data.wholesaler_sale_price);
-        //setOnsaleClient(response.data.on_sale_client);
-        //setOnsaleWholesaler(response.data.on_sale_wholesaler);
-        //setFeatured(response.data.featured);
-        //setVisible(response.data.visible);
+        setOnsaleClient(Boolean(response.data.on_sale_client));
+        setOnsaleWholesaler(Boolean(response.data.on_sale_wholesaler));
+        setFeatured(Boolean(response.data.featured));
+        setVisible(Boolean(response.data.visible)); 
+        setState({checkedB: Boolean(response.data.on_sale_client),
+        checkedC: Boolean(response.data.on_sale_wholesaler),
+        checkedD: Boolean(response.data.featured),
+        checkedA: Boolean(response.data.visible)
+        });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
         //setImage(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
+        setWeight(response.data.weight);
       });
     }
   }, []);
@@ -199,6 +206,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
     addToData('featured', featured);
     addToData('imageFile', image_id);
     addToData('subcategory_id', subcategory_id);
+    addToData('weight', weight);
 
     try {
       const response = await api.put(`updateProduct/${props.match.params.id}`, data, config
@@ -527,7 +535,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
                           type="text"
                           className="form-control"
                           id="setProductWeight"
-                          placeholder="00.00"
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
                           aria-describedby="inputGroupPrepend2"
                           required
                         />
