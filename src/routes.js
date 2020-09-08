@@ -19,7 +19,7 @@ function Routes() {
             <Switch>
                 <LoginContextProvider>
                     <Route path='/' exact component={Dashboard} />
-                    <Route path='/search' exact component={Search} />
+                    <Route path='/search' component={Search} />
                     <Route path='/login' exact component={Login} />
                     <Route path='/forgottenPassword' exact component={ForgottenPassword} />
                     <Route path='/register' exact component={Register} />

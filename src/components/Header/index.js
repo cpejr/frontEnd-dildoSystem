@@ -24,7 +24,8 @@ export default function Header() {
         let newSearch = search.replace(/ /g, '%') //substitui espaços por %
         newSearch = newSearch.normalize('NFD'); //retira acentos
         console.log(newSearch)
-        history.push(`/search/?search=${newSearch}`);
+        if(search)
+            history.push(`/search/?search=${newSearch}`);
     }
 
     return (

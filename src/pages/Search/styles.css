@@ -6,6 +6,19 @@
   max-width: 1400px;
 }
 
+.search-title {
+  margin-top: 50px;
+  margin-left: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-title .filter-icon {
+  margin-right: 50px;
+}
+
 .filters-container {
   width: 250px;
   height: 600px;
@@ -51,11 +64,13 @@
   margin: 0 5px;
 }
 
-.searchpage-content .results h2 {
-  margin-top: 50px;
-  margin-left: 20px;
-}
 
 .product-container-wrapper.on-searchpage {
   align-items: center;
+}
+
+@media (max-width: 890px) {
+  .filters-container {
+    display: none;
+  }
 }

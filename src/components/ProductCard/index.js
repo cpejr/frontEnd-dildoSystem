@@ -88,7 +88,9 @@ export default function ProductCard(props) {
         const url = `products?page=${page}${newQueries}`;
         console.log(url);
 
-        if (accessToken) {
+        if(!props.search || props.filters.search)
+        {
+            if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
                 console.log(response.data)
@@ -99,6 +101,8 @@ export default function ProductCard(props) {
                 console.log(response.data)
             });
         }
+        }
+        
 
 
     }, [props.filters]);
@@ -163,4 +167,4 @@ export default function ProductCard(props) {
         </div>
 
     )
-}
+};
