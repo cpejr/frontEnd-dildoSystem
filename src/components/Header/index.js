@@ -21,7 +21,7 @@ export default function Header() {
 
     function handleSearch(e) {
         e.preventDefault();
-        let newSearch = search.replace(/ /g, '%')
+        let newSearch = search.replace(/ /g, '%') //substitui espaços por %
         newSearch = newSearch.normalize('NFD'); //retira acentos
         console.log(newSearch)
         history.push(`/search/?search=${newSearch}`);
@@ -32,7 +32,7 @@ export default function Header() {
             <div className="headerSuperior">
                 <form className="form-group has-search" onSubmit={handleSearch}>
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </form>
 
                 <Link to="/cart" className="icon-link">
@@ -45,7 +45,7 @@ export default function Header() {
                         context => {
                             if (context.loggedIn) {
                                 return (
-                                    <Link to={context.type==="admin"?"/admin":"/user"} className="icon-link user-info">
+                                    <Link to={context.type === "admin" ? "/admin" : "/user"} className="icon-link user-info">
                                         <PersonOutlinedIcon />
                                         <p>{context.name}</p>
                                     </Link>
@@ -115,7 +115,11 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                    <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+                    <Link to="">
+                        <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+                    </Link>
+
+
                     <div className="dropdown">
                         <button className="dropbtn">Sado <KeyboardArrowDownIcon /></button>
                         <div className="dropdown-content">

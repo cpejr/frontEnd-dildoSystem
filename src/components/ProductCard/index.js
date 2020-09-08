@@ -133,9 +133,9 @@ export default function ProductCard(props) {
         setPage(page + 1);
         window.scrollTo(0, currentPos);
     }
-
+    console.log(props);
     return (
-        <div className="products-container-wrapper">
+        <div className={`products-container-wrapper ${props.className}`}>
             <div className="products-container">
                 {products.map(product => (
 

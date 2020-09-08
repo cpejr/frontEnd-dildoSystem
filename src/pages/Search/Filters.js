@@ -8,16 +8,50 @@ function Filters(props) {
   const [max_price, setMax_Price] = useState('');
   const [min_price, setMin_Price] = useState('');
   const [order_by, setOrder_by] = useState('');
-  const [order_ascending, setOrder_ascending] = useState();
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [subcategory_id, setSubcategory_id] = useState('');
 
   const [categories, setCategories] = useState();
 
+  useEffect(() => {
+    
+    // let newSearch = props.location.search;
+    // const equalsIndex = newSearch.indexOf('=') + 1;
+    // newSearch = newSearch.substring(equalsIndex);
+    console.log(props.initialSearch);
+    setSearch(props.initialSearch);
+  }, []);
+
   function handleFilters(event) {
     event.preventDefault();
-    console.log(min_price,max_price, order_by,search, categoryId, subcategory_id)
+    let minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId;
+
+    if(min_price) minPrice = Number(min_price);
+    if(max_price) maxPrice = Number(max_price);
+
+    if(order_by) {
+      switch(order_by) {
+        case 'price-ascending':
+          orderBy = 'price';
+          orderAscending = true;
+          break;
+        case 'price-descending':
+          orderBy = 'price';
+          orderAscending = false;
+          break;
+        default:
+          break;
+      }
+    }
+
+    if(search) searchTerm = search;
+
+    if(subcategory_id) subcategoryId = Number(subcategory_id);
+
+    console.log(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId)
+    
+    props.setFilters(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId);
   }
 
   function handleCategorySelection() {
@@ -31,9 +65,9 @@ function Filters(props) {
         <strong>Faixa de preço</strong>
         <div className='price-range'>
           De
-          <input type="number" name="min-price" id="min-price" value={min_price} onChange={e=>setMin_Price(e.target.value)} />
+          <input type="number" name="min-price" id="min-price" value={min_price} onChange={e=>setMin_Price(e.target.value)} step="0.01" />
           até
-          <input type="number" name="max-price" id="max-price" value={max_price} onChange={e=>setMax_Price(e.target.value)}/>
+          <input type="number" name="max-price" id="max-price" value={max_price} onChange={e=>setMax_Price(e.target.value)} step="0.01"/>
         </div>
 
         <strong>Ordernar por</strong>
