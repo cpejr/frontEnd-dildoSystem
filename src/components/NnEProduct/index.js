@@ -79,6 +79,9 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
+  const [height, setHeight] = useState();
+  const [width, setWidth] = useState();
+  const [length, setLength] = useState();
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -139,6 +142,9 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('imageFile', image_id);
     addToData('subcategory_id', subcategory_id);
     addToData('weight', weight);
+    addToData('height', height);
+    addToData('width', width);
+    addToData('length', length);
 
     try {
       const response = await api.post("newProduct", data, {
@@ -333,7 +339,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                         Selecione o arquivo
                       </label>
                     </div>
-                  </div>
+                  </div> 
                   <span className="images-label">
                     Formatos aceitos: JPG, PNG
                   </span>
@@ -473,6 +479,96 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                             id="inputGroupPrepend2"
                           >
                             g
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span
+                            className="input-group-text"
+                            id="setProductHeight"
+                          >
+                            Altura
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          value={height}
+                          onChange={(e) => setHeight(e.target.value)}
+                          className="form-control"
+                          id="setProductHeight"
+                          placeholder="0"
+                          aria-describedby="inputGroupPrepend2"
+                          required
+                        />
+                         <div className="input-group-append">
+                          <span
+                            className="input-group-text"
+                            id="inputGroupPrepend2"
+                          >
+                            m
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span
+                            className="input-group-text"
+                            id="setProductWidth"
+                          >
+                            Largura
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          value={width}
+                          onChange={(e) => setWidth(e.target.value)}
+                          className="form-control"
+                          id="setProductWidth"
+                          placeholder="0"
+                          aria-describedby="inputGroupPrepend2"
+                          required
+                        />
+                         <div className="input-group-append">
+                          <span
+                            className="input-group-text"
+                            id="inputGroupPrepend2"
+                          >
+                            m
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span
+                            className="input-group-text"
+                            id="setProductLength"
+                          >
+                            Comprimento
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          value={length}
+                          onChange={(e) => setLength(e.target.value)}
+                          className="form-control"
+                          id="setProductLength"
+                          placeholder="0"
+                          aria-describedby="inputGroupPrepend2"
+                          required
+                        />
+                         <div className="input-group-append">
+                          <span
+                            className="input-group-text"
+                            id="inputGroupPrepend2"
+                          >
+                            m
                           </span>
                         </div>
                       </div>
