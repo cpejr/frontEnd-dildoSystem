@@ -12,15 +12,14 @@ function Filters(props) {
   const [categoryId, setCategoryId] = useState('');
   const [subcategory_id, setSubcategory_id] = useState('');
 
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   useEffect(() => {
-    
-    // let newSearch = props.location.search;
-    // const equalsIndex = newSearch.indexOf('=') + 1;
-    // newSearch = newSearch.substring(equalsIndex);
-    console.log(props.initialSearch);
-    setSearch(props.initialSearch);
+    api.get('categories').then(response => {
+      setCategories(response.data);
+      console.log(response.data);
+    })  
   }, []);
 
   function handleFilters(event) {
@@ -49,13 +48,23 @@ function Filters(props) {
 
     if(subcategory_id) subcategoryId = Number(subcategory_id);
 
-    console.log(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId)
+    //console.log(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId)
     
     props.setFilters(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId);
   }
 
-  function handleCategorySelection() {
-
+  function handleCategorySelection(event) {
+    const newCat = categories.find(cat => cat.id == event.target.value);
+    if(newCat) {
+      setCategoryId(Number(newCat.id));
+      setSubcategories(newCat.subcategories);
+    }
+    else {
+      setCategoryId(0);
+      setSubcategories('');
+    }
+   
+    console.log(newCat);
   }
 
   return (
@@ -81,16 +90,18 @@ function Filters(props) {
         <input type="text" value={search} onChange={e=>setSearch(e.target.value)}/>
 
         <strong>Categoria</strong>
-        <select name="category" id="category" value={categoryId} onChange={e=>setCategoryId(e.target.value)}>
-          <option value="1">Cosméticos</option>
-          <option value="2">Acessórios</option>
-          <option value="3">Brincadeiras</option>
+        <select name="category" id="category" value={categoryId} onChange={handleCategorySelection}>
+          <option value="0" default>Nenhuma</option>
+          {categories.length > 0 && categories.map(cat => {
+            return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
+          })}
         </select>
         <strong>Subcategoria</strong>
         <select name="subcategory" id="subcategory" value={subcategory_id} onChange={e=>setSubcategory_id(e.target.value)}>
-          <option value="1">Cosm1</option>
-          <option value="2">Cosm2</option>
-          <option value="3">Cosm3</option>
+          <option value="0" default>Nenhuma</option>
+          {subcategories.length > 0 && subcategories.map(subcat => {
+            return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
+          })}
         </select>
 
         <button type="submit">Aplicar filtros</button>
