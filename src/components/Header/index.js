@@ -7,6 +7,8 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
+import api from '../../services/api';
+
 import Burger from '../../components/Burger/index';
 import { LoginContext } from '../../Contexts/LoginContext';
 
@@ -16,6 +18,9 @@ import { Button } from '@material-ui/core';
 export default function Header() {
 
     const [search, setSearch] = useState('');
+    let history = useHistory();
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
 
     const history = useHistory();
 
@@ -26,6 +31,32 @@ export default function Header() {
         console.log(newSearch)
         history.push(`/?search=${newSearch}`);
     }
+
+    const accessToken = localStorage.getItem('accessToken')
+
+    const config = {
+        headers: { 'authorization': `Bearer ${accessToken}` }
+    }
+
+    useEffect(() => {
+        api.get("category", config).then(response => {
+            setCategories(response.data)
+            console.log(response.data)
+        })
+
+        api.get("subCategory", config).then(response => {
+            setSubCategories(response.data)
+            console.log(response.data)
+        })
+    }, [])
+
+
+    const categoriasSet = new Set();
+    subCategories.forEach(element => (
+        categoriasSet.add(element.catname)
+    ))
+
+    const categorias = [...categoriasSet];
 
     return (
         <div id="Header">
@@ -45,7 +76,7 @@ export default function Header() {
                         context => {
                             if (context.loggedIn) {
                                 return (
-                                    <Link to={context.type==="admin"?"/admin":"/user"} className="icon-link user-info">
+                                    <Link to={context.type === "admin" ? "/admin" : "/user"} className="icon-link user-info">
                                         <PersonOutlinedIcon />
                                         <p>{context.name}</p>
                                     </Link>
@@ -71,7 +102,29 @@ export default function Header() {
                 <div className="links">
                     <div className="emptyDiv"> </div>
                     <div className="empty" />
-                    <div className="dropdown">
+
+                    {
+                        categorias.map(element => (
+                            <div className="dropdown">
+                                <button className="dropbtn">{element} <KeyboardArrowDownIcon /> </button>
+                                <div className="dropdown-content">
+                                    <div className="emptyHeaderDiv"></div>
+                                    <div className="dropdownLinks">
+                                        {
+                                            subCategories.map(subelement => (
+                                                <div>
+                                                    {subelement.catname == element &&
+                                                        <a href="#">{subelement.subcatname}</a>}
+                                                </div>
+                                            ))}
+                                    </div>
+
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                    {/* <div className="dropdown">
                         <button className="dropbtn">Cosméticos <KeyboardArrowDownIcon /> </button>
                         <div className="dropdown-content">
                             <div className="emptyHeaderDiv"></div>
@@ -114,7 +167,7 @@ export default function Header() {
                                 <a href="#">Link 3</a>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <img className="logoCasulusDashboard" src={Logo} alt="logo" />
                     <div className="dropdown">
                         <button className="dropbtn">Sado <KeyboardArrowDownIcon /></button>
