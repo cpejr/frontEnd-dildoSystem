@@ -37,8 +37,9 @@ function PriceElement(props) {
             )
         } else {
             return (
+                <div className="price-container">
                 <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span>
-            )
+                </div>)
 
         } 
     } else {
@@ -81,6 +82,7 @@ export default function ProductCard(props) {
                 newQueries += `&${key}=${props.filters[key]}`;
             }
         });
+        
         setQueries(newQueries);
 
         const url = `products?page=${page}${newQueries}`;
@@ -99,7 +101,7 @@ export default function ProductCard(props) {
         }
 
 
-    }, []);
+    }, [props.filters]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -138,13 +140,13 @@ export default function ProductCard(props) {
                 {products.map(product => (
 
                     <div className="Card">
-                        <Link to="" className="image-text-container">
+                        <Link to={`/product/${product.id}` }className="image-text-container">
                             <ImageLoader
                                 src={`https://docs.google.com/uc?id=${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">
-                                {product.name + ' aaaaaaaaaaaa aaaaaaaaaa'}
+                                {product.name}
                             </p>
                         </Link>
 

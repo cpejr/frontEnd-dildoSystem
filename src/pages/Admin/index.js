@@ -23,6 +23,7 @@ function Admin(props) {
 
   const history = useHistory();
 
+  
   return (
     <LoginContext.Consumer>
       {
@@ -56,6 +57,11 @@ function Admin(props) {
                   />
 
                 </AdminDashboard2>
+
+ {/*                <Route
+                    path={`${props.match.path}/pendingorder`}
+                    component={Orders}
+                  /> */}
               </div>
             );
           } else {

@@ -53,7 +53,7 @@ h4.titulo {
 .pedidos-pendentes {
   max-width: 1000px;
   width: 100%;
-  max-height: 500px;
+  /* max-height: 500px; */
   border-radius: 10px;
   background-color: white;
   padding: 20px;
@@ -108,21 +108,35 @@ h4.titulo {
 }
 
 
-.orders-content{
+.orders-content {
   background-color: white;
   height: auto;
-  width: 100%;
+  box-shadow: 0px 0px 5px 0px rgba(112,144,176,0.33);
+  width: 30%;
+  min-width: 30vh;
   border-radius: 10px;
-  padding-top: 15px;
-  margin-top: 5px;
+
+  margin-top: 2vh;
+  padding: 1%;
+}
+.ultimos-pedidos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.orders-data{
-  border-bottom: 1px solid rgba(112, 112, 112, 0.33);
-  padding-bottom: 8px;
-  margin-left: 2%;
-  margin-right: 2%;
+ .orders-data{
+display: flex;
+    flex-direction: column;
+} 
+.orders-item-edit{
   display: flex;
+  color: #707070;
+
+}
+.orders-item-edit a{
+color:black;
 }
 
 .orders-container h6{
@@ -133,10 +147,12 @@ h4.titulo {
 
 .orders-item{
   display: flex;
+  flex-direction: column;
   color: #707070;
-  margin-top: 8px;
-  margin-left: 12px;
+
 }
+
+
 
 .orders-item strong{
   margin-right: 8px;

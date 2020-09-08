@@ -1,0 +1,14 @@
+.w-100{
+height: 40vh;
+margin-top: 3vh;
+}
+
+.Carousel{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.carousel{
+    width: 100%;
+}

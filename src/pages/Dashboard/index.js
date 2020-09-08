@@ -10,23 +10,37 @@ import api from '../../services/api';
 
 import HomeNavbar from '../../components/HomeNavbar';
 import ProductCard from '../../components/ProductCard';
+import ControlledCarousel from '../../components/Slider/Slider';
 
 import './styles.css';
 
-function Dashboard() {
+function Dashboard(props) {
     const [max_price, setMax_Price] = useState();
     const [min_price, setMin_Price] = useState();
     const [order_by, setOrder_by] = useState();
     const [order_ascending, setOrder_ascending] = useState();
     const [search, setSearch] = useState();
     const [subcategory_id, setSubcategory_id] = useState();
-    return (
-        <div>
-            <Header />
-            {/* <HomeNavbar /> */}
-            <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
-        </div>
 
+    useEffect(() => {
+        let newSearch = props.location.search;
+        const equalsIndex = newSearch.indexOf('=') + 1;
+        newSearch = newSearch.substring(equalsIndex);
+        setSearch(newSearch);
+    })
+
+    return (
+  <div className="content">
+        <div className="content">
+            <Header />
+            </div>
+            <div className="dashboard-content">
+            {/* <HomeNavbar /> */}
+            <ControlledCarousel />
+            <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
+            
+        </div>
+        </div>
     );
 };
 export default Dashboard;

@@ -1,0 +1,244 @@
+.full-page-wrapper {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.product-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.product-page-container {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 50px;
+  border-radius: 20px;
+  flex: 1 0 auto;
+  background-color: white;
+  display: flex;
+}
+
+.photos-column {
+  padding: 50px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.photos-column .go-back-btn {
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.photos-column .go-back-btn .icon {
+  color: var(--mainColor);
+  width: 20px;
+  height: 20px;
+}
+
+.photos-column .img-container {
+  width: 90%;
+  height: 90%;
+  max-height: 400px;
+  max-width: 400px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photos-column .img-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3%;
+}
+
+.photos-column .thumbnails {
+  width: 90%;
+  display: flex;
+}
+
+.photos-column .thumbnails img {
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.photos-column .thumbnails div + div {
+  margin-left: 10px;
+}
+
+.info-column {
+  margin: 40px;
+  margin-top: 70px;
+  width: 50%;
+}
+
+.info-column .divider-line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
+
+.info-column .prices {
+  padding: 20px 0;
+}
+
+.info-column .prices h2 {
+  font-size: 2.2rem;
+}
+
+.info-column .prices .main-price.sale {
+  font-size: 1.5rem;
+  text-decoration: line-through;
+}
+
+.info-column .prices .sale-price {
+  color: var(--green-color);
+}
+
+.info-column .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-column .options .subproduct-options {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 20px 0;
+  font-size: 1.1rem;
+  
+}
+
+.info-column .options .subproduct-options .option-selector {
+  display: flex;
+  font-weight: bold;
+}
+
+.info-column .options .subproduct-options .option-selector img {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.info-column .options .subproduct-options .option-selector img.selected {
+  border: 2px solid grey;
+}
+
+.info-column .options .subproduct-options .chosen-option {
+  display: flex;
+}
+.info-column .options .subproduct-options .chosen-option p + p {
+  margin-left: 5px;
+}
+
+.options .quantity-options {
+  display: flex;
+  align-items: center;
+  line-height: 1rem;
+  font-size: 1rem;
+}
+
+.options .quantity-options p {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.options .quantity-options .quantity-changer {
+  margin: 0 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.options .quantity-options .quantity-changer.locked {
+  color: grey;
+  cursor: default;
+}
+
+.buy-button {
+  background-color: var(--green-color);
+  color: white;
+
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  
+  font-weight:normal;
+  font-size: 1.4rem;
+}
+
+.unavailable {
+  background-color: red;
+  color: white;
+
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-weight:normal;
+  font-size: 1.4rem;
+}
+
+.info-column .shipping {
+  margin-top: 20px;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.info-column .shipping input {
+  border: 2px solid var(--mainColor);
+  outline: none;
+  height: 100%;
+  padding: 0;
+}
+
+.info-column .shipping button {
+  height: 100%;
+  border: 2px solid var(--mainColor);
+  border-radius: 0 0.5rem 0.5rem 0;
+
+  background-color: var(--mainColor);
+}
+
+@media (max-width: 900px) {
+  .product-page-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    margin-top: 0;
+  }
+  .photos-column, .info-column {
+    width: 90%;
+    align-items: center;
+  }
+  .photos-column .thumbnails {
+    justify-content: center;
+  }
+  .photos-column .img-container img {
+    position: relative;
+    height: min(400px, 90vw);
+    width: min(400px, 90vw);
+  }
+}
+

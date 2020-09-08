@@ -56,9 +56,10 @@
 } 
 #Header .headerSuperior .form-group {
     margin-bottom: 0;
+    justify-content: left;
 }
 #Header .headerSuperior .has-search .form-control {
-    padding-left: 50px;
+    padding-left: 50px;;
     border-radius: 20px;
 }
 #Header .headerSuperior .MuiSvgIcon-root{

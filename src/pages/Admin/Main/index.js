@@ -66,7 +66,7 @@ function Main() {
 
       <div className="pedidos-pendentes">
         <h4 className="titulo">Últimos Pedidos</h4>     
-        <div>
+        <div className="ultimos-pedidos">
         {orders.map((pedido, index) => (
             <Pedido key={`pedido-${index}`} pedido={pedido} />
           ))}
