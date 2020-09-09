@@ -10,6 +10,8 @@ function Search(props) {
 
   const searchContext = useContext(SearchContext);
 
+  const [filtersVisible, setFiltersVisible] = useState(false);
+
   return (
     <div className="content">
       <div className="content">
@@ -17,12 +19,12 @@ function Search(props) {
       </div>
       <div className="searchpage-content">
 
-        <Filters />
+        <Filters visible={filtersVisible} setVisible={setFiltersVisible} />
 
         <div className="results">
           <div className="search-title">
             {searchContext.rawSearch && <h2>Resultados da sua busca por "{searchContext.rawSearch.replace(/%/g, ' ')}"</h2>}
-            <div className="filter-icon">
+            <div className="filter-icon" onClick={()=>{setFiltersVisible(!filtersVisible)}}>
               <FiFilter />
             </div>
           </div>

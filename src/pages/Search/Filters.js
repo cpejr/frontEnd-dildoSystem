@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { GrClose } from 'react-icons/gr';
 
 import { SearchContext } from '../../Contexts/SearchContext';
 import api from '../../services/api';
@@ -13,12 +14,13 @@ function Filters(props) {
   const [max_price, setMax_Price] = useState('');
   const [min_price, setMin_Price] = useState('');
   const [order_by, setOrder_by] = useState('');
-  const [search, setSearch] = useState(searchContext.rawSearch);
+  const [search, setSearch] = useState(searchContext.rawSearch || '');
   const [categoryId, setCategoryId] = useState('');
   const [subcategory_id, setSubcategory_id] = useState('');
 
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+
 
   useEffect(() => {
     api.get('categories').then(response => {
@@ -36,6 +38,10 @@ function Filters(props) {
       search: search,
       categoryId: categoryId,
       subcategoryId: subcategory_id
+    }
+
+    if(props.visible) {
+      props.setVisible(false);
     }
 
     searchContext.handleSearch(searchConfig);
@@ -57,7 +63,11 @@ function Filters(props) {
   }
 
   return (
-    <div className='filters-container'>
+    <div className={`filters-container ${props.visible && 'visible slide-in-left'}`}>
+      <div className="close-icon-container">
+        <GrClose className="close-icon" onClick={()=>{props.setVisible(!props.visible)}}/>
+      </div>
+      
       <form onSubmit={handleSubmit}>
         <h4>Filtros</h4>
         <strong>Faixa de preço</strong>
