@@ -12,6 +12,7 @@ import "./styles.css";
 
 import NnEProduct from "../../components/NnEProduct";
 import ProductEditor from "../../components/ProductEditor"
+import EditProduct from "../../pages/EditProduct";
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from '../../components/PendingUsers';
