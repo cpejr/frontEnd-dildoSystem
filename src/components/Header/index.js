@@ -170,7 +170,7 @@ export default function Header() {
                             </div>
                         </div>
 
-                    </div>
+                </div>*/}
                     <Link to="">
                         <img className="logoCasulusDashboard" src={Logo} alt="logo" />
                     </Link>
