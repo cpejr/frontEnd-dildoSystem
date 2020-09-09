@@ -41,24 +41,16 @@ export default function Header() {
     }
 
     useEffect(() => {
-        api.get("category", config).then(response => {
+        api.get("categories", config).then(response => {
             setCategories(response.data)
             console.log(response.data)
         })
 
-        api.get("subCategory", config).then(response => {
-            setSubCategories(response.data)
-            console.log(response.data)
-        })
+        
     }, [])
 
 
-    const categoriasSet = new Set();
-    subCategories.forEach(element => (
-        categoriasSet.add(element.catname)
-    ))
-
-    const categorias = [...categoriasSet];
+    
 
     return (
         <div id="Header">
@@ -106,17 +98,17 @@ export default function Header() {
                     <div className="empty" />
 
                     {
-                        categorias.map(element => (
+                        categories.map(cat => (
                             <div className="dropdown">
-                                <button className="dropbtn">{element} <KeyboardArrowDownIcon /> </button>
+                                <button className="dropbtn">{cat.name} <KeyboardArrowDownIcon /> </button>
                                 <div className="dropdown-content">
                                     <div className="emptyHeaderDiv"></div>
                                     <div className="dropdownLinks">
                                         {
-                                            subCategories.map(subelement => (
+                                            cat.subcategories.map(subelement => (
                                                 <div>
-                                                    {subelement.catname == element &&
-                                                        <a href="#">{subelement.subcatname}</a>}
+                                                    
+                                                        <a href="#">{subelement.name}</a>
                                                 </div>
                                             ))}
                                     </div>
