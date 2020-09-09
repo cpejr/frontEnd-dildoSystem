@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
@@ -11,6 +11,7 @@ import api from '../../services/api';
 
 import Burger from '../../components/Burger/index';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { SearchContext } from '../../Contexts/SearchContext';
 
 import './index.css';
 import { Button } from '@material-ui/core';
@@ -22,14 +23,15 @@ export default function Header() {
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
 
-    const history = useHistory();
+    const searchContext = useContext(SearchContext);
 
     function handleSearch(e) {
         e.preventDefault();
-        let newSearch = search.replace(/ /g, '%')
-        newSearch = newSearch.normalize('NFD'); //retira acentos
-        console.log(newSearch)
-        history.push(`/?search=${newSearch}`);
+
+        const searchConfig = {search: search};
+
+        searchContext.handleSearch(searchConfig)
+        
     }
 
     const accessToken = localStorage.getItem('accessToken')
@@ -63,7 +65,7 @@ export default function Header() {
             <div className="headerSuperior">
                 <form className="form-group has-search" onSubmit={handleSearch}>
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </form>
 
                 <Link to="/cart" className="icon-link">
@@ -167,8 +169,14 @@ export default function Header() {
                                 <a href="#">Link 3</a>
                             </div>
                         </div>
-                    </div> */}
-                    <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+
+                    </div>
+                    <Link to="">
+                        <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+                    </Link>
+
+
+
                     <div className="dropdown">
                         <button className="dropbtn">Sado <KeyboardArrowDownIcon /></button>
                         <div className="dropdown-content">

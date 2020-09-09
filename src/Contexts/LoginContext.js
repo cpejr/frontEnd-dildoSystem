@@ -17,11 +17,11 @@ function LoginContextProvider(props) {
 
   const history = useHistory();
   const [changed, setChanged] = useState(false);
-  const [location, setLocation] = useState(history.location.pathname);
+  const [location, setLocation] = useState(history.location);
 
   useEffect(() => {
     if (changed) {
-      history.push(location);
+      history.push(location.pathname+location.search);
       setChanged(false);
     }
   }, [changed]);
