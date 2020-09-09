@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import Burger from '../../components/Burger/index';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { SearchContext } from '../../Contexts/SearchContext';
 
 import './index.css';
 import { Button } from '@material-ui/core';
@@ -17,15 +18,17 @@ export default function Header() {
 
     const [search, setSearch] = useState('');
 
-    const history = useHistory();
+    const searchContext = useContext(SearchContext);
+
+    //const history = useHistory();
 
     function handleSearch(e) {
         e.preventDefault();
-        let newSearch = search.replace(/ /g, '%') //substitui espaços por %
-        newSearch = newSearch.normalize('NFD'); //retira acentos
-        console.log(newSearch)
-        if(search)
-            history.push(`/search/?search=${newSearch}`);
+
+        const searchConfig = {search: search};
+
+        searchContext.handleSearch(searchConfig)
+        
     }
 
     return (

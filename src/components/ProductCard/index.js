@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 
@@ -38,10 +38,10 @@ function PriceElement(props) {
         } else {
             return (
                 <div className="price-container">
-                <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span>
+                    <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span>
                 </div>)
 
-        } 
+        }
     } else {
         if (product.on_sale_client) {
             return (
@@ -57,11 +57,11 @@ function PriceElement(props) {
             return (
                 <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
             )
-        } 
+        }
     }
 }
 
-export default function ProductCard(props) {
+export default withRouter(function ProductCard(props) {
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
@@ -75,22 +75,15 @@ export default function ProductCard(props) {
     }
 
     useEffect(() => {
-        let newQueries = '';
-        const keys = Object.keys(props.filters);
-        keys.forEach(key => {
-            if (props.filters[key]) {
-                newQueries += `&${key}=${props.filters[key]}`;
-            }
-        });
+        let queries = props.location.search;
         
-        setQueries(newQueries);
+        queries ? queries += '&' : queries = '?';
 
-        const url = `products?page=${page}${newQueries}`;
-        console.log(url);
-
-        if(!props.search || props.filters.search)
-        {
-            if (accessToken) {
+        
+        const url=`/products/${queries}page=${page}`
+        console.log('useEffect do productCard, com url = ', url);
+        
+        if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
                 console.log(response.data)
@@ -101,11 +94,40 @@ export default function ProductCard(props) {
                 console.log(response.data)
             });
         }
-        }
-        
+    }, [page, props.location.search])
+
+    // useEffect(() => {
+    //     let newQueries = '';
+    //     const keys = Object.keys(props.filters);
+    //     keys.forEach(key => {
+    //         if (props.filters[key]) {
+    //             newQueries += `&${key}=${props.filters[key]}`;
+    //         }
+    //     });
+
+    //     setQueries(newQueries);
+
+    //     const url = `products?page=${page}${newQueries}`;
+    //     console.log(url);
+
+    //     if(!props.search || props.filters.search)
+    //     {
+    //         if (accessToken) {
+    //         api.get(url, config).then(response => {
+    //             setProducts(response.data)
+    //             console.log(response.data)
+    //         });
+    //     } else {
+    //         api.get(url).then(response => {
+    //             setProducts(response.data)
+    //             console.log(response.data)
+    //         });
+    //     }
+    //     }
 
 
-    }, [props.filters]);
+
+    // }, [props.filters]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -144,7 +166,7 @@ export default function ProductCard(props) {
                 {products.map(product => (
 
                     <div className="Card" key={`product-${product.id}`}>
-                        <Link to={`/product/${product.id}` }className="image-text-container">
+                        <Link to={`/product/${product.id}`} className="image-text-container">
                             <ImageLoader
                                 src={`https://docs.google.com/uc?id=${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
@@ -167,4 +189,4 @@ export default function ProductCard(props) {
         </div>
 
     )
-};
+});
