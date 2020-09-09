@@ -79,9 +79,7 @@ export default withRouter(function ProductCard(props) {
         
         queries ? queries += '&' : queries = '?';
 
-        
         const url=`/products/${queries}page=${page}`
-        console.log('useEffect do productCard, com url = ', url);
         
         if (accessToken) {
             api.get(url, config).then(response => {

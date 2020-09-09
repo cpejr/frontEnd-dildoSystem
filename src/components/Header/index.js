@@ -20,8 +20,6 @@ export default function Header() {
 
     const searchContext = useContext(SearchContext);
 
-    //const history = useHistory();
-
     function handleSearch(e) {
         e.preventDefault();
 

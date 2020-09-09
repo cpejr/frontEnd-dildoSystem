@@ -42,37 +42,6 @@ function Filters(props) {
 
   }
 
-  // function handleFilters(event) {
-  //   event.preventDefault();
-  //   let minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId;
-
-  //   if(min_price) minPrice = Number(min_price);
-  //   if(max_price) maxPrice = Number(max_price);
-
-  //   if(order_by) {
-  //     switch(order_by) {
-  //       case 'price-ascending':
-  //         orderBy = 'price';
-  //         orderAscending = true;
-  //         break;
-  //       case 'price-descending':
-  //         orderBy = 'price';
-  //         orderAscending = false;
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-
-  //   if(search) searchTerm = search;
-
-  //   if(subcategory_id) subcategoryId = Number(subcategory_id);
-
-  //   //console.log(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId)
-
-  //   //props.setFilters(minPrice, maxPrice, orderBy, orderAscending, searchTerm, subcategoryId);
-  // }
-
   function handleCategorySelection(event) {
     const newCat = categories.find(cat => cat.id == event.target.value);
     if (newCat) {

@@ -22,8 +22,6 @@ function SearchContextProvider(props) {
   //Organiza informação quando pesquisa é feita
   function handleSearch(searchConfig) {
 
-    console.log('searchConfig on handleSearch', searchConfig);
-
     const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId } = searchConfig;
 
     let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId };
@@ -86,8 +84,6 @@ function SearchContextProvider(props) {
 
     if (query.slice(-1) === '&') query = query.substring(0, query.length - 1);
 
-    console.log('query on useEffect', query);
-
     history.push(`/search${query}`);
     
   }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId]);
@@ -107,11 +103,9 @@ function SearchContextProvider(props) {
         search = query.substring(7);
         search = search.replace(/%/g, ' ') //substitui % por espaços
         setRawSearch(search);
-        console.log('query extraída é ',search);
       }
     })
-
-    console.log('Initial extraction of queries is', queries);
+    
   }, [])
 
 
