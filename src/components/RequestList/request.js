@@ -1,7 +1,20 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./styles.css";
+import api from "../../services/api"
 
 function RequestArray(props) {
+
+  const[orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    api.get("orders?byUser=id", {
+      })
+      .then((response) => {
+        setOrders(response.data);
+        console.log('orders', response.data)
+      });
+  }, []);
+
   return (
     <div className="request-data">
       <div className="request-number">{`Pedido nº${Number(
@@ -15,7 +28,7 @@ function RequestArray(props) {
       </div>
       <div className="request-data22">
       <div className="request-deadline">{`Previsão de entrega: até ${String(
-        props.produto.deadline
+        orders.lenght
       )}`}</div>
       <div className="request-delivery">{`Frete: R$${Number(
         props.produto.delivery

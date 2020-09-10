@@ -26,8 +26,6 @@ function SearchContextProvider(props) {
 
     let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId };
 
-
-
     if (search) {
       newFilters.search = search;
       newFilters.search = newFilters.search.replace(/ /g, '%') //substitui espaços por %

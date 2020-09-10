@@ -59,7 +59,6 @@ function Filters(props) {
       setSubcategories('');
     }
 
-    console.log(newCat);
   }
 
   return (
