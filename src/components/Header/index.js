@@ -25,13 +25,25 @@ export default function Header() {
 
     const searchContext = useContext(SearchContext);
 
-    function handleSearch(e) {
+    function handleSubmit(e) {
         e.preventDefault();
 
         const searchConfig = {search: search};
 
         searchContext.handleSearch(searchConfig)
         
+    }
+
+    function handleCategory(id){
+        const searchConfig = {categoryId: id}
+
+        searchContext.handleSearch(searchConfig)
+    }
+
+    function handleSubcategory(id){
+        const searchConfig = {subcategoryId: id}
+
+        searchContext.handleSearch(searchConfig)
     }
 
     const accessToken = localStorage.getItem('accessToken')
@@ -55,7 +67,7 @@ export default function Header() {
     return (
         <div id="Header">
             <div className="headerSuperior">
-                <form className="form-group has-search" onSubmit={handleSearch}>
+                <form className="form-group has-search" onSubmit={handleSubmit}>
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
                     <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </form>
@@ -100,15 +112,15 @@ export default function Header() {
                     {
                         categories.map(cat => (
                             <div className="dropdown">
-                                <button className="dropbtn">{cat.name} <KeyboardArrowDownIcon /> </button>
+                                <button className="dropbtn" onClick={()=>handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
                                 <div className="dropdown-content">
                                     <div className="emptyHeaderDiv"></div>
                                     <div className="dropdownLinks">
                                         {
-                                            cat.subcategories.map(subelement => (
-                                                <div>
+                                            cat.subcategories.map(subcat => (
+                                                <div onClick={()=>handleSubcategory(subcat.id)}>
                                                     
-                                                        <a href="#">{subelement.name}</a>
+                                                        <p >{subcat.name}</p> 
                                                 </div>
                                             ))}
                                     </div>
