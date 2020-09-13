@@ -411,7 +411,7 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                   </span>
                 </div>
               </div>
-              <div className="separator"></div>
+              <div className="edit-separator"></div>
               <div className="right-form-dois">
                 <div className="right-form">
                   <div className="config-form">

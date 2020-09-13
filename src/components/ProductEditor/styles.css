@@ -29,7 +29,7 @@
     width: 59%;
     margin-right: 2.5%;
   }
-  .right-form-dois {
+  .form-dois {
     width: 35%;
   }
   .general-form {
@@ -68,8 +68,8 @@
   .price-form .right-side {
     width: 50%;
   }
-  .price-form .left-side .mb-3 .input-group,
-  .price-form .right-side .mb-3 .input-group {
+  .price-form .left-side .edit-mb-3 .edit-input-group,
+  .price-form .right-side .edit-mb-3 .edit-input-group {
     width: 80%;
   }
   .price-form .left-side .mb-3 .promotionalPrice .form-control,
@@ -110,9 +110,9 @@
   .stock-form .mb-3 .input-group #setProductWeightSpan {
     padding: 0 10px;
   }
-  .separator {
+  .edit-separator {
     width: 1px;
-    height: 500px;
+    height: 550px;
     background-color: #707070;
     opacity: 0.48;
     margin-right: 2.5%;
@@ -190,7 +190,7 @@
       padding: 2%;
       align-items: center;
     }
-    .separator{
+    .edit-separator{
       display: none;
     }
     .right-form-dois{
