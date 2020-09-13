@@ -4,7 +4,56 @@ import { IoMdKey } from "react-icons/io";
 import api from "../../services/api";
 import {useEffect} from "react";
 import useStateWithPromise from "../../Contexts/useStateWithPromise";
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+  
 export default function ProfileSettings(props, { id, className, fileName, onSubmit }) {
 
   const [name, setName] = React.useState("");
@@ -24,50 +73,27 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
 
   const LoginContext = React.createContext({});
   const [accessToken, setAccessToken] = useStateWithPromise("");
+  const [userId, setUserId] = useStateWithPromise(0);
 
+  const [open, setOpen] = React.useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState('md');
 
- /* async function handleSubmit(e) {
-    e.preventDefault();
-    
-    let data = new FormData();
-    function addToData(key, value) {
-      if (value !== undefined && value !== '')
-        data.append(key, value);
-    }
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(event.target.value);
+  };
 
-    addToData('name', name);
-    addToData('email', email);
-    //addToData('password', password);
-    //addToData('type', type);
-    addToData('cpf', cpf);
-    //addToData('birthdate', birthdate);
-    addToData('zipcode', zipcode);
-    addToData('phonenumber', phonenumber);
-    addToData('state', state);
-    addToData('city', city);
-    addToData('neighrborhood', neighborhood);
-    addToData('street', street);
-    addToData('number', number);
-    addToData('complement', complement);
+  const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+  };
 
-    try {
-      const response = await api.get("user/:id", data, {
-          headers: {
-            "Content-Type" : "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
-          }
-        })
-        alert(`Registro concluído!`, response);
-    } catch (err) {
-      console.log(JSON.stringify(err));
-      console.log(err.response);
-      alert("Register error");
-    }
-  } 
-   <form onSubmit={handleSubmit}> 
-   </form>
-  */
-
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
     if (newToken && !accessToken) {
@@ -79,6 +105,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
 
         if (resp.data.verified) {
           await Promise.all([
+            setUserId(resp.data.user.id),
             setName(resp.data.user.name),
             setEmail(resp.data.user.email),
             setCpf(resp.data.user.cpf),
@@ -96,6 +123,43 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
       grabData();
     }
   }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    
+    const data = new FormData();
+    function addToData(key, value) {
+      if (value !== undefined && value !== '') {
+        data.append(key, value);
+      }
+    }
+
+    addToData('name', name);
+    addToData('email', email);
+    addToData('cpf', cpf);
+    addToData('zipcode', zipcode);
+    addToData('phonenumber', phonenumber);
+    addToData('state', state);
+    addToData('city', city);
+    addToData('neighrborhood', neighborhood);
+    addToData('street', street);
+    addToData('number', number);
+    addToData('complement', complement);
+
+    try {
+      const response = await api.put(`user/${userId}`, data, {
+          headers: {
+            authorization: "Bearer " + localStorage.accessToken,
+          }
+        })
+        alert(`Edição concluída`, response);
+    } catch (err) {
+      console.log(JSON.stringify(err));
+      console.log(err.response);
+      alert("Edição não pôde ser realizada");
+    }
+  }
+   
   
 
   return (
@@ -161,7 +225,123 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
           </div>
         </div>
         <div className="settings-button-edit-area">
-          <button className="settings-button-edit">Editar Informações</button>
+          <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
+          <Dialog  
+         fullWidth={fullWidth}
+         maxWidth={maxWidth}
+         onClose={handleClose} 
+         aria-labelledby="customized-dialog-title" 
+         open={open}>
+           <form onSubmit={handleSubmit}> 
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Editar meus dados
+        </DialogTitle>
+        <DialogContent dividers>
+        <div className="settings-container">
+      <div className="settings-content">
+        <div className="settings-data">
+          <div className="settings-img"></div>
+          <div className="settings-info">
+            <div className="settings-info-item">
+              <strong>Nome</strong>
+              <input
+                    value={name}                
+                    onChange={(e) => setName(e.target.value)}
+                  />
+            </div>
+            <div className="settings-info-item">
+              <strong>E-mail</strong>
+              <input
+                    value={email}                
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+            </div>
+            <div className="settings-info-item">
+              <strong>CPF</strong>
+              <input
+                    value={cpf}                
+                    onChange={(e) => setCpf(e.target.value)}
+                  />
+            </div>
+            <div className="settings-info-item">
+              <strong>Número de Telefone</strong>
+              <input
+                    value={phonenumber}                
+                    onChange={(e) => setPhonenumber(e.target.value)}
+                  />
+            </div>
+          </div>
+          <div className="settings-button-area">
+            <button className="settings-button">
+              <IoMdKey className="settings-key" size={20} />
+              Alterar Senha
+            </button>
+          </div>
+        </div>
+        <h4>Endereço</h4>
+        <div className="settings-adress">  
+          <div className="settings-adress-item">
+            <strong>Estado</strong>
+            <input
+                    value={state}                
+                    onChange={(e) => setState(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>Cidade</strong>
+            <input
+                    value={city}                
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>CEP</strong>
+            <input
+                    value={zipcode}                
+                    onChange={(e) => setZipcode(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>Bairro</strong>
+            <input
+                    value={neighborhood}                
+                    onChange={(e) => setNeighborhood(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>Rua</strong>
+            <input
+                    value={street}                
+                    onChange={(e) => setStreet(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>Número</strong>
+            <input
+                    value={number}                
+                    onChange={(e) => setNumber(e.target.value)}
+                  />
+          </div>
+          <div className="settings-adress-item">
+            <strong>Complemento</strong>
+            <input
+                    value={complement}                
+                    onChange={(e) => setComplement(e.target.value)}
+                  />
+          </div>
+        </div>
+        <div className="settings-button-edit-area">
+        </div>
+      </div>
+    </div>
+        </DialogContent>
+        <DialogActions>
+          <Button type="submit" autoFocus onClick={handleClose} color="primary">
+            Salvar alterações
+          </Button>
+        </DialogActions>
+        </form>
+      </Dialog>
         </div>
       </div>
     </div>
