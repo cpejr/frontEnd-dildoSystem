@@ -15,6 +15,7 @@ import { useTheme } from '@material-ui/core/styles';
 import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from '../../components/ImageUpload';
+import { useHistory } from "react-router-dom";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -69,7 +70,8 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function NewProduct(props, { id, className, fileName, onSubmit, match }) {
+export default function ProductEditor(props, { id, className, fileName, onSubmit, match }) {
+  console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -87,11 +89,12 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
   const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [fullWidth, setFullWidth] = React.useState();
   const [maxWidth, setMaxWidth] = React.useState('md');
+  const history = useHistory();
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -107,6 +110,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
   };
 
   const handleClose = () => {
+    history.goBack();
     setOpen(false);
   };
 
@@ -116,7 +120,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
     checkedC: true,
     checkedD: true,
   });
-  const [editar, setEditar] = useState();
+  const [editar, setEditar] = useState("editar");
   
   const accessToken = localStorage.getItem("accessToken");
 
@@ -185,7 +189,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
     let data = new FormData();
     function addToData(key, value) {
       if (value !== undefined && value !== '')
@@ -225,18 +228,14 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open responsive dialog
-      </Button>
-      <Dialog
+       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        className="editDialog"
-      >
-      <div className="new-product-all">
+        className="editDialog" >
+       <div className="new-product-all">
         <form onSubmit={handleSubmit}>
         <div className="product-title-page">
         <DialogTitle id="responsive-dialog-title">{"Editar produto"}</DialogTitle>
@@ -617,3 +616,5 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, m
       </div>
   );
 }
+
+

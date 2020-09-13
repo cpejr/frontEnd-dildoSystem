@@ -42,10 +42,15 @@ function Admin(props) {
                     component={NnEProduct}
                   />
 
-                  <Route
+                   <Route
                     path={`${props.match.path}/editproduct/:id`}
                     component={ProductEditor}
                   />
+
+                   <Route
+                    path={`${props.match.path}/editproduct`}
+                    component={EditProduct}
+                  /> 
 
                   <Route
                     path={`${props.match.path}/pendingorder/:id`}

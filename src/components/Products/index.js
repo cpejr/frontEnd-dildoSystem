@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 import CreateIcon from '@material-ui/icons/Create';
-
+import '../../components/ProductEditor';
 import api from '../../services/api';
 
 import './styles.css'
@@ -97,7 +97,7 @@ export default function Product(props) {
                             </p>
                         </Link>
 
-                        <Link id="botao-editar" to={`/product/${product.id}`}>
+                        <Link id="botao-editar" to={`/admin/editproduct/${product.id}`}>
                             <span className="d-flex align-center justify-center">EDITAR<CreateIcon /></span>
                         </Link>
 
