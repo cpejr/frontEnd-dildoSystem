@@ -17,6 +17,9 @@ function SearchContextProvider(props) {
 
   const [rawSearch, setRawSearch] = useState();
 
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [searchToggler, setSearchToggler] = useState(false);
+
   const history = useHistory();
 
   //Organiza informação quando pesquisa é feita
@@ -64,34 +67,39 @@ function SearchContextProvider(props) {
 
     setRawSearch(search);
 
+    setSearchToggler(!searchToggler)
 
   }
 
   //Uma vez informação atualizada e organizada, monta nova URL e redireciona para ela
   useEffect(() => {
 
-    let query = '?';
+    if (initialLoad) {
+      setInitialLoad(false);
+    } else {
+      let query = '?';
 
-    if (search) query += `search=${search}&`;
-    if (minPrice) query += `min_price=${minPrice}&`;
-    if (maxPrice) query += `max_price=${maxPrice}&`;
-    if (orderBy) query += `order_by=${orderBy}&`;
-    if (orderAscending) query += `order_ascending=${orderAscending}&`;
-    if (categoryId) query += `category_id=${categoryId}&`;
-    if (subcategoryId) query += `subcategory_id=${subcategoryId}&`;
+      if (search) query += `search=${search}&`;
+      if (minPrice) query += `min_price=${minPrice}&`;
+      if (maxPrice) query += `max_price=${maxPrice}&`;
+      if (orderBy) query += `order_by=${orderBy}&`;
+      if (orderAscending) query += `order_ascending=${orderAscending}&`;
+      if (categoryId) query += `category_id=${categoryId}&`;
+      if (subcategoryId) query += `subcategory_id=${subcategoryId}&`;
 
-    if (query.slice(-1) === '&') query = query.substring(0, query.length - 1);
+      if (query.slice(-1) === '&') query = query.substring(0, query.length - 1);
 
-    history.push(`/search${query}`);
-    
-  }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId]);
+      history.push(`/search${query}`);
+    }
+
+  }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId, searchToggler]);
 
   //Puxa pesquisa da url
   useEffect(() => {
     let queries = props.location.search;
 
     queries = queries.substring(1, queries.length); //retira ?
-    
+
     let queriesArray = queries.split('&');
 
     let search;
@@ -103,7 +111,7 @@ function SearchContextProvider(props) {
         setRawSearch(search);
       }
     })
-    
+
   }, [])
 
 

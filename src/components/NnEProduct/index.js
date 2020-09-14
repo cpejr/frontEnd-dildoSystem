@@ -76,6 +76,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
+  const [weight, setWeight] = useState(0);
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategoryId] = useState(0);
