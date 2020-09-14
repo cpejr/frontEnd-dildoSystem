@@ -1,0 +1,249 @@
+#Header {
+  font-family: 'Roboto Mono', monospace;
+  position: relative;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  z-index: 9999;
+}
+
+#Header .headerSuperior-2 {
+  width: 100%;
+  background-color:  #DAA621;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding-right: 20px;
+  overflow-y: hidden;
+}
+
+.icon-link {
+  color: black;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.user-info p{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+#Header .headerInferior-2 {
+  background-color:#DDBD69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* min-height: 60px; */
+  height: 75px;
+}
+
+#Header .headerInferior-2 a {
+  color: #000000;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+#Header .headerInferior-2 .links {
+  margin: 0 50px;
+}
+#Header .headerInferior-2 .links.active {
+  right: 0;
+}
+
+#Header .headerInferior-2 .links.active a {
+  opacity: 1;
+} 
+#Header .headerSuperior-2 .userInfoSearch .form-group {
+  margin-bottom: 0;
+  justify-content: left;
+}
+#Header .headerSuperior-2 .userInfoSearch .has-search .form-control {
+  padding-left: 50px;;
+  border-radius: 20px;
+}
+#Header .headerSuperior-2 .MuiSvgIcon-root{
+  color: black;
+  margin: 0 15px;
+}
+#Header .headerSuperior-2 .userInfoSearch .has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #616161;
+}
+.dropbtn {
+  background-color: transparent;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  
+  min-width: 120px;
+  z-index: 1;
+  top: 40px;
+  background-color: rgba(0,0,0,0);
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #f9f9f9; 
+}
+.dropdownLinks{
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+background-color: #f9f9f9;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.logoCasulusDashboard-2 {
+  border: none;
+  position: relative;
+  height: 140px;;
+  border: none;
+  margin: 0 20px;
+}
+.headerImg {
+  display: none;
+}
+.dropdown-content .emptyHeaderDiv {
+  height: 32px;
+  background-color: #DAA621;
+  opacity: 0;
+  min-width: 120px;
+  border: none;
+}
+
+@media (max-width: 1200px) {
+  .dropbtn {
+      background-color: transparent;
+      color: black;
+      padding: 14px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+  }
+}
+@media (max-width: 1050px){
+  .dropbtn {
+      background-color: transparent;
+      color: black;
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+  }
+}
+@media (max-width: 950px){
+  .dropbtn {
+  background-color: transparent;
+  color: black;
+  padding: 10px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  }
+}
+@media (max-width: 890px){
+  .dropbtn {
+      background-color: transparent;
+      color: black;
+      padding: 10px;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+}
+}
+@media (max-width: 890px) {
+  .emptyDiv {
+      height: 75px;
+      background-color: #daa621;
+      width: 100%;
+      margin-bottom: 20px;
+      border: none;
+  }
+  .dropdown {
+      display: contents;
+    }
+  .logoCasulusDashboard-2 {
+      display: none;
+    }
+    .headerImg {
+      display: block;
+      height: 75px;
+      margin: 0;
+  }
+  #Header .headerInferior-2 .links {
+      position: fixed;
+      z-index: 999;
+      right: -100%;
+      top: 0;
+      background-color: #ffffff;
+      display: flex !important;
+      flex-direction: column;
+      flex-wrap: nowrap ;
+      align-items: center;
+      width: 60%;
+      min-height: 100%;
+      -ms-overflow-style: none;
+      /* padding-top: 70px; */
+      /*overflow-y: scroll;*/
+      transition: all 0.5s ease-out;
+  }
+  #Header .headerInferior-2 .links::-webkit-scrollbar {
+      display: none;
+  }
+
+  #Header .headerInferior-2 {
+    background-color: #DAA621;
+  }
+  #Header .headerSuperior-2 {
+      display: none;
+  }
+  #Header .headerInferior-2 .links a, #Header .links .linksSuperior .linguagens h3 {
+      opacity: 0;
+      margin-bottom: 25px;
+  }
+  .dropdown-content {
+      position: initial;
+  }
+  .icone{
+      color: #000000;
+  }
+}
+.iconsDashboard{
+  display: flex;
+  flex-direction: row;
+}
+
+.loginButton{
+  margin-left: 2vh;
+}
+
+.userInfoSearch {
+  display: flex;
+  align-items: center;
+}
