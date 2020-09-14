@@ -81,6 +81,35 @@ function Main(props) {
             <strong>Data de compra:</strong>
             <p>{props.pedido.created_at}</p>
           </div>
+          <div className="order-item">
+            <strong>Rua:</strong>
+            <p>{props.pedido.user.street}</p>
+          </div>
+          <div className="order-item">
+            <strong>Número</strong>
+            <p>{props.pedido.user.number}</p>
+          </div>
+          <div className="order-item">
+            <strong>Bairro:</strong>
+            <p>{props.pedido.user.neighborhood}</p>
+          </div>
+          <div className="order-item">
+            <strong>Complemento:</strong>
+            <p>{props.pedido.complement}</p>
+          </div>
+          <div className="order-item">
+            <strong>Cidade:</strong>
+            <p>{props.pedido.user.city}</p>
+          </div>
+          <div className="order-item">
+            <strong>Esatado:</strong>
+            <p>{props.pedido.user.state}</p>
+          </div>
+          <div className="order-item">
+            <strong>CEP:</strong>
+            <p>{props.pedido.user.zipcode}</p>
+          </div>
+
         </div>
         <h4 id="orderdetails">Detalhes do pedido</h4>
         <div className="order-details">

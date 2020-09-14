@@ -73,7 +73,7 @@ function Pedido2(props) {
           </div>
           <div className="orders-item">
             <strong>Valor:</strong>
-            <p>R$ {props.pedido.totalPrice}</p>
+            <p>{`R$${Number(props.pedido.totalPrice).toFixed(2)}`}</p>
           </div>
           <div className="orders-item">
             <strong>Status:</strong>
