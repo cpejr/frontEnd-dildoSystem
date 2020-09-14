@@ -5,6 +5,7 @@ import { TextField, InputAdornment, Button } from '@material-ui/core'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index'
 
 import api from '../../services/api';
 
@@ -35,6 +36,7 @@ function Dashboard(props) {
                 <Header />
             </div>
             <div className="dashboard-content">
+
                 {/* <HomeNavbar /> */}
                 <ControlledCarousel />
 

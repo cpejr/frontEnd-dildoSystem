@@ -5,6 +5,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import InstagramIcon from '@material-ui/icons/Instagram';
+import {Link} from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -23,7 +24,7 @@ export default function Footer() {
         <div className="icons">
             <WhatsAppIcon />
             <FacebookIcon />
-            <InstagramIcon />
+            <InstagramIcon/>
             <TwitterIcon />
         </div>
       </div>

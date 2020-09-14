@@ -1,9 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import PublishIcon from "@material-ui/icons/Publish";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import api from "../../services/api";
 import "./styles.css";
@@ -62,8 +69,7 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function NewProduct(props, { id, className, fileName, onSubmit }) {
-
+export default function NewProduct(props, { id, className, fileName, onSubmit, match }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -78,44 +84,83 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
-  const [category_id, setCategoryId] = useState(0);
+  const [category_id, setCategory] = useState();
+  const [weight, setWeight] = useState();
 
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const [fullWidth, setFullWidth] = React.useState();
+  const [maxWidth, setMaxWidth] = React.useState('md');
+
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(event.target.value);
+  };
+
+  const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+  };
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [state, setState] = React.useState({
-    checkedA: true,
+    checkedA: false,
     checkedB: true,
     checkedC: true,
     checkedD: true,
   });
   const [editar, setEditar] = useState();
+  
+  const accessToken = localStorage.getItem("accessToken");
+
+  const config = {
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   useEffect(() => {
-    api.get('categories').then(response => {
-      setCategories(response.data);
-      console.log(response.data);
-    })
+    console.log(props);
+    const url = `product/${props.match.params.id}`;
+    
+
+    if (accessToken) {
+      api.get(url, config).then((response) => {
+        setName(response.data.name);
+        setDescription(response.data.description);
+        setClientPrice(response.data.client_price);
+        setClientSalePrice(response.data.client_sale_price);
+        setWholesalerPrice(response.data.wholesaler_price);
+        setWholesalerSalePrice(response.data.wholesaler_sale_price);
+        setOnsaleClient(Boolean(response.data.on_sale_client));
+        setOnsaleWholesaler(Boolean(response.data.on_sale_wholesaler));
+        setFeatured(Boolean(response.data.featured));
+        setVisible(Boolean(response.data.visible)); 
+        setState({checkedB: Boolean(response.data.on_sale_client),
+        checkedC: Boolean(response.data.on_sale_wholesaler),
+        checkedD: Boolean(response.data.featured),
+        checkedA: Boolean(response.data.visible)
+        });
+        setQuantity(response.data.stock_quantity);
+        setMinimum(response.data.min_stock);
+        //setImage(response.data.image_id);
+        setSubcategory(response.data.subcategory_id);
+        setWeight(response.data.weight);
+      });
+    }
   }, []);
+ 
 
   useEffect(() => {
     if (props.wichOne === "editar") {
       setEditar(true);
     }
   }, []);
-
-  function handleCategorySelection(event) {
-    const newCat = categories.find(cat => cat.id == event.target.value);
-    if (newCat) {
-      setCategoryId(Number(newCat.id));
-      setSubcategories(newCat.subcategories);
-    }
-    else {
-      setCategoryId(0);
-      setSubcategories('');
-    }
-
-  }
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -164,12 +209,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('weight', weight);
 
     try {
-      const response = await api.post("newProduct", data, {
-          headers: {
-            "Content-Type" : "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
-          }
-        })
+      const response = await api.put(`updateProduct/${props.match.params.id}`, data, config
+        )
         alert(`Registro concluído!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
@@ -184,13 +225,22 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
 
   return (
     <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open responsive dialog
+      </Button>
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        className="editDialog"
+      >
       <div className="new-product-all">
-        
-
         <form onSubmit={handleSubmit}>
         <div className="product-title-page">
-          <h3>Novo Produto</h3>
-        
+        <DialogTitle id="responsive-dialog-title">{"Editar produto"}</DialogTitle>
+        <DialogContent>
           <div className="form-wrapper">
             <div className="divisor-teste">
               <div className="left-form">
@@ -200,7 +250,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                   <input
                     className="product-name"
                     type="text"
-                    value={name}
+                    value={name}                
                     onChange={(e) => setName(e.target.value)}
                   />
                   <label htmlFor="description">Descrição</label>
@@ -232,7 +282,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                           id="validationDefaultUsername1"
                           placeholder="00.00"
                           aria-describedby="inputGroupPrepend2"
-                          value={client_price}
+                          value={client_price}                          
                           onChange={(e) => setClientPrice(e.target.value)}
                           required
                         />
@@ -513,11 +563,12 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                             Principal:{" "}
                           </label> 
                           {/*DROPDOWNS*/}
-                          <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
-                            <option value="0" disabled>Selecionar</option>
-                            {categories.map(cat=> {
-                              return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
-                            })}
+                          <select name="cars" id="cars">
+                            <option value="0" id="0">Selecionar</option>
+                            <option value="1" id="1">Cosméticos</option>
+                            <option value="2" id="2">Acessórios</option>
+                            <option value="3" id="3">Brincadeiras</option>
+                            <option value="4" id="4">Próteses</option>
                           </select>
                         </div>
                         <div className="categoriesSelection">
@@ -528,10 +579,11 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                             Subcategoria: 
                           </label>
                           <select value={subcategory_id} onChange={(e)=> setSubcategory(e.target.value)}>
-                            <option value="0" disabled>Selecionar</option>
-                            {subcategories.map(subcat=> {
-                              return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
-                            })}
+                            <option value="0" id="0">Selecionar</option>
+                            <option value="1" id="1">Volvo</option>
+                            <option value="2" id="2">Saab</option>
+                            <option value="3" id="3">Mercedes</option>
+                            <option value="4" id="3">Brincadeiras</option>
                           </select>
                         </div>
                       </div>
@@ -553,13 +605,15 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
               </div>
             ) : (
               <div className="product-button">
-                <button type="submit">CRIAR</button>
+                <button type="submit">ENVIAR ALTERAÇÕES</button>
               </div>
             )}
           </div>
+          </DialogContent>
           </div>
         </form>
         </div>
+        </Dialog>
       </div>
   );
 }
