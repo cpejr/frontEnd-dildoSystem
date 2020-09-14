@@ -48,6 +48,11 @@ function ProductPage(props) {
           `https://picsum.photos/id/1018/1000/600/`,
           `https://picsum.photos/id/1015/1000/600/`,
         ]);
+        if(response.data.subproducts.length > 0) {
+          setRelevantStock(response.data.subproducts[0].stock_quantity);
+        } else {
+          setRelevantStock(response.data.stock_quantity);
+        }
         console.log(response.data)
       });
     } else {
