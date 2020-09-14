@@ -18,6 +18,7 @@ function SearchContextProvider(props) {
   const [rawSearch, setRawSearch] = useState();
 
   const [initialLoad, setInitialLoad] = useState(true);
+  const [searchToggler, setSearchToggler] = useState(false);
 
   const history = useHistory();
 
@@ -66,6 +67,7 @@ function SearchContextProvider(props) {
 
     setRawSearch(search);
 
+    setSearchToggler(!searchToggler)
 
   }
 
@@ -90,7 +92,7 @@ function SearchContextProvider(props) {
       history.push(`/search${query}`);
     }
 
-  }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId]);
+  }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId, searchToggler]);
 
   //Puxa pesquisa da url
   useEffect(() => {

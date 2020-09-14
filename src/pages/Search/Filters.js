@@ -29,6 +29,10 @@ function Filters(props) {
     })
   }, []);
 
+  useEffect(() => {
+    setSearch(searchContext.rawSearch);
+  }, [searchContext.rawSearch])
+
   function handleSubmit(e) {
     e.preventDefault();
     const searchConfig = {
