@@ -79,7 +79,11 @@ export default withRouter(function ProductCard(props) {
         
         queries ? queries += '&' : queries = '?';
 
-        const url=`/products/${queries}page=${page}`
+        let url=`/products/${queries}page=${page}`
+
+        if(props.featuredOnly) url += '&featured=true';
+
+        console.log('url when loading products',url);
         
         if (accessToken) {
             api.get(url, config).then(response => {

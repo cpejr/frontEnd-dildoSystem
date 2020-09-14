@@ -42,7 +42,7 @@ function Dashboard(props) {
 
                 <h2>PROMOÇÕES</h2>
 
-                <ProductCard filters={{ featured:true }} />
+                <ProductCard featuredOnly />
 
             </div>
         </div>
