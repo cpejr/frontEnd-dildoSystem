@@ -8,6 +8,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from '../../components/ImageUpload';
+import MultipleUploader from '../../components/MultipleUploader';
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -333,28 +334,9 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                     Secudárias
                   </label>
                   <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span
-                        className="input-group-text"
-                        id="inputGroupFileAddon01"
-                      >
-                        <PublishIcon style={{ fontSize: 17 }} />
-                      </span>
-                    </div>
-                    <div className="custom-file">
-                      <input
-                        type="file"
-                        className="custom-file-input"
-                        id="inputGroupFile01"
-                        aria-describedby="inputGroupFileAddon01"
-                      />
-                      <label
-                        className="custom-file-label"
-                        for="inputGroupFile01"
-                      >
-                        Selecione o arquivo
-                      </label>
-                    </div>
+                    
+                    <MultipleUploader />
+                    
                   </div>
                   <span className="images-label">
                     Formatos aceitos: JPG, PNG

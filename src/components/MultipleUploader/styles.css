@@ -1,0 +1,48 @@
+.selector-row input[type='file'] {
+    color: transparent;
+    display: none;
+}
+
+.file-select {
+    width: 100%;
+}
+
+.input-group-prepend .selector-row {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-content: center;
+}
+
+.input-group-prepend .selector-row .multiple-input {
+    height: 20px;
+    width: 20px;
+    background-color: aliceblue;
+    border-color: black;
+}
+
+/* .file-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+
+.file-selector .selected-info {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+
+.custom-file-label {
+    overflow: hidden;
+    line-height: 25px;
+    border-radius: 0;
+} */

@@ -82,7 +82,7 @@ function SearchContextProvider(props) {
 
     if (query.slice(-1) === '&') query = query.substring(0, query.length - 1);
 
-    history.push(`/search${query}`);
+    //history.push(`/search${query}`);
     
   }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId]);
 
