@@ -97,7 +97,10 @@ export default function Product(props) {
                             </p>
                         </Link>
 
-                        <Link id="botao-editar" to={`/admin/editproduct/${product.id}`}>
+                        <Link id="botao-editar" to={{
+                            pathname:`/admin/editproduct/${product.id}`,
+                            state: product
+                            }}>
                             <span className="d-flex align-center justify-center">EDITAR<CreateIcon /></span>
                         </Link>
 
