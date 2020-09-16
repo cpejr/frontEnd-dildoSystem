@@ -79,8 +79,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [weight, setWeight] = useState(0);
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
-  const [category_id, setCategory] = useState();
-  const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [length, setLength] = useState();
