@@ -1,0 +1,12 @@
+#botao-editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    height: 30px;
+}
