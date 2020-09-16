@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
@@ -63,6 +63,7 @@ const IOSSwitch = withStyles((theme) => ({
 });
 
 export default function NewProduct(props, { id, className, fileName, onSubmit }) {
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -75,6 +76,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
+  const [weight, setWeight] = useState(0);
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
@@ -82,6 +84,10 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [length, setLength] = useState();
+  const [category_id, setCategoryId] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -92,10 +98,30 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [editar, setEditar] = useState();
 
   useEffect(() => {
+    api.get('categories').then(response => {
+      setCategories(response.data);
+      console.log(response.data);
+    })
+  }, []);
+
+  useEffect(() => {
     if (props.wichOne === "editar") {
       setEditar(true);
     }
   }, []);
+
+  function handleCategorySelection(event) {
+    const newCat = categories.find(cat => cat.id == event.target.value);
+    if (newCat) {
+      setCategoryId(Number(newCat.id));
+      setSubcategories(newCat.subcategories);
+    }
+    else {
+      setCategoryId(0);
+      setSubcategories('');
+    }
+
+  }
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -586,12 +612,11 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                             Principal:{" "}
                           </label> 
                           {/*DROPDOWNS*/}
-                          <select name="cars" id="cars">
-                            <option value="0" id="0">Selecionar</option>
-                            <option value="1" id="1">Cosméticos</option>
-                            <option value="2" id="2">Acessórios</option>
-                            <option value="3" id="3">Brincadeiras</option>
-                            <option value="4" id="4">Próteses</option>
+                          <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
+                            <option value="0" disabled>Selecionar</option>
+                            {categories.map(cat=> {
+                              return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
+                            })}
                           </select>
                         </div>
                         <div className="categoriesSelection">
@@ -602,11 +627,10 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                             Subcategoria: 
                           </label>
                           <select value={subcategory_id} onChange={(e)=> setSubcategory(e.target.value)}>
-                            <option value="0" id="0">Selecionar</option>
-                            <option value="1" id="1">Volvo</option>
-                            <option value="2" id="2">Saab</option>
-                            <option value="3" id="3">Mercedes</option>
-                            <option value="4" id="3">Brincadeiras</option>
+                            <option value="0" disabled>Selecionar</option>
+                            {subcategories.map(subcat=> {
+                              return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
+                            })}
                           </select>
                         </div>
                       </div>

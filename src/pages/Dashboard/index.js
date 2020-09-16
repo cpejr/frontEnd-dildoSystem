@@ -31,17 +31,20 @@ function Dashboard(props) {
     })
 
     return (
-  <div className="content">
         <div className="content">
-            <Header />
+            <div className="content">
+                <Header />
             </div>
             <div className="dashboard-content">
-            {/* <HomeNavbar /> */}
-            <ControlledCarousel />
-            <ProductCard filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
-            
-        </div>
-        <Footer />
+
+                {/* <HomeNavbar /> */}
+                <ControlledCarousel />
+
+                <h2>PROMOÇÕES</h2>
+
+                <ProductCard featuredOnly />
+
+            </div>
         </div>
     );
 };

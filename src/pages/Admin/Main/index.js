@@ -13,7 +13,7 @@ function Main() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    api.get("orders?byStatus=pending", {
+    api.get("orders", {
         headers: {
           authorization: "Bearer " + localStorage.accessToken,
         },

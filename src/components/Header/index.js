@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Logo from '../../images/CASULUS00LOGO.svg';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
@@ -7,8 +7,11 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
+import api from '../../services/api';
+
 import Burger from '../../components/Burger/index';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { SearchContext } from '../../Contexts/SearchContext';
 
 import './index.css';
 import { Button } from '@material-ui/core';
@@ -16,23 +19,57 @@ import { Button } from '@material-ui/core';
 export default function Header() {
 
     const [search, setSearch] = useState('');
+    let history = useHistory();
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
 
-    const history = useHistory();
+    const searchContext = useContext(SearchContext);
 
-    function handleSearch(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        let newSearch = search.replace(/ /g, '%')
-        newSearch = newSearch.normalize('NFD'); //retira acentos
-        console.log(newSearch)
-        history.push(`/?search=${newSearch}`);
+
+        const searchConfig = {search: search};
+
+        searchContext.handleSearch(searchConfig)
+        
     }
+
+    function handleCategory(id){
+        const searchConfig = {categoryId: id}
+
+        searchContext.handleSearch(searchConfig)
+    }
+
+    function handleSubcategory(id){
+        const searchConfig = {subcategoryId: id}
+
+        searchContext.handleSearch(searchConfig)
+    }
+
+    const accessToken = localStorage.getItem('accessToken')
+
+    const config = {
+        headers: { 'authorization': `Bearer ${accessToken}` }
+    }
+
+    useEffect(() => {
+        api.get("categories", config).then(response => {
+            setCategories(response.data)
+            console.log(response.data)
+        })
+
+        
+    }, [])
+
+
+    
 
     return (
         <div id="Header">
             <div className="headerSuperior">
-                <form className="form-group has-search" onSubmit={handleSearch}>
+                <form className="form-group has-search" onSubmit={handleSubmit}>
                     <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </form>
 
                 <Link to="/cart" className="icon-link">
@@ -45,7 +82,7 @@ export default function Header() {
                         context => {
                             if (context.loggedIn) {
                                 return (
-                                    <Link to={context.type==="admin"?"/admin":"/user"} className="icon-link user-info">
+                                    <Link to={context.type === "admin" ? "/admin" : "/user"} className="icon-link user-info">
                                         <PersonOutlinedIcon />
                                         <p>{context.name}</p>
                                     </Link>
@@ -71,7 +108,29 @@ export default function Header() {
                 <div className="links">
                     <div className="emptyDiv"> </div>
                     <div className="empty" />
-                    <div className="dropdown">
+
+                    {
+                        categories.map(cat => (
+                            <div className="dropdown">
+                                <button className="dropbtn" onClick={()=>handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
+                                <div className="dropdown-content">
+                                    <div className="emptyHeaderDiv"></div>
+                                    <div className="dropdownLinks">
+                                        {
+                                            cat.subcategories.map(subcat => (
+                                                <div onClick={()=>handleSubcategory(subcat.id)}>
+                                                    
+                                                        <p >{subcat.name}</p> 
+                                                </div>
+                                            ))}
+                                    </div>
+
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                    {/* <div className="dropdown">
                         <button className="dropbtn">Cosméticos <KeyboardArrowDownIcon /> </button>
                         <div className="dropdown-content">
                             <div className="emptyHeaderDiv"></div>
@@ -114,8 +173,14 @@ export default function Header() {
                                 <a href="#">Link 3</a>
                             </div>
                         </div>
-                    </div>
-                    <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+
+                </div>*/}
+                    <Link to="">
+                        <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+                    </Link>
+
+
+
                     <div className="dropdown">
                         <button className="dropbtn">Sado <KeyboardArrowDownIcon /></button>
                         <div className="dropdown-content">
