@@ -59,23 +59,26 @@ export default withRouter(function ProductCard(props) {
     const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
 
-    const accessToken = localStorage.getItem('accessToken')
 
-    const config = {
-        headers: { 'authorization': `Bearer ${accessToken}` }
-    }
 
     useEffect(() => {
+
+        const accessToken = localStorage.getItem('accessToken')
+
+        const config = {
+            headers: { 'authorization': `Bearer ${accessToken}` }
+        }
+
         let queries = props.location.search;
-        
+
         queries ? queries += '&' : queries = '?';
 
-        let url=`/products/${queries}page=${page}`
+        let url = `/products/${queries}page=${page}`
 
-        if(props.featuredOnly) url += '&featured=true';
+        if (props.featuredOnly) url += '&featured=true';
 
-        console.log('url when loading products',url);
-        
+        console.log('url when loading products', url);
+
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
@@ -142,6 +145,12 @@ export default withRouter(function ProductCard(props) {
         const url = `products?page=${page + 1}${queries}`;
 
         let nextPage;
+
+        const accessToken = localStorage.getItem('accessToken')
+
+        const config = {
+            headers: { 'authorization': `Bearer ${accessToken}` }
+        }
 
         if (accessToken) {
             nextPage = await api.get(url, config);
