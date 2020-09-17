@@ -19,6 +19,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { PersonOutline } from '@material-ui/icons';
 import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import ImageIcon from '@material-ui/icons/Image';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
@@ -183,6 +184,13 @@ export default function AdminDashboard2(props) {
                 </ListItem>
 
                 <Divider />
+                <ListItem button component={Link} to="/admin/carocel" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><ImageIcon /></ListItemIcon>
+                    <ListItemText>Carrocel</ListItemText>
+                </ListItem>
+
+                <Divider />
+
               <LoginContext.Consumer>
                 {
                   context => (
