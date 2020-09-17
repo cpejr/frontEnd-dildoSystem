@@ -3,14 +3,13 @@
   max-width: 1400px;
   border-radius: 20px;
   margin: 120px 50px;
+  padding-bottom: 40px;
 }
 
 .admin-product-selector form {
   display: flex;
   width: 100%;
-  padding-top: 40px;
-  padding-right: 40px;
-  padding-left: 40px;
+  padding: 40px;
 }
 
 .admin-product-selector form input {
