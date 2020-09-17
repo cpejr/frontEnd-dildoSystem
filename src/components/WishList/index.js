@@ -12,20 +12,29 @@ export default function WishList(props) {
   const [list, setList] = useState([]);
 
   const userInfo = useContext(LoginContext);
-  console.log(userInfo);
 
-  useEffect(() => {
-    const newToken = localStorage.getItem("accessToken");
+  const newToken = localStorage.getItem("accessToken");
       const config = {
         headers: { authorization: `Bearer ${newToken}` },
       };
+
+  useEffect(() => {
       api.get(`userwishlist/${userInfo.id}`, config).then(response => {        
-        console.log(` essa eh a response${response.data}`)
+        // console.log(` essa eh a response${response.data}`)
         setList(response.data)
       })
-      
-    
-  }, [])
+  }, [userInfo, list])
+
+  const handleDeleteClick = (product_id) => {
+    const newToken = localStorage.getItem("accessToken");
+      const config = {
+        headers: { authorization: `Bearer ${newToken}` },
+        data: { user_id: userInfo.id ,product_id  }
+      };
+    api.delete('userwishlist', config).then(response => {
+      // console.log(response.data);
+    })
+  }
 
 
   return (
@@ -51,7 +60,9 @@ export default function WishList(props) {
                 <div className="wish-text"></div>
               </div>
               <div className="wish-button-area">
-                <MdDeleteForever className="wish-delete" size={30} />
+                <button className="delete-button" onClick={() => handleDeleteClick(products.id)}>
+                  <MdDeleteForever className="wish-delete" size={30} />
+                </button>
                 <button className="wish-button">Adicionar ao Carrinho</button>
               </div>
             </div>
