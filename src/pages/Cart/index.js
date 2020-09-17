@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Link } from "react-router-dom";
+import cart from "../../services/cart";
 
 import "./styles.css";
 import "../../global.css";
@@ -29,7 +30,7 @@ function Cart() {
             <CartCard />
           </div>
           <div className="button-area">
-            <button className="cart-primary-button">COMPRAR</button>
+              <button className="cart-primary-button">COMPRAR</button>
             <Link to="/dashboard">
               <button className="cart-secondary-button">
                 CONTINUAR COMPRANDO

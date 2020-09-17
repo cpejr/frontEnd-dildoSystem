@@ -133,6 +133,7 @@ export default withRouter(function ProductCard(props) {
     // }, [props.filters]);
 
     useEffect(() => {
+        console.log("useEffect_2")
         window.addEventListener('scroll', handleScroll, { passive: true });
 
         return () => {
@@ -182,7 +183,7 @@ export default withRouter(function ProductCard(props) {
                         <PriceElement product={product} />
 
                         <Link id="botao-comprar" to="">
-                            <span>COMPRAR</span>
+                            <span onClick={cart.addItem(product)}>COMPRAR</span>
                         </Link>
 
                     </div>
