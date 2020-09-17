@@ -54,8 +54,8 @@ export default function WishList(props) {
               <div className="wish-card-text">
                 <h4>{products.name}</h4>
                 <div>
-                  <p>{products.client_price}</p>
-                  <strong>{products.client_sale_price}</strong>
+                  <p>R$ {products.client_price}</p>
+                  <strong>R$ {products.client_sale_price}</strong>
                 </div>
                 <div className="wish-text"></div>
               </div>
