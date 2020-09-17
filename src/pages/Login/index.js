@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiMail, FiLock } from "react-icons/fi"; // importando o feather icons caso precise usar os icones do react
 import { TextField, InputAdornment, Button } from "@material-ui/core";
@@ -18,18 +18,24 @@ function Login() {
   const [error, setError] = useState();
   const history = useHistory();
 
+  const userInfo = useContext(LoginContext);
+
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
+    console.log(`esse eh o userinfo: ${userInfo}`)
     if (changed) {
       history.push("/admin");
       setChanged(false);
     }
   }, [changed]);
 
-  async function handleLogin(e, context) {
+  async function handleLogin(e) {
     e.preventDefault();
 
+    console.log(`esse eh o userinfo: ${userInfo}`)
+
+    
     try {
       const response = await api.post("login", { email, password: passwd });
 
@@ -68,11 +74,11 @@ function Login() {
       }
 
       await Promise.all([
-        context.setLoggedIn(true),
-        context.setName(user.name),
-        context.setId(user.id),
-        context.setType(user.type),
-        context.setAccessToken(response.data.accessToken),
+        userInfo.setLoggedIn(true),
+        userInfo.setName(user.name),
+        userInfo.setId(user.id),
+        userInfo.setType(user.type),
+        userInfo.setAccessToken(response.data.accessToken),
       ]);
       setChanged(true);
     } catch (err) {
@@ -125,20 +131,18 @@ function Login() {
               />
 
               {error && <p className="errortext">{error}</p>}
-              <LoginContext.Consumer>
-                {(context) => (
+              
                   <Button
                     className="button"
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={(e) => handleLogin(e, context)}
+                    onClick={(e) => handleLogin(e)}
                   >
                     {" "}
                     Entrar{" "}
                   </Button>
-                )}
-              </LoginContext.Consumer>
+               
             </div>
 
             <Link className="link" to="/register">

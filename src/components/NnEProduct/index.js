@@ -165,6 +165,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('featured', featured);
     addToData('imageFile', image_id);
     addToData('subcategory_id', subcategory_id);
+    // addToData('weight', weight);
+
     addToData('weight', weight);
     addToData('height', height);
     addToData('width', width);
@@ -492,8 +494,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                           type="text"
                           className="form-control"
                           id="setProductWeight"
-                          value={weight}
-                          onChange={(e) => setWeight(e.target.value)}
+                          // value={weight}
+                          // onChange={(e) => setWeight(e.target.value)}
                           aria-describedby="inputGroupPrepend2"
                           required
                         />
