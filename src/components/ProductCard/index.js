@@ -4,6 +4,7 @@ import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 
 import api from '../../services/api';
+import cart from "../../services/cart"
 
 import './styles.css'
 import loading from '../../images/Loading.gif';

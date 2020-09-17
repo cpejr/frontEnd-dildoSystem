@@ -101,4 +101,9 @@
     margin-bottom: 15px;
     margin-left: 40%;
 }
-
+.dialogac {
+    height: 10%;
+}
+.contentDialog {
+    width: 100%;
+}

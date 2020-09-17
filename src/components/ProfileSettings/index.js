@@ -43,14 +43,17 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: 0,
+    marginLeft: 0,
+    marginRight: 100,
   },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles((theme) => ({
   root: {
-    margin: 0,
-    padding: theme.spacing(1),
+    marginTop: 470,
+    padding: theme.spacing(2),
+    marginBottom: 0,
   },
 }))(MuiDialogActions);
   
@@ -77,7 +80,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
 
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState('md');
+  const [maxWidth, setMaxWidth] = React.useState('lg');
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -227,20 +230,16 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
         <div className="settings-button-edit-area">
           <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
           <Dialog  
-         fullWidth={fullWidth}
-         maxWidth={maxWidth}
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
          onClose={handleClose} 
          aria-labelledby="customized-dialog-title" 
          open={open}>
            <form onSubmit={handleSubmit}> 
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Editar meus dados
-        </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent dividers className="contentDialog">
         <div className="settings-container">
       <div className="settings-content">
         <div className="settings-data">
-          <div className="settings-img"></div>
           <div className="settings-info">
             <div className="settings-info-item">
               <strong>Nome</strong>
@@ -335,7 +334,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
       </div>
     </div>
         </DialogContent>
-        <DialogActions>
+        <DialogActions classname="dialogac">
           <Button type="submit" autoFocus onClick={handleClose} color="primary">
             Salvar alterações
           </Button>

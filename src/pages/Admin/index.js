@@ -9,7 +9,9 @@ import Main from "./Main";
 import "./styles.css";
 
 import NnEProduct from "../../components/NnEProduct";
-import ProductEditor from "../../components/ProductEditor";
+
+import ProductEditor from "../../components/ProductEditor"
+import EditProduct from "../../pages/EditProduct";
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
@@ -24,42 +26,57 @@ function Admin(props) {
 
   return (
     <LoginContext.Consumer>
-      {(value) => {
-        if (value.type === "admin") {
-          return (
-            <div>
-              <AdminDashboard2 name={value.name} type={value.type}>
-                <Route exact path={props.match.path} component={Main} />
+      {
+        value => {
+          if (value.type === 'admin') {
+            return (
+              <div>
+                <AdminDashboard2 name={value.name} type={value.type}>
 
-                <Route
-                  path={`${props.match.path}/newproduct`}
-                  component={NnEProduct}
-                />
+                  <Route exact path={props.match.path} component={Main} />
 
-                <Route
-                  path={`${props.match.path}/editproduct/:id`}
-                  component={ProductEditor}
-                />
+                  <Route
+                    path={`${props.match.path}/newproduct`}
+                    component={NnEProduct}
+                  />
 
-                <Route
-                  path={`${props.match.path}/pendingorder/:id`}
-                  component={Orders}
-                />
+                   <Route
+                    path={`${props.match.path}/editproduct/:id`}
+                    component={ProductEditor}
+                  />
 
-                <Route
-                  path={`${props.match.path}/pendingusers`}
-                  component={PendingUsers}
-                />
+                   <Route
+                    path={`${props.match.path}/editproduct`}
+                    component={EditProduct}
+                  /> 
 
+                  <Route
+                    path={`${props.match.path}/pendingorder/:id`}
+                    component={Orders}
+                  />
+
+
+                  <Route
+                    path={`${props.match.path}/pendingusers`}
+                    component={PendingUsers}
+                  />
+                      
                 <Route
                   path={`${props.match.path}/carocel`}
                   component={Carocel}
                 />
-              </AdminDashboard2>
-            </div>
-          );
-        } else {
-          history.push("/");
+                </AdminDashboard2>
+
+ {/*                <Route
+                    path={`${props.match.path}/pendingorder`}
+                    component={Orders}
+                  /> */}
+              </div>
+            );
+          } else {
+            history.push('/');
+          }
+
         }
       }}
     </LoginContext.Consumer>
