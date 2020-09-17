@@ -7,15 +7,27 @@
   z-index: 9999;
 }
 
-#Header .headerSuperior-2 {
+#Header .headerSuperior {
   width: 100%;
   background-color:  #DAA621;
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  padding-right: 20px;
+  overflow-y: hidden;
+}
+
+#Header .headerSuperior .header-content {
+  width: 100%;
+  max-width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  padding-right: 20px;
   overflow-y: hidden;
+
+  box-sizing: content-box;
+  margin: 0 20px;
 }
 
 .icon-link {
@@ -31,44 +43,55 @@
   font-weight: bold;
 }
 
-#Header .headerInferior-2 {
+#Header .headerInferior {
   background-color:#DDBD69;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   /* min-height: 60px; */
   height: 75px;
 }
 
-#Header .headerInferior-2 a {
+#Header .headerInferior .header-content {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-sizing: content-box;
+  margin: 0 20px;
+}
+
+#Header .headerInferior a {
   color: #000000;
   text-decoration: none;
   margin: 0 10px;
 }
 
-#Header .headerInferior-2 .links {
-  margin: 0 50px;
+#Header .headerInferior .links {
+  margin: 0px;
 }
-#Header .headerInferior-2 .links.active {
+#Header .headerInferior .links.active {
   right: 0;
 }
 
-#Header .headerInferior-2 .links.active a {
+#Header .headerInferior .links.active a {
   opacity: 1;
 } 
-#Header .headerSuperior-2 .userInfoSearch .form-group {
+#Header .headerSuperior .userInfoSearch .form-group {
   margin-bottom: 0;
   justify-content: left;
 }
-#Header .headerSuperior-2 .userInfoSearch .has-search .form-control {
+#Header .headerSuperior .userInfoSearch .has-search .form-control {
   padding-left: 50px;;
   border-radius: 20px;
 }
-#Header .headerSuperior-2 .MuiSvgIcon-root{
+#Header .headerSuperior .MuiSvgIcon-root{
   color: black;
   margin: 0 15px;
 }
-#Header .headerSuperior-2 .userInfoSearch .has-search .form-control-feedback {
+#Header .headerSuperior .userInfoSearch .has-search .form-control-feedback {
   position: absolute;
   z-index: 2;
   display: block;
@@ -119,12 +142,12 @@ background-color: #f9f9f9;
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.logoCasulusDashboard-2 {
+.logoCasulusDashboard {
   border: none;
   position: relative;
   height: 140px;;
   border: none;
-  margin: 0 20px;
+  margin: 0;
 }
 .headerImg {
   display: none;
@@ -188,7 +211,7 @@ background-color: #f9f9f9;
   .dropdown {
       display: contents;
     }
-  .logoCasulusDashboard-2 {
+  .logoCasulusDashboard {
       display: none;
     }
     .headerImg {
@@ -196,7 +219,7 @@ background-color: #f9f9f9;
       height: 75px;
       margin: 0;
   }
-  #Header .headerInferior-2 .links {
+  #Header .headerInferior .links {
       position: fixed;
       z-index: 999;
       right: -100%;
@@ -213,17 +236,17 @@ background-color: #f9f9f9;
       /*overflow-y: scroll;*/
       transition: all 0.5s ease-out;
   }
-  #Header .headerInferior-2 .links::-webkit-scrollbar {
+  #Header .headerInferior .links::-webkit-scrollbar {
       display: none;
   }
 
-  #Header .headerInferior-2 {
+  #Header .headerInferior {
     background-color: #DAA621;
   }
-  #Header .headerSuperior-2 {
+  #Header .headerSuperior {
       display: none;
   }
-  #Header .headerInferior-2 .links a, #Header .links .linksSuperior .linguagens h3 {
+  #Header .headerInferior .links a, #Header .links .linksSuperior .linguagens h3 {
       opacity: 0;
       margin-bottom: 25px;
   }

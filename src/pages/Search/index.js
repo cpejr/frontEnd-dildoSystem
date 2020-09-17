@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FiFilter } from 'react-icons/fi';
 
 import Header from '../../components/Header';
-import Header2 from '../../components/Header2';
 import ProductCard from '../../components/ProductCard';
 import Filters from './Filters';
 import {SearchContext} from '../../Contexts/SearchContext';
@@ -16,7 +15,7 @@ function Search(props) {
   return (
     <div className="content">
       <div className="content">
-        <Header2 />
+        <Header />
       </div>
       <div className="searchpage-content">
 
