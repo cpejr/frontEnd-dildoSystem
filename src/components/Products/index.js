@@ -16,25 +16,24 @@ export default function Product(props) {
     const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
 
-    const accessToken = localStorage.getItem('accessToken')
-
-    const config = {
-        headers: { 'authorization': `Bearer ${accessToken}` }
-    }
-
     useEffect(() => {
         let newQueries = '';
-        const keys = Object.keys(props.filters);
-        keys.forEach(key => {
-            if (props.filters[key]) {
-                newQueries += `&${key}=${props.filters[key]}`;
-            }
-        });
+
+        console.log(props)
+
+        if (props.search) newQueries += `&search=${props.search}`;
+        if (props.categoryId) newQueries += `&category_id=${props.categoryId}`;
 
         setQueries(newQueries);
 
         const url = `products?page=${page}${newQueries}`;
         console.log(url);
+
+        const accessToken = localStorage.getItem('accessToken')
+
+        const config = {
+            headers: { 'authorization': `Bearer ${accessToken}` }
+        }
 
         if (accessToken) {
             api.get(url, config).then(response => {
@@ -49,7 +48,7 @@ export default function Product(props) {
         }
 
 
-    }, [props.filters]);
+    }, [props.search, props.categoryId]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -70,6 +69,12 @@ export default function Product(props) {
         const url = `products?page=${page + 1}${queries}`;
 
         let nextPage;
+
+        const accessToken = localStorage.getItem('accessToken')
+
+        const config = {
+            headers: { 'authorization': `Bearer ${accessToken}` }
+        }
 
         if (accessToken) {
             nextPage = await api.get(url, config);
@@ -98,9 +103,9 @@ export default function Product(props) {
                         </Link>
 
                         <Link id="botao-editar" to={{
-                            pathname:`/admin/editproduct/${product.id}`,
+                            pathname: `/admin/editproduct/${product.id}`,
                             state: product
-                            }}>
+                        }}>
                             <span className="d-flex align-center justify-center">EDITAR<CreateIcon /></span>
                         </Link>
 

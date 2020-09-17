@@ -1,21 +1,58 @@
-import React, {useState} from 'react'
-import NnEProduct from '../../components/NnEProduct/index.js'
-import AdminDashBoard from '../../components/AdminDashboard/index.js'
-import ProductEditor from '../../components/ProductEditor/index.js'
+import React, { useState, useEffect } from 'react'
 
 import Products from '../../components/Products';
+import api from '../../services/api';
+
+import './styles.css';
 
 export default function EditProduct() {
-    const [max_price, setMax_Price] = useState();
-    const [min_price, setMin_Price] = useState();
-    const [order_by, setOrder_by] = useState();
-    const [order_ascending, setOrder_ascending] = useState();
-    const [search, setSearch] = useState();
-    const [subcategory_id, setSubcategory_id] = useState();
+    
+    const [search, setSearch] = useState('');
+    const [categoryId, setCategoryId] = useState(0);
 
-    return(
-        <div>
-            <Products filters = {{max_price, min_price, order_by, order_ascending, search, subcategory_id}}/>
+    const [formattedSearch, setFormattedSearch] = useState('');
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        api.get('categories').then(response => {
+          setCategories(response.data);
+        })
+      }, []);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        let newFormattedSearch;
+
+        if(search) {
+            newFormattedSearch = search.replace(/ /g, '%');
+            newFormattedSearch = newFormattedSearch.normalize('NFD');
+        }
+
+        console.log(newFormattedSearch);
+
+        setFormattedSearch(newFormattedSearch);
+    }
+
+    return (
+        <div className="admin-product-selector">
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="searchTerm" placeholder="Pesquise o produto a editar" value={search} onChange={e => setSearch(e.target.value)} />
+
+                <div className="category-and-button">
+                    <select name="category" value={categoryId} onChange={e => setCategoryId(e.target.value)}>
+                        <option value={0} default>Categoria</option>
+                        {categories.map(
+                            cat => <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
+                            )}
+                    </select>
+
+                    <button type="submit">Buscar</button>
+                </div>
+
+            </form>
+            <Products search={formattedSearch} categoryId={categoryId}  />
         </div>
     )
 }
