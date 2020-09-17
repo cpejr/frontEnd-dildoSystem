@@ -78,7 +78,7 @@ function Admin(props) {
           }
 
         }
-      }}
+      }
     </LoginContext.Consumer>
   );
 }
