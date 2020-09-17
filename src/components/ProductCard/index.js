@@ -10,16 +10,6 @@ import './styles.css'
 import loading from '../../images/Loading.gif';
 
 
-// props.filters = {
-//     max_price: Número representando preço máximo
-//     min_price: Número representando preço mínimo
-//     order_by: Booleano que indica se resultados devem ser ordenados 
-//         por preço (vai usar o preço certo)
-//     order_ascending: Booleano que indica ordem crescente ou decrescente
-//         (true para crescente)
-//     search: string com o nome pesquisado
-//     subcategory_id: id da subcategoria em que se pesquisa
-// }
 
 function PriceElement(props) {
 
