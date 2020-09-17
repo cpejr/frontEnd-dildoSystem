@@ -1,0 +1,75 @@
+.image-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 2vh;
+}
+
+.image-container img{
+    max-height: 40vh;
+    max-width: 1400px;
+    width: 75%!important;
+    height: auto;
+}
+
+.position-container{
+
+    width: 25vh;
+    margin-bottom: 1rem!important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.EditCarocel-Container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.EditCarocel-Container h4{
+color: #707070;
+margin-top: 1vh;
+font-size: 2vh;
+}
+
+.enviar-button-carocel{
+    padding: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.enviar-button-carocel button {
+    border-radius: 10px;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 20%;
+    box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
+
+ }
+
+ .enviar-button-carocel .edit-save {
+     min-width: 100px;
+    background-color: #4bbc4c;
+}
+
+.enviar-button-carocel .edit-delete {
+    min-width: 80px;
+    background-color: #bc4b4b;
+}
+
+.enviar-button-carocel .editbutton {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+}
+
+.carocel-image-form{
+    max-width: 300px;
+    width: 80%;
+}
