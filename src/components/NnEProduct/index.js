@@ -164,6 +164,11 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('subcategory_id', subcategory_id);
     // addToData('weight', weight);
 
+    addToData('weight', weight);
+    addToData('height', height);
+    addToData('width', width);
+    addToData('length', length);
+
     try {
       const response = await api.post("newProduct", data, {
           headers: {
