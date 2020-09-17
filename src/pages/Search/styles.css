@@ -22,12 +22,15 @@
 
 .filters-container {
   width: 250px;
-  height: 600px;
   border-radius: 15px;
 
   margin-top: 50px;
+  margin-right: 50px;
+  background-color: var(--background);
 
-  background-color: lightgrey;
+  border-top: 3px solid var(--mainColor);
+  border-bottom: 3px solid var(--mainColor);
+
 }
 
 .filters-container form {
@@ -48,11 +51,17 @@
   margin-top: 30px;
   height: 40px;
 
-  background-color: var(--green-color);
+  background-color: var(--mainColor);
   color: white;
 
   font-weight: bold;
   font-size: 18px;
+}
+
+.filters-container form input,select {
+  background-color: rgba(0,0,0,0);
+  border-radius: 5px;
+  border: 1px solid gray;
 }
 
 .price-range {
@@ -72,6 +81,7 @@
 
 .close-icon-container {
   visibility: hidden;
+  display: none;
 }
 
 @media (max-width: 890px) {
@@ -96,7 +106,7 @@
 
   .filters-container.visible {
 
-    border-radius: 0;
+    /* border-radius: 0; */
     left: 0;
 
     visibility: visible;

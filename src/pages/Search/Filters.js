@@ -83,7 +83,7 @@ function Filters(props) {
 
         <strong>Ordernar por</strong>
         <select name="order-by" id="order-by" value={order_by} onChange={e => setOrder_by(e.target.value)}>
-          <option default value="relevance">Relevância</option>
+          <option default value="default"> </option>
           <option value="price-ascending">Preço: do mais baixo para o mais alto</option>
           <option value="price-descending">Preço: do mais alto para o mais baixo</option>
         </select>

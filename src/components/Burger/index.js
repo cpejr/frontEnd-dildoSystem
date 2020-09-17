@@ -21,7 +21,7 @@ export default function Burger() {
         lines[1].classList.add("middle");
         lines[2].classList.add("bottom");
 
-        document.querySelector("#Header > .headerInferior > div.links").classList.add("active");
+        document.querySelector("#Header > .headerInferior > .header-content >  div.links").classList.add("active");
     }
 
     const closeMenu = () => {
@@ -30,7 +30,7 @@ export default function Burger() {
         lines[1].classList.remove("middle");
         lines[2].classList.remove("bottom");
 
-        document.querySelector("#Header > .headerInferior > div.links").classList.remove("active");
+        document.querySelector("#Header > .headerInferior > .header-content > div.links").classList.remove("active");
     }
 
     return (

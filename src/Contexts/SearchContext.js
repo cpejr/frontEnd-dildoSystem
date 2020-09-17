@@ -49,6 +49,7 @@ function SearchContextProvider(props) {
           newFilters.orderAscending = false;
           break;
         default:
+          newFilters.orderBy = '';
           break;
       }
     }
