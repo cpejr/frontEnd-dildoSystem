@@ -14,7 +14,6 @@ import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
 import Testefrete from './pages/testefrete';
 
-
 function Routes() {
     return (
         <BrowserRouter>
@@ -32,9 +31,7 @@ function Routes() {
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
                     </SearchContextProvider>
-
                 </LoginContextProvider>
-
             </Switch>
         </BrowserRouter>
     );

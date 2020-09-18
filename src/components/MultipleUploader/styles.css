@@ -1,0 +1,26 @@
+.selector-row input[type='file'] {
+    color: transparent;
+}
+
+.input-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-select {
+    width: 100%;
+}
+
+.input-group-prepend .selector-row {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-content: center;
+}
+
+.input-group-prepend .selector-row .multiple-input {
+    height: 20px;
+    width: 20px;
+    background-color: aliceblue;
+    border-color: black;
+}
