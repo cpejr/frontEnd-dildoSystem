@@ -4,7 +4,7 @@ import PublishIcon from "@material-ui/icons/Publish";
 
 import "./styles.css";
 
-export default function ImageUpload({ onChange, onSubmit }) {
+export default function MultipleUploader({ onChange, onSubmit }) {
     const [images, setImages] = useState(null);
     const [images_names, setImagesNames] = useState();
 
@@ -76,9 +76,9 @@ export default function ImageUpload({ onChange, onSubmit }) {
                     name={"teste"}
                     onChange={changeHandler}
                     multiple
-                >Browse</input>
-                {/* <label className="custom-file-label" for="inputGroupFile01" htmlFor="fileName">
-                </label> */}
+                />
+                <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
+                </label>
             </div>
 
             {/* <div className="selected-info">
