@@ -12,9 +12,6 @@ import SearchContextProvider from './Contexts/SearchContext';
 import User from './pages/User';
 import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
-import MultipleUploader from './components/MultipleUploader';
-
-
 
 function Routes() {
     return (
@@ -30,8 +27,7 @@ function Routes() {
                         <Route path='/admin' component={Admin} />
                         <Route path='/cart' exact component={Cart} />
                         <Route path='/user' component={User} />
-                        <Route path='/product/:id' component={ProductPage} />
-                        <Route path='/imgtest' component={MultipleUploader} /> 
+                        <Route path='/product/:id' component={ProductPage} /> 
                     </SearchContextProvider>
                 </LoginContextProvider>
             </Switch>
