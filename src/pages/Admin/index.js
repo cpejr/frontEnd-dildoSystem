@@ -16,7 +16,7 @@ import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
 import Products from "../../components/Products/index.js";
-import Carocel from "../../components/Carocel/index.js"
+import Carousel from "../../components/Carousel/index.js"
 
 function Admin(props) {
   let [nome, setNome] = useState("Nome do usuario");
@@ -62,8 +62,8 @@ function Admin(props) {
                   />
                       
                 <Route
-                  path={`${props.match.path}/carocel`}
-                  component={Carocel}
+                  path={`${props.match.path}/carousel`}
+                  component={Carousel}
                 />
                 </AdminDashboard2>
 
