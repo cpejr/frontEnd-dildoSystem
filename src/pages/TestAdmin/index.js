@@ -184,7 +184,7 @@ export default function AdminDashboard2(props) {
                 </ListItem>
 
                 <Divider />
-                <ListItem button component={Link} to="/admin/carocel" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ImageIcon /></ListItemIcon>
                     <ListItemText>Carrocel</ListItemText>
                 </ListItem>
