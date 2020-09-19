@@ -1,26 +1,51 @@
-.selector-row input[type='file'] {
-    color: transparent;
-}
-
 .input-content {
     display: flex;
     flex-direction: column;
 }
 
-.file-select {
+.input-content .file-selector {
     width: 100%;
 }
 
-.input-group-prepend .selector-row {
+.input-content input[type='file'] {
+    height: 100%;
+    outline: none;
+}
+
+.input-content button {
+    height: 100%;
+    outline: none;
+    margin: 0;
+    border-radius: 0;
+}
+
+.file-selector .selector-row {
     display: flex;
     margin: 0;
     justify-content: center;
     align-content: center;
 }
 
-.input-group-prepend .selector-row .multiple-input {
-    height: 20px;
-    width: 20px;
+.file-selector .selector-row .multiple-input {
     background-color: aliceblue;
     border-color: black;
+}
+
+
+.input-content .delete-file {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-content .delete-file .id-selector {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.input-content .delete-file .id-selector .send{
+    width: 20%;
+    font-weight: 400;
 }

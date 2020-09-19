@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import api from "../../services/api";
-import PublishIcon from "@material-ui/icons/Publish";
 
 import "./styles.css";
 
-export default function MultipleUploader({ onChange, onSubmit }) {
+export default function MultipleUploader({ onChange, canSubmit, canDelete }) {
     const [images, setImages] = useState(null);
     const [images_names, setImagesNames] = useState();
     const [selected, setSelected] = useState();
@@ -25,6 +24,7 @@ export default function MultipleUploader({ onChange, onSubmit }) {
 
         setImages(images);
         setImagesNames(imagesNames);
+        if (onChange) onChange(images);
     };
 
     async function handleSubmit(e) {
@@ -40,8 +40,6 @@ export default function MultipleUploader({ onChange, onSubmit }) {
             images.forEach((image) => {
                 addToData('imageFiles', image);
             })
-
-            console.log("Req data: ", data);
 
             try {
                 const response = await api.post("images", data)
@@ -71,19 +69,8 @@ export default function MultipleUploader({ onChange, onSubmit }) {
 
     return (
         <div className="input-content">
-            <div className="input-group-prepend">
-                <span className="input-group-text" id="inputGroupFileAddon01">
-                    <PublishIcon style={{ fontSize: 17 }} />
-                </span>
+            <div className="file-selector">
                 <div className="selector-row">
-                    <select className="file-select">
-                        <option className="fileName" key="default" selected disabled hidden>Selecione arquivos</option>
-                        {images_names ? images_names.map((names) => {
-                            return (
-                                <option className="fileName" key={names}>{names}</option>
-                            )
-                        }) : "Selecione arquivos"}
-                    </select>
                     <input
                         type="file"
                         id="files"
@@ -96,12 +83,17 @@ export default function MultipleUploader({ onChange, onSubmit }) {
                     </label>
                 </div>
 
-                <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar</button>
+                {canSubmit ?
+                    <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar</button> : <div></div>
+                }
             </div>
-            <div className="delete-file">
-                <input type="text" value={selected} className="id-selector" onChange={(e) => {setSelected(e.target.value)}} placeholder="Digite um ID"/>
-                <button type="submit" onClick={(e) => handleDelete(e, selected)}>deletar foto</button>
-            </div>
+            {canDelete ?
+                <div className="delete-file">
+                    <input type="text" value={selected} className="id-selector" onChange={(e) => { setSelected(e.target.value) }} placeholder="Digite um ID" />
+                    <button type="submit" className="send" onClick={(e) => handleDelete(e, selected)}>deletar</button>
+                </div> : <div></div>
+            }
+
         </div>
     );
 };
