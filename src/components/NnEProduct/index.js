@@ -367,7 +367,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                   </span>
                   </div>
                 </div>
-                <div className="separator"></div>
+                <div className="separator-ne"></div>
                 <div className="right-form-dois">
                   <div className="right-form">
                     <div className="config-form">
@@ -530,7 +530,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                               className="input-group-text"
                               id="inputGroupPrepend2"
                             >
-                              m
+                              cm
                           </span>
                           </div>
                         </div>
@@ -560,7 +560,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                               className="input-group-text"
                               id="inputGroupPrepend2"
                             >
-                              m
+                              cm
                           </span>
                           </div>
                         </div>
@@ -590,7 +590,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                               className="input-group-text"
                               id="inputGroupPrepend2"
                             >
-                              m
+                              cm
                           </span>
                           </div>
                         </div>
