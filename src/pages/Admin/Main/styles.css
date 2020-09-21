@@ -23,7 +23,7 @@
   height: auto;
   border-radius: 10px;
   color: white;
-  padding: 20px 0;
+  padding: 45px 0;
 }
 
 .orders-item a{
@@ -34,20 +34,35 @@
   text-align: center;
 }
 
+.farol a{
+  width: 32%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  text-decoration: none;
+}
+
 h4.titulo {
   color: #707070;
 }
 
 .farol .pendentes {
   background-color: #BF3838;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .farol .acabando {
   background-color: #E4B53F;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .farol .aguardando-aprovacao {
   background-color: #4BBC4C;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .pedidos-pendentes {
@@ -167,7 +182,7 @@ color:black;
 }
 
 .orders-info{
-  width: 80%;
+  width: 100%;
 }
 
 .orders-accept-button{
@@ -182,6 +197,11 @@ color:black;
 }
 
 @media (max-width: 600px){
+  .orders-content{
+    width: 70%;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
   .orders-container{
       margin-right: 0;
       margin-left: 0;
@@ -214,4 +234,10 @@ color:black;
       margin-left: auto;
   }
 
+  .orders-item-edit{
+    color: white;
+    margin-left: 80%;
+  }
 }
+
+ 

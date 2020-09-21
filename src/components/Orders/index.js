@@ -18,9 +18,9 @@ function Orders(props) {
   };
   useEffect(() => {
     console.log(props);
-    if(props.match.params.id>0){
-    url = `orders?byid=${props.match.params.id}`;}
-    else{url = "orders";}
+   
+    url = `orders?byid=${props.match.params.id}`
+    
 
     if (accessToken) {
       api.get(url, config).then((response) => {

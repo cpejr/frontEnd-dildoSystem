@@ -105,12 +105,12 @@
     width: 55%;
   }
   .stock-form .mb-3 .input-group {
-    width: 60%;
+    width: 70%;
   }
   .stock-form .mb-3 .input-group #setProductWeightSpan {
     padding: 0 10px;
   }
-  .edit-separator {
+  .separator{
     width: 1px;
     height: 550px;
     background-color: #707070;

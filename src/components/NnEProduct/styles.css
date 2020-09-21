@@ -110,9 +110,9 @@
   .stock-form .mb-3 .input-group #setProductWeightSpan {
     padding: 0 10px;
   }
-  .separator {
+  .separator-ne {
     width: 1px;
-    height: 700px !important;
+    height: 700px;
     background-color: #707070;
     opacity: 0.48;
     margin-right: 2.5%;
@@ -201,7 +201,7 @@
       padding: 2%;
       align-items: center;
     }
-    .separator{
+    .separator-ne{
       display: none;
     }
     .right-form-dois{
