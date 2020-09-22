@@ -38,10 +38,10 @@ export default function EditProduct() {
     return (
         <div className="admin-product-selector">
             <form onSubmit={handleSubmit}>
-                <input type="text" name="searchTerm" placeholder="Pesquise o produto a editar" value={search} onChange={e => setSearch(e.target.value)} />
+                <input type="text" className ="input-search" name="searchTerm" placeholder="Pesquise o produto a editar" value={search} onChange={e => setSearch(e.target.value)} />
 
                 <div className="category-and-button">
-                    <select name="category" value={categoryId} onChange={e => setCategoryId(e.target.value)}>
+                    <select className="select-category" name="category" value={categoryId} onChange={e => setCategoryId(e.target.value)}>
                         <option value={0} default>Categoria</option>
                         {categories.map(
                             cat => <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>

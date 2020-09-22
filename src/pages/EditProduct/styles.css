@@ -45,6 +45,14 @@
   display: flex;
 }
 
+.select-category {
+  margin-right: 2vh;
+}
+
+.input-search {
+  margin-right: 2vh;
+}
+
 @media (max-width: 500px) {
   .admin-product-selector {
     margin: 0;

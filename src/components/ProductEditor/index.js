@@ -438,6 +438,121 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                           Formatos aceitos: JPG, PNG
                   </span>
                       </div>
+                      <div className="subproduct-form">
+                        <p className="subproduct-form-title">Subprodutos</p>
+                        <p className="subproduct-form-title">Criação</p>
+                        <label htmlFor="name">Nome do subproduto</label>
+                        <input
+                          className="product-name"
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                        <label htmlFor="description">Descrição</label>
+                        <textarea
+                          className="description"
+                          type="text"
+                          rows="3"
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                        />
+                        <div className="stock-form">
+                          <div className="stock-form1">
+                          <p className="subproduct-form-title">Estoque</p>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Unidades
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={stock_quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Mínimo
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={min_stock}
+                                onChange={(e) => setMinimum(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                          </div>
+                          <div className="size-form">
+                          <p className="subproduct-form-title">Tamanho ou volume</p>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Tamanho
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={stock_quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Volume
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={min_stock}
+                                onChange={(e) => setMinimum(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
                     </div>
                     <div className="edit-separator"></div>
                     <div className="right-form-dois">

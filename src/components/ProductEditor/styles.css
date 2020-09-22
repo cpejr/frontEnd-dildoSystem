@@ -220,3 +220,54 @@
       padding: 0 6px;
   }
   }
+
+  .subproduct-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vh;
+  }
+
+  .subproduct-form-title {
+    font-weight: bold;
+    border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+    width: 140px;
+    margin-bottom: 5px;
+    margin-top: 1vh;
+    color: #707070;
+  }
+  
+  .subproduct-form label {
+    font-size: 11px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    color: #8f8f8f;
+  }
+
+  .subproduct-form input {
+    border-radius: 5px;
+    border: 1px solid grey;
+    border-color: #8f8f8f;
+    padding: 4px 8px;
+  }
+
+  .subproduct-form textarea {
+    border-radius: 5px;
+    border: 1px solid grey;
+    border-color: #8f8f8f;
+    padding: 2px 8px;
+  }
+
+  .size-form {
+    width: 50%;
+    padding: 0 10px;
+  }
+
+  .stock-form {
+    display: flex;
+    flex-direction: row;
+  }
+  .stock-form1 {
+    display: flex;
+    flex-direction: column;
+  }
+
