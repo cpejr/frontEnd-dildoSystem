@@ -102,8 +102,28 @@
     margin-left: 40%;
 }
 .dialogac {
-    height: 10%;
+    margin: 0;
 }
 .contentDialog {
     width: 100%;
+}
+
+.userEdit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-data-form {
+    display: grid;
+    border-bottom: 1px solid rgba(112, 112, 112, 0.33);
+    padding-bottom: 15px;
+}
+
+.settings-info-item-form {
+    margin: 2vh;
+}
+
+.settings-info-form {
+    display: grid;
+    grid-template-columns: 200px 200px;
 }

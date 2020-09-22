@@ -45,15 +45,13 @@ const DialogContent = withStyles((theme) => ({
   root: {
     padding: 0,
     marginLeft: 0,
-    marginRight: 100,
+   
   },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles((theme) => ({
   root: {
-    marginTop: 470,
     padding: theme.spacing(2),
-    marginBottom: 0,
   },
 }))(MuiDialogActions);
   
@@ -80,7 +78,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
 
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState('lg');
+  const [maxWidth, setMaxWidth] = React.useState('sm');
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -235,34 +233,35 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
          onClose={handleClose} 
          aria-labelledby="customized-dialog-title" 
          open={open}>
-           <form onSubmit={handleSubmit}> 
+           <form className="userEdit-form" onSubmit={handleSubmit}> 
         <DialogContent dividers className="contentDialog">
         <div className="settings-container">
       <div className="settings-content">
-        <div className="settings-data">
-          <div className="settings-info">
-            <div className="settings-info-item">
+      <h4>Atualizar dados</h4>
+        <div className="settings-data-form">
+          <div className="settings-info-form">
+            <div className="settings-info-item-form">
               <strong>Nome</strong>
               <input
                     value={name}                
                     onChange={(e) => setName(e.target.value)}
                   />
             </div>
-            <div className="settings-info-item">
+            <div className="settings-info-item-form">
               <strong>E-mail</strong>
               <input
                     value={email}                
                     onChange={(e) => setEmail(e.target.value)}
                   />
             </div>
-            <div className="settings-info-item">
+            <div className="settings-info-item-form">
               <strong>CPF</strong>
               <input
                     value={cpf}                
                     onChange={(e) => setCpf(e.target.value)}
                   />
             </div>
-            <div className="settings-info-item">
+            <div className="settings-info-item-form">
               <strong>Número de Telefone</strong>
               <input
                     value={phonenumber}                
@@ -271,10 +270,6 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
             </div>
           </div>
           <div className="settings-button-area">
-            <button className="settings-button">
-              <IoMdKey className="settings-key" size={20} />
-              Alterar Senha
-            </button>
           </div>
         </div>
         <h4>Endereço</h4>
