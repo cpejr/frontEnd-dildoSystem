@@ -128,10 +128,10 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   async function handleSubmit(e) {
     e.preventDefault();
     
-    const data = new FormData();
+    let data = {};
     function addToData(key, value) {
       if (value !== undefined && value !== '') {
-        data.append(key, value);
+        data = {...data, [key]: value};
       }
     }
 
@@ -142,12 +142,13 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
     addToData('phonenumber', phonenumber);
     addToData('state', state);
     addToData('city', city);
-    addToData('neighrborhood', neighborhood);
+    addToData('neighborhood', neighborhood);
     addToData('street', street);
     addToData('number', number);
     addToData('complement', complement);
 
     try {
+      console.log("Teste data:", data);
       const response = await api.put(`user/${userId}`, data, {
           headers: {
             authorization: "Bearer " + localStorage.accessToken,
