@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import "./styles.css";
 import UserSidebar from "../../components/UserSidebar";
-import Header from "../../components/Header";
 import { Route, useHistory } from "react-router-dom";
 import MyRequests from "../MyRequests";
 import { LoginContext } from "../../Contexts/LoginContext";
@@ -12,42 +11,44 @@ function User(props) {
 
   const history = useHistory();
 
-  return (
-    <LoginContext.Consumer>
-      {(value) => {
-        if (value.userType === "wholesaler" || "retailer") {
-          return (
-            <div>
-              <UserSidebar name={value.name} type={value.type}>
-                
-                {
-                  <Route
-                    path={`${props.match.path}/wishlist`}
-                    component={WishList}
-                  />                                    
-                }
-                {
-                   <Route
-                   path={`${props.match.path}/myrequests`}
-                   component={MyRequests}
-                 />    
-                }
-                {             
-                  <Route
-                    path={`${props.match.path}/usersettings`}
-                    component={ProfileSettings}
-                  />                            
-                }
-                
-              </UserSidebar>
-            </div>
-          );
-        } else {
-          history.push("/");
+  const loginContext = useContext(LoginContext);
+
+    if(loginContext.loggedIn){
+        return(      
+          <div>
+            <UserSidebar name={loginContext.name} type={loginContext.type}>
+              
+              {
+                <Route
+                  path={`${props.match.path}/wishlist`}
+                  component={WishList}
+                />                                    
+              }
+              {
+                 <Route
+                 path={`${props.match.path}/myrequests`}
+                 component={MyRequests}
+               />    
+              }
+              {             
+                <Route
+                  path={`${props.match.path}/usersettings`}
+                  component={ProfileSettings}
+                />                            
+              }
+              
+            </UserSidebar>
+          </div>
+        )
+          }
+        else{
+        
+        history.push("/")
+        return 0;
         }
-      }}
-    </LoginContext.Consumer>
-  );
+      
+      
+  
 }
 
 export default User;
