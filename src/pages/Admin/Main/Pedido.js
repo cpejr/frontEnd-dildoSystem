@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./styles.css";
 import CreateIcon from "@material-ui/icons/Create";
 
 function Pedido2(props) {
+  const [url, seturl] = useState();
   function createStatusBox(status) {
     switch (status.toLowerCase()) {
       case "delivered": {
@@ -41,15 +42,15 @@ function Pedido2(props) {
       }
     }
   }
-
-  let editurl;
-  console.log(props.list);
-  if ((props.list)) {
-    editurl = `pendingorder/${props.pedido.id}`;
-  } else {
-    editurl = `admin/pendingorder/${props.pedido.id}`;
+  let editurl
+  useEffect(() => {
+  console.log(props);
+  if (props.dashboard) {
+    seturl( `admin/pendingorder/${props.pedido.id}`);
+  } else{
+    seturl(`pendingorder/${props.pedido.id}`);
   }
-
+}, []);
   return (
     <div className="orders-content">
       <h6>Dados do Pedido ID:{props.pedido.id}</h6>
@@ -82,7 +83,12 @@ function Pedido2(props) {
           <div className="orders-item-edit">
             <strong>Editar:</strong>
 
-            <Link to={editurl}>
+            <Link to={
+    { 
+        pathname: url,
+        myCustomProps: props.pedido
+    }
+}>
               <CreateIcon size={20} color="#15425" />
             </Link>
           </div>

@@ -12,6 +12,8 @@ function Main(props) {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [dashboard, setDashboard] = useState(true);
+  const [farol, setFarol] = useState(true);
 
   useEffect(() => {
     api.get("orders", {
@@ -51,7 +53,11 @@ function Main(props) {
     <div className="main-container">
       <h4 className="titulo">Dashboard</h4>
       <div className="farol">
-        <Link className="link-size" to ={`${props.match.path}/pendingorder/`}>
+        <Link className="link-size" to ={
+          { 
+            pathname: `${props.match.path}/pendingorders`,
+            farol: farol
+        }}>
         <div className="pendentes" key={orders.id}>
           <h4>Pedidos pendentes:</h4>
           <h3>{orders.length}</h3>
@@ -75,7 +81,7 @@ function Main(props) {
         <h4 className="titulo">Últimos Pedidos</h4>     
         <div className="ultimos-pedidos">
         {orders.map((pedido, index) => (
-            <Pedido key={`pedido-${index}`} pedido={pedido} />
+            <Pedido key={`pedido-${index}`} pedido={pedido} dashboard={dashboard} />
           ))}
         </div>
 

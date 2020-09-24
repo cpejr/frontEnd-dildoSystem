@@ -6,6 +6,7 @@ import PublishIcon from "@material-ui/icons/Publish";
 
 function Carousel(props) {
   const [Images, setImages] = useState([]);
+  const [Update, setUpdate] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
 
   const config = {
@@ -13,16 +14,15 @@ function Carousel(props) {
   };
 
   useEffect(() => {
-    console.log("aAAAAAAAAAAAAAAAAAAAAAAA");
     api.get("Carousel", config).then((response) => {
       setImages(response.data);
     });
-  }, []);
+  }, [Update]);
 
   return (
     <div className="EditCarousel-Container">
       {Images.map((image, index) => (
-        <CarouselImages key={`image-${index}`} image={image} />
+        <CarouselImages key={`image-${index}`} image={image} Update={Update} setUpdate={setUpdate} />
       ))}
 
 <h4>Enviar Nova Imagem</h4>

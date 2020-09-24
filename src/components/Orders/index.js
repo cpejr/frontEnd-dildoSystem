@@ -17,8 +17,12 @@ function Orders(props) {
     headers: { authorization: `Bearer ${accessToken}` },
   };
   useEffect(() => {
-    console.log(props);
-   
+console.log(props)
+   if(props.location.myCustomProps !== undefined){
+    setOrder([props.location.myCustomProps]);
+  } else if(props.match.params.id !== undefined){
+    
+  
     url = `orders?byid=${props.match.params.id}`
     
 
@@ -28,7 +32,8 @@ function Orders(props) {
         console.log(response.data);
       });
     }
-  }, []);
+  }
+}, []);
 
   return (
     <div>
@@ -37,13 +42,6 @@ function Orders(props) {
       ))}
     </div>
     
- /*    <div className="pedidos-pendentes">
-    <h4 className="titulo">Últimos Pedidos</h4>     
-    <div className="ultimos-pedidos">
-    {Orders.map((pedido, index) => (
-        <Pedido key={`pedido-${index}`} pedido={pedido} />
-      )) */
-   
   );
 }
 

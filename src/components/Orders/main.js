@@ -5,7 +5,7 @@ import OrderArray from "./order.js";
 import api from '../../services/api';
 function Main(props) {
   const [newStatus, setnewStatus] = useState();
-  const [newTrackNumber, setnewTrackNumber] = useState();
+  const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number);
 
   const accessToken = localStorage.getItem('accessToken')
 
@@ -161,7 +161,7 @@ function Main(props) {
             Código de rastreio
             <input
               className="order-track"
-              placeholder={props.pedido.track_number}
+              value={newTrackNumber}
               onChange={(e) => setnewTrackNumber(e.target.value)}
             ></input>
           </label>
