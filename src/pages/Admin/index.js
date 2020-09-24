@@ -17,6 +17,7 @@ import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
 import Products from "../../components/Products/index.js";
 import Carousel from "../../components/Carousel/index.js"
+import AllUsers from "../../components/AllUsers"
 
 function Admin(props) {
   let [nome, setNome] = useState("Nome do usuario");
@@ -53,6 +54,11 @@ function Admin(props) {
                   <Route
                     path={`${props.match.path}/pendingorder/:id`}
                     component={Orders}
+                  />
+
+                  <Route
+                    path={`${props.match.path}/allusers`}
+                    component={AllUsers}
                   />
 
 

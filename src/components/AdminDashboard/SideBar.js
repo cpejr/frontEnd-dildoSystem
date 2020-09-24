@@ -32,6 +32,13 @@ export default function SideBar(props) {
 
                 <Divider />
 
+                <ListItem button component={Link} to="/allusers" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><Group /></ListItemIcon>
+                    <ListItemText>Todos os Usuários</ListItemText>
+                </ListItem>
+
+                <Divider />
+
                 <ListItem button component={Link} to="/pendingUsers" onClick={props.handleDrawerClose}>
                     <ListItemIcon><Group /></ListItemIcon>
                     <ListItemText>Usuários Pendentes</ListItemText>
