@@ -185,7 +185,7 @@ export default function AdminDashboard2(props) {
 
                 <Divider />
 
-                <ListItem button component={Link} to="/admin/pendingorder" onClick={props.handleDrawerClose}>
+                <ListItem button component={Link} to="/admin/pendingorders" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ChromeReaderMode /></ListItemIcon>
                     <ListItemText>Pedidos Pendentes</ListItemText>
                 </ListItem>
@@ -193,7 +193,7 @@ export default function AdminDashboard2(props) {
                 <Divider />
                 <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ImageIcon /></ListItemIcon>
-                    <ListItemText>Carrocel</ListItemText>
+                    <ListItemText>Carrossel</ListItemText>
                 </ListItem>
 
                 <Divider />

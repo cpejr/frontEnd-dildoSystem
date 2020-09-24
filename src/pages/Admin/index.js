@@ -17,7 +17,11 @@ import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
 import Products from "../../components/Products/index.js";
 import Carousel from "../../components/Carousel/index.js"
+
+import PendingOrders from "../../components/PendingOrders/index.js"
+
 import AllUsers from "../../components/AllUsers"
+
 
 function Admin(props) {
   let [nome, setNome] = useState("Nome do usuario");
@@ -71,12 +75,12 @@ function Admin(props) {
                   path={`${props.match.path}/carousel`}
                   component={Carousel}
                 />
+                <Route
+                    path={`${props.match.path}/pendingorders`}
+                    component={PendingOrders}
+                  />
                 </AdminDashboard2>
 
- {/*                <Route
-                    path={`${props.match.path}/pendingorder`}
-                    component={Orders}
-                  /> */}
               </div>
             );
           } else {
