@@ -69,6 +69,8 @@ export default function UsuariosPendentes(props) {
 
     const accessToken = localStorage.getItem('accessToken')
 
+    const [status, setStatus] = useState(props.todosUsuarios.user_status);
+
     const config = {
         headers: { 'authorization': `Bearer ${accessToken}` },
     }
@@ -83,6 +85,22 @@ export default function UsuariosPendentes(props) {
 
     const handleClickDrop = (e) => {
         console.log(e.target.value)
+        setStatus(e.target.value)
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        let data = { user_status: status };
+
+
+        try {
+            const response = await api.put(`user/${props.todosUsuarios.id}`, data, config)
+            alert(`Alteração concluída!`, response);
+        } catch (err) {
+            console.log(JSON.stringify(err));
+            console.log(err.response);
+            alert("Update error");
+        }
     }
 
 
@@ -122,30 +140,60 @@ export default function UsuariosPendentes(props) {
                             aria-labelledby="customized-dialog-title"
                             open={open}>
                             <DialogContent dividers className="contentDialog">
-                                <div className="pending-users-item">
-                                    <strong>Nome:</strong>
-                                    <p>{props.todosUsuarios.name}</p>
-                                </div>
-                                <div className="pending-users-item">
-                                    <strong>Status:</strong>
-                                    <div className="dropdown-">
-                                        <button className="dropbtn-">
-                                            {props.todosUsuarios.user_status} <KeyboardArrowDownIcon />
-                                            <div className="dropdown-content-">
-                                                {/* <div className="emptyHeaderDiv"></div> */}
-                                                <div className="dropdownLinks-">
-                                                    <button className="dropdownCont" onClick={(e) => handleClickDrop(e)}>
-                                                        pendding
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-wrapper-user">
+                                        <div className="pending-users-item">
+                                            <strong>Nome:</strong>
+                                            <p>{props.todosUsuarios.name}</p>
+                                        </div>
+                                        <div className="pending-users-item">
+                                            <strong>Status:</strong>
+                                            <div className="dropdown-">
+                                                <select
+                                                    name="cars"
+                                                    id="cars"
+                                                    value={status} onChange={handleClickDrop}
+                                                >
+                                                    <option value="approved" >approved</option>
+                                                    <option value="pending" >pending</option>
+                                                    <option value="removed" >removed</option>
+                                                </select>
+                                                {/* <button className="dropbtn-">
+                                                {status} <KeyboardArrowDownIcon />
+                                                <div className="dropdown-content-">
+                                                    
+                                                    <div className="dropdownLinks-">
+                                                        <button
+                                                            className="dropdownCont"
+                                                            onClick={(e) => handleClickDrop(e)}
+                                                            value={"pendding"}>
+                                                            approved
                                                 </button>
-                                                    <button onClick={(e) => handleClickDrop(e)}>
-                                                        removed
+                                                        <button
+                                                            className="dropdownCont"
+                                                            onClick={(e) => handleClickDrop(e)}
+                                                            value={"pendding"}>
+                                                            pending
                                                 </button>
+                                                        <button
+                                                            className="dropdownCont"
+                                                            onClick={(e) => handleClickDrop(e)}
+                                                            value={"removed"}>
+                                                            removed
+                                                </button>
+                                                    </div>
                                                 </div>
+                                            </button> */}
                                             </div>
-                                        </button>
-                                    </div>
 
-                                </div>
+                                        </div>
+                                        <div className="submit-user-btn">
+                                            <button className="status-sub-btn" type="submit" >
+                                                ALTERAR
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </DialogContent>
                         </ Dialog>
                     </div>

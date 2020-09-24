@@ -33,8 +33,6 @@
 .pending-users-item{
     display: flex;
     color: #707070;
-    margin-top: 8px;
-    margin-left: 12px;
 }
 
 .pending-users-item strong{
@@ -64,44 +62,43 @@
     cursor: pointer;
 }
 
+.form-wrapper-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-user-btn {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+}
+
 .dropdown- {
+    display: flex;
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
+    flex-direction: column;
   }
+
+.contentDialog form{
+    height: 80%;
+}
   
-  .dropdown-content- {
-    display: none;
-    /* position: absolute; */
-    
-    /* min-width: 120px; */
-    z-index: 1;
-    /* top: 40px; */
-    background-color: rgba(0,0,0,0);
-  }
-  
-  .dropdown-content- .dropdownCont {
-    color: #707070;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    background-color: #f9f9f9; 
-  }
-  .dropdownLinks-{
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  background-color: #f9f9f9;
-  }
-  .dropdown-content- .dropdownCont:hover {background-color: #f1f1f1}
-  
-  .dropdown-:hover .dropdown-content- {
-    display: block;
-  }
-  .dropbtn- {
-    background-color: transparent;
-    color: #707070;
-    padding: 0px;
-    font-size: 14px;
+
+.status-sub-btn {
     border: none;
-    cursor: pointer;
+    border-radius: 10px;
+    background-color: #4bbc4c;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 50%;
+    box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
+}
+
+.status-sub-btn:hover {
+    background-color: #43aa44;
 }
 @media (max-width: 600px){
     .pending-users-container{
