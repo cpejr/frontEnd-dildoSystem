@@ -456,8 +456,8 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                           value={description}
                           onChange={(e) => setDescription(e.target.value)}
                         />
-                        <div className="stock-form">
-                          <div className="stock-form1">
+                        <div className="stock-form1">
+                          <div className="stock-form2">
                           <p className="subproduct-form-title">Estoque</p>
                           <div className="mb-3">
                             <div className="input-group">

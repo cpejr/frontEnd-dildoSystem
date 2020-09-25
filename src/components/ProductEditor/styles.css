@@ -262,11 +262,11 @@
     padding: 0 10px;
   }
 
-  .stock-form {
+  .stock-form1 {
     display: flex;
     flex-direction: row;
   }
-  .stock-form1 {
+  .stock-form2 {
     display: flex;
     flex-direction: column;
   }
