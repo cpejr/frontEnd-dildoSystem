@@ -7,9 +7,9 @@ let cart = {
         products.push({ 'product': product, 'quantity': product_quantity || 1 });
         localStorage.setItem('cart', JSON.stringify(products));
     },
-    deleteItem(produto) {
+    deleteItem(productId) {
         let storageProducts = JSON.parse(localStorage.getItem('cart'));
-        let products = storageProducts.filter(product => product.product.id !== produto.id);
+        let products = storageProducts.filter(product => product.product.id !== productId);
         localStorage.setItem('cart', JSON.stringify(products));
     }
 };
