@@ -7,10 +7,11 @@ import ImageLoader from 'react-loading-image';
 import "./styles.css"
 import { Button } from "@material-ui/core";
 import cart from "../../services/cart"
+import loading from '../../images/Loading.gif';
 
 function PriceElement(props) {
 
-    const product = props.product;
+    const product = props.product.product;
 
     if (product.wholesaler_price) {
         if (product.on_sale_wholesaler) {
@@ -67,9 +68,9 @@ function CartCard(props) {
             <div className="cart-card">
                 <div className="cart-img">
                     {/* <ImageLoader
-                        src={`https://docs.google.com/uc?id=${}`}
-                        loading={() => <img src={} alt="Loading..." />}
-                        error={() => <div>Error</div>} /> */}
+                        src={`https://docs.google.com/uc?id=${props.product.product.image_id}`}
+                        loading={() => <img src={loading} alt="Loading..." />}
+                    error={() => <div>Error</div>} /> */}
                     {/* <div className="empty"></div> */}
                 </div>
                 <div className="cardText">
