@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -14,6 +14,16 @@ import CartCard from "../../components/CartCard"
 import AdminDashboard from "../../components/AdminDashboard";
 
 function Cart() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    let cart = [];
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    setProducts(cart);
+  }, [])
+
   return (
     <div>
       <AdminDashboard />
@@ -27,10 +37,13 @@ function Cart() {
           </h2>
           <p className="deliver-date">Entrega de x/xx/xxxx à x/xx/xxxx</p>
           <div className="cart-items">
-            <CartCard />
+            {products.map((product) => (
+              // console.log("Produto: ", product);
+              <CartCard name={product.product.name} description={product.product.description} productId={product.product.id} product={product}/>
+            ))}
           </div>
           <div className="button-area">
-              <button className="cart-primary-button">COMPRAR</button>
+            <button className="cart-primary-button">COMPRAR</button>
             <Link to="/dashboard">
               <button className="cart-secondary-button">
                 CONTINUAR COMPRANDO
