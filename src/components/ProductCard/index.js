@@ -4,6 +4,7 @@ import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 
 import api from '../../services/api';
+import cart from "../../services/cart"
 
 import './styles.css'
 import loading from '../../images/Loading.gif';
@@ -182,7 +183,7 @@ export default withRouter(function ProductCard(props) {
                         <PriceElement product={product} />
 
                         <Link id="botao-comprar" to="">
-                            <span onClick={cart.addItem(product)}>COMPRAR</span>
+                            <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
                         </Link>
 
                     </div>
