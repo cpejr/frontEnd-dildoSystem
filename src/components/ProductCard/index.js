@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
@@ -57,9 +57,6 @@ export default withRouter(function ProductCard(props) {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [queries, setQueries] = useState('');
-    const [scrollPosition, setSrollPosition] = useState(0);
-
-
 
     useEffect(() => {
 
@@ -72,6 +69,8 @@ export default withRouter(function ProductCard(props) {
         let queries = props.location.search;
 
         queries ? queries += '&' : queries = '?';
+
+        setQueries(queries);
 
         let url = `/products/${queries}page=${page}`
 
@@ -90,59 +89,24 @@ export default withRouter(function ProductCard(props) {
                 console.log(response.data)
             });
         }
-    }, [page, props.location.search])
-
-    // useEffect(() => {
-    //     let newQueries = '';
-    //     const keys = Object.keys(props.filters);
-    //     keys.forEach(key => {
-    //         if (props.filters[key]) {
-    //             newQueries += `&${key}=${props.filters[key]}`;
-    //         }
-    //     });
-
-    //     setQueries(newQueries);
-
-    //     const url = `products?page=${page}${newQueries}`;
-    //     console.log(url);
-
-    //     if(!props.search || props.filters.search)
-    //     {
-    //         if (accessToken) {
-    //         api.get(url, config).then(response => {
-    //             setProducts(response.data)
-    //             console.log(response.data)
-    //         });
-    //     } else {
-    //         api.get(url).then(response => {
-    //             setProducts(response.data)
-    //             console.log(response.data)
-    //         });
-    //     }
-    //     }
-
-
-
-    // }, [props.filters]);
+    }, [props.location.search])
 
     useEffect(() => {
-        console.log("useEffect_2")
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    const handleScroll = () => {
-        const position = window.pageYOffset;
-        setSrollPosition(position);
-    };
+        console.log('novo array de products',products);
+    }, [products])
 
     async function loadFollowingPage() {
-        const currentPos = scrollPosition;
+        const currentPos = window.pageYOffset;
 
-        const url = `products?page=${page + 1}${queries}`;
+        let reqQueries = queries;
+
+        reqQueries ? reqQueries += '' : reqQueries = '?';
+
+        let url = `/products/${reqQueries}page=${page + 1}`
+
+        if (props.featuredOnly) url += '&featured=true';
+
+        console.log(url);
 
         let nextPage;
 
@@ -171,7 +135,7 @@ export default withRouter(function ProductCard(props) {
                     <div className="Card" key={`product-${product.id}`}>
                         <Link to={`/product/${product.id}`} className="image-text-container">
                             <ImageLoader
-                                src={`https://docs.google.com/uc?id=${product.image_id}`}
+                                src={`https://docs.google.com/uc?id=${product.image_id}&${performance.now()}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">
