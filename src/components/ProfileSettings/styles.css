@@ -30,23 +30,26 @@
     margin-right: 2%;
 }
 
-.settings-img{
-    width: 15%;
-    height: auto;
-    background-color: #B8B8B6;
-    border-radius: 16px;
-    border: 1px solid black;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.164);
-}
 
 .settings-info{
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
     width: 50%;
-    margin-left: 5%;
     padding: 5px;
 }
 
+
 .settings-info-item{
     display: flex;
+    font-size: 90%;
+}
+
+.settings-info-item-form{
+    font-size: 90%;
+}
+
+.settings-adress-item{
+    font-size: 90%;
 }
 
 .settings-info-item strong{
@@ -68,8 +71,6 @@
     border: 1px solid #707070;
     background-color: white;
     color: black;
-    margin-bottom: 15px;
-    margin-right: 10%;
 }
 
 .settings-key{
@@ -88,6 +89,7 @@
 }
 
 .settings-button-edit-area{
+    display: flex;
     margin-left: auto;
     width: 50%;
 }
@@ -98,8 +100,7 @@
     border: 1px solid #bc8d14;
     background-color: #bc8d14;
     color: white;
-    margin-bottom: 15px;
-    margin-left: 40%;
+    margin-left: 20%;
 }
 .dialogac {
     margin: 0;
@@ -126,4 +127,28 @@
 .settings-info-form {
     display: grid;
     grid-template-columns: 200px 200px;
+}
+.passEdit {
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 950px) {
+    .settings-info-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .settings-info-item-form strong{
+        font-size: 1.5vh;
+    }
+    .settings-info {
+        display: flex;
+        flex-direction: column;
+    }
+    .settings-adress {
+        display: flex;
+        flex-direction: column;
+    }
+    .settings-adress-item strong{
+     font-size: 1.5vh;
+    }
 }

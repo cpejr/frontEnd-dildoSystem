@@ -11,6 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 import api from "../../services/api";
 import "./styles.css";
@@ -89,12 +91,22 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
   const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
 
+  const [subname, setSubName] = useState("");
+  const [subdescription, setSubDescription] = useState("");
+  const [substock, setSubStock] = useState(0);
+  const [submin, setSubMin] = useState(0);
+  const [subid, setSubID] = useState("");
+  const [imageFile, setimageFile] = useState();
+
+
+
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [fullWidth, setFullWidth] = React.useState();
   const [maxWidth, setMaxWidth] = React.useState('md');
   const history = useHistory();
+
 
 
   const handleMaxWidthChange = (event) => {
@@ -256,18 +268,13 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
 
   return (
     <div>
-      <Dialog
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-        className="editDialog" >
+     
         <div className="new-product-all">
           <form onSubmit={handleSubmit}>
             <div className="product-title-page">
-              <DialogTitle id="responsive-dialog-title">{"Editar produto"}</DialogTitle>
-              <DialogContent>
+            <h4>Editar Produto</h4>
+            <Tabs defaultActiveKey="product" transition={false} id="noanim-tab-example">
+            <Tab eventKey="product" title="Produto">
                 <div className="form-wrapper">
                   <div className="divisor-teste">
                     <div className="left-form">
@@ -440,21 +447,20 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                       </div>
                       <div className="subproduct-form">
                         <p className="subproduct-form-title">Subprodutos</p>
-                        <p className="subproduct-form-title">Criação</p>
                         <label htmlFor="name">Nome do subproduto</label>
                         <input
                           className="product-name"
                           type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          value={subname}
+                          onChange={(e) => setSubName(e.target.value)}
                         />
                         <label htmlFor="description">Descrição</label>
                         <textarea
                           className="description"
                           type="text"
                           rows="3"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          value={subdescription}
+                          onChange={(e) => setSubDescription(e.target.value)}
                         />
                         <div className="stock-form1">
                           <div className="stock-form2">
@@ -734,7 +740,6 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                       </div>
                     </div>
                   </div>
-
                   {editar ? (
                     <div className="edit-button">
                       <button className="edit-erase" type="submit">
@@ -751,11 +756,103 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                       </div>
                     )}
                 </div>
-              </DialogContent>
+                </Tab>
+                <Tab eventKey="subproduct" title="Subprodutos">
+                <div className="form-wrapper">
+                  <div className="divisor-teste">
+                      <div className="subproduct-form">
+                        <p className="subproduct-form-title">Subprodutos</p>
+                        <label htmlFor="name">Nome do subproduto</label>
+                        <input
+                          className="product-name"
+                          type="text"
+                          value={subname}
+                          onChange={(e) => setSubName(e.target.value)}
+                        />
+                        <label htmlFor="description">Descrição</label>
+                        <textarea
+                          className="description"
+                          type="text"
+                          rows="3"
+                          value={subdescription}
+                          onChange={(e) => setSubDescription(e.target.value)}
+                        />
+                        <div className="stock-form1">
+                          <div className="stock-form2">
+                          <p className="subproduct-form-title">Estoque</p>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Unidades
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={stock_quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div className="mb-3">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <span
+                                  className="input-group-text"
+                                  id="inputGroupPrepend2"
+                                >
+                                  Mínimo
+                          </span>
+                              </div>
+                              <input
+                                type="text"
+                                value={min_stock}
+                                onChange={(e) => setMinimum(e.target.value)}
+                                className="form-control"
+                                id="validationDefaultUsername"
+                                placeholder="0"
+                                aria-describedby="inputGroupPrepend2"
+                                required
+                              />
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="right-form-dois">
+                   
+                    </div>
+                  </div>
+                  {editar ? (
+                    <div className="edit-button">
+                      <button className="edit-erase" type="submit">
+                        Excluir Produto
+                  <DeleteForeverIcon />
+                      </button>
+                      <button className="edit-save" type="submit">
+                        Enviar Alterações
+                </button>
+                    </div>
+                  ) : (
+                      <div className="product-button">
+                        <button type="submit">ENVIAR ALTERAÇÕES</button>
+                      </div>
+                    )}
+                </Tab>
+                </Tabs>
             </div>
           </form>
         </div>
-      </Dialog>
+  
     </div>
   );
 }

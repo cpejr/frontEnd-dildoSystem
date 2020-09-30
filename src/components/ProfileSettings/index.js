@@ -13,6 +13,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
 
 const styles = (theme) => ({
   root: {
@@ -59,7 +60,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  //const [password, setPassword] = useState("");
+  const [password, setPassword] = React.useState("");
   //const [type, setType] = useState("");
   const [cpf, setCpf] = React.useState(0);
   //const [birthdate, setBirthdate] = useState(0);
@@ -71,14 +72,18 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [street, setStreet] = React.useState("");
   const [number, setNumber] = React.useState(0);
   const [complement, setComplement] = React.useState("");
+  const [oldpass, setOldPass] = React.useState("");
+  const [newpass, setNewPass] = React.useState("");
 
   const LoginContext = React.createContext({});
   const [accessToken, setAccessToken] = useStateWithPromise("");
   const [userId, setUserId] = useStateWithPromise(0);
 
+
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
+  const [mopen, setMopen] = React.useState(false);
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -88,11 +93,16 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
     setFullWidth(event.target.checked);
   };
 
+const handleOpen = () => {
+  setMopen(true);
+}
+
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setMopen(false);
   };
   
   useEffect(() => {
@@ -117,14 +127,15 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
             setNeighborhood(resp.data.user.neighborhood),
             setStreet(resp.data.user.street),
             setNumber(resp.data.user.number),
-            setComplement(resp.data.user.complement)
+            setComplement(resp.data.user.complement),
+            setPassword(resp.data.user.password)
           ]);
         } 
       }
       grabData();
     }
   }, []);
-
+ 
   async function handleSubmit(e) {
     e.preventDefault();
     
@@ -134,6 +145,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
         data = {...data, [key]: value};
       }
     }
+
 
     addToData('name', name);
     addToData('email', email);
@@ -146,9 +158,11 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
     addToData('street', street);
     addToData('number', number);
     addToData('complement', complement);
+    addToData('password', password);
+    
+
 
     try {
-      console.log("Teste data:", data);
       const response = await api.put(`user/${userId}`, data, {
           headers: {
             authorization: "Bearer " + localStorage.accessToken,
@@ -169,7 +183,6 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
       <h4>Meus Dados</h4>
       <div className="settings-content">
         <div className="settings-data">
-          <div className="settings-img"></div>
           <div className="settings-info">
             <div className="settings-info-item">
               <strong>Nome</strong>
@@ -187,12 +200,6 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
               <strong>Número de Telefone</strong>
               <p>{phonenumber}</p>
             </div>
-          </div>
-          <div className="settings-button-area">
-            <button className="settings-button">
-              <IoMdKey className="settings-key" size={20} />
-              Alterar Senha
-            </button>
           </div>
         </div>
         <h4>Endereço</h4>
@@ -227,6 +234,34 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
           </div>
         </div>
         <div className="settings-button-edit-area">
+        <button className="settings-button" onClick={handleOpen}>
+              <IoMdKey className="settings-key" size={20} />
+              Alterar Senha
+            </button>
+            <Dialog open={mopen} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <form className="passEdit" onSubmit={handleSubmit}> 
+        <DialogTitle id="form-dialog-title">Alterar senha</DialogTitle>
+        <DialogContent>
+            <div className="settings-info-item-form">
+              <strong>Digite a senha nova:</strong>
+              <br></br>
+              <input
+                    type="password"
+                    value={password}                
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+            </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button type="submit" autoFocus onClick={handleClose} color="primary">
+            Confirmar
+          </Button>
+        </DialogActions>
+        </form>
+      </Dialog>
           <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
           <Dialog  
           fullWidth={fullWidth}

@@ -46,7 +46,7 @@ function Admin(props) {
                   />
 
                    <Route
-                    path={`${props.match.path}/editproduct/:id`}
+                    path={`${props.match.path}/productedit/:id`}
                     component={ProductEditor}
                   />
 
