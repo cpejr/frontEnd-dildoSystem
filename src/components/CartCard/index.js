@@ -9,8 +9,10 @@ import { Link } from 'react-router-dom';
 import "./styles.css"
 import { Button } from "@material-ui/core";
 import cart from "../../services/cart"
+import loading from '../../images/Loading.gif';
 
 function PriceElement(props) {
+
     const product = props.product.product;
 
     if (product.wholesaler_price) {
@@ -87,12 +89,14 @@ function CartCard(props) {
         <>
             <div className="cart-card">
                 <div className="cart-img">
+
                     <Link to={`/product/${props.productId}`} className="image-text-container">
                         <ImageLoader
                             src={`https://docs.google.com/uc?id=${props.image_id}`}
                             loading={() => <img src={loading} alt="Loading..." />}
                             error={() => <div>Error</div>} />
                     </Link>
+
                     {/* <div className="empty"></div> */}
                 </div>
                 <div className="cardText">
