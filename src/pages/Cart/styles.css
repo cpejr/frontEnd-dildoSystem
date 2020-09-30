@@ -94,8 +94,7 @@
     flex-direction: row;
 }
 .cart-img {
-    width: 20%;
-    background-color: #B8B8B6;
+    width: 25%;
     margin-right: 10px;
     border-radius: 16px;
 }
@@ -161,6 +160,7 @@
 }
 .cardText {
     display: flex;
+    width: 70%;
 }
 
 @media (max-width: 1000px) {
