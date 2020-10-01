@@ -61,6 +61,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwd, setPasswd] = React.useState("");
   //const [type, setType] = useState("");
   const [cpf, setCpf] = React.useState(0);
   //const [birthdate, setBirthdate] = useState(0);
@@ -79,7 +80,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [accessToken, setAccessToken] = useStateWithPromise("");
   const [userId, setUserId] = useStateWithPromise(0);
 
-
+  const [error, setError] = React.useState();
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
@@ -135,6 +136,47 @@ const handleOpen = () => {
       grabData();
     }
   }, []);
+
+  async function handlePasswordSubmit(e) {
+    e.preventDefault();
+    
+    let data;
+
+    try {
+      const response = await api.post("login", { email, password: passwd });
+      const user = response.data.user;
+      if (user) {
+        data = {
+          password: password,
+          name: name
+        }
+      }
+    } catch (err) {
+      setError(err.response.data.message);
+      console.log(err);
+      alert("Senha incorreta");
+    }
+
+    if (data) {
+      
+      try {
+        const response = await api.put(`user/${userId}`, data, {
+            headers: {
+              authorization: "Bearer " + localStorage.accessToken,
+            }
+          })
+          alert(`Edição concluída`, response);
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        console.log(err.response);
+      }
+
+    }
+
+    setPassword("");
+    setPasswd("");
+
+  }
  
   async function handleSubmit(e) {
     e.preventDefault();
@@ -158,10 +200,7 @@ const handleOpen = () => {
     addToData('street', street);
     addToData('number', number);
     addToData('complement', complement);
-    addToData('password', password);
     
-
-
     try {
       const response = await api.put(`user/${userId}`, data, {
           headers: {
@@ -174,6 +213,7 @@ const handleOpen = () => {
       console.log(err.response);
       alert("Edição não pôde ser realizada");
     }
+  
   }
    
   
@@ -239,9 +279,18 @@ const handleOpen = () => {
               Alterar Senha
             </button>
             <Dialog open={mopen} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <form className="passEdit" onSubmit={handleSubmit}> 
+            <form className="passEdit" onSubmit={handlePasswordSubmit}> 
         <DialogTitle id="form-dialog-title">Alterar senha</DialogTitle>
-        <DialogContent>
+        <DialogContent> 
+          <div className="settings-info-item-form">
+              <strong>Digite a senha atual:</strong>
+              <br></br>
+              <input
+                    type="password"
+                    value={passwd}                
+                    onChange={(e) => setPasswd(e.target.value)}
+                  />
+            </div>
             <div className="settings-info-item-form">
               <strong>Digite a senha nova:</strong>
               <br></br>
@@ -254,7 +303,7 @@ const handleOpen = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
           <Button type="submit" autoFocus onClick={handleClose} color="primary">
             Confirmar
