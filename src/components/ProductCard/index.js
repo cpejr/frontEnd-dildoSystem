@@ -58,6 +58,42 @@ export default withRouter(function ProductCard(props) {
     const [page, setPage] = useState(1);
     const [queries, setQueries] = useState('');
 
+    const [requiring, setRequiring] = useState(false);
+    const alreadyRequiring = useRef(false);
+
+
+    function handleScroll() {
+        const shouldUpdate = window.pageYOffset > (document.documentElement.scrollHeight - 1300)
+        if(shouldUpdate && !requiring.current) {
+            alreadyRequiring.current = true;
+            setRequiring(true);
+            console.log(requiring);
+        }
+    }
+
+    useEffect(() => {
+        if(!props.featuredOnly) {
+            window.addEventListener('scroll', handleScroll, {passive:true});
+        }
+        
+
+        return (() => {
+            if(!props.featuredOnly) {
+                 window.removeEventListener('scroll', handleScroll);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if(!requiring) {
+            alreadyRequiring.current = false;
+        }
+        
+        if(alreadyRequiring.current && requiring) {
+            loadFollowingPage();
+        } 
+    }, [requiring])
+
     useEffect(() => {
 
         const accessToken = localStorage.getItem('accessToken')
@@ -122,8 +158,9 @@ export default withRouter(function ProductCard(props) {
             nextPage = await api.get(url);
         }
 
-        setProducts([...products, ...nextPage.data]);
+        setProducts(products.concat(nextPage.data));
         setPage(page + 1);
+        setRequiring(false);
         window.scrollTo(0, currentPos);
     }
 
@@ -135,7 +172,7 @@ export default withRouter(function ProductCard(props) {
                     <div className="Card" key={`product-${product.id}`}>
                         <Link to={`/product/${product.id}`} className="image-text-container">
                             <ImageLoader
-                                src={`https://docs.google.com/uc?id=${product.image_id}&${performance.now()}`}
+                                src={`https://docs.google.com/uc?id=${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">
@@ -152,7 +189,7 @@ export default withRouter(function ProductCard(props) {
                     </div>
                 ))}
             </div>
-            <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button>
+            {/* <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button> */}
         </div>
 
     )
