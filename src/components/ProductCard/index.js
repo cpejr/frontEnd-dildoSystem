@@ -182,7 +182,7 @@ export default withRouter(function ProductCard(props) {
 
                         <PriceElement product={product} />
 
-                        <Link id="botao-comprar" to="">
+                        <Link id="botao-comprar" to="/cart">
                             <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
                         </Link>
 

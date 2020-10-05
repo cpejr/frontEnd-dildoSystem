@@ -10,6 +10,7 @@ import loading from '../../images/Loading.gif';
 import { LoginContext } from '../../Contexts/LoginContext';
 import Header from '../../components/Header';
 import api from '../../services/api';
+import cart from '../../services/cart';
 
 //this.props.match.params.id
 
@@ -215,7 +216,7 @@ function ProductPage(props) {
                   </div>
                 </div>
                 {(relevantStock > 0 
-                  ?(<button className="buy-button" onClick={()=>{console.log('Add to cart')}}>COMPRAR</button>)
+                  ?(<button className="buy-button" onClick={()=>{cart.addItem(productData, quantity); history.push('/cart')}}>COMPRAR</button>)
                   :(<div className="unavailable">Produto indisponível</div>)
                   )}
                 

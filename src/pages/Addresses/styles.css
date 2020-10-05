@@ -1,0 +1,75 @@
+.main-addresses-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.addresses-content {
+  display: flex;
+  /* width: 100%;  */
+  flex-direction: column;
+  max-width: 1400px;
+  margin: 20px;
+}
+
+.addresses-content .addresses {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.address-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
+  max-width: 350px;
+  height: 250px;
+  border-radius: 20px;
+  border: 2px solid var(--text-color);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.address-box:hover {
+  border: 4px solid var(--mainColor);
+  padding: 18px;
+  transition: 200ms;
+}
+
+.address-box.selected {
+  border: 2px solid var(--mainColor);
+}
+
+.new-address form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.new-address form input {
+  width: 100%;
+  max-width: 500px;
+}
+.new-address form input.short {
+  width: 100px;
+}
+
+.new-address label {
+  font-weight: bold;
+}
+
+.addresses-content button {
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  border-radius: 200px;
+  min-height: 40px;
+  border: none;
+  background-color: var(--green-color);
+  font-weight: bold;
+  color: white;
+}
+

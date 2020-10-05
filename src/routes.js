@@ -13,6 +13,7 @@ import User from './pages/User';
 import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
 import Testefrete from './pages/testefrete';
+import Addresses from './pages/Addresses';
 
 function Routes() {
     return (
@@ -30,6 +31,7 @@ function Routes() {
                         <Route path='/user' component={User} />
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
+                        <Route path='/addresses' component={Addresses}/>
                     </SearchContextProvider>
                 </LoginContextProvider>
             </Switch>
