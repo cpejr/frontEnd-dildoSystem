@@ -12,7 +12,7 @@ import api from "../../services/api";
 import "./styles.css";
 import "../../global.css";
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [passwd, setPasswd] = useState("");
   const [error, setError] = useState();
@@ -25,7 +25,13 @@ function Login() {
   useEffect(() => {
     console.log(`esse eh o userinfo: ${userInfo}`)
     if (changed) {
-      history.push("/admin");
+      if(props.location.search) {
+        const params = props.location.search.substring(1);
+        if(params === 'return-to-addresses') {
+          history.push('/addresses');
+        }
+      }
+      //history.push("/admin");
       setChanged(false);
     }
   }, [changed]);

@@ -12,6 +12,7 @@ import "../../global.css";
 import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import AdminDashboard from "../../components/AdminDashboard";
+import Header from "../../components/Header";
 
 function Cart() {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ function Cart() {
 
   return (
     <div>
-      <AdminDashboard />
+      <Header />
       <div className="cart-container">
         <div className="cart-content">
           <h2>
