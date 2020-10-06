@@ -44,10 +44,12 @@ function ProductPage(props) {
     if (accessToken) {
       api.get(url, config).then(response => {
         setProductData(response.data)
+        const currentSecondaries = response.data.secondaries.map((secondary) =>{
+          return `https://docs.google.com/uc?id=${secondary.id}`;
+        })
         setImages([...images,
-        `https://docs.google.com/uc?id=${response.data.image_id}`,
-          `https://picsum.photos/id/1018/1000/600/`,
-          `https://picsum.photos/id/1015/1000/600/`,
+          `https://docs.google.com/uc?id=${response.data.image_id}`,
+          ...currentSecondaries
         ]);
         if(response.data.subproducts.length > 0) {
           setRelevantStock(response.data.subproducts[0].stock_quantity);
