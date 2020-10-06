@@ -44,9 +44,12 @@ function ProductPage(props) {
     if (accessToken) {
       api.get(url, config).then(response => {
         setProductData(response.data)
-        const currentSecondaries = response.data.secondaries.map((secondary) =>{
-          return `https://docs.google.com/uc?id=${secondary.id}`;
-        })
+        let currentSecondaries = [];
+        if (response.data.secondaries !== undefined){
+          currentSecondaries = response.data.secondaries.map((secondary) =>{
+            return `https://docs.google.com/uc?id=${secondary.id}`;
+          })
+        }
         setImages([...images,
           `https://docs.google.com/uc?id=${response.data.image_id}`,
           ...currentSecondaries
