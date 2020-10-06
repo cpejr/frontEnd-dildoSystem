@@ -31,7 +31,7 @@ function Login(props) {
           history.push('/addresses');
         }
       }
-      //history.push("/admin");
+      history.push("/admin");
       setChanged(false);
     }
   }, [changed]);
