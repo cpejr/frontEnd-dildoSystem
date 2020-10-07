@@ -18,6 +18,7 @@ import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from '../../components/ImageUpload';
 import { useHistory } from "react-router-dom";
+import Subedit from "./subedit.js";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -90,13 +91,9 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
-
-  const [subname, setSubName] = useState("");
-  const [subdescription, setSubDescription] = useState("");
-  const [substock, setSubStock] = useState(0);
-  const [submin, setSubMin] = useState(0);
-  const [subid, setSubID] = useState("");
+  
   const [imageFile, setimageFile] = useState();
+  const [subproducts, setSubproducts] = useState([]);
 
 
 
@@ -169,6 +166,7 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
       //setImage(product.image_id);
       setSubcategory(product.subcategory_id);
       setWeight(product.weight);
+      setSubproducts(product.subproducts);
 
       console.log('used props product')
     } else if (accessToken) {
@@ -194,11 +192,13 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
         //setImage(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
         setWeight(response.data.weight);
+        setSubproducts(response.data.subproducts);
       });
       console.log('called api')
     }
   }, []);
 
+console.log('teste dos subprodutos:', subproducts);
 
   useEffect(() => {
     if (props.wichOne === "editar") {
@@ -254,11 +254,11 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
     try {
       const response = await api.put(`updateProduct/${props.match.params.id}`, data, config
       )
-      alert(`Registro concluído!`, response);
+      alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.log(err.response);
-      alert("Register error");
+      alert("Edição impedida");
     }
   }
 
@@ -644,95 +644,11 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
                 </div>
                 </Tab>
                 <Tab eventKey="subproduct" title="Subprodutos">
-                <div className="form-wrapper">
-                  <div className="divisor-teste">
-                      <div className="subproduct-form">
-                        <p className="subproduct-form-title">Subprodutos</p>
-                        <label htmlFor="name">Nome do subproduto</label>
-                        <input
-                          className="product-name"
-                          type="text"
-                          value={subname}
-                          onChange={(e) => setSubName(e.target.value)}
-                        />
-                        <label htmlFor="description">Descrição</label>
-                        <textarea
-                          className="description"
-                          type="text"
-                          rows="3"
-                          value={subdescription}
-                          onChange={(e) => setSubDescription(e.target.value)}
-                        />
-                        <div className="stock-form1">
-                          <div className="stock-form2">
-                          <p className="subproduct-form-title">Estoque</p>
-                          <div className="mb-3">
-                            <div className="input-group">
-                              <div className="input-group-prepend">
-                                <span
-                                  className="input-group-text"
-                                  id="inputGroupPrepend2"
-                                >
-                                  Unidades
-                          </span>
-                              </div>
-                              <input
-                                type="text"
-                                value={stock_quantity}
-                                onChange={(e) => setQuantity(e.target.value)}
-                                className="form-control"
-                                id="validationDefaultUsername"
-                                placeholder="0"
-                                aria-describedby="inputGroupPrepend2"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="mb-3">
-                            <div className="input-group">
-                              <div className="input-group-prepend">
-                                <span
-                                  className="input-group-text"
-                                  id="inputGroupPrepend2"
-                                >
-                                  Mínimo
-                          </span>
-                              </div>
-                              <input
-                                type="text"
-                                value={min_stock}
-                                onChange={(e) => setMinimum(e.target.value)}
-                                className="form-control"
-                                id="validationDefaultUsername"
-                                placeholder="0"
-                                aria-describedby="inputGroupPrepend2"
-                                required
-                              />
-                            </div>
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="sub-form">
+                    {subproducts.map((subproduto, index) => <Subedit subproduto={subproduto} /> )}
                     <div className="right-form-dois">
-                   
                     </div>
                   </div>
-                  {editar ? (
-                    <div className="edit-button">
-                      <button className="edit-erase" type="submit">
-                        Excluir Produto
-                  <DeleteForeverIcon />
-                      </button>
-                      <button className="edit-save" type="submit">
-                        Enviar Alterações
-                </button>
-                    </div>
-                  ) : (
-                      <div className="product-button">
-                        <button type="submit">ENVIAR ALTERAÇÕES</button>
-                      </div>
-                    )}
                 </Tab>
                 </Tabs>
             </div>
