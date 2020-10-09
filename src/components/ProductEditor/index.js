@@ -747,12 +747,18 @@ console.log('teste dos subprodutos:', subproducts);
                 </div>
                 </Tab>
                 <Tab eventKey="subproduct" title="Subprodutos">
+                  { (subproducts) ?
                 <div className="sub-form">
                     <SubproductsCreate />
                     {subproducts.map((subproduto, index) => <Subedit subproduto={subproduto} /> )}
                     <div className="right-form-dois">
                     </div>
                   </div>
+                  :
+                  <div className="sub-form">
+                  <div className="right-form-dois">
+                  </div>
+                  </div> }
                 </Tab>
                 </Tabs>
             </div>
