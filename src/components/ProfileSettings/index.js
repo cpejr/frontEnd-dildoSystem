@@ -85,6 +85,11 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
   const [mopen, setMopen] = React.useState(false);
+  const [xopen, setXopen] = React.useState(false);
+
+  const config = {
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -98,12 +103,17 @@ const handleOpen = () => {
   setMopen(true);
 }
 
+const handleXopen = () => {
+  setXopen(true);
+}
+
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
     setMopen(false);
+    setXopen(false);
   };
   
   useEffect(() => {
@@ -215,9 +225,14 @@ const handleOpen = () => {
     }
   
   }
+
+  const handleDeleteUser = () => {
+    api.delete(`user/${userId}`, config ).then((response) => {
+      console.log(response);
+    })
+  }
    
   
-
   return (
     <div className="settings-container">
       <h4>Meus Dados</h4>
@@ -240,37 +255,6 @@ const handleOpen = () => {
               <strong>Número de Telefone</strong>
               <p>{phonenumber}</p>
             </div>
-          </div>
-        </div>
-        <h4>Endereço</h4>
-        <div className="settings-adress">  
-          <div className="settings-adress-item">
-            <strong>Estado</strong>
-            <p>{state}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>Cidade</strong>
-            <p>{city}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>CEP</strong>
-            <p>{zipcode}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>Bairro</strong>
-            <p>{neighborhood}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>Rua</strong>
-            <p>{street}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>Número</strong>
-            <p>{number}</p>
-          </div>
-          <div className="settings-adress-item">
-            <strong>Complemento</strong>
-            <p>{complement}</p>
           </div>
         </div>
         <div className="settings-button-edit-area">
@@ -310,6 +294,18 @@ const handleOpen = () => {
           </Button>
         </DialogActions>
         </form>
+      </Dialog>
+      <button type="button" className="settings-button-delete" onClick={handleXopen}>
+       Excluir minha conta
+      </button>
+      <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogContent>
+        <h5>Você tem certeza?</h5>
+        <div className="account-delete">
+        <Button onClick={(e) => handleDeleteUser()}>Sim</Button>
+        <Button onClick={handleClose}>Não</Button>
+        </div>
+        </DialogContent>
       </Dialog>
           <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
           <Dialog  
@@ -355,58 +351,6 @@ const handleOpen = () => {
             </div>
           </div>
           <div className="settings-button-area">
-          </div>
-        </div>
-        <h4>Endereço</h4>
-        <div className="settings-adress">  
-          <div className="settings-adress-item">
-            <strong>Estado</strong>
-            <input
-                    value={state}                
-                    onChange={(e) => setState(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>Cidade</strong>
-            <input
-                    value={city}                
-                    onChange={(e) => setCity(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>CEP</strong>
-            <input
-                    value={zipcode}                
-                    onChange={(e) => setZipcode(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>Bairro</strong>
-            <input
-                    value={neighborhood}                
-                    onChange={(e) => setNeighborhood(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>Rua</strong>
-            <input
-                    value={street}                
-                    onChange={(e) => setStreet(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>Número</strong>
-            <input
-                    value={number}                
-                    onChange={(e) => setNumber(e.target.value)}
-                  />
-          </div>
-          <div className="settings-adress-item">
-            <strong>Complemento</strong>
-            <input
-                    value={complement}                
-                    onChange={(e) => setComplement(e.target.value)}
-                  />
           </div>
         </div>
         <div className="settings-button-edit-area">

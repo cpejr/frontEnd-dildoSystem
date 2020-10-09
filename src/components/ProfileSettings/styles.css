@@ -95,16 +95,33 @@
 }
 
 .settings-button-edit{
-    width: 35%;
+    width: 40%;
     border-radius: 8px;
     border: 1px solid #bc8d14;
     background-color: #bc8d14;
     color: white;
     margin-left: 20%;
 }
+
+.settings-button-delete{
+    width: 40%;
+    border-radius: 8px;
+    border: 1px solid rgb(173, 43, 43);
+    background-color: rgb(173, 43, 43);
+    color: white;
+    margin-left: 20%;
+}
+
+.account-delete {
+    display: flex;
+    justify-content: center;
+    margin: 2vh;
+}
+
 .dialogac {
     margin: 0;
 }
+
 .contentDialog {
     width: 100%;
 }
