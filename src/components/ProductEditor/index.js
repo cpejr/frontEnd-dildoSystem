@@ -19,6 +19,7 @@ import "./styles.css";
 import ImageUpload from '../../components/ImageUpload';
 import { useHistory } from "react-router-dom";
 import Subedit from "./subedit.js";
+import SubproductsCreate from "./subcreate";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -91,6 +92,9 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
+  const [height, setHeight] = useState();
+  const [width, setWidth] = useState();
+  const [length, setLength] = useState();
   
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -166,6 +170,9 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
       //setImage(product.image_id);
       setSubcategory(product.subcategory_id);
       setWeight(product.weight);
+      setLength(product.length);
+      setWidth(product.width);
+      setHeight(product.height);
       setSubproducts(product.subproducts);
 
       console.log('used props product')
@@ -192,6 +199,9 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
         //setImage(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
         setWeight(response.data.weight);
+        setLength(response.data.length);
+        setHeight(response.data.height);
+        setWidth(response.data.width);
         setSubproducts(response.data.subproducts);
       });
       console.log('called api')
@@ -250,6 +260,9 @@ console.log('teste dos subprodutos:', subproducts);
     addToData('imageFile', image_id);
     addToData('subcategory_id', subcategory_id);
     addToData('weight', weight);
+    addToData('height', height);
+    addToData('width', width);
+    addToData('length', length);
 
     try {
       const response = await api.put(`updateProduct/${props.match.params.id}`, data, config
@@ -585,6 +598,96 @@ console.log('teste dos subprodutos:', subproducts);
                             </div>
                           </div>
                         </div>
+                        <div className="mb-3">
+                        <div className="input-group">
+                          <div className="input-group-prepend">
+                            <span
+                              className="input-group-text"
+                              id="setProductHeight"
+                            >
+                              Altura
+                          </span>
+                          </div>
+                          <input
+                            type="text"
+                            value={height}
+                            onChange={(e) => setHeight(e.target.value)}
+                            className="form-control"
+                            id="setProductHeight"
+                            placeholder="0"
+                            aria-describedby="inputGroupPrepend2"
+                            required
+                          />
+                          <div className="input-group-append">
+                            <span
+                              className="input-group-text"
+                              id="inputGroupPrepend2"
+                            >
+                              cm
+                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <div className="input-group-prepend">
+                            <span
+                              className="input-group-text"
+                              id="setProductWidth"
+                            >
+                              Largura
+                          </span>
+                          </div>
+                          <input
+                            type="text"
+                            value={width}
+                            onChange={(e) => setWidth(e.target.value)}
+                            className="form-control"
+                            id="setProductWidth"
+                            placeholder="0"
+                            aria-describedby="inputGroupPrepend2"
+                            required
+                          />
+                          <div className="input-group-append">
+                            <span
+                              className="input-group-text"
+                              id="inputGroupPrepend2"
+                            >
+                              cm
+                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <div className="input-group">
+                          <div className="input-group-prepend">
+                            <span
+                              className="input-group-text"
+                              id="setProductLength"
+                            >
+                              Comprimento
+                          </span>
+                          </div>
+                          <input
+                            type="text"
+                            value={length}
+                            onChange={(e) => setLength(e.target.value)}
+                            className="form-control"
+                            id="setProductLength"
+                            placeholder="0"
+                            aria-describedby="inputGroupPrepend2"
+                            required
+                          />
+                          <div className="input-group-append">
+                            <span
+                              className="input-group-text"
+                              id="inputGroupPrepend2"
+                            >
+                              cm
+                          </span>
+                          </div>
+                        </div>
+                      </div>
                         <div className="category-form">
                           <p className="productTitle">Categorias</p>
                           <div className="productCategoiries">
@@ -645,6 +748,7 @@ console.log('teste dos subprodutos:', subproducts);
                 </Tab>
                 <Tab eventKey="subproduct" title="Subprodutos">
                 <div className="sub-form">
+              
                     {subproducts.map((subproduto, index) => <Subedit subproduto={subproduto} /> )}
                     <div className="right-form-dois">
                     </div>

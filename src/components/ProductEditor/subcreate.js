@@ -7,82 +7,67 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PublishIcon from "@material-ui/icons/Publish";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-export default function SubproductsEdit({subproduto}) {
+export default function SubproductsCreate(props) {
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [visible, setVisible] = useState(true);
-  const [stock_quantity, setQuantity] = useState(0);
-  const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
-  const [imageFile, setimageFile] = useState();
-
-  const [editar, setEditar] = useState("editar");
-
-  const accessToken = localStorage.getItem("accessToken");
-
-  const config = {
-    headers: { authorization: `Bearer ${accessToken}` }
-  }
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [visible, setVisible] = useState(true);
+    const [stock_quantity, setQuantity] = useState(0);
+    const [min_stock, setMinimum] = useState(0);
+    const [image_id, setImage] = useState();
+    const [editar, setEditar] = useState();
+    const [product_id, setProductId] = useState("");
   
-  useEffect(() => {
-     if (subproduto !== undefined) {
-       setName(subproduto.name);
-       setDescription(subproduto.description);
-       setVisible(Boolean(subproduto.visible));
-       setQuantity(subproduto.stock_quantity);
-       setMinimum(subproduto.min_stock);
-     }
-  }, [subproduto]);
+    const accessToken = localStorage.getItem("accessToken");
 
-  useEffect(() => {
-    if (subproduto.wichOne === "editar") {
-      setEditar(true);
-    }
-  }, []);
+    const config = {
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
+  
+    useEffect(() => {
+      if (props.wichOne === "editar") {
+        setEditar(true);
+      }
+    }, []);
+  
 
-  const handleDeleteSubproduct = () => {
-    api.delete(`subproducts/${subproduto.id}`, config ).then((response) => {
-      console.log(response);
-    })
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    let data = {};
-    function addToData(key, value) {
-      if (value !== undefined && value !== '')
-       data = {...data, [key]: value};
-    }
-
-    addToData('name', name);
-    addToData('description', description);
-    addToData('stock_quantity', stock_quantity);
-    addToData('min_stock', min_stock);
-    addToData('visible', visible);
-    addToData('imageFile', image_id);
+    async function handleSubmit(e) {
+      e.preventDefault();
+  
+      let data = new FormData();
+      function addToData(key, value) {
+        if (value !== undefined && value !== '')
+          data.append(key, value);
+      }
+  
+      addToData('name', name);
+      addToData('description', description);
+      addToData('stock_quantity', stock_quantity);
+      addToData('min_stock', min_stock);
+      addToData('visible', visible);
+      addToData('imageFile', image_id);
     
-
-    try {
-      const response = await api.put(`updateSubproduct/${subproduto.id}`, data, {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        }
-      })
-      console.log("teste date:", data);
-      alert(`Edição concluída!`, response);
-    } catch (err) {
-      console.log(JSON.stringify(err));
-      console.log(err.response);
-      alert("Edição impedida");
+      
+  
+      try {
+        const response = await api.post("newSubproduct", data, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + localStorage.accessToken,
+          }
+        })
+        alert(`Registro concluído!`, response);
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        console.log(err.response);
+        alert("Register error");
+      }
     }
-  }
-
-  function handleImage(img) {
-    setImage(img);
-  }
-
+  
+    function handleImage(img) {
+      setImage(img);
+    }
+  
     return (
         <form onSubmit={handleSubmit}>
         <div className="subproduct-form">
@@ -190,12 +175,8 @@ export default function SubproductsEdit({subproduto}) {
                   </span>
                       </div>
       <div className="sub-buttons">
-      <button className="sub-del-button" onClick={(e) => handleDeleteSubproduct()} type="submit">
-                        Excluir Subproduto
-                  <DeleteForeverIcon />
-                      </button>
-                      <button className="sub-edit-button" type="submit">
-                        Enviar Alterações
+                      <button className="sub-create-button" type="submit">
+                        Criar subproduto
                 </button>
                 </div>
       </div>
