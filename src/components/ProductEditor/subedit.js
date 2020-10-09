@@ -81,8 +81,8 @@ export default function SubproductsEdit({subproduto}) {
     }
   }
 
-  function handleImage(imageName) {
-    setImage(imageName);
+  function handleImage(img) {
+    setImage(img);
   }
 
     return (
