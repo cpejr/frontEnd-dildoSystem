@@ -6,6 +6,8 @@ import ImageUpload from '../../components/ImageUpload';
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PublishIcon from "@material-ui/icons/Publish";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import ImageLoader from 'react-loading-image';
+import loading from '../../images/Loading.gif';
 
 export default function SubproductsEdit({subproduto}) {
 
@@ -79,8 +81,8 @@ export default function SubproductsEdit({subproduto}) {
     }
   }
 
-  function handleImage(img) {
-    setImage(img);
+  function handleImage(imageName) {
+    setImage(imageName);
   }
 
     return (
@@ -152,6 +154,12 @@ export default function SubproductsEdit({subproduto}) {
         </div>
         <div className="images-form">
                         <p className="productTitle">Imagens</p>
+                        <ImageLoader
+                                className="image-loader-sub"
+                                src={`https://docs.google.com/uc?id=${subproduto.image_id}`}
+                                loading={() => <img src={loading} alt="Loading..." />}
+                                error={() => <div>Error</div>} />
+                                <br></br>
                         <label className="images-label" htmlFor="main">
                           Principal
                   </label>
