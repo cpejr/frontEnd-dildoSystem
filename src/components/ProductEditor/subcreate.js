@@ -6,9 +6,11 @@ import ImageUpload from '../../components/ImageUpload';
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PublishIcon from "@material-ui/icons/Publish";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { useParams } from "react-router-dom";
 
 export default function SubproductsCreate(props) {
 
+    const { id } = useParams();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [visible, setVisible] = useState(true);
@@ -16,7 +18,7 @@ export default function SubproductsCreate(props) {
     const [min_stock, setMinimum] = useState(0);
     const [image_id, setImage] = useState();
     const [editar, setEditar] = useState();
-    const [product_id, setProductId] = useState("");
+    
   
     const accessToken = localStorage.getItem("accessToken");
 
@@ -46,6 +48,7 @@ export default function SubproductsCreate(props) {
       addToData('min_stock', min_stock);
       addToData('visible', visible);
       addToData('imageFile', image_id);
+      addToData('product_id', id);
     
       
   
@@ -67,7 +70,7 @@ export default function SubproductsCreate(props) {
     function handleImage(img) {
       setImage(img);
     }
-  
+
     return (
         <form onSubmit={handleSubmit}>
         <div className="subproduct-form">
