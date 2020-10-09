@@ -4,19 +4,19 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import PublishIcon from "@material-ui/icons/Publish";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 
 import api from "../../services/api";
 import "./styles.css";
-import ImageUpload from '../../components/ImageUpload';
+import ImageUpload from "../../components/ImageUpload";
 import { useHistory } from "react-router-dom";
 import Subedit from "./subedit.js";
 import SubproductsCreate from "./subcreate";
@@ -74,7 +74,10 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function ProductEditor(props, { id, className, fileName, onSubmit, match }) {
+export default function ProductEditor(
+  props,
+  { id, className, fileName, onSubmit, match }
+) {
   // console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -95,20 +98,16 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [length, setLength] = useState();
-  
+
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
 
-
-
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [fullWidth, setFullWidth] = React.useState();
-  const [maxWidth, setMaxWidth] = React.useState('md');
+  const [maxWidth, setMaxWidth] = React.useState("md");
   const history = useHistory();
-
-
 
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
@@ -117,7 +116,6 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
   const handleFullWidthChange = (event) => {
     setFullWidth(event.target.checked);
   };
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -146,7 +144,6 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
     console.log(props);
     const url = `product/${props.match.params.id}`;
 
-
     if (props.location.state) {
       const product = props.location.state;
       setName(product.name);
@@ -163,7 +160,7 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
         checkedB: Boolean(product.on_sale_client),
         checkedC: Boolean(product.on_sale_wholesaler),
         checkedD: Boolean(product.featured),
-        checkedA: Boolean(product.visible)
+        checkedA: Boolean(product.visible),
       });
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
@@ -175,7 +172,7 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
       setHeight(product.height);
       setSubproducts(product.subproducts);
 
-      console.log('used props product')
+      console.log("used props product");
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setName(response.data.name);
@@ -192,7 +189,7 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
           checkedB: Boolean(response.data.on_sale_client),
           checkedC: Boolean(response.data.on_sale_wholesaler),
           checkedD: Boolean(response.data.featured),
-          checkedA: Boolean(response.data.visible)
+          checkedA: Boolean(response.data.visible),
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
@@ -204,11 +201,11 @@ export default function ProductEditor(props, { id, className, fileName, onSubmit
         setWidth(response.data.width);
         setSubproducts(response.data.subproducts);
       });
-      console.log('called api')
+      console.log("called api");
     }
   }, []);
 
-console.log('teste dos subprodutos:', subproducts);
+  console.log("teste dos subprodutos:", subproducts);
 
   useEffect(() => {
     if (props.wichOne === "editar") {
@@ -219,7 +216,7 @@ console.log('teste dos subprodutos:', subproducts);
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     // setVisible(!visible);
-    const source = event.target.name
+    const source = event.target.name;
     switch (source) {
       case "checkedA":
         setVisible(!visible);
@@ -233,40 +230,43 @@ console.log('teste dos subprodutos:', subproducts);
       case "checkedD":
         setFeatured(!featured);
         break;
-      default: console.log("erro")
+      default:
+        console.log("erro");
     }
-  }
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
     let data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== '')
-        data.append(key, value);
+      if (value !== undefined && value !== "") data.append(key, value);
     }
 
-    addToData('name', name);
-    addToData('description', description);
-    addToData('client_price', client_price);
-    addToData('client_sale_price', client_sale_price);
-    addToData('wholesaler_price', wholesaler_price);
-    addToData('wholesaler_sale_price', wholesaler_sale_price);
-    addToData('stock_quantity', stock_quantity);
-    addToData('min_stock', min_stock);
-    addToData('visible', visible);
-    addToData('on_sale_client', on_sale_client);
-    addToData('on_sale_wholesaler', on_sale_wholesaler);
-    addToData('featured', featured);
-    addToData('imageFile', image_id);
-    addToData('subcategory_id', subcategory_id);
-    addToData('weight', weight);
-    addToData('height', height);
-    addToData('width', width);
-    addToData('length', length);
+    addToData("name", name);
+    addToData("description", description);
+    addToData("client_price", client_price);
+    addToData("client_sale_price", client_sale_price);
+    addToData("wholesaler_price", wholesaler_price);
+    addToData("wholesaler_sale_price", wholesaler_sale_price);
+    addToData("stock_quantity", stock_quantity);
+    addToData("min_stock", min_stock);
+    addToData("visible", visible);
+    addToData("on_sale_client", on_sale_client);
+    addToData("on_sale_wholesaler", on_sale_wholesaler);
+    addToData("featured", featured);
+    addToData("imageFile", image_id);
+    addToData("subcategory_id", subcategory_id);
+    addToData("weight", weight);
+    addToData("height", height);
+    addToData("width", width);
+    addToData("length", length);
 
     try {
-      const response = await api.put(`updateProduct/${props.match.params.id}`, data, config
-      )
+      const response = await api.put(
+        `updateProduct/${props.match.params.id}`,
+        data,
+        config
+      );
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
@@ -279,15 +279,24 @@ console.log('teste dos subprodutos:', subproducts);
     setImage(img);
   }
 
+  const handleDeleteProduct = () => {
+    api.delete(`product/${props.match.params.id}`, config).then((response) => {
+      console.log(response);
+    });
+  };
+
   return (
     <div>
-     
-        <div className="new-product-all">
-          <form onSubmit={handleSubmit}>
-            <div className="product-title-page">
+      <div className="new-product-all">
+        <form onSubmit={handleSubmit}>
+          <div className="product-title-page">
             <h4>Editar Produto</h4>
-            <Tabs defaultActiveKey="product" transition={false} id="noanim-tab-example">
-            <Tab eventKey="product" title="Produto">
+            <Tabs
+              defaultActiveKey="product"
+              transition={false}
+              id="noanim-tab-example"
+            >
+              <Tab eventKey="product" title="Produto">
                 <div className="form-wrapper">
                   <div className="divisor-teste">
                     <div className="left-form">
@@ -321,7 +330,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend3"
                                 >
                                   R$
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -337,7 +346,7 @@ console.log('teste dos subprodutos:', subproducts);
                           </div>
                           <label htmlFor="promotional-price-r">
                             Preço Promocional (opcional)
-                    </label>
+                          </label>
                           <div className="mb-3">
                             <div className="input-group promotionalPrice">
                               <div className="input-group-prepend">
@@ -346,7 +355,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend2"
                                 >
                                   R$
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -355,7 +364,9 @@ console.log('teste dos subprodutos:', subproducts);
                                 placeholder="00.00"
                                 aria-describedby="inputGroupPrepend2"
                                 value={client_sale_price}
-                                onChange={(e) => setClientSalePrice(e.target.value)}
+                                onChange={(e) =>
+                                  setClientSalePrice(e.target.value)
+                                }
                                 required
                               />
                             </div>
@@ -371,7 +382,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend3"
                                 >
                                   R$
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -380,14 +391,16 @@ console.log('teste dos subprodutos:', subproducts);
                                 placeholder="00.00"
                                 aria-describedby="inputGroupPrepend2"
                                 value={wholesaler_price}
-                                onChange={(e) => setWholesalerPrice(e.target.value)}
+                                onChange={(e) =>
+                                  setWholesalerPrice(e.target.value)
+                                }
                                 required
                               />
                             </div>
                           </div>
                           <label htmlFor="promotional-price-l">
                             Preço Promocional (opcional)
-                    </label>
+                          </label>
                           <div className="mb-3">
                             <div className="input-group promotionalPrice">
                               <div className="input-group-prepend">
@@ -396,7 +409,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend2"
                                 >
                                   R$
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -419,17 +432,17 @@ console.log('teste dos subprodutos:', subproducts);
                         <p className="productTitle">Imagens</p>
                         <label className="images-label" htmlFor="main">
                           Principal
-                  </label>
+                        </label>
                         <div className="input-group mb-3">
-
-                          <ImageUpload onChange={handleImage} fileName={'imageFile'} />
-
-
+                          <ImageUpload
+                            onChange={handleImage}
+                            fileName={"imageFile"}
+                          />
                         </div>
 
                         <label className="images-label" htmlFor="secondary">
                           Secudárias
-                  </label>
+                        </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
                             <span
@@ -451,12 +464,12 @@ console.log('teste dos subprodutos:', subproducts);
                               for="inputGroupFile01"
                             >
                               Selecione o arquivo
-                      </label>
+                            </label>
                           </div>
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG
-                  </span>
+                        </span>
                       </div>
                     </div>
                     <div className="edit-separator"></div>
@@ -477,7 +490,9 @@ console.log('teste dos subprodutos:', subproducts);
                               }
                               id="switch_1"
                             />
-                            <label htmlFor="switch_1">Visível para compradores</label>
+                            <label htmlFor="switch_1">
+                              Visível para compradores
+                            </label>
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
@@ -491,7 +506,9 @@ console.log('teste dos subprodutos:', subproducts);
                               }
                               id="switch_2"
                             />
-                            <label htmlFor="switch_2">Em promoção (clientes)</label>
+                            <label htmlFor="switch_2">
+                              Em promoção (clientes)
+                            </label>
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
@@ -505,7 +522,9 @@ console.log('teste dos subprodutos:', subproducts);
                               }
                               id="switch_3"
                             />
-                            <label htmlFor="switch_3">Em promoção (Atacadista)</label>
+                            <label htmlFor="switch_3">
+                              Em promoção (Atacadista)
+                            </label>
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
@@ -532,7 +551,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend2"
                                 >
                                   Unidades
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -554,7 +573,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend2"
                                 >
                                   Mínimo
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -576,7 +595,7 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="setProductWeightSpan"
                                 >
                                   Peso
-                          </span>
+                                </span>
                               </div>
                               <input
                                 type="text"
@@ -593,101 +612,101 @@ console.log('teste dos subprodutos:', subproducts);
                                   id="inputGroupPrepend2"
                                 >
                                   g
-                          </span>
+                                </span>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
+                          <div className="input-group">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text"
+                                id="setProductHeight"
+                              >
+                                Altura
+                              </span>
+                            </div>
+                            <input
+                              type="text"
+                              value={height}
+                              onChange={(e) => setHeight(e.target.value)}
+                              className="form-control"
                               id="setProductHeight"
-                            >
-                              Altura
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={height}
-                            onChange={(e) => setHeight(e.target.value)}
-                            className="form-control"
-                            id="setProductHeight"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
+                              placeholder="0"
+                              aria-describedby="inputGroupPrepend2"
+                              required
+                            />
+                            <div className="input-group-append">
+                              <span
+                                className="input-group-text"
+                                id="inputGroupPrepend2"
+                              >
+                                cm
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
+                        <div className="mb-3">
+                          <div className="input-group">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text"
+                                id="setProductWidth"
+                              >
+                                Largura
+                              </span>
+                            </div>
+                            <input
+                              type="text"
+                              value={width}
+                              onChange={(e) => setWidth(e.target.value)}
+                              className="form-control"
                               id="setProductWidth"
-                            >
-                              Largura
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={width}
-                            onChange={(e) => setWidth(e.target.value)}
-                            className="form-control"
-                            id="setProductWidth"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
+                              placeholder="0"
+                              aria-describedby="inputGroupPrepend2"
+                              required
+                            />
+                            <div className="input-group-append">
+                              <span
+                                className="input-group-text"
+                                id="inputGroupPrepend2"
+                              >
+                                cm
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
+                        <div className="mb-3">
+                          <div className="input-group">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text"
+                                id="setProductLength"
+                              >
+                                Comprimento
+                              </span>
+                            </div>
+                            <input
+                              type="text"
+                              value={length}
+                              onChange={(e) => setLength(e.target.value)}
+                              className="form-control"
                               id="setProductLength"
-                            >
-                              Comprimento
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={length}
-                            onChange={(e) => setLength(e.target.value)}
-                            className="form-control"
-                            id="setProductLength"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
+                              placeholder="0"
+                              aria-describedby="inputGroupPrepend2"
+                              required
+                            />
+                            <div className="input-group-append">
+                              <span
+                                className="input-group-text"
+                                id="inputGroupPrepend2"
+                              >
+                                cm
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
                         <div className="category-form">
                           <p className="productTitle">Categorias</p>
                           <div className="productCategoiries">
@@ -701,11 +720,21 @@ console.log('teste dos subprodutos:', subproducts);
                                 </label>
                                 {/*DROPDOWNS*/}
                                 <select name="cars" id="cars">
-                                  <option value="0" id="0">Selecionar</option>
-                                  <option value="1" id="1">Cosméticos</option>
-                                  <option value="2" id="2">Acessórios</option>
-                                  <option value="3" id="3">Brincadeiras</option>
-                                  <option value="4" id="4">Próteses</option>
+                                  <option value="0" id="0">
+                                    Selecionar
+                                  </option>
+                                  <option value="1" id="1">
+                                    Cosméticos
+                                  </option>
+                                  <option value="2" id="2">
+                                    Acessórios
+                                  </option>
+                                  <option value="3" id="3">
+                                    Brincadeiras
+                                  </option>
+                                  <option value="4" id="4">
+                                    Próteses
+                                  </option>
                                 </select>
                               </div>
                               <div className="categoriesSelection">
@@ -714,13 +743,28 @@ console.log('teste dos subprodutos:', subproducts);
                                   htmlFor="subcategory"
                                 >
                                   Subcategoria:
-                          </label>
-                                <select value={subcategory_id} onChange={(e) => setSubcategory(e.target.value)}>
-                                  <option value="0" id="0">Selecionar</option>
-                                  <option value="1" id="1">Volvo</option>
-                                  <option value="2" id="2">Saab</option>
-                                  <option value="3" id="3">Mercedes</option>
-                                  <option value="4" id="3">Brincadeiras</option>
+                                </label>
+                                <select
+                                  value={subcategory_id}
+                                  onChange={(e) =>
+                                    setSubcategory(e.target.value)
+                                  }
+                                >
+                                  <option value="0" id="0">
+                                    Selecionar
+                                  </option>
+                                  <option value="1" id="1">
+                                    Volvo
+                                  </option>
+                                  <option value="2" id="2">
+                                    Saab
+                                  </option>
+                                  <option value="3" id="3">
+                                    Mercedes
+                                  </option>
+                                  <option value="4" id="3">
+                                    Brincadeiras
+                                  </option>
                                 </select>
                               </div>
                             </div>
@@ -731,39 +775,43 @@ console.log('teste dos subprodutos:', subproducts);
                   </div>
                   {editar ? (
                     <div className="edit-button">
-                      <button className="edit-erase" type="submit">
+                      <button
+                        className="edit-erase"
+                        onClick={(e) => handleDeleteProduct()}
+                        type="submit"
+                      >
                         Excluir Produto
-                  <DeleteForeverIcon />
+                        <DeleteForeverIcon />
                       </button>
                       <button className="edit-save" type="submit">
                         Enviar Alterações
-                </button>
+                      </button>
                     </div>
                   ) : (
-                      <div className="product-button">
-                        <button type="submit">ENVIAR ALTERAÇÕES</button>
-                      </div>
-                    )}
+                    <div className="product-button">
+                      <button type="submit">ENVIAR ALTERAÇÕES</button>
+                    </div>
+                  )}
                 </div>
-                </Tab>
-                <Tab eventKey="subproduct" title="Subprodutos">
-                  { (subproducts) ?
-                <div className="sub-form">
-                    <SubproductsCreate />
-                    {subproducts.map((subproduto, index) => <Subedit subproduto={subproduto} /> )}
-                  </div>
-                  :
+              </Tab>
+              <Tab eventKey="subproduct" title="Subprodutos">
+                {subproducts ? (
                   <div className="sub-form">
-                 <SubproductsCreate />
-                  </div> }
-                </Tab>
-                </Tabs>
-            </div>
-          </form>
-        </div>
-  
+                    <SubproductsCreate />
+                    {subproducts.map((subproduto, index) => (
+                      <Subedit subproduto={subproduto} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="sub-form">
+                    <SubproductsCreate />
+                  </div>
+                )}
+              </Tab>
+            </Tabs>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
-
-
