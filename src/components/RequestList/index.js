@@ -5,6 +5,7 @@ import RequestArray from "./request.js";
 import api from "../../services/api"
 import MainRequest from "./main";
 import { LoginContext } from "../../Contexts/LoginContext";
+import RequestDetails from "../RequestDetails";
 
 
 
@@ -61,8 +62,8 @@ export default function RequestsList() {
       <div className="requestlist-container">
         <div className="request-data">
         </div>
-        {Order.map((produto, index) => (
-          <MainRequest key={`produto-${index}`} produto={produto} />
+        {Order.map((order, index) => (
+          <MainRequest key={`order-${index}`} order={order} />
         ))}
       </div>
     </div>
