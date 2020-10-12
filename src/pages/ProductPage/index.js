@@ -75,28 +75,43 @@ function ProductPage(props) {
         return `https://docs.google.com/uc?id=${secondary.id}`;
       });
     }
-
+    
+    let param_ids = [];
     if (currentData.subproducts !== undefined) {
       currentSubproducts = currentData.subproducts.map((subproduct) => {
+        param_ids.push(subproduct.id);
         return `https://docs.google.com/uc?id=${subproduct.image_id}`;
       });
     }
 
-    console.log("Secundarias atuais: ", currentSecondaries);
-    console.log("Subprodutos atuais: ", currentSubproducts);
-    console.log("Config: ", config);
+    if (param_ids.length > 0){
+      param_ids = param_ids.join("-*-");
+    }
+    
+    const subSecondary_response = await api.get(`/images/${param_ids}`)
+    console.log("Imagens subSecundarias: ", subSecondary_response.data);
+
+    const subSecondary = subSecondary_response.data;
+
+    if (subSecondary !== undefined){
+      currentSubSecondaries = subSecondary.map((images) =>{
+        return `https://docs.google.com/uc?id=${images.id}`
+      })
+    }
 
     if (images !== undefined) {
       setImageFunction([...images,
       `https://docs.google.com/uc?id=${currentData.image_id}`,
       ...currentSecondaries,
-      ...currentSubproducts
+      ...currentSubproducts,
+      ...currentSubSecondaries
       ]);
     } else {
       setImageFunction([
         `https://docs.google.com/uc?id=${currentData.image_id}`,
         ...currentSecondaries,
-        ...currentSubproducts
+        ...currentSubproducts,
+        ...currentSubSecondaries
       ]);
     }
   };
