@@ -17,7 +17,7 @@ import cart from '../../services/cart';
 function ProductPage(props) {
 
   const [productData, setProductData] = useState();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState();
   const [bigImageIndex, setBigImageIndex] = useState(0);
 
   const [onSale, setOnSale] = useState();
@@ -40,7 +40,7 @@ function ProductPage(props) {
 
   async function getProductData(productId, setStockFunction, accessToken) {
     let config = {};
-    if (accessToken) {
+    if (accessToken !== undefined) {
       config = {
         headers: { authorization: `Bearer ${accessToken}` }
       }
@@ -58,19 +58,47 @@ function ProductPage(props) {
     return result.data;
   };
 
-  async function getAndSetEveryImage(setImageFunction, currentData) {
+  async function getAndSetEveryImage(setImageFunction, currentData, accessToken) {
     let currentSecondaries = [];
     let currentSubproducts = [];
     let currentSubSecondaries = [];
+
+    let config = {};
+    if (accessToken !== undefined) {
+      config = {
+        headers: { authorization: `Bearer ${accessToken}` }
+      }
+    }
+
     if (currentData.secondaries !== undefined) {
       currentSecondaries = currentData.secondaries.map((secondary) => {
         return `https://docs.google.com/uc?id=${secondary.id}`;
       });
     }
-    setImageFunction([...images,
-    `https://docs.google.com/uc?id=${currentData.image_id}`,
-    ...currentSecondaries,
-    ]);
+
+    if (currentData.subproducts !== undefined) {
+      currentSubproducts = currentData.subproducts.map((subproduct) => {
+        return `https://docs.google.com/uc?id=${subproduct.image_id}`;
+      });
+    }
+
+    console.log("Secundarias atuais: ", currentSecondaries);
+    console.log("Subprodutos atuais: ", currentSubproducts);
+    console.log("Config: ", config);
+
+    if (images !== undefined) {
+      setImageFunction([...images,
+      `https://docs.google.com/uc?id=${currentData.image_id}`,
+      ...currentSecondaries,
+      ...currentSubproducts
+      ]);
+    } else {
+      setImageFunction([
+        `https://docs.google.com/uc?id=${currentData.image_id}`,
+        ...currentSecondaries,
+        ...currentSubproducts
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +108,7 @@ function ProductPage(props) {
 
       setProductData(partialData);
 
-      await getAndSetEveryImage(setImages, partialData);
+      await getAndSetEveryImage(setImages, partialData, accessToken);
 
       console.log("Done!")
     }
@@ -237,14 +265,17 @@ function ProductPage(props) {
                   <FiArrowLeft className="icon" /> Voltar
                 </div>
                 <div className="img-container">
-                  <ImageLoader
-                    src={images[bigImageIndex]}
-                    loading={() => <img src={loading} alt="Loading..." />}
-                    error={() => <div>Error</div>}
-                  />
+                  {
+                    images ?
+                      <ImageLoader
+                        src={images && images[bigImageIndex]}
+                        loading={() => <img src={loading} alt="Loading..." />}
+                        error={() => <div>Error</div>}
+                      /> : <div></div>
+                  }
                 </div>
                 <div className="thumbnails">
-                  {images.map((imgSrc, index) => {
+                  {images && images.map((imgSrc, index) => {
                     return (
                       <div onClick={changeBigImage} data-index={index} >
                         <ImageLoader
