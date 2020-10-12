@@ -66,7 +66,7 @@
 }
 
 .preco-card {
-    color: green;
+    color: #14BC48;
     font-size: 2.7vh;
 }
 .preco-card.cortado {
@@ -79,13 +79,13 @@
 .preco-promocao {
     font-size: 2.7vh;
     margin: 0;
-    color: green;
+    color: #14BC48;
 }
 
 #botao-comprar {
     display: flex;
     justify-content: center;
-    background-color: green;
+    background-color: #14BC48;
     text-decoration: none;
     color: white;
     width: 100%;
@@ -101,7 +101,7 @@
     height: 40px;
     width: 250px;
     color: white;
-    background-color: green;
+    background-color: #14BC48;
     border-radius: 20px;
 }
 

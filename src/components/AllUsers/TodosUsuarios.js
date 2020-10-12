@@ -156,7 +156,7 @@ export default function UsuariosPendentes(props) {
                                                 >
                                                     <option value="approved" >approved</option>
                                                     <option value="pending" >pending</option>
-                                                    <option value="removed" >removed</option>
+                                                    <option value="removed" >refused</option>
                                                 </select>
                                                 {/* <button className="dropbtn-">
                                                 {status} <KeyboardArrowDownIcon />

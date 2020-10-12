@@ -1,0 +1,24 @@
+.frete-wrapper{
+    display: flex;
+    justify-content:  space-around;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+
+.frete-wrapper label, .frete-wrapper input{
+    margin-right: 10%;
+}
+
+.frete-wrapper input{
+    border: 2px solid black;
+}
+
+.frete-wrapper label{
+    margin-top: 3px;
+}
+
+.frete-wrapper button {
+    background: black;
+    color: white;
+    border: none;
+}

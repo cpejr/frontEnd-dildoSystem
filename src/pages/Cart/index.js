@@ -13,6 +13,7 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import AdminDashboard from "../../components/AdminDashboard";
 import Header from "../../components/Header";
+import Frete from '../testefrete'
 
 function Cart() {
   const [products, setProducts] = useState([]);
@@ -43,6 +44,7 @@ function Cart() {
               <CartCard name={product.product.name} description={product.product.description} productId={product.product.id} product={product} image_id={product.product.image_id } product={product}/>
             ))}
           </div>
+          <Frete />
           <div className="button-area">
             <button className="cart-primary-button">COMPRAR</button>
             <Link to="/dashboard">
@@ -51,7 +53,9 @@ function Cart() {
               </button>
             </Link>
           </div>
+          
         </div>
+        
       </div>
       <Footer />
     </div>
