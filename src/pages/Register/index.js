@@ -73,6 +73,7 @@ function Register() {
             return false;
 
         if (cpf.trim().length < 1) {
+            console.log(cpf)
             setCpfError('Esse campo não pode estar vazio')
             return false;
         }
@@ -113,7 +114,7 @@ function Register() {
         //     return false;
         // }
         // if (numberError) setNumberError();
-        // return (true);
+        return (true);
     };
 
     async function handleRegister(e) {
@@ -135,7 +136,7 @@ function Register() {
                 // number,
                 // complement,
             };
-
+            
             try {
                 const response = await api.post('/user', data);
 
@@ -361,7 +362,7 @@ function Register() {
 
 
 
-                            <Button className="button" type="submit" variant="contained" color="primary" onClick={handleRegister}> Cadastrar </Button>
+                            <Button className="button" type="submit" variant="contained" color="primary" onClick={(e) => handleRegister(e)}> Cadastrar </Button>
 
                         </div>
                     </section>

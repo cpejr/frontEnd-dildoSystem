@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ImageLoader from 'react-loading-image';
-import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FaPlusCircle, FaMinusCircle, FaHeart } from 'react-icons/fa';
+import { FiArrowLeft, FiHeart } from 'react-icons/fi';
 
 import './styles.css';
 import loading from '../../images/Loading.gif';
@@ -32,7 +32,10 @@ function ProductPage(props) {
   const user = useContext(LoginContext);
   const history = useHistory();
 
+  const [isWish, setIsWish] = useState(false);
+
   const accessToken = localStorage.getItem('accessToken');
+  //const accessToken = localStorage.getItem(user.accessToken);
 
   const config = {
     headers: { authorization: `Bearer ${accessToken}` }
@@ -49,7 +52,7 @@ function ProductPage(props) {
           `https://picsum.photos/id/1018/1000/600/`,
           `https://picsum.photos/id/1015/1000/600/`,
         ]);
-        if(response.data.subproducts.length > 0) {
+        if (response.data.subproducts.length > 0) {
           setRelevantStock(response.data.subproducts[0].stock_quantity);
         } else {
           setRelevantStock(response.data.stock_quantity);
@@ -64,7 +67,7 @@ function ProductPage(props) {
           `https://picsum.photos/id/1018/1000/600/`,
           `https://picsum.photos/id/1015/1000/600/`,
         ]);
-        if(response.data.subproducts.length > 0) {
+        if (response.data.subproducts.length > 0) {
           setRelevantStock(response.data.subproducts[0].stock_quantity);
         } else {
           setRelevantStock(response.data.stock_quantity);
@@ -115,12 +118,35 @@ function ProductPage(props) {
       setQuantity(quantity - 1);
   }
 
+  const handleAddWishList = (product_id) => {
+    const user_id = user.id
+    const data = {
+      user_id,
+      product_id
+    }
+    api.post(`userwishlist/${user_id}`, data, config).then((response) => {
+      console.log(response)
+      setIsWish(true);
+    })
+  }
+  const handleRemoveWishList = (product_id) => {
+    const user_id = user.id
+    const config_2 = {
+      headers: { authorization: `Bearer ${accessToken}` },
+      data: { user_id: user_id, product_id }
+    };
+    api.delete('userwishlist', config_2).then((response) => {
+      console.log(response)
+      setIsWish(false);
+    })
+  }
+
   function handleCepChange(event) {
-    const accepted = ['0','1','2','3','4','5','6','7','8','9', '-'];
-    
+    const accepted = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'];
+
     const indexOfChar = accepted.indexOf(event.target.value.slice(-1));
     console.log(event.target.value)
-    if(event.target.value!='' && (indexOfChar < 0 || (indexOfChar==10 && event.target.value.length != 5 && event.target.value.length != 6))) {
+    if (event.target.value != '' && (indexOfChar < 0 || (indexOfChar == 10 && event.target.value.length != 5 && event.target.value.length != 6))) {
       console.log(event.target.value.length)
       setCep(cep);
       return;
@@ -128,24 +154,40 @@ function ProductPage(props) {
 
     let newCep = event.target.value;
 
-    if(newCep.length === 5 && cep.length===4) {
+    if (newCep.length === 5 && cep.length === 4) {
       newCep += '-';
     }
 
     setCep(newCep);
-    
+
   }
+
+  useEffect(() => {
+    if (productData) {
+      const user_id = user.id;
+      console.log("User: ", user)
+      console.log("User_id: ", user_id)
+      api.get(`userwishlist/${user_id}`, config).then((response) => {
+        const result = response.data.find(product => product.id == productData.id);
+        if(result){
+          setIsWish(true);
+        }
+      });
+      console.log("Product Data: ", productData)
+    }
+  }, [productData])
 
   return (
     <div className="full-page-wrapper">
       <Header />
       {(!productData) && <img src={loading} />}
       {(productData) &&
+
         (
           <div className="product-page-wrapper">
             <div className="product-page-container">
               <div className="photos-column">
-                <div className="go-back-btn" onClick={()=>{history.goBack()}}>
+                <div className="go-back-btn d-flex align-items-center" onClick={() => { history.goBack() }}>
                   <FiArrowLeft className="icon" /> Voltar
                 </div>
                 <div className="img-container">
@@ -171,6 +213,10 @@ function ProductPage(props) {
               </div>
 
               <div className="info-column">
+                <div className="fiheartDiv">
+                  {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(productData.id)} />}
+                  {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(productData.id)} />}
+                </div>
                 <h2 className="title">{productData.name}</h2>
                 <p className="description">{productData.description}</p>
 
@@ -215,16 +261,16 @@ function ProductPage(props) {
                     <FaPlusCircle className={"quantity-changer " + (quantity >= relevantStock && "locked")} onClick={incrementQuantity} />
                   </div>
                 </div>
-                {(relevantStock > 0 
-                  ?(<button className="buy-button" onClick={()=>{cart.addItem(productData, quantity); history.push('/cart')}}>COMPRAR</button>)
-                  :(<div className="unavailable">Produto indisponível</div>)
-                  )}
-                
+                {(relevantStock > 0
+                  ? (<button className="buy-button" onClick={() => { cart.addItem(productData, quantity); history.push('/cart') }}>COMPRAR</button>)
+                  : (<div className="unavailable">Produto indisponível</div>)
+                )}
+
                 <div className="shipping">
-                  <input type="text" placeholder="Digite seu CEP" value={cep} onChange={handleCepChange} min="0" maxlength="9"/>
+                  <input type="text" placeholder="Digite seu CEP" value={cep} onChange={handleCepChange} min="0" maxlength="9" />
                   <button>CALCULAR FRETE</button>
                 </div>
-                
+
               </div>
             </div>
           </div>
