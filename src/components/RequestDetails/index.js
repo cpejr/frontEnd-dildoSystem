@@ -4,7 +4,19 @@ import api from "../../services/api";
 import { LoginContext } from "../../Contexts/LoginContext";
 
 export default function RequestDetails(props) {
-  const [orderData, setOrder] = useState();
+  function RequestProducts(props) {
+    return props.products.map((product) => {
+      return (
+        <div>
+          <strong className="request-name">{product.name}</strong>
+          <p>{`R$ ${product.price}`}</p>
+          <p>Quantidade: {product.product_quantity}</p>
+        </div>
+      );
+    });
+  }
+
+  const [orderProducts, setOrderProducts] = useState();
   const [id, setOrderId] = useState();
   const [date, setDate] = useState();
   const [track_type, setTrackType] = useState();
@@ -19,37 +31,39 @@ export default function RequestDetails(props) {
   const [product_quantity, setQuantity] = useState();
   const [totalprice, setTotalPrice] = useState();
   const [track_price, setTrackPrice] = useState();
-  
+  const [individualprice, setIndividualPrice] = useState();
+  const [totalorder, setTotalOrder] = useState();
+
   const accessToken = localStorage.getItem("accessToken");
-  
+
   const user = useContext(LoginContext);
   const url = `order/${user.id}?order_id=${props.match.params.id}`;
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
-  console.log("url", url)
-  useEffect(() => {
-    // const url = `orders/${props.match.params.id}`
-    const orderData = props.location.state;
 
+  useEffect(() => {
+    const orderData = props.location.state;
     if (props.location.state) {
-      setOrder(orderData.order);
-      setOrderId(orderData.order.id);
-      setDate(orderData.order.created_at);
-      setTrackType(orderData.order.track_type);
-      setOrderStatus(orderData.order.order_status);
-      setStreet(orderData.order.street);
-      setNumber(orderData.order.number);
-      setNeighborhood(orderData.order.neighborhood);
-      setCity(orderData.order.city);
-      setState(orderData.order.state);
-      setZipcode(orderData.order.zipcode);
+      setOrderProducts(orderData);
+      setOrderId(orderData.id);
+      setDate(orderData.created_at);
+      setTrackType(orderData.track_type);
+      setOrderStatus(orderData.order_status);
+      setStreet(orderData.street);
+      setNumber(orderData.number);
+      setNeighborhood(orderData.neighborhood);
+      setCity(orderData.city);
+      setState(orderData.state);
+      setZipcode(orderData.zipcode);
       setName(orderData.name);
-      setQuantity(orderData.order.id);
-      setTrackPrice(orderData.order.track_price);
-    } else if(accessToken){
+      setQuantity(orderData.user_id);
+      setTrackPrice(orderData.track_price);
+      setTotalPrice(orderData.totalPrice);
+      setTotalOrder(totalprice + track_price);
+    } else if (accessToken) {
       api.get(url, config).then((response) => {
-        setOrder(response.data);
+        setOrderProducts(response.data);
         setOrderId(response.data.id);
         setDate(response.data.created_at);
         setTrackType(response.data.track_type);
@@ -60,13 +74,16 @@ export default function RequestDetails(props) {
         setCity(response.data.city);
         setState(response.data.state);
         setZipcode(response.data.zipcode);
-        setName(response.data.id);
-        setQuantity(response.data.id);
+        setName(response.data.products.id);
+        setQuantity(response.data.id);    
+        setIndividualPrice(response.data.products.price);
         setTrackPrice(response.data.track_price);
+        setTotalPrice((product_quantity * individualprice));
+        setTotalOrder(((product_quantity * individualprice) + track_price));
       });
     }
   }, []);
-  
+
   return (
     <div className="rd-container">
       <div className="rd-title">
@@ -110,10 +127,9 @@ export default function RequestDetails(props) {
         <div className="rd-product">
           <h5>Produtos</h5>
           <div className="rd-product-list">
-            <strong>Nome do Produto</strong>
-            <p>{name}</p>
-            <p>Quantidade</p>
-            <p>{product_quantity}</p>
+            {orderProducts && (
+              <RequestProducts products={orderProducts.products} />
+            )}
           </div>
         </div>
         <div className="rd-price">
@@ -121,15 +137,15 @@ export default function RequestDetails(props) {
             <h5>Resumo</h5>
             <div className="rd-product-item">
               <strong>Subtotal:</strong>
-              <p>20</p>
+              <p>{`R$ ${totalprice}`}</p>
             </div>
             <div className="rd-product-item">
               <strong>Frete:</strong>
-              <p>{`R$ ${(track_price)}`}</p>
+              <p>{`R$ ${track_price}`}</p>
             </div>
             <div className="rd-product-item">
               <h6>Total:</h6>
-              <h6 className="rd-product-item-total">25</h6>
+              <h6 className="rd-product-item-total">{`R$ ${totalprice + track_price}`}</h6>
             </div>
           </div>
         </div>

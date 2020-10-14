@@ -20,7 +20,7 @@ function RequestBody(props) {
 
 function MainRequest(props) {
   return (
-      <div className="request-data-all  ">
+      <div className="request-data-all">
         <div className="request-order-id">
           <h4 className="request-number">Pedido</h4>
           <p>{props.order.id}</p>
@@ -58,7 +58,8 @@ function MainRequest(props) {
               <Link
                 to={{
                   pathname: `/user/requestdetails/${props.order.id}`,
-                  state: props,
+                  state: props.order,
+
                 }}
               >
                 <button className="requestdetails">Detalhes do Pedido</button>

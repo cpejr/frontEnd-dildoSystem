@@ -19,6 +19,10 @@
     display: flex;
 }
 
+.rd-container strong{
+    font-size: 1em;
+}
+
 .rd-title p{ 
     margin-left: 1%;
     margin-top: 6px;
@@ -62,4 +66,22 @@
 
 .rd-product-item-total{
     margin-left: 1%;
+}
+
+@media(max-width: 995px){
+    .rd-title{
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 995px){
+    .rd-title{
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 440px){
+    .rd-info-list{
+        flex-direction: column;
+    }
 }
