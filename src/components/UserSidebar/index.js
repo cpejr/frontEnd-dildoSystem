@@ -150,12 +150,6 @@ export default function UserSidebar(props) {
         </div>
         <Divider />
         <List>
-                <ListItem button component={Link} to="/user" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Home /></ListItemIcon>
-                    <ListItemText>Dashboard</ListItemText>
-                </ListItem>
-
-                <Divider />
 
                 <ListItem button component={Link} to="/user/myrequests" onClick={props.handleDrawerClose}>
                     <ListItemIcon><LocalMallIcon /></ListItemIcon>
@@ -167,13 +161,6 @@ export default function UserSidebar(props) {
                 <ListItem button component={Link} to="/user/wishlist" onClick={props.handleDrawerClose}>
                     <ListItemIcon><StarIcon /></ListItemIcon>
                     <ListItemText>Lista de Desejos</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/user/payment" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><MonetizationOnIcon /></ListItemIcon>
-                    <ListItemText>Métodos de Pagamento</ListItemText>
                 </ListItem>
 
                 <Divider />

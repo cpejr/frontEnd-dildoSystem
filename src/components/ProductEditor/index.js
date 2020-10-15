@@ -599,11 +599,12 @@ export default function ProductEditor(
                               </div>
                               <input
                                 type="text"
+                                value={weight}
                                 className="form-control"
                                 id="setProductWeight"
-                                value={weight}
                                 onChange={(e) => setWeight(e.target.value)}
                                 aria-describedby="inputGroupPrepend2"
+                                placeholder="0"
                                 required
                               />
                               <div className="input-group-append">

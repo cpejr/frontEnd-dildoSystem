@@ -17,6 +17,7 @@ export default function SubproductsEdit({ subproduto }) {
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImage] = useState();
   const [imageFile, setimageFile] = useState();
+  
 
   const [editar, setEditar] = useState("editar");
 
@@ -25,6 +26,7 @@ export default function SubproductsEdit({ subproduto }) {
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
+
 
   useEffect(() => {
     if (subproduto !== undefined) {

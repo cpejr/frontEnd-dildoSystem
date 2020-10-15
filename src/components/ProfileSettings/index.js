@@ -227,9 +227,14 @@ const handleXopen = () => {
   }
 
   const handleDeleteUser = () => {
-    api.delete(`user/${userId}`, config ).then((response) => {
+    api.delete(`user/${userId}`, {
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      }
+    } ).then((response) => {
       console.log(response);
     })
+    alert("Usuário deletado com sucesso!");
   }
    
   
@@ -302,8 +307,10 @@ const handleXopen = () => {
         <DialogContent>
         <h5>Você tem certeza?</h5>
         <div className="account-delete">
+          <DialogActions>
         <Button onClick={(e) => handleDeleteUser()}>Sim</Button>
         <Button onClick={handleClose}>Não</Button>
+        </DialogActions>
         </div>
         </DialogContent>
       </Dialog>
