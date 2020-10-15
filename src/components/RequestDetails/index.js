@@ -11,6 +11,7 @@ export default function RequestDetails(props) {
           <strong className="request-name">{product.name}</strong>
           <p>{`R$ ${product.price}`}</p>
           <p>Quantidade: {product.product_quantity}</p>
+
         </div>
       );
     });
@@ -41,6 +42,16 @@ export default function RequestDetails(props) {
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
+
+  function SumProducts(products){
+    let totalSum = 0;
+    products.forEach(product => {
+      totalSum += product.product_quantity * product.price
+    });
+    return(
+     totalSum
+    )
+  }
 
   useEffect(() => {
     const orderData = props.location.state;
@@ -75,10 +86,10 @@ export default function RequestDetails(props) {
         setState(response.data.state);
         setZipcode(response.data.zipcode);
         setName(response.data.products.id);
-        setQuantity(response.data.id);    
+        setQuantity(response.data.product_quantity);    
         setIndividualPrice(response.data.products.price);
         setTrackPrice(response.data.track_price);
-        setTotalPrice((product_quantity * individualprice));
+        setTotalPrice(SumProducts(response.data.products));
         setTotalOrder(((product_quantity * individualprice) + track_price));
       });
     }
