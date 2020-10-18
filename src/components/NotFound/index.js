@@ -7,7 +7,7 @@ import Header from '../../components/Header';
 
 const NotFound = () => (
     <>
-        {/* <Header /> */}
+        <Header />
         <div className="notFound">
             <div class='c'>
                 <div class='_404'>404</div>
