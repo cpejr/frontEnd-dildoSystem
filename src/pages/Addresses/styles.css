@@ -40,6 +40,7 @@
 
 .address-box.selected {
   border: 2px solid var(--mainColor);
+  padding: 20px;
 }
 
 .new-address form {

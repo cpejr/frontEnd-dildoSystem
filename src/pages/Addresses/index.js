@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
+import api from '../../services/api';
 
 import './styles.css';
 
@@ -15,7 +16,7 @@ const addresses = [
     neighborhood: 'Ipiranga',
     city: 'Belo Horizonte',
     state: 'MG',
-    zip: '31160430'
+    zipcode: '31160430'
   },
   {
     street: 'Rua joao modesto ribeiro',
@@ -24,7 +25,7 @@ const addresses = [
     neighborhood: 'Ipiranga',
     city: 'Belo Horizonte',
     state: 'MG',
-    zip: '31160430'
+    zipcode: '31160430'
   },
   {
     street: 'Rua marcelo modesto ribeiro',
@@ -33,7 +34,7 @@ const addresses = [
     neighborhood: 'Ipiranga',
     city: 'Belo Horizonte',
     state: 'MG',
-    zip: '31160430'
+    zipcode: '31160430'
   },
 ];
 const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
@@ -53,16 +54,26 @@ function Addresses() {
     history.push('login?return-to-addresses');
   }
 
-  function handleSubmitExistingAddress() {
+  async function handleSubmitExistingAddress() {
     if(selected >= 0) {
-
+      const config = {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      }
+      console.log(loginContext)
+      let addresses = await api.get(`/useraddress/${loginContext.id}`,config );
+      addresses = addresses.data;
+      console.log(addresses);
     } else {
       alert('Selecione um dos seus endereços cadastrados!');
     }
   }
 
-  function handleSubmitNewAddress(e) {
+  async function handleSubmitNewAddress(e) {
     e.preventDefault();
+
+    console.log(newAddress)
 
     if(newAddress.street
       &&newAddress.number
@@ -70,10 +81,19 @@ function Addresses() {
       &&newAddress.neighborhood
       &&newAddress.state
       &&newAddress.city
-      &&newAddress.zip) {
-
+      &&newAddress.zipcode) {
+      const config = {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      }
+      try {
+        await api.post(`/address`, newAddress, config);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      alert("Preencha todos os campos para enviar um novo e-mail!")
+      alert("Preencha todos os campos para enviar um novo endereço!")
     }
   }
   return (
@@ -91,28 +111,28 @@ function Addresses() {
             <h3>Se preferir, cadastre um novo endereço</h3>
             <form onSubmit={handleSubmitNewAddress}>
               <label htmlFor="street">Rua ou Avenida</label>
-              <input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })} />
 
               <label htmlFor="number">Número</label>
-              <input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, number: e.target.value })} />
 
               <label htmlFor="complement">Complemento</label>
-              <input type="text" name="complement" value={newAddress.complement} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <input type="text" name="complement" value={newAddress.complement} onChange={(e) => setNewAddress({ ...newAddress, complement: e.target.value })} />
 
               <label htmlFor="neighborhood">Bairro</label>
-              <input type="text" name="neighborhood" value={newAddress.neighborhood} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <input type="text" name="neighborhood" value={newAddress.neighborhood} onChange={(e) => setNewAddress({ ...newAddress, neighborhood: e.target.value })} />
 
               <label htmlFor="state">Estado</label>
-              <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} defaultValue="">
+              <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })} defaultValue="">
                 <option value="" disabled>Estado</option>
                 {states.map(state => <option value={state}>{state}</option>)}
               </select>
 
               <label htmlFor="city">Cidade</label>
-              <input type="text" name="city" value={newAddress.city} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <input type="text" name="city" value={newAddress.city} onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })} />
 
-              <label htmlFor="zip">CEP</label>
-              <input type="text" name="zip" value={newAddress.zip} onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })} />
+              <label htmlFor="zipcode">CEP</label>
+              <input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
 
               <button type="submit">Continuar com o novo endereço</button>
             </form>
@@ -129,7 +149,7 @@ function Address({ onClick, address, selected }) {
       <p>{`${address.street}, ${address.number}, ${address.complement}`}</p>
       <p>{address.neighborhood}</p>
       <p>{`${address.city} - ${address.state}`}</p>
-      <p>{address.zip}</p>
+      <p>{address.zipcode}</p>
     </div>
   );
 }
