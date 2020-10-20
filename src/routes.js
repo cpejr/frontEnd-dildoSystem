@@ -22,7 +22,7 @@ function Routes() {
         <BrowserRouter>
             <LoginContextProvider>
                 <SearchContextProvider>
-                    <Switch>
+                    <Switch> 
                         <Route path='/' exact component={Dashboard} />
                         <Route path='/search' component={Search} />
                         <Route path='/login' exact component={Login} />
