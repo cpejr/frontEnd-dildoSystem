@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
+import { useHistory } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -103,6 +104,10 @@ const handleOpen = () => {
   setMopen(true);
 }
 
+const history = useHistory();
+const [changed, setChanged] = React.useState(false);
+const [location, setLocation] = React.useState(history.location);
+
 const handleXopen = () => {
   setXopen(true);
 }
@@ -115,6 +120,13 @@ const handleXopen = () => {
     setMopen(false);
     setXopen(false);
   };
+
+  useEffect(() => {
+    if (changed) {
+      history.push(location.pathname+location.search);
+      setChanged(false);
+    }
+  }, [changed]);
   
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
@@ -235,6 +247,7 @@ const handleXopen = () => {
       console.log(response);
     })
     alert("Usuário deletado com sucesso!");
+    history.push("/login");
   }
    
   
