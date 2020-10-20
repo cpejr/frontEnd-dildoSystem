@@ -8,6 +8,10 @@
     margin-top: 20px;
 }
 
+.footer-buttons {
+  color: black;
+}
+
 .logos {
     height: 20vh;
 }
@@ -27,6 +31,7 @@
     width: 30%;
     
 }
+
 .FooterWrapper {
   display: flex;
   max-width: 800px;

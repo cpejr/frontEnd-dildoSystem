@@ -14,6 +14,7 @@ import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
 import Testefrete from './pages/testefrete';
 import Addresses from './pages/Addresses';
+import TermsandConditions from './pages/TermsandConditions'
 
 function Routes() {
     return (
@@ -32,6 +33,7 @@ function Routes() {
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
                         <Route path='/addresses' component={Addresses}/>
+                        <Route path='/conditions' component={TermsandConditions} />
                     </SearchContextProvider>
                 </LoginContextProvider>
             </Switch>
