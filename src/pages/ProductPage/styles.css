@@ -78,7 +78,7 @@
 
 .info-column {
   margin: 40px;
-  margin-top: 70px;
+  margin-top: 0;
   width: 50%;
 }
 
@@ -219,6 +219,18 @@
   border-radius: 0 0.5rem 0.5rem 0;
 
   background-color: var(--mainColor);
+}
+.fiheartDiv {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+.fiheart {
+  font-size: 35px;
+  margin-top: 10px;
+  margin-right: 10px;
+  color: #cf1b1b;
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
