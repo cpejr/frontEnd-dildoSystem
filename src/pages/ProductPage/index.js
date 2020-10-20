@@ -37,12 +37,12 @@ function ProductPage(props) {
   const accessToken = localStorage.getItem('accessToken');
   //const accessToken = localStorage.getItem(user.accessToken);
 
-  // const config = {
-  //   headers: { authorization: `Bearer ${accessToken}` }
-  // }
+  const config = {
+     headers: { authorization: `Bearer ${accessToken}` }
+   }
 
   async function getProductData(productId, setStockFunction, accessToken) {
-    let config = {};
+   // let config = {};
     if (accessToken !== undefined) {
       config = {
         headers: { authorization: `Bearer ${accessToken}` }

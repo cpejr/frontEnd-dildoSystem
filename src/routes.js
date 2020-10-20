@@ -19,10 +19,10 @@ import NotFound from './components/NotFound'
 
 function Routes() {
     return (
-        <BrowserRouter>
+        <BrowserRouter> 
             <LoginContextProvider>
                 <SearchContextProvider>
-                    <Switch> 
+                <Switch>
                         <Route path='/' exact component={Dashboard} />
                         <Route path='/search' component={Search} />
                         <Route path='/login' exact component={Login} />
@@ -34,9 +34,10 @@ function Routes() {
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
                         <Route path='/addresses' component={Addresses}/>
+                        <Route exact={true} component={NotFound} />
+                        </Switch>
                     </SearchContextProvider>
                 </LoginContextProvider>
-            </Switch>
         </BrowserRouter>
     );
 }
