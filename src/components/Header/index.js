@@ -56,7 +56,7 @@ export default function Header() {
   useEffect(() => {
     api.get("categories", config).then(response => {
       setCategories(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     })
 
 
