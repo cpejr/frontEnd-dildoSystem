@@ -12,7 +12,7 @@
     flex-direction: column;
     background-color: white;
     height: auto;
-    width: 100%;
+    width: 70%;
     border-radius: 10px;
     padding: 20px;
 }
@@ -26,14 +26,14 @@
     display: flex;
     border-bottom: 1px solid rgba(112, 112, 112, 0.33);
     padding-bottom: 15px;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-right: 2vw;
+    margin-left: 2vw;
 }
 
 
 .settings-info{
     display: grid;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 100%);
     width: 50%;
     padding: 5px;
 }
@@ -53,7 +53,7 @@
 }
 
 .settings-info-item strong{
-    margin-right: 3%;
+    margin-right: 1vw;
 }
 
 .settings-button-area{
@@ -65,12 +65,13 @@
 }
 
 .settings-button{
-    width: 40%;
+    width: 15vw;
     min-height: 20%;
     border-radius: 8px;
     border: 1px solid #707070;
     background-color: white;
     color: black;
+    
 }
 
 .settings-key{
@@ -88,14 +89,17 @@
     margin-right: 2%;
 }
 
-.settings-button-edit-area{
+.settings-button-edit-area {
     display: flex;
-    margin-left: auto;
-    width: 50%;
+    justify-content: space-between;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    width: 80%;
 }
 
 .settings-button-edit{
-    width: 40%;
+    width: 15vw;
     border-radius: 8px;
     border: 1px solid #bc8d14;
     background-color: #bc8d14;
@@ -104,7 +108,7 @@
 }
 
 .settings-button-delete{
-    width: 40%;
+    width: 15vw;
     border-radius: 8px;
     border: 1px solid rgb(173, 43, 43);
     background-color: rgb(173, 43, 43);
@@ -145,17 +149,40 @@
     display: grid;
     grid-template-columns: 200px 200px;
 }
+
+.modal-delete-title {
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
 .passEdit {
     display: flex;
     flex-direction: column;
 }
-@media (max-width: 950px) {
+@media (max-width: 1210px) {
     .settings-info-form {
         display: flex;
         flex-direction: column;
     }
     .settings-info-item-form strong{
         font-size: 1.5vh;
+    }
+    .settings-button-edit-area {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .settings-button-edit {
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        margin-left: 0;
+    }
+    .settings-button {
+        margin-bottom: 1vh;
+        margin-left: 0;
+    }
+    .settings-button-delete {
+        margin-top: 1vh;
+        margin-left: 0;
     }
     .settings-info {
         display: flex;
@@ -169,3 +196,4 @@
      font-size: 1.5vh;
     }
 }
+

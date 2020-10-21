@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ImageLoader from 'react-loading-image';
-import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FaPlusCircle, FaMinusCircle, FaHeart } from 'react-icons/fa';
+import { FiArrowLeft, FiHeart } from 'react-icons/fi';
 
 import './styles.css';
 import loading from '../../images/Loading.gif';
@@ -32,14 +32,17 @@ function ProductPage(props) {
   const user = useContext(LoginContext);
   const history = useHistory();
 
-  const accessToken = localStorage.getItem('accessToken');
+  const [isWish, setIsWish] = useState(false);
 
-  // const config = {
-  //   headers: { authorization: `Bearer ${accessToken}` }
-  // }
+  const accessToken = localStorage.getItem('accessToken');
+  //const accessToken = localStorage.getItem(user.accessToken);
+
+  const config = {
+     headers: { authorization: `Bearer ${accessToken}` }
+   }
 
   async function getProductData(productId, setStockFunction, accessToken) {
-    let config = {};
+   // let config = {};
     if (accessToken !== undefined) {
       config = {
         headers: { authorization: `Bearer ${accessToken}` }
@@ -246,6 +249,29 @@ function ProductPage(props) {
       setQuantity(quantity - 1);
   }
 
+  const handleAddWishList = (product_id) => {
+    const user_id = user.id
+    const data = {
+      user_id,
+      product_id
+    }
+    api.post(`userwishlist/${user_id}`, data, config).then((response) => {
+      console.log(response)
+      setIsWish(true);
+    })
+  }
+  const handleRemoveWishList = (product_id) => {
+    const user_id = user.id
+    const config_2 = {
+      headers: { authorization: `Bearer ${accessToken}` },
+      data: { user_id: user_id, product_id }
+    };
+    api.delete('userwishlist', config_2).then((response) => {
+      console.log(response)
+      setIsWish(false);
+    })
+  }
+
   function handleCepChange(event) {
     const accepted = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'];
 
@@ -267,11 +293,27 @@ function ProductPage(props) {
 
   }
 
+  useEffect(() => {
+    if (productData) {
+      const user_id = user.id;
+      console.log("User: ", user)
+      console.log("User_id: ", user_id)
+      api.get(`userwishlist/${user_id}`, config).then((response) => {
+        const result = response.data.find(product => product.id == productData.id);
+        if(result){
+          setIsWish(true);
+        }
+      });
+      console.log("Product Data: ", productData)
+    }
+  }, [productData])
+
   return (
     <div className="full-page-wrapper">
       <Header />
       {(!productData) && <img src={loading} />}
       {(productData) &&
+
         (
           <div className="product-page-wrapper">
             <div className="product-page-container">
@@ -305,6 +347,10 @@ function ProductPage(props) {
               </div>
 
               <div className="info-column">
+                <div className="fiheartDiv">
+                  {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(productData.id)} />}
+                  {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(productData.id)} />}
+                </div>
                 <h2 className="title">{productData.name}</h2>
                 <p className="description">{productData.description}</p>
 

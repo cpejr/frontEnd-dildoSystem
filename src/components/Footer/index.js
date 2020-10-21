@@ -22,11 +22,22 @@ export default function Footer() {
           printer took a gallery of type and scrambled.
         </p>
         <div className="icons">
+            <a className="footer-buttons">
             <WhatsAppIcon />
+            </a>
+            <a className="footer-buttons">
             <FacebookIcon />
-            <InstagramIcon/>
+            </a>
+            <a className="footer-buttons" href="https://www.instagram.com/casulus.sex" color="primary">
+            <InstagramIcon />
+            </a>
+            <a className="footer-buttons">
             <TwitterIcon />
+            </a>
         </div>
+        <Link to="/conditions" className="term-link">
+          Acesse nossos termos de uso e nossa política de privacidade.
+        </Link>
       </div>
       <div id="ContatoFooter">
         <spam>

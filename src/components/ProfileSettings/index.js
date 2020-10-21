@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
+import { useHistory } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -103,6 +104,10 @@ const handleOpen = () => {
   setMopen(true);
 }
 
+const history = useHistory();
+const [changed, setChanged] = React.useState(false);
+const [location, setLocation] = React.useState(history.location);
+
 const handleXopen = () => {
   setXopen(true);
 }
@@ -115,6 +120,13 @@ const handleXopen = () => {
     setMopen(false);
     setXopen(false);
   };
+
+  useEffect(() => {
+    if (changed) {
+      history.push(location.pathname+location.search);
+      setChanged(false);
+    }
+  }, [changed]);
   
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
@@ -227,9 +239,15 @@ const handleXopen = () => {
   }
 
   const handleDeleteUser = () => {
-    api.delete(`user/${userId}`, config ).then((response) => {
+    api.delete(`user/${userId}`, {
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      }
+    } ).then((response) => {
       console.log(response);
     })
+    alert("Usuário deletado com sucesso!");
+    history.push("/login");
   }
    
   
@@ -244,7 +262,7 @@ const handleXopen = () => {
               <p>{name}</p>
             </div>
             <div className="settings-info-item">
-              <strong>E-mail</strong>
+              <strong>Email</strong>
               <p>{email}</p>
             </div>
             <div className="settings-info-item">
@@ -252,7 +270,7 @@ const handleXopen = () => {
               <p>{cpf}</p>
             </div>
             <div className="settings-info-item">
-              <strong>Número de Telefone</strong>
+              <strong>Telefone</strong>
               <p>{phonenumber}</p>
             </div>
           </div>
@@ -294,18 +312,6 @@ const handleXopen = () => {
           </Button>
         </DialogActions>
         </form>
-      </Dialog>
-      <button type="button" className="settings-button-delete" onClick={handleXopen}>
-       Excluir minha conta
-      </button>
-      <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogContent>
-        <h5>Você tem certeza?</h5>
-        <div className="account-delete">
-        <Button onClick={(e) => handleDeleteUser()}>Sim</Button>
-        <Button onClick={handleClose}>Não</Button>
-        </div>
-        </DialogContent>
       </Dialog>
           <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
           <Dialog  
@@ -364,6 +370,20 @@ const handleXopen = () => {
           </Button>
         </DialogActions>
         </form>
+      </Dialog>
+      <button type="button" className="settings-button-delete" onClick={handleXopen}>
+       Excluir minha conta
+      </button>
+      <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogContent>
+        <h5 className="modal-delete-title">Você tem certeza?</h5>
+        <div className="account-delete">
+          <DialogActions>
+        <Button className="yes-button" onClick={(e) => handleDeleteUser()}>Sim</Button>
+        <Button className="no-button" onClick={handleClose}>Não</Button>
+        </DialogActions>
+        </div>
+        </DialogContent>
       </Dialog>
         </div>
       </div>

@@ -93,11 +93,13 @@ export default function ProductEditor(
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
-  const [category_id, setCategory] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [length, setLength] = useState();
+  const [category_id, setCategoryId] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -139,6 +141,26 @@ export default function ProductEditor(
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
+
+  useEffect(() => {
+    api.get('categories').then(response => {
+      setCategories(response.data);
+      console.log(response.data);
+    })
+  }, []);
+
+  function handleCategorySelection(event) {
+    const newCat = categories.find(cat => cat.id == event.target.value);
+    if (newCat) {
+      setCategoryId(Number(newCat.id));
+      setSubcategories(newCat.subcategories);
+    }
+    else {
+      setCategoryId(0);
+      setSubcategories('');
+    }
+
+  }
 
   useEffect(() => {
     console.log(props);
@@ -599,11 +621,12 @@ export default function ProductEditor(
                               </div>
                               <input
                                 type="text"
+                                value={weight}
                                 className="form-control"
                                 id="setProductWeight"
-                                value={weight}
                                 onChange={(e) => setWeight(e.target.value)}
                                 aria-describedby="inputGroupPrepend2"
+                                placeholder="0"
                                 required
                               />
                               <div className="input-group-append">
@@ -719,54 +742,27 @@ export default function ProductEditor(
                                   Principal:{" "}
                                 </label>
                                 {/*DROPDOWNS*/}
-                                <select name="cars" id="cars">
-                                  <option value="0" id="0">
-                                    Selecionar
-                                  </option>
-                                  <option value="1" id="1">
-                                    Cosméticos
-                                  </option>
-                                  <option value="2" id="2">
-                                    Acessórios
-                                  </option>
-                                  <option value="3" id="3">
-                                    Brincadeiras
-                                  </option>
-                                  <option value="4" id="4">
-                                    Próteses
-                                  </option>
-                                </select>
-                              </div>
-                              <div className="categoriesSelection">
-                                <label
-                                  className="category-label"
-                                  htmlFor="subcategory"
-                                >
-                                  Subcategoria:
-                                </label>
-                                <select
-                                  value={subcategory_id}
-                                  onChange={(e) =>
-                                    setSubcategory(e.target.value)
-                                  }
-                                >
-                                  <option value="0" id="0">
-                                    Selecionar
-                                  </option>
-                                  <option value="1" id="1">
-                                    Volvo
-                                  </option>
-                                  <option value="2" id="2">
-                                    Saab
-                                  </option>
-                                  <option value="3" id="3">
-                                    Mercedes
-                                  </option>
-                                  <option value="4" id="3">
-                                    Brincadeiras
-                                  </option>
-                                </select>
-                              </div>
+                                <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
+                              <option value="0" disabled>Selecionar</option>
+                              {categories.map(cat => {
+                                return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
+                              })}
+                            </select>
+                          </div>
+                          <div className="categoriesSelection">
+                            <label
+                              className="category-label"
+                              htmlFor="subcategory"
+                            >
+                              Subcategoria:
+                          </label>
+                            <select value={subcategory_id} onChange={(e) => setSubcategory(e.target.value)}>
+                              <option value="0" disabled>Selecionar</option>
+                              {subcategories.map(subcat => {
+                                return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
+                              })}
+                            </select>
+                          </div>
                             </div>
                           </div>
                         </div>

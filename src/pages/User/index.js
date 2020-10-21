@@ -6,6 +6,7 @@ import MyRequests from "../MyRequests";
 import { LoginContext } from "../../Contexts/LoginContext";
 import WishList from "../../components/WishList";
 import ProfileSettings from "../../components/ProfileSettings";
+import RequestDetails from "../../components/RequestDetails";
 
 function User(props) {
 
@@ -34,6 +35,12 @@ function User(props) {
                 <Route
                   path={`${props.match.path}/usersettings`}
                   component={ProfileSettings}
+                />                            
+              }
+              {             
+                <Route
+                  path={`${props.match.path}/requestdetails/:id`}
+                  component={RequestDetails}
                 />                            
               }
               
