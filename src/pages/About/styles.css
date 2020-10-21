@@ -1,0 +1,67 @@
+.about-content{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.about-content h2 {
+    margin-top: 20px;
+}
+.about-content .about-institutional {
+    display: flex;
+    width: 90%;
+    margin: 2% 5%;
+    text-align: justify;
+}
+
+.about-content .about-container {
+    width: 48%;
+    margin-right: 2%;
+}
+.about-content .about-title svg{
+    padding-bottom: 2px;
+}
+.about-content .about-title svg path {
+    fill: black;
+}
+.about-benefits{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0 5%;
+    justify-content: center;
+    align-items: center;
+}
+.about-benefits-item{
+    display: block;
+    width: 23%;
+    margin: 0 1%;
+    text-align: justify;
+}
+.about-content .about-benefits-title{
+    display: flex;
+    justify-content: center;
+}
+@media(max-width: 720px){
+    .about-content .about-institutional {
+        flex-direction: column;
+    }
+    .about-content .about-container {
+        width: 90%;
+        margin: 2% 5%;
+    }    
+    .about-content .about-institutional p {
+        width: 100%;
+        margin: 0;
+    }  
+}
+@media(max-width: 600px){
+    .about-benefits{
+        flex-direction: column;
+    }
+    .about-benefits-item{
+        width: 90%;
+        margin: 0 5%;
+    }
+}
