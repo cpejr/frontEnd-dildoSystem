@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
@@ -50,19 +50,33 @@ function Addresses() {
   const loginContext = useContext(LoginContext);
   const history = useHistory();
 
+  useEffect(() => {
+    try {
+      const config = {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      }
+      api.get(`/useraddress/${loginContext.id}`, config).then(response => {console.log(response.data);setAddressList(response.data)});
+    } catch (error) {
+
+    }
+    
+  }, []);
+
   if (!loginContext.loggedIn) {
     history.push('login?return-to-addresses');
   }
 
   async function handleSubmitExistingAddress() {
-    if(selected >= 0) {
+    if (selected >= 0) {
       const config = {
         headers: {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
       }
       console.log(loginContext)
-      let addresses = await api.get(`/useraddress/${loginContext.id}`,config );
+      let addresses = await api.get(`/useraddress/${loginContext.id}`, config);
       addresses = addresses.data;
       console.log(addresses);
     } else {
@@ -75,13 +89,13 @@ function Addresses() {
 
     console.log(newAddress)
 
-    if(newAddress.street
-      &&newAddress.number
-      &&newAddress.complement
-      &&newAddress.neighborhood
-      &&newAddress.state
-      &&newAddress.city
-      &&newAddress.zipcode) {
+    if (newAddress.street
+      && newAddress.number
+      && newAddress.complement
+      && newAddress.neighborhood
+      && newAddress.state
+      && newAddress.city
+      && newAddress.zipcode) {
       const config = {
         headers: {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`
