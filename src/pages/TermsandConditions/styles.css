@@ -1,0 +1,26 @@
+.terms-titles {
+    color: #333;
+}
+
+.terms-content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.condition-terms {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.privacy-terms {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+}

@@ -4,6 +4,7 @@ import ImageLoader from 'react-loading-image';
 import loading from '../../images/Loading.gif';
 
 import api from "../../services/api";
+import cart from "../../services/cart"
 
 import { MdDeleteForever } from "react-icons/md";
 import { LoginContext } from "../../Contexts/LoginContext";
@@ -63,7 +64,7 @@ export default function WishList(props) {
                 <button className="delete-button" onClick={() => handleDeleteClick(products.id)}>
                   <MdDeleteForever className="wish-delete" size={30} />
                 </button>
-                <button className="wish-button">Adicionar ao Carrinho</button>
+                <button className="wish-button" onClick={(e) => { cart.addItem(products.id)}} >Adicionar ao Carrinho</button>
               </div>
             </div>
           </div>

@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { FiFilter } from 'react-icons/fi';
+import { FiFilter, FiHeart } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
+import { FaHeart } from 'react-icons/fa';
 
 import api from '../../services/api';
 import cart from "../../services/cart"
 
+import { LoginContext } from '../../Contexts/LoginContext';
 import './styles.css'
 import loading from '../../images/Loading.gif';
 
@@ -61,10 +63,18 @@ export default withRouter(function ProductCard(props) {
     const [requiring, setRequiring] = useState(false);
     const alreadyRequiring = useRef(false);
 
+    const [isWish, setIsWish] = useState(false);
+    const user = useContext(LoginContext);
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    const config = {
+        headers: { authorization: `Bearer ${accessToken}` }
+    }
 
     function handleScroll() {
         const shouldUpdate = window.pageYOffset > (document.documentElement.scrollHeight - 1300)
-        if(shouldUpdate && !requiring.current) {
+        if (shouldUpdate && !requiring.current) {
             alreadyRequiring.current = true;
             setRequiring(true);
             console.log(requiring);
@@ -72,26 +82,26 @@ export default withRouter(function ProductCard(props) {
     }
 
     useEffect(() => {
-        if(!props.featuredOnly) {
-            window.addEventListener('scroll', handleScroll, {passive:true});
+        if (!props.featuredOnly) {
+            window.addEventListener('scroll', handleScroll, { passive: true });
         }
-        
+
 
         return (() => {
-            if(!props.featuredOnly) {
-                 window.removeEventListener('scroll', handleScroll);
+            if (!props.featuredOnly) {
+                window.removeEventListener('scroll', handleScroll);
             }
         });
     }, []);
 
     useEffect(() => {
-        if(!requiring) {
+        if (!requiring) {
             alreadyRequiring.current = false;
         }
-        
-        if(alreadyRequiring.current && requiring) {
+
+        if (alreadyRequiring.current && requiring) {
             loadFollowingPage();
-        } 
+        }
     }, [requiring])
 
     useEffect(() => {
@@ -128,7 +138,7 @@ export default withRouter(function ProductCard(props) {
     }, [props.location.search])
 
     useEffect(() => {
-        console.log('novo array de products',products);
+        console.log('novo array de products', products);
     }, [products])
 
     async function loadFollowingPage() {
@@ -163,6 +173,28 @@ export default withRouter(function ProductCard(props) {
         setRequiring(false);
         window.scrollTo(0, currentPos);
     }
+    const handleAddWishList = (product_id) => {
+        const user_id = user.id
+        const data = {
+            user_id,
+            product_id
+        }
+        api.post(`userwishlist/${user_id}`, data, config).then((response) => {
+            console.log(response)
+            setIsWish(true);
+        })
+    }
+    const handleRemoveWishList = (product_id) => {
+        const user_id = user.id
+        const config_2 = {
+            headers: { authorization: `Bearer ${accessToken}` },
+            data: { user_id: user_id, product_id }
+        };
+        api.delete('userwishlist', config_2).then((response) => {
+            console.log(response)
+            setIsWish(false);
+        })
+    }
 
     return (
         <div className={`products-container-wrapper ${props.className}`}>
@@ -179,6 +211,10 @@ export default withRouter(function ProductCard(props) {
                                 {product.name}
                             </p>
                         </Link>
+                        <div className="fiheartDiv">
+                            {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(product.id)} />}
+                            {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(product.id)} />}
+                        </div>
 
                         <PriceElement product={product} />
 
