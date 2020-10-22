@@ -7,38 +7,38 @@ import XMLParser from 'react-xml-parser'
 
 import './styles.css'
 
-function Testefrete() {
+function Testefrete({products}) {
     const [cep, setCEP] = useState();
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState(products);
 
     let produtos = []
 
-    useEffect(() => {
-        let cart = [];
-        if (localStorage.getItem('cart')) {
-            cart = JSON.parse(localStorage.getItem('cart'));
-        }
-        setProducts(cart);
-        console.log(cart)
+    // useEffect(() => {
+    //     let cart = [];
+    //     if (localStorage.getItem('cart')) {
+    //         cart = JSON.parse(localStorage.getItem('cart'));
+    //     }
+    //     setProducts(cart);
+    //     console.log(cart)
 
-    }, [])
+    // }, [])
 
-    useEffect(() => {
-        products.map(p => (
-            produtos.push(
-                {
-                    Weight: p.product.weight,
-                    Height: p.product.height,
-                    Width: p.product.width,
-                    Length: p.product.length,
-                    Quantity: p.quantity
-                }
-            )
-        ))
-    }, [cep])
+    // useEffect(() => {
+    //     products.map(p => (
+    //         produtos.push(
+    //             {
+    //                 Weight: p.product.weight,
+    //                 Height: p.product.height,
+    //                 Width: p.product.width,
+    //                 Length: p.product.length,
+    //                 Quantity: p.quantity
+    //             }
+    //         )
+    //     ))
+    // }, [cep])
 
     // useEffect(() => (
 
@@ -59,6 +59,18 @@ function Testefrete() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+
+        products.map(p => (
+            produtos.push(
+                {
+                    Weight: p.product.weight,
+                    Height: p.product.height,
+                    Width: p.product.width,
+                    Length: p.product.length,
+                    Quantity: p.quantity
+                }
+            )
+        ))
 
         console.log('dimensoes dos produtos: ', produtos)
 

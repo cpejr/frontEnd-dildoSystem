@@ -44,7 +44,7 @@ function Cart() {
               <CartCard name={product.product.name} description={product.product.description} productId={product.product.id} product={product} image_id={product.product.image_id }/>
             ))}
           </div>
-          <Frete />
+          <Frete products={products}/>
           <div className="button-area">
             <button className="cart-primary-button">COMPRAR</button>
             <Link to="/dashboard">

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
 import api from '../../services/api';
+import { getShippingOptions } from './shippingAndPaymentAPIs';
 
 import './styles.css';
 
@@ -70,15 +71,10 @@ function Addresses() {
 
   async function handleSubmitExistingAddress() {
     if (selected >= 0) {
-      const config = {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        }
-      }
-      console.log(loginContext)
-      let addresses = await api.get(`/useraddress/${loginContext.id}`, config);
-      addresses = addresses.data;
-      console.log(addresses);
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      //console.log(cart);
+      const shippingOptions = await getShippingOptions(cart, addressList[selected].zipcode);
+      console.log(shippingOptions);
     } else {
       alert('Selecione um dos seus endereços cadastrados!');
     }
@@ -101,11 +97,19 @@ function Addresses() {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
       }
+
       try {
         await api.post(`/address`, newAddress, config);
       } catch (error) {
-        console.log(error);
+        alert("Ocorreu um erro no cadastro desse endereço!");
+        return;
       }
+
+      const cart = JSON.parse(localStorage.getItem('cart'));
+
+      const shippingOptions = await getShippingOptions(cart, newAddress.zipcode);
+      console.log(shippingOptions);
+      
     } else {
       alert("Preencha todos os campos para enviar um novo endereço!")
     }
