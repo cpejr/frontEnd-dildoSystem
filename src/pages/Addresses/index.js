@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
 import api from '../../services/api';
-import { getShippingOptions } from './shippingAndPaymentAPIs';
+import { callPaymentAPI, getShippingOptions } from './shippingAndPaymentAPIs';
 
 import './styles.css';
 
@@ -69,12 +69,19 @@ function Addresses() {
     history.push('login?return-to-addresses');
   }
 
+  async function goToCheckout(address) {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    console.log(cart);
+    console.log(address);
+    let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
+    shippingOptions = shippingOptions.ShippingSevicesArray;
+    console.log(shippingOptions);
+    callPaymentAPI(cart, address, shippingOptions, loginContext)
+  }
+
   async function handleSubmitExistingAddress() {
     if (selected >= 0) {
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      //console.log(cart);
-      const shippingOptions = await getShippingOptions(cart, addressList[selected].zipcode);
-      console.log(shippingOptions);
+      goToCheckout(addressList[selected])
     } else {
       alert('Selecione um dos seus endereços cadastrados!');
     }
@@ -87,7 +94,6 @@ function Addresses() {
 
     if (newAddress.street
       && newAddress.number
-      && newAddress.complement
       && newAddress.neighborhood
       && newAddress.state
       && newAddress.city
@@ -105,10 +111,7 @@ function Addresses() {
         return;
       }
 
-      const cart = JSON.parse(localStorage.getItem('cart'));
-
-      const shippingOptions = await getShippingOptions(cart, newAddress.zipcode);
-      console.log(shippingOptions);
+      goToCheckout(newAddress);
       
     } else {
       alert("Preencha todos os campos para enviar um novo endereço!")

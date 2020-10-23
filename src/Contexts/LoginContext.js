@@ -14,6 +14,8 @@ function LoginContextProvider(props) {
   const [userId, setUserId] = useStateWithPromise(0);
   const [userType, setUserType] = useStateWithPromise("retailer");
   const [accessToken, setAccessToken] = useStateWithPromise("");
+  const [email, setEmail] = useStateWithPromise("");
+  const [phonenumber, setPhonenumber] = useStateWithPromise(0);
 
   const history = useHistory();
   const [changed, setChanged] = useState(false);
@@ -42,6 +44,9 @@ function LoginContextProvider(props) {
             setUserId(resp.data.user.id),
             setUserType(userType),
             setLoggedIn(true),
+            setAccessToken(newToken),
+            setEmail(resp.data.user.email),
+            setPhonenumber(resp.data.user.phonenumber)
           ]);
           setChanged(true);
         } else {
@@ -50,6 +55,9 @@ function LoginContextProvider(props) {
             setUserId(0),
             setUserType("retailer"),
             setLoggedIn(false),
+            setAccessToken(""),
+            setEmail(""),
+            setPhonenumber(0)
           ]);
           setChanged(true);
         }
@@ -72,6 +80,8 @@ function LoginContextProvider(props) {
     id: userId,
     type: userType,
     accessToken: accessToken, 
+    email: email,
+    phone: phonenumber,
 
     setLoggedIn: setLoggedIn,
     setName: setUsername,
