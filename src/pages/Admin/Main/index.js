@@ -53,17 +53,15 @@ function Main(props) {
     <div className="main-container">
       <h4 className="titulo">Dashboard</h4>
       <div className="farol">
-        <Link className="link-size" to ={
-          { 
-            pathname: `${props.match.path}/pendingorders`,
-            farol: farol
-        }}>
+        <Link className="link-size" to ={`${props.match.path}/pendingorders`}>
         <div className="pendentes" key={orders.id}>
           <h4>Pedidos pendentes:</h4>
           <h3>{orders.length}</h3>
         </div>
         </Link>
-        <Link to='lowStock'>
+        <Link to= {
+          `${props.match.path}/lowStock`
+        }>
         <div className="acabando">
           <h4>Produtos com pouco estoque:</h4>
           <h3>{products.length}</h3>
