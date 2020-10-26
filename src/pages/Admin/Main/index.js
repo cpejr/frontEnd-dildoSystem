@@ -10,10 +10,23 @@ import "./styles.css";
 
 function Main(props) {
   const [orders, setOrders] = useState([]);
+  const [pendingorders, setPendingOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [dashboard, setDashboard] = useState(true);
   const [farol, setFarol] = useState(true);
+
+  useEffect(() => {
+    api.get("orders?byStatus=pending", {
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        },
+      })
+      .then((response) => {
+        setOrders(response.data);
+        console.log('orders', response.data)
+      });
+  }, []);
 
   useEffect(() => {
     api.get("orders", {
@@ -56,7 +69,7 @@ function Main(props) {
         <Link className="link-size" to ={`${props.match.path}/pendingorders`}>
         <div className="pendentes" key={orders.id}>
           <h4>Pedidos pendentes:</h4>
-          <h3>{orders.length}</h3>
+          <h3>{pendingorders.length}</h3>
         </div>
         </Link>
         <Link to= {
