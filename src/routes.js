@@ -34,6 +34,7 @@ function Routes() {
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
                         <Route path='/addresses' component={Addresses}/>
+                        <Route path='/conditions' component={TermsandConditions}/>
                         <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>
