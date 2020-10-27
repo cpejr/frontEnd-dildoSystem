@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    //Sempre que for gerar uma build alterar este endereço para http://157.230.57.125:3333
+    //Sempre que for gerar uma build para produção, alterar este endereço para https://backend.lojacasulus.com.br
     baseURL: 'http://localhost:3333',
 })
 
