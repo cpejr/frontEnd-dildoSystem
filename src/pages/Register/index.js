@@ -119,16 +119,18 @@ function Register() {
 
     async function handleRegister(e) {
         e.preventDefault();
+        let phone = phonenumber.replace(/\D/g, '');
+        let ucpf = cpf.replace(/\D/g, '');
         if (validateFields()) {
             const data = {
                 name,
                 email,
                 password,
                 type,
-                cpf,
+                cpf: ucpf,
                 birthdate,
                 // zipcode,
-                phonenumber,
+                phonenumber: phone,
                 // state,
                 // city,
                 // neighborhood,
@@ -150,6 +152,28 @@ function Register() {
             }
         }
 
+    }
+
+    function telefone(telefone) {
+        telefone = telefone.replace(/\D/g, "")                 
+        telefone = telefone.replace(/^(\d\d)(\d)/g, "($1) $2") 
+        telefone = telefone.replace(/(\d{5})(\d)/, "$1-$2")    
+        setPhonenumber(telefone);
+    }
+
+    function cpfMask(cpf_cnpj) {
+        cpf_cnpj = cpf_cnpj.replace(/\D/g, "")                 
+        cpf_cnpj = cpf_cnpj.replace(/^(\d\d\d)(\d)/g, "$1.$2") 
+        cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1-$2")    
+        if (cpf_cnpj.length > 13) {
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, "")                 
+            cpf_cnpj = cpf_cnpj.replace(/^(\d\d)(\d)/g, "$1.$2") 
+            cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1.$2")
+            cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1/$2")
+            cpf_cnpj = cpf_cnpj.replace(/(\d{4})(\d)/, "$1-$2")
+        }
+        setCpf(cpf_cnpj);
     }
 
     return (
@@ -199,12 +223,13 @@ function Register() {
                                 <TextField
                                     className="input-register"
                                     variant="outlined"
-                                    label="CPF"
-                                    type="number"
+                                    label="CPF/CNPJ"
+                                    type="text"
                                     value={cpf}
                                     onChange={e => setCpf(e.target.value)}
                                     error={cpfError}
                                     helperText={cpfError}
+                                    onKeyPress={(e) => cpfMask(e.target.value)}
                                 />
                                 <TextField
                                     className="input-register"
@@ -244,11 +269,14 @@ function Register() {
                                     variant="outlined"
                                     label="Telefone"
                                     type="tel"
+                                    id="phone"
                                     value={phonenumber}
                                     onChange={e => setPhonenumber(e.target.value)}
                                     error={phonenumberError}
                                     helperText={phonenumberError}
+                                    onKeyPress={(e) => telefone(e.target.value)}
                                 />
+
                             </div>
 
                             {/* <TextField
