@@ -16,6 +16,7 @@ import Testefrete from './pages/testefrete';
 import Addresses from './pages/Addresses';
 import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'
+import About from './pages/About'
 
 function Routes() {
     return (
@@ -34,6 +35,7 @@ function Routes() {
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
                         <Route path='/addresses' component={Addresses}/>
+                        <Route path='/about' component={About}/>
                         <Route path='/conditions' component={TermsandConditions}/>
                         <Route exact={true} component={NotFound} />
                         </Switch>
