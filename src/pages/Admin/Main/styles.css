@@ -202,6 +202,25 @@ color:black;
     margin-bottom: 10px;
     padding: 10px;
   }
+  .farol {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200vw;
+
+  }
+  .pendentes {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  }
+  .acabando {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  }
+  .aguardando-aprovacao {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  }
   .orders-container{
       margin-right: 0;
       margin-left: 0;

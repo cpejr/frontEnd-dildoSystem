@@ -71,7 +71,7 @@ export default function Header() {
       <div className="headerSuperior">
 
         <div className="header-content">
-          <Link to="">
+          <Link to="/">
             <img className="logoCasulusDashboard" src={LogoName} alt="logo" />
           </Link>
 

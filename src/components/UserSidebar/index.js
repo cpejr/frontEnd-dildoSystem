@@ -124,10 +124,12 @@ export default function UserSidebar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <Link to="/">
           <div className="iconDiv">
               <img className="logo" src={Logo} alt="logo" width="75" height="75" />
               <img className="text" src={Text} alt="text" width="75" height="75" />
           </div>
+          </Link>
           <div className="userDiv">
                 <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
                 <div><PersonOutline /></div>
