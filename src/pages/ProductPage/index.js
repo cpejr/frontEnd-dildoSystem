@@ -37,17 +37,9 @@ function ProductPage(props) {
   const accessToken = localStorage.getItem('accessToken');
   //const accessToken = localStorage.getItem(user.accessToken);
 
-  const config = {
-     headers: { authorization: `Bearer ${accessToken}` }
-   }
+  let config = accessToken ? {headers: { authorization: `Bearer ${accessToken}` }} : {};
 
   async function getProductData(productId, setStockFunction, accessToken) {
-   // let config = {};
-    if (accessToken !== undefined) {
-      config = {
-        headers: { authorization: `Bearer ${accessToken}` }
-      }
-    }
     const url = `product/${productId}`;
     const result = await api.get(url, config);
     console.log("result do get product: ", result);
@@ -66,13 +58,6 @@ function ProductPage(props) {
     let currentSubproducts = [];
     let currentSubSecondaries = [];
 
-    let config = {};
-    if (accessToken !== undefined) {
-      config = {
-        headers: { authorization: `Bearer ${accessToken}` }
-      }
-    }
-
     if (currentData.secondaries !== undefined) {
       currentSecondaries = currentData.secondaries.map((secondary) => {
         return `https://docs.google.com/uc?id=${secondary.id}`;
@@ -86,13 +71,13 @@ function ProductPage(props) {
         return `https://docs.google.com/uc?id=${subproduct.image_id}`;
       });
     }
-
+    
+    let subSecondary_response = {data: []};
     if (param_ids.length > 0){
       param_ids = param_ids.join("-*-");
+      subSecondary_response = await api.get(`/images/${param_ids}`)
+      console.log("Imagens subSecundarias: ", subSecondary_response.data);
     }
-    
-    const subSecondary_response = await api.get(`/images/${param_ids}`)
-    console.log("Imagens subSecundarias: ", subSecondary_response.data);
 
     const subSecondary = subSecondary_response.data;
 
