@@ -22,6 +22,7 @@ import ImageUpload from "../../components/ImageUpload";
 import { useHistory } from "react-router-dom";
 import Subedit from "./subedit.js";
 import SubproductsCreate from "./subcreate";
+import MultipleUploader from "../MultipleUploader";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -102,6 +103,7 @@ export default function ProductEditor(
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [images, setImages] = useState(null)
 
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -277,6 +279,11 @@ export default function ProductEditor(
     addToData("on_sale_wholesaler", on_sale_wholesaler);
     addToData("featured", featured);
     addToData("imageFile", image_id);
+    if (images) {
+      images.forEach(image => {
+        addToData('imageFiles', image);
+      })
+    }
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
     addToData("height", height);
@@ -298,8 +305,11 @@ export default function ProductEditor(
   }
 
   function handleImage(img) {
-    console.log("O handleImage está setando: ", img);
     setImage(img);
+  }
+
+  function handleImages(images) {
+    setImages(images)
   }
 
   const handleDeleteProduct = () => {
@@ -474,6 +484,17 @@ export default function ProductEditor(
                           Secudárias
                         </label>
                         <div className="input-group mb-3">
+                        <MultipleUploader onChange={handleImages} images={images} />
+                        <div className="sec-images">
+                        {images ? images.map((image) => { return (
+                          image && <ImageLoader
+                          className="image-loader-sub"
+                          src={`https://docs.google.com/uc?id=${image}`}
+                          loading={() => <img src={loading} alt="Loading..." />}
+                          error={() => <div>Error</div>}
+                        />
+                        ) }) : <h1></h1>}
+                      </div>
                           <div className="input-group-prepend">
                             <span
                               className="input-group-text"
