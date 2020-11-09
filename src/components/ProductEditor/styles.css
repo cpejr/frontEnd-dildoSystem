@@ -335,6 +335,23 @@
 
   .sec-images {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .loader-img {
+      width: 10vw;
+      height: 10vh;
+      border-style: solid;
+      border-color: black;
+      padding: 2%;
+      border-radius: 20px;
+
+      margin-top: 2vh;
+      margin-left: 2vh;
+      margin-right: 2vh;
+      margin-bottom: 2vh;
   }

@@ -16,6 +16,7 @@ import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 
+
 import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from "../../components/ImageUpload";
@@ -103,7 +104,7 @@ export default function ProductEditor(
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [images, setImages] = useState(null)
+  const [images, setImages] = useState([])
 
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -279,16 +280,23 @@ export default function ProductEditor(
     addToData("on_sale_wholesaler", on_sale_wholesaler);
     addToData("featured", featured);
     addToData("imageFile", image_id);
-    if (images) {
-      images.forEach(image => {
-        addToData('imageFiles', image);
-      })
-    }
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
     addToData("height", height);
     addToData("width", width);
     addToData("length", length);
+
+    let imgdata = new FormData();
+    function addToImgData(key, value) {
+      if (value !== undefined && value !== "") imgdata.append(key, value);
+    }
+
+    if (images) {
+      images.forEach(image => {
+        addToImgData("imageFiles", image);
+      })
+    }
+    addToImgData("product_id", props.match.params.id);
 
     try {
       const response = await api.put(
@@ -302,6 +310,16 @@ export default function ProductEditor(
       console.log(err.response);
       alert("Edição impedida");
     }
+
+    try {
+      const response = await api.post("images", imgdata, config)
+      alert(`Upload com sucesso!`, response);
+  } catch (err) {
+      console.log(err);
+      console.log(err.response);
+      alert("Upload falho");
+  }
+
   }
 
   function handleImage(img) {
@@ -310,6 +328,27 @@ export default function ProductEditor(
 
   function handleImages(images) {
     setImages(images)
+  }
+
+  const ImageHandleChange = (e) => {
+    if (e.target.files) {
+
+        const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+
+        console.log(fileArray);
+
+        setImages((prevImages) => prevImages.concat(fileArray));
+
+        Array.from(e.target.files).map(
+            (file) => URL.revokeObjectURL(file)
+        );
+    }
+    }
+
+    const RenderPhotos = (source) => {
+      return source.map((photo) => {
+          return <img className="loader-img" src={photo} key={photo}/>
+      })
   }
 
   const handleDeleteProduct = () => {
@@ -484,39 +523,19 @@ export default function ProductEditor(
                           Secudárias
                         </label>
                         <div className="input-group mb-3">
-                        <MultipleUploader onChange={handleImages} images={images} />
-                        <div className="sec-images">
-                        {images ? images.map((image) => { return (
-                          image && <ImageLoader
-                          className="image-loader-sub"
-                          src={`https://docs.google.com/uc?id=${image}`}
-                          loading={() => <img src={loading} alt="Loading..." />}
-                          error={() => <div>Error</div>}
-                        />
-                        ) }) : <h1></h1>}
+                        <input
+                        type="file"
+                        id="files"
+                        className="multiple-input"
+                        name={"teste"}
+                        onChange={ImageHandleChange}
+                        multiple
+                    />
+                    <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
+                    </label>
+                <div className="sec-images">
+                       {RenderPhotos(images)}
                       </div>
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupFileAddon01"
-                            >
-                              <PublishIcon style={{ fontSize: 17 }} />
-                            </span>
-                          </div>
-                          <div className="custom-file">
-                            <input
-                              type="file"
-                              className="custom-file-input"
-                              id="inputGroupFile01"
-                              aria-describedby="inputGroupFileAddon01"
-                            />
-                            <label
-                              className="custom-file-label"
-                              for="inputGroupFile01"
-                            >
-                              Selecione o arquivo
-                            </label>
-                          </div>
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG
