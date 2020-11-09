@@ -13,6 +13,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import ImageLoader from "react-loading-image";
+import loading from "../../images/Loading.gif";
+
 
 import api from "../../services/api";
 import "./styles.css";
@@ -20,6 +23,7 @@ import ImageUpload from "../../components/ImageUpload";
 import { useHistory } from "react-router-dom";
 import Subedit from "./subedit.js";
 import SubproductsCreate from "./subcreate";
+import MultipleUploader from "../MultipleUploader";
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -100,6 +104,7 @@ export default function ProductEditor(
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [images, setImages] = useState([])
 
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -143,23 +148,21 @@ export default function ProductEditor(
   };
 
   useEffect(() => {
-    api.get('categories').then(response => {
+    api.get("categories").then((response) => {
       setCategories(response.data);
       console.log(response.data);
-    })
+    });
   }, []);
 
   function handleCategorySelection(event) {
-    const newCat = categories.find(cat => cat.id == event.target.value);
+    const newCat = categories.find((cat) => cat.id == event.target.value);
     if (newCat) {
       setCategoryId(Number(newCat.id));
       setSubcategories(newCat.subcategories);
-    }
-    else {
+    } else {
       setCategoryId(0);
-      setSubcategories('');
+      setSubcategories("");
     }
-
   }
 
   useEffect(() => {
@@ -186,7 +189,7 @@ export default function ProductEditor(
       });
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
-      //setImage(product.image_id);
+      setImage(product.image_id);
       setSubcategory(product.subcategory_id);
       setWeight(product.weight);
       setLength(product.length);
@@ -283,6 +286,18 @@ export default function ProductEditor(
     addToData("width", width);
     addToData("length", length);
 
+    let imgdata = new FormData();
+    function addToImgData(key, value) {
+      if (value !== undefined && value !== "") imgdata.append(key, value);
+    }
+
+    if (images) {
+      images.forEach(image => {
+        addToImgData("imageFiles", image);
+      })
+    }
+    addToImgData("product_id", props.match.params.id);
+
     try {
       const response = await api.put(
         `updateProduct/${props.match.params.id}`,
@@ -295,10 +310,45 @@ export default function ProductEditor(
       console.log(err.response);
       alert("Edição impedida");
     }
+
+    try {
+      const response = await api.post("images", imgdata, config)
+      alert(`Upload com sucesso!`, response);
+  } catch (err) {
+      console.log(err);
+      console.log(err.response);
+      alert("Upload falho");
+  }
+
   }
 
   function handleImage(img) {
     setImage(img);
+  }
+
+  function handleImages(images) {
+    setImages(images)
+  }
+
+  const ImageHandleChange = (e) => {
+    if (e.target.files) {
+
+        const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+
+        console.log(fileArray);
+
+        setImages((prevImages) => prevImages.concat(fileArray));
+
+        Array.from(e.target.files).map(
+            (file) => URL.revokeObjectURL(file)
+        );
+    }
+    }
+
+    const RenderPhotos = (source) => {
+      return source.map((photo) => {
+          return <img className="loader-img" src={photo} key={photo}/>
+      })
   }
 
   const handleDeleteProduct = () => {
@@ -452,12 +502,19 @@ export default function ProductEditor(
 
                       <div className="images-form">
                         <p className="productTitle">Imagens</p>
+                        {image_id && <ImageLoader
+                          className="image-loader-sub"
+                          src={`https://docs.google.com/uc?id=${image_id}`}
+                          loading={() => <img src={loading} alt="Loading..." />}
+                          error={() => <div>Error</div>}
+                        />}
+                        <br></br>
                         <label className="images-label" htmlFor="main">
                           Principal
                         </label>
                         <div className="input-group mb-3">
                           <ImageUpload
-                            onChange={handleImage}
+                            onChange={handleImage} 
                             fileName={"imageFile"}
                           />
                         </div>
@@ -466,28 +523,19 @@ export default function ProductEditor(
                           Secudárias
                         </label>
                         <div className="input-group mb-3">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupFileAddon01"
-                            >
-                              <PublishIcon style={{ fontSize: 17 }} />
-                            </span>
-                          </div>
-                          <div className="custom-file">
-                            <input
-                              type="file"
-                              className="custom-file-input"
-                              id="inputGroupFile01"
-                              aria-describedby="inputGroupFileAddon01"
-                            />
-                            <label
-                              className="custom-file-label"
-                              for="inputGroupFile01"
-                            >
-                              Selecione o arquivo
-                            </label>
-                          </div>
+                        <input
+                        type="file"
+                        id="files"
+                        className="multiple-input"
+                        name={"teste"}
+                        onChange={ImageHandleChange}
+                        multiple
+                    />
+                    <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
+                    </label>
+                <div className="sec-images">
+                       {RenderPhotos(images)}
+                      </div>
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG
@@ -742,27 +790,55 @@ export default function ProductEditor(
                                   Principal:{" "}
                                 </label>
                                 {/*DROPDOWNS*/}
-                                <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
-                              <option value="0" disabled>Selecionar</option>
-                              {categories.map(cat => {
-                                return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
-                              })}
-                            </select>
-                          </div>
-                          <div className="categoriesSelection">
-                            <label
-                              className="category-label"
-                              htmlFor="subcategory"
-                            >
-                              Subcategoria:
-                          </label>
-                            <select value={subcategory_id} onChange={(e) => setSubcategory(e.target.value)}>
-                              <option value="0" disabled>Selecionar</option>
-                              {subcategories.map(subcat => {
-                                return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
-                              })}
-                            </select>
-                          </div>
+                                <select
+                                  name="cars"
+                                  id="cars"
+                                  value={category_id}
+                                  onChange={handleCategorySelection}
+                                >
+                                  <option value="0" disabled>
+                                    Selecionar
+                                  </option>
+                                  {categories.map((cat) => {
+                                    return (
+                                      <option
+                                        value={cat.id}
+                                        key={`cat-${cat.id}`}
+                                      >
+                                        {cat.name}
+                                      </option>
+                                    );
+                                  })}
+                                </select>
+                              </div>
+                              <div className="categoriesSelection">
+                                <label
+                                  className="category-label"
+                                  htmlFor="subcategory"
+                                >
+                                  Subcategoria:
+                                </label>
+                                <select
+                                  value={subcategory_id}
+                                  onChange={(e) =>
+                                    setSubcategory(e.target.value)
+                                  }
+                                >
+                                  <option value="0" disabled>
+                                    Selecionar
+                                  </option>
+                                  {subcategories.map((subcat) => {
+                                    return (
+                                      <option
+                                        value={subcat.id}
+                                        key={`subcat-${subcat.id}`}
+                                      >
+                                        {subcat.name}
+                                      </option>
+                                    );
+                                  })}
+                                </select>
+                              </div>
                             </div>
                           </div>
                         </div>

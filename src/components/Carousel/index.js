@@ -7,17 +7,34 @@ import ImageUpload from "../../components/ImageUpload";
 
 function Carousel(props) {
   const [images, setImages] = useState([]);
+  const [info, setInfo] = useState();
   const [newImage, setNewImage] = useState(null);
   const [update, setUpdate] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
+
+  function handlePositionChange(id, pos) {
+    let newarray = [...images];
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].id === id) {
+        newarray[i].position = parseInt(pos);
+        setImages(newarray)
+      }
+    }
+  }
+
+
 
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
 
+  function PrintConsole() {
+    console.log(images);
+  }
+
   useEffect(() => {
     api.get("Carousel", config).then((response) => {
-      setImages(response.data);
+      setImages(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID));
     });
   }, [update]);
 
@@ -30,7 +47,8 @@ function Carousel(props) {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
+
+
 
     let data = new FormData();
     function addToData(key, value) {
@@ -39,32 +57,53 @@ function Carousel(props) {
 
     addToData("imageFile", newImage);
 
+    if (newImage) {
+
+      try {
+        const response = await api.post("newCarousel", data, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + localStorage.accessToken,
+          },
+        });
+        setNewImage(undefined);
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        console.log(err.response);
+        alert("Erro ao registar imagem!");
+      }
+    }
+
     try {
-      const response = await api.post("newCarousel", data, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      });
+      const response = await api.put("Carousel", { info: images },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + localStorage.accessToken,
+          },
+        });
       setUpdate(!update);
-      alert(`Nova imagem registrada com sucesso!!`, response);
+      alert(`Atualizado com sucesso!!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.log(err.response);
-      alert("Erro ao registar imagem!");
+      alert("Erro ao editar posições!");
     }
+
+
   }
 
   return (
     <div className="EditCarousel-Container">
       {images.map((image, index) => (
-        <CarouselImages
-          key={`image-${index}`}
-          image={image}
-          Update={update}
-          setUpdate={setUpdate}
-        />
-      ))}
+          <CarouselImages
+            key={`image-${index}`}
+            image={image}
+            Update={update}
+            setUpdate={setUpdate}
+            handlePositionChange={handlePositionChange}
+          />
+        ))}
 
       <h4>Enviar Nova Imagem</h4>
 

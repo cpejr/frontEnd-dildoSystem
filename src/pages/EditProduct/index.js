@@ -37,7 +37,7 @@ export default function EditProduct() {
 
     return (
         <div className="admin-product-selector">
-            <form onSubmit={handleSubmit}>
+            <form className="search-edit-form" onSubmit={handleSubmit}>
                 <input type="text" className ="input-search" name="searchTerm" placeholder="Pesquise o produto a editar" value={search} onChange={e => setSearch(e.target.value)} />
 
                 <div className="category-and-button">

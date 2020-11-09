@@ -52,20 +52,24 @@
 .input-search {
   margin-right: 2vh;
 }
+@media (max-width: 800px) {
+.search-edit-form {
+  display: flex;
+  flex-direction: column;
+}
+.category-and-button {
+  margin-top: 1vh;
+}
+}
 
 @media (max-width: 500px) {
   .admin-product-selector {
     margin: 0;
   }
-  .admin-product-selector form {
-    width: 100%;
-    flex-direction: column;
-  }
-
   .category-and-button {
     width: 100%;
   }
-  .category-and-button select, button {
-    width: 50% !important;
-  }
+  /* .category-and-button select, button {
+   width: 50% !important;
+  } */
 }
