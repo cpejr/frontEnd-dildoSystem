@@ -73,7 +73,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   const [wholesaler_sale_price, setWholesalerSalePrice] = useState(0);
   const [on_sale_client, setOnsaleClient] = useState(true);
   const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
-  const [featured, setFeatured] = useState(true);
+  const [release, setRelease] = useState(true);
+  const [best_seller, setBest_Seller] = useState(true);
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
@@ -90,10 +91,11 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
 
 
   const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-    checkedD: true,
+    checkedA: false,
+    checkedB: false,
+    checkedC: false,
+    checkedD: false,
+    checkedE: false,
   });
   const [editar, setEditar] = useState();
 
@@ -138,7 +140,9 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
         setOnsaleWholesaler(!on_sale_wholesaler);
         break;
       case "checkedD":
-        setFeatured(!featured);
+        setRelease(!release);
+      case "checkedE":
+        setBest_Seller(!best_seller);
         break;
       default: console.log("erro")
     }
@@ -164,7 +168,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
     addToData('visible', visible);
     addToData('on_sale_client', on_sale_client);
     addToData('on_sale_wholesaler', on_sale_wholesaler);
-    addToData('featured', featured);
+    addToData('best_seller', best_seller);
+    addToData('release', release);
     addToData('imageFile', image_id);
     if (images) {
       images.forEach(image => {
@@ -419,7 +424,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                         <FormControlLabel
                           control={
                             <IOSSwitch
-                              value={featured}
+                              value={release}
                               checked={state.checkedD}
                               onChange={handleChange}
                               name="checkedD"
@@ -427,7 +432,21 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                           }
                           id="switch_4"
                         />
-                        <label htmlFor="switch_4">Em destaque</label>
+                        <label htmlFor="switch_4">Lançamento</label>
+                      </div>
+                      <div className="switchConfig">
+                        <FormControlLabel
+                          control={
+                            <IOSSwitch
+                              value={best_seller}
+                              checked={state.checkedE}
+                              onChange={handleChange}
+                              name="checkedE"
+                            />
+                          }
+                          id="switch_5"
+                        />
+                        <label htmlFor="switch_5">Mais Vendido</label>
                       </div>
                     </div>
                     <div className="stock-form">

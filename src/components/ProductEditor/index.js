@@ -91,7 +91,8 @@ export default function ProductEditor(
   const [wholesaler_sale_price, setWholesalerSalePrice] = useState(0);
   const [on_sale_client, setOnsaleClient] = useState(true);
   const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
-  const [featured, setFeatured] = useState(true);
+  const [best_seller, setBest_Seller] = useState(true);
+  const [release, setRelease] = useState(true);
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
@@ -138,6 +139,7 @@ export default function ProductEditor(
     checkedB: true,
     checkedC: true,
     checkedD: true,
+    checkedE: true,
   });
   const [editar, setEditar] = useState("editar");
 
@@ -179,17 +181,18 @@ export default function ProductEditor(
       setWholesalerSalePrice(product.wholesaler_sale_price);
       setOnsaleClient(Boolean(product.on_sale_client));
       setOnsaleWholesaler(Boolean(product.on_sale_wholesaler));
-      setFeatured(Boolean(product.featured));
+      setBest_Seller(Boolean(product.best_seller));
+      setRelease(Boolean(product.release));
       setVisible(Boolean(product.visible));
       setState({
         checkedB: Boolean(product.on_sale_client),
         checkedC: Boolean(product.on_sale_wholesaler),
-        checkedD: Boolean(product.featured),
+        checkedD: Boolean(product.release),
         checkedA: Boolean(product.visible),
+        checkedE: Boolean(product.best_seller)
       });
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
-      setImage(product.image_id);
       setSubcategory(product.subcategory_id);
       setWeight(product.weight);
       setLength(product.length);
@@ -208,13 +211,15 @@ export default function ProductEditor(
         setWholesalerSalePrice(response.data.wholesaler_sale_price);
         setOnsaleClient(Boolean(response.data.on_sale_client));
         setOnsaleWholesaler(Boolean(response.data.on_sale_wholesaler));
-        setFeatured(Boolean(response.data.featured));
+        setBest_Seller(Boolean(response.data.best_seller));
+        setRelease(Boolean(response.data.release));
         setVisible(Boolean(response.data.visible));
         setState({
           checkedB: Boolean(response.data.on_sale_client),
           checkedC: Boolean(response.data.on_sale_wholesaler),
           checkedD: Boolean(response.data.featured),
           checkedA: Boolean(response.data.visible),
+          checkedE: Boolean(response.data.best_seller)
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
@@ -253,7 +258,9 @@ export default function ProductEditor(
         setOnsaleWholesaler(!on_sale_wholesaler);
         break;
       case "checkedD":
-        setFeatured(!featured);
+        setRelease(!release);
+      case "checkedE":
+        setBest_Seller(!best_seller);
         break;
       default:
         console.log("erro");
@@ -278,7 +285,8 @@ export default function ProductEditor(
     addToData("visible", visible);
     addToData("on_sale_client", on_sale_client);
     addToData("on_sale_wholesaler", on_sale_wholesaler);
-    addToData("featured", featured);
+    addToData('best_seller', best_seller);
+    addToData('release', release);
     addToData("imageFile", image_id);
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
@@ -314,11 +322,11 @@ export default function ProductEditor(
     try {
       const response = await api.post("images", imgdata, config)
       alert(`Upload com sucesso!`, response);
-  } catch (err) {
+    } catch (err) {
       console.log(err);
       console.log(err.response);
       alert("Upload falho");
-  }
+    }
 
   }
 
@@ -333,22 +341,22 @@ export default function ProductEditor(
   const ImageHandleChange = (e) => {
     if (e.target.files) {
 
-        const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
 
-        console.log(fileArray);
+      console.log(fileArray);
 
-        setImages((prevImages) => prevImages.concat(fileArray));
+      setImages((prevImages) => prevImages.concat(fileArray));
 
-        Array.from(e.target.files).map(
-            (file) => URL.revokeObjectURL(file)
-        );
+      Array.from(e.target.files).map(
+        (file) => URL.revokeObjectURL(file)
+      );
     }
-    }
+  }
 
-    const RenderPhotos = (source) => {
-      return source.map((photo) => {
-          return <img className="loader-img" src={photo} key={photo}/>
-      })
+  const RenderPhotos = (source) => {
+    return source.map((photo) => {
+      return <img className="loader-img" src={photo} key={photo} />
+    })
   }
 
   const handleDeleteProduct = () => {
@@ -514,7 +522,7 @@ export default function ProductEditor(
                         </label>
                         <div className="input-group mb-3">
                           <ImageUpload
-                            onChange={handleImage} 
+                            onChange={handleImage}
                             fileName={"imageFile"}
                           />
                         </div>
@@ -523,19 +531,19 @@ export default function ProductEditor(
                           Secudárias
                         </label>
                         <div className="input-group mb-3">
-                        <input
-                        type="file"
-                        id="files"
-                        className="multiple-input"
-                        name={"teste"}
-                        onChange={ImageHandleChange}
-                        multiple
-                    />
-                    <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
-                    </label>
-                <div className="sec-images">
-                       {RenderPhotos(images)}
-                      </div>
+                          <input
+                            type="file"
+                            id="files"
+                            className="multiple-input"
+                            name={"teste"}
+                            onChange={ImageHandleChange}
+                            multiple
+                          />
+                          <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
+                          </label>
+                          <div className="sec-images">
+                            {RenderPhotos(images)}
+                          </div>
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG
@@ -600,7 +608,7 @@ export default function ProductEditor(
                             <FormControlLabel
                               control={
                                 <IOSSwitch
-                                  value={featured}
+                                  value={release}
                                   checked={state.checkedD}
                                   onChange={handleChange}
                                   name="checkedD"
@@ -608,7 +616,21 @@ export default function ProductEditor(
                               }
                               id="switch_4"
                             />
-                            <label htmlFor="switch_4">Em destaque</label>
+                            <label htmlFor="switch_4">Lançamento</label>
+                          </div>
+                          <div className="switchConfig">
+                            <FormControlLabel
+                              control={
+                                <IOSSwitch
+                                  value={best_seller}
+                                  checked={state.checkedE}
+                                  onChange={handleChange}
+                                  name="checkedE"
+                                />
+                              }
+                              id="switch_5"
+                            />
+                            <label htmlFor="switch_5">Mais Vendido</label>
                           </div>
                         </div>
                         <div className="stock-form">
@@ -860,10 +882,10 @@ export default function ProductEditor(
                       </button>
                     </div>
                   ) : (
-                    <div className="product-button">
-                      <button type="submit">ENVIAR ALTERAÇÕES</button>
-                    </div>
-                  )}
+                      <div className="product-button">
+                        <button type="submit">ENVIAR ALTERAÇÕES</button>
+                      </div>
+                    )}
                 </div>
               </Tab>
               <Tab eventKey="subproduct" title="Subprodutos">
@@ -875,10 +897,10 @@ export default function ProductEditor(
                     ))}
                   </div>
                 ) : (
-                  <div className="sub-form">
-                    <SubproductsCreate />
-                  </div>
-                )}
+                    <div className="sub-form">
+                      <SubproductsCreate />
+                    </div>
+                  )}
               </Tab>
             </Tabs>
           </div>
