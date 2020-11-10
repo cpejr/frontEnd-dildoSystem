@@ -22,6 +22,7 @@ import StarIcon from '@material-ui/icons/Star';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReplyIcon from '@material-ui/icons/Reply';
+import {useState, useEffect} from 'react';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
@@ -81,6 +82,14 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: -drawerWidth,
   },
+  content2: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -96,6 +105,15 @@ export default function UserSidebar(props) {
   const [open, setOpen] = React.useState(window.innerWidth > 1000
   );
 
+  function getWindowdimension() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    return {
+      width, 
+      height
+    };
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -103,6 +121,20 @@ export default function UserSidebar(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [Windowdimension, setWindowdimension] = useState (
+    getWindowdimension ()
+ );
+
+   useEffect ( 
+     ()=> {
+       function handleSize () {
+         setWindowdimension (getWindowdimension())
+       }
+       window.addEventListener("resize", handleSize);
+       return () => window.removeEventListener("resize", handleSize);
+     }, []
+   ); 
 
 
   return (
@@ -136,6 +168,7 @@ export default function UserSidebar(props) {
             </div>
         </Toolbar>
       </AppBar>
+      {Windowdimension.width > 900 ? (
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -188,7 +221,61 @@ export default function UserSidebar(props) {
                 </ListItem>)}
               </LoginContext.Consumer>
             </List>
+      </Drawer> ) : (
+        <Drawer
+        className={classes.drawer}
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader} style={{height: 75}}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon/>}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+
+                <ListItem button component={Link} to="/user/myrequests" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                    <ListItemText>Meus Pedidos</ListItemText>
+                </ListItem>
+
+                <Divider />
+
+                <ListItem button component={Link} to="/user/wishlist" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><StarIcon /></ListItemIcon>
+                    <ListItemText>Lista de Desejos</ListItemText>
+                </ListItem>
+
+                <Divider />
+
+                <ListItem button component={Link} to="/user/usersettings" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><SettingsIcon /></ListItemIcon>
+                    <ListItemText>Meus Dados</ListItemText>
+                </ListItem>
+                <Divider />
+
+                <ListItem button component={Link} to="/" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><ReplyIcon /></ListItemIcon>
+                    <ListItemText>Voltar às Compras</ListItemText>
+                </ListItem>
+
+                <Divider />
+              <LoginContext.Consumer>
+                {
+                  context => (
+                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
+                    <ListItemIcon><ExitToApp /></ListItemIcon>
+                    <ListItemText>Sair</ListItemText>
+                </ListItem>)}
+              </LoginContext.Consumer>
+            </List>
       </Drawer>
+      )}
+      {Windowdimension.width > 900 ? (
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
@@ -198,7 +285,18 @@ export default function UserSidebar(props) {
           {props.children}
         </div>
         
+      </main> ) : (
+        <main
+        className={clsx(classes.content2, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className='main-admin-container'>
+          {props.children}
+        </div>
+        
       </main>
+      )}
     </div>
   );
 }
