@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,11 +15,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { PersonOutline } from '@material-ui/icons';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';
+import { ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StarIcon from '@material-ui/icons/Star';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReplyIcon from '@material-ui/icons/Reply';
 import {useState, useEffect} from 'react';

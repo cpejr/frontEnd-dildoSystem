@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiFilter } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 import CreateIcon from '@material-ui/icons/Create';
 import '../../components/ProductEditor';

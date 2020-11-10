@@ -3,11 +3,10 @@ import api from "../../services/api";
 
 import "./styles.css";
 
-export default function MultipleUploader({ onChange, canSubmit, canDelete, productId, subproductId }) {
+export default function MultipleUploader({ onChange, canSubmit, productId, subproductId }) {
     const [images, setImages] = useState([]);
     const [img_urls, setImgUrls] = useState();
-    const [images_names, setImagesNames] = useState();
-    const [selected, setSelected] = useState();
+    //const [images_names, setImagesNames] = useState();
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -40,15 +39,15 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
 
         setImgUrls(img_urls);
         setImages(images);
-        setImagesNames(imagesNames);
+        //setImagesNames(imagesNames);
         if (onChange) onChange(images);
     
     };
 
     function RenderPhotos(source)  {
         if (img_urls) {
-        return source.map((photo) => {
-            return <img className="loader-img" src={photo} key={photo}/>
+        return source.map((photo, index) => {
+            return <img className="loader-img" src={photo} key={photo} alt={`img_${index}`}/>
         }) }
     };
 
@@ -80,19 +79,6 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
             }
         } else {
             alert("Upload falho, nenhuma imagem foi selecionada!");
-        }
-    }
-
-    async function handleDelete(e, selected) {
-        e.preventDefault();
-        alert("Clicou! ", selected);
-        try {
-            const response = await api.delete(`image/${selected}`)
-            alert(`Deletou com sucesso!`, response);
-        } catch (err) {
-            console.err(err);
-            console.err(err.response);
-            alert("Falhou em deletar");
         }
     }
 

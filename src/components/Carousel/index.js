@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import CarouselImages from "./CarouselImages";
 import api from "../../services/api";
-import PublishIcon from "@material-ui/icons/Publish";
 import ImageUpload from "../../components/ImageUpload";
 
 function Carousel(props) {
   const [images, setImages] = useState([]);
-  const [info, setInfo] = useState();
   const [newImage, setNewImage] = useState(null);
   const [update, setUpdate] = useState(false);
   const accessToken = localStorage.getItem("accessToken");
@@ -22,15 +20,9 @@ function Carousel(props) {
     }
   }
 
-
-
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
-
-  function PrintConsole() {
-    console.log(images);
-  }
 
   useEffect(() => {
     api.get("Carousel", config).then((response) => {
@@ -42,13 +34,7 @@ function Carousel(props) {
     setNewImage(img);
   }
 
-  function handleImages(images) {
-    setNewImage(images);
-  }
-
   async function handleSubmit(e) {
-
-
 
     let data = new FormData();
     function addToData(key, value) {
@@ -89,21 +75,19 @@ function Carousel(props) {
       console.err(err.response);
       alert("Erro ao editar posições!");
     }
-
-
   }
 
   return (
     <div className="EditCarousel-Container">
       {images.map((image, index) => (
-          <CarouselImages
-            key={`image-${index}`}
-            image={image}
-            Update={update}
-            setUpdate={setUpdate}
-            handlePositionChange={handlePositionChange}
-          />
-        ))}
+        <CarouselImages
+          key={`image-${index}`}
+          image={image}
+          Update={update}
+          setUpdate={setUpdate}
+          handlePositionChange={handlePositionChange}
+        />
+      ))}
 
       <h4>Enviar Nova Imagem</h4>
 

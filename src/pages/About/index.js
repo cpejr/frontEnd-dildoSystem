@@ -1,10 +1,7 @@
 import React from 'react';
-import { FcAbout } from 'react-icons/fc';
 import { GoVerified, GoMegaphone } from 'react-icons/go';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { FaShippingFast } from 'react-icons/fa';
-import image1 from '../../images/2.jpg'
-
 
 import './styles.css';
 
