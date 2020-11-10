@@ -8,7 +8,7 @@ import SimpleSwitch from "./SimpleSwitch";
 import ImageUpload from '../../components/ImageUpload';
 import MultipleUploader from '../../components/MultipleUploader';
 
-export default function NewProduct(props, { id, className, fileName, onSubmit, witchOne }) {
+export default function NnEProduct({ witchOne }) {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -34,7 +34,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
 
-
   const [state, setState] = React.useState({
     checkedA: false,
     checkedB: false,
@@ -47,7 +46,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
   useEffect(() => {
     api.get('categories').then(response => {
       setCategories(response.data);
-      console.log(response.data);
     })
   }, []);
 
@@ -60,14 +58,13 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
   function handleCategorySelection(event) {
     const newCat = categories.find(cat => cat.id == event.target.value);
     if (newCat) {
-      setCategoryId(Number(newCat.id));
+      setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
     }
     else {
       setCategoryId(0);
       setSubcategories('');
     }
-
   }
 
   const handleChange = (event) => {
@@ -89,7 +86,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
       case "checkedE":
         setBest_Seller(!best_seller);
         break;
-      default: console.log("erro")
+      default: console.err("Erro de seleção de switch!");
     }
   }
 
@@ -122,8 +119,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
       })
     }
     addToData('subcategory_id', subcategory_id);
-    // addToData('weight', weight);
-
     addToData('weight', weight);
     addToData('height', height);
     addToData('width', width);
@@ -138,9 +133,8 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
       })
       alert(`Registro concluído!`, response);
     } catch (err) {
-      console.log(JSON.stringify(err));
-      console.log(err.response);
-      alert("Register error");
+      console.err(JSON.stringify(err));
+      alert("Falha no registro!");
     }
   }
 
@@ -155,7 +149,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
   return (
     <div>
       <div className="new-product-all">
-
 
         <form onSubmit={handleSubmit}>
           <div className="product-title-page">
@@ -187,18 +180,18 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
                     <div className="left-side">
                       <label htmlFor="client">Cliente</label>
                       <SimpleInput name="R$" value={client_price} setValue={setClientPrice} />
-                      
+
                       <label htmlFor="promotional-price-r">
                         Preço Promocional (opcional)
                       </label>
-                      <SimpleInput name="R$" value={client_sale_price} setValue={setClientSalePrice} 
+                      <SimpleInput name="R$" value={client_sale_price} setValue={setClientSalePrice}
                         optional={true} promotion={true}
                       />
                     </div>
                     <div className="right-side">
                       <label htmlFor="wholesale">Atacado</label>
                       <SimpleInput name="R$" value={wholesaler_price} setValue={setWholesalerPrice} />
-                     
+
                       <label htmlFor="promotional-price-l">
                         Preço Promocional (opcional)
                       </label>
@@ -299,7 +292,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
                               className="category-label"
                               htmlFor="main-category"
                             >
-                              Principal:{" "}
+                              Principal:
                             </label>
                             {/*DROPDOWNS*/}
                             <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
