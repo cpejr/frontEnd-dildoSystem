@@ -4,9 +4,7 @@ import './global.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Routes from './routes';
-import LoginContextProvider from './Contexts/LoginContext';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
-
 
 function App() {
   const theme = createMuiTheme({
@@ -15,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       {/* <LoginContextProvider> */}
-        <Routes />
+      <Routes />
       {/* </LoginContextProvider> */}
     </ ThemeProvider>
   );

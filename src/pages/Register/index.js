@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { TextField, Select, MenuItem, InputAdornment, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { TextField, MenuItem, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 
 import api from '../../services/api';
 
@@ -389,7 +389,6 @@ function Register() {
                             />
                             <Link to="/conditions" target="_blank">Acesse nossos termos de uso e nossa política de privacidade</Link>
                             <br></br>
-
 
                             <Button className="button" type="submit" variant="contained" color="primary" onClick={(e) => handleRegister(e)}> Cadastrar </Button>
 

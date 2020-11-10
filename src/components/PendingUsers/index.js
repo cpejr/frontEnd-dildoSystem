@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import api from "../../services/api";
 
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
-
 import UsuariosPendentes from "./UsuariosPendentes";
 import "./styles.css";
 

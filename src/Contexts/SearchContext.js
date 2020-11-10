@@ -113,9 +113,7 @@ function SearchContextProvider(props) {
       }
     })
 
-  }, [])
-
-
+  })
 
   return (
     <SearchContext.Provider value={{ handleSearch, rawSearch }}>

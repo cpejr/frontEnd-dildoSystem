@@ -28,12 +28,12 @@ export default function RequestDetails(props) {
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zipcode, setZipcode] = useState();
-  const [name, setName] = useState();
-  const [product_quantity, setQuantity] = useState();
+  // const [name, setName] = useState();
+  // const [product_quantity, setQuantity] = useState();
   const [totalprice, setTotalPrice] = useState();
   const [track_price, setTrackPrice] = useState();
-  const [individualprice, setIndividualPrice] = useState();
-  const [totalorder, setTotalOrder] = useState();
+  // const [individualprice, setIndividualPrice] = useState();
+  // const [totalorder, setTotalOrder] = useState();
 
   const accessToken = localStorage.getItem("accessToken");
 
@@ -67,11 +67,11 @@ export default function RequestDetails(props) {
       setCity(orderData.city);
       setState(orderData.state);
       setZipcode(orderData.zipcode);
-      setName(orderData.name);
-      setQuantity(orderData.user_id);
+      // setName(orderData.name);
+      // setQuantity(orderData.user_id);
       setTrackPrice(orderData.track_price);
       setTotalPrice(orderData.totalPrice);
-      setTotalOrder(totalprice + track_price);
+      // setTotalOrder(totalprice + track_price);
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setOrderProducts(response.data);
@@ -85,12 +85,12 @@ export default function RequestDetails(props) {
         setCity(response.data.city);
         setState(response.data.state);
         setZipcode(response.data.zipcode);
-        setName(response.data.products.id);
-        setQuantity(response.data.product_quantity);    
-        setIndividualPrice(response.data.products.price);
+        // setName(response.data.products.id);
+        // setQuantity(response.data.product_quantity);    
+        // setIndividualPrice(response.data.products.price);
         setTrackPrice(response.data.track_price);
         setTotalPrice(SumProducts(response.data.products));
-        setTotalOrder(((product_quantity * individualprice) + track_price));
+        // setTotalOrder(((product_quantity * individualprice) + track_price));
       });
     }
   }, []);

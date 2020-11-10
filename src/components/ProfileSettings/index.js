@@ -13,7 +13,6 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import { useHistory } from "react-router-dom";
 
 const styles = (theme) => ({
@@ -57,15 +56,13 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
   
-export default function ProfileSettings(props, { id, className, fileName, onSubmit }) {
+export default function ProfileSettings() {
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwd, setPasswd] = React.useState("");
-  //const [type, setType] = useState("");
   const [cpf, setCpf] = React.useState(0);
-  //const [birthdate, setBirthdate] = useState(0);
   const [zipcode, setZipcode] = React.useState(0);
   const [phonenumber, setPhonenumber] = React.useState(0);
   const [state, setState] = React.useState(""); 
@@ -74,13 +71,7 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [street, setStreet] = React.useState("");
   const [number, setNumber] = React.useState(0);
   const [complement, setComplement] = React.useState("");
-  const [oldpass, setOldPass] = React.useState("");
-  const [newpass, setNewPass] = React.useState("");
-
-  const LoginContext = React.createContext({});
-  const [accessToken, setAccessToken] = useStateWithPromise("");
   const [userId, setUserId] = useStateWithPromise(0);
-
   const [error, setError] = React.useState();
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -88,25 +79,13 @@ export default function ProfileSettings(props, { id, className, fileName, onSubm
   const [mopen, setMopen] = React.useState(false);
   const [xopen, setXopen] = React.useState(false);
 
-  const config = {
-    headers: { authorization: `Bearer ${accessToken}` },
-  };
-
-  const handleMaxWidthChange = (event) => {
-    setMaxWidth(event.target.value);
-  };
-
-  const handleFullWidthChange = (event) => {
-    setFullWidth(event.target.checked);
-  };
-
 const handleOpen = () => {
   setMopen(true);
 }
 
 const history = useHistory();
 const [changed, setChanged] = React.useState(false);
-const [location, setLocation] = React.useState(history.location);
+const location = history.location;
 
 const handleXopen = () => {
   setXopen(true);
@@ -130,7 +109,7 @@ const handleXopen = () => {
   
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
-    if (newToken && !accessToken) {
+    if (newToken) {
       async function grabData() {
         const config = {
           headers: { authorization: `Bearer ${newToken}` },

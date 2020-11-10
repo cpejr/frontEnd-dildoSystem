@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Logo from '../../images/CASULUS00LOGO.svg';
+import { Link } from 'react-router-dom';
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
@@ -19,9 +18,7 @@ import { Button } from '@material-ui/core';
 export default function Header() {
 
   const [search, setSearch] = useState('');
-  let history = useHistory();
   const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
@@ -58,12 +55,7 @@ export default function Header() {
       setCategories(response.data)
       // console.log(response.data)
     })
-
-
   }, [])
-
-
-
 
   return (
     <div id="Header">
@@ -118,10 +110,6 @@ export default function Header() {
             <div className="emptyDiv"> </div>
             <div className="empty" />
 
-
-
-
-
             {
               categories.map(cat => (
                 <div className="dropdown">
@@ -142,9 +130,6 @@ export default function Header() {
               ))
             }
 
-
-
-            
           </div>
         </div>
 

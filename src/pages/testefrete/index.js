@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form'
-import api from '../../services/api';
-import Button from 'react-bootstrap/Button'
-import axios from 'axios';
-import XMLParser from 'react-xml-parser'
+import React, { useState } from 'react';
 
 import './styles.css'
 

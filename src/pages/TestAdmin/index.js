@@ -14,13 +14,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { PersonOutline } from '@material-ui/icons';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';
+import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
@@ -107,7 +105,7 @@ export default function AdminDashboard2(props) {
     const width = window.innerWidth;
     const height = window.innerHeight;
     return {
-      width, 
+      width,
       height
     };
   }
@@ -120,22 +118,19 @@ export default function AdminDashboard2(props) {
     setOpen(false);
   };
 
-  const [Windowdimension, setWindowdimension] = useState (
-    getWindowdimension ()
- );
+  const [Windowdimension, setWindowdimension] = useState(
+    getWindowdimension()
+  );
 
-   useEffect ( 
-     ()=> {
-       function handleSize () {
-         setWindowdimension (getWindowdimension())
-       }
-       window.addEventListener("resize", handleSize);
-       return () => window.removeEventListener("resize", handleSize);
-     }, []
-   ); 
-   
-
-  const handleLogout = useContext(LoginContext) 
+  useEffect(
+    () => {
+      function handleSize() {
+        setWindowdimension(getWindowdimension())
+      }
+      window.addEventListener("resize", handleSize);
+      return () => window.removeEventListener("resize", handleSize);
+    }, []
+  );
 
   return (
     <div className={classes.root}>
@@ -146,7 +141,7 @@ export default function AdminDashboard2(props) {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar style={{height: 75, display: "flex"}}>
+        <Toolbar style={{ height: 75, display: "flex" }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -157,188 +152,188 @@ export default function AdminDashboard2(props) {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-          <div className="iconDiv">
+            <div className="iconDiv">
               <img className="logo" src={Logo} alt="logo" width="75" height="75" />
               <img className="text" src={Text} alt="text" width="75" height="75" />
-          </div>
+            </div>
           </Link>
           <div className="userDiv">
-                <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
-                <div><Link to="/admin"><PersonOutline /></Link></div>
-            </div>
+            <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
+            <div><Link to="/admin"><PersonOutline /></Link></div>
+          </div>
         </Toolbar>
       </AppBar>
       {Windowdimension.width > 900 ? (
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader} style={{height: 75}}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon/>}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-                <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Home /></ListItemIcon>
-                    <ListItemText>Dashboard</ListItemText>
-                </ListItem>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader} style={{ height: 75 }}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Home /></ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-                <ListItem button component={Link} to="/admin/newproduct" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LibraryAddCheck /></ListItemIcon>
-                    <ListItemText>Novo Produto</ListItemText>
-                </ListItem>
+            <ListItem button component={Link} to="/admin/newproduct" onClick={props.handleDrawerClose}>
+              <ListItemIcon><LibraryAddCheck /></ListItemIcon>
+              <ListItemText>Novo Produto</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
 
-                <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LocalOffer /></ListItemIcon>
-                    <ListItemText>Produtos</ListItemText>
-                </ListItem>
+            <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
+              <ListItemIcon><LocalOffer /></ListItemIcon>
+              <ListItemText>Produtos</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-                <ListItem button component={Link} to="/admin/allusers" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Group /></ListItemIcon>
-                    <ListItemText>Todos os Usuários</ListItemText>
-                </ListItem>
+            <ListItem button component={Link} to="/admin/allusers" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemText>Todos os Usuários</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-                <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><Group /></ListItemIcon>
-                    <ListItemText>Usuários Pendentes</ListItemText>
-                </ListItem>
+            <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemText>Usuários Pendentes</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-                <ListItem button component={Link} to="/admin/pendingorders" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><ChromeReaderMode /></ListItemIcon>
-                    <ListItemText>Pedidos Pendentes</ListItemText>
-                </ListItem>
+            <ListItem button component={Link} to="/admin/pendingorders" onClick={props.handleDrawerClose}>
+              <ListItemIcon><ChromeReaderMode /></ListItemIcon>
+              <ListItemText>Pedidos Pendentes</ListItemText>
+            </ListItem>
 
-                <Divider />
-                <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><ImageIcon /></ListItemIcon>
-                    <ListItemText>Carrossel</ListItemText>
-                </ListItem>
+            <Divider />
+            <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
+              <ListItemIcon><ImageIcon /></ListItemIcon>
+              <ListItemText>Carrossel</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-              <LoginContext.Consumer>
-                {
-                  context => (
-                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
+            <LoginContext.Consumer>
+              {
+                context => (
+                  <ListItem button onClick={context.handleLogout} style={{ position: 'fixed', bottom: 0, width: 240 }}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
-                </ListItem>)}
-              </LoginContext.Consumer>
-            </List>
-      </Drawer> ) :  ( <Drawer
-       className={classes.drawer}
-       anchor="left"
-       open={open}
-       classes={{
-         paper: classes.drawerPaper,
-       }}
-     >
-       <div className={classes.drawerHeader} style={{height: 75}}>
-         <IconButton onClick={handleDrawerClose}>
-           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon/>}
-         </IconButton>
-       </div>
-       <Divider />
-       <List>
-               <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><Home /></ListItemIcon>
-                   <ListItemText>Dashboard</ListItemText>
-               </ListItem>
+                  </ListItem>)}
+            </LoginContext.Consumer>
+          </List>
+        </Drawer>) : (<Drawer
+          className={classes.drawer}
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader} style={{ height: 75 }}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button component={Link} to="/admin" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Home /></ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
-               <ListItem button component={Link} to="/admin/newproduct" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><LibraryAddCheck /></ListItemIcon>
-                   <ListItemText>Novo Produto</ListItemText>
-               </ListItem>
+            <ListItem button component={Link} to="/admin/newproduct" onClick={props.handleDrawerClose}>
+              <ListItemIcon><LibraryAddCheck /></ListItemIcon>
+              <ListItemText>Novo Produto</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
 
-               <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><LocalOffer /></ListItemIcon>
-                   <ListItemText>Produtos</ListItemText>
-               </ListItem>
+            <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
+              <ListItemIcon><LocalOffer /></ListItemIcon>
+              <ListItemText>Produtos</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
-               <ListItem button component={Link} to="/admin/allusers" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><Group /></ListItemIcon>
-                   <ListItemText>Todos os Usuários</ListItemText>
-               </ListItem>
+            <ListItem button component={Link} to="/admin/allusers" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemText>Todos os Usuários</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
-               <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><Group /></ListItemIcon>
-                   <ListItemText>Usuários Pendentes</ListItemText>
-               </ListItem>
+            <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
+              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemText>Usuários Pendentes</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
-               <ListItem button component={Link} to="/admin/pendingorders" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><ChromeReaderMode /></ListItemIcon>
-                   <ListItemText>Pedidos Pendentes</ListItemText>
-               </ListItem>
+            <ListItem button component={Link} to="/admin/pendingorders" onClick={props.handleDrawerClose}>
+              <ListItemIcon><ChromeReaderMode /></ListItemIcon>
+              <ListItemText>Pedidos Pendentes</ListItemText>
+            </ListItem>
 
-               <Divider />
-               <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
-                   <ListItemIcon><ImageIcon /></ListItemIcon>
-                   <ListItemText>Carrossel</ListItemText>
-               </ListItem>
+            <Divider />
+            <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
+              <ListItemIcon><ImageIcon /></ListItemIcon>
+              <ListItemText>Carrossel</ListItemText>
+            </ListItem>
 
-               <Divider />
+            <Divider />
 
-             <LoginContext.Consumer>
-               {
-                 context => (
-               <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
-                   <ListItemIcon><ExitToApp /></ListItemIcon>
-                   <ListItemText>Sair</ListItemText>
-               </ListItem>)}
-             </LoginContext.Consumer>
-           </List>
-                 </Drawer> ) }
-     {Windowdimension.width > 900 ? (
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className='main-admin-container'>
-          {props.children}
-        </div>
-        
-      </main> ) : (
+            <LoginContext.Consumer>
+              {
+                context => (
+                  <ListItem button onClick={context.handleLogout} style={{ position: 'fixed', bottom: 0, width: 240 }}>
+                    <ListItemIcon><ExitToApp /></ListItemIcon>
+                    <ListItemText>Sair</ListItemText>
+                  </ListItem>)}
+            </LoginContext.Consumer>
+          </List>
+        </Drawer>)}
+      {Windowdimension.width > 900 ? (
         <main
-        className={clsx(classes.content2, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className='main-admin-container'>
-          {props.children}
-        </div>
-        
-      </main>
-      ) }
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className='main-admin-container'>
+            {props.children}
+          </div>
+
+        </main>) : (
+          <main
+            className={clsx(classes.content2, {
+              [classes.contentShift]: open,
+            })}
+          >
+            <div className='main-admin-container'>
+              {props.children}
+            </div>
+
+          </main>
+        )}
     </div>
   );
 }
