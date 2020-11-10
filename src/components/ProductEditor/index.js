@@ -305,7 +305,7 @@ export default function ProductEditor(
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.log(err.response);
+      console.err(err.response);
       alert("Edição impedida");
     }
   }
