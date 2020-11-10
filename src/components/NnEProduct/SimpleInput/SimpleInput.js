@@ -1,7 +1,21 @@
 import React from "react";
 
 export default function SimpleInput({ name, value, setValue, unit, optional, promotion }) {
-    const customPlaceholder = name === "R$" ? "00.00" : "0";
+    const isMoney = name === "R$" ? true : false;
+    const customPlaceholder = isMoney ? "00.00" : "0";
+
+    function forceMoneyMask(string){
+        return string.replace(",", ".");
+    }
+
+    function handleInput(event){
+        let newString = event.target.value;
+        if(isMoney){
+            newString = forceMoneyMask(newString);
+        }
+        setValue(newString);
+    }
+
     return (
         <div className="mb-3">
             <div className={promotion ? "input-group promotionalPrice" : "input-group" }>
@@ -18,7 +32,7 @@ export default function SimpleInput({ name, value, setValue, unit, optional, pro
                     <input
                         type="text"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => handleInput(e)}
                         className="form-control"
                         id="validationDefaultUsername"
                         placeholder={customPlaceholder}
@@ -28,7 +42,7 @@ export default function SimpleInput({ name, value, setValue, unit, optional, pro
                     <input
                         type="text"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => handleInput(e)}
                         className="form-control"
                         id="validationDefaultUsername"
                         placeholder={customPlaceholder}
