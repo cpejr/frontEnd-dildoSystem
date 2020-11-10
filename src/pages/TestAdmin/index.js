@@ -78,7 +78,15 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -240,
+  },
+  content2: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -309,6 +317,7 @@ export default function AdminDashboard2(props) {
              </LoginContext.Consumer>
            </List>
                  </Drawer> ) }
+     {Windowdimension.width > 900 ? (
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
@@ -318,7 +327,18 @@ export default function AdminDashboard2(props) {
           {props.children}
         </div>
         
+      </main> ) : (
+        <main
+        className={clsx(classes.content2, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className='main-admin-container'>
+          {props.children}
+        </div>
+        
       </main>
+      ) }
     </div>
   );
 }
