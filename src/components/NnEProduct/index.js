@@ -1,91 +1,36 @@
-import React, { useState, useEffect, useContext } from "react";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles } from "@material-ui/core/styles";
-import PublishIcon from "@material-ui/icons/Publish";
+import React, { useState, useEffect } from "react";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import api from "../../services/api";
 import "./styles.css";
+import SimpleInput from "./SimpleInput";
+import SimpleSwitch from "./SimpleSwitch";
 import ImageUpload from '../../components/ImageUpload';
 import MultipleUploader from '../../components/MultipleUploader';
 
-const IOSSwitch = withStyles((theme) => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-    margin: theme.spacing(1),
-  },
-  switchBase: {
-    padding: 1,
-    "&$checked": {
-      transform: "translateX(16px)",
-      color: theme.palette.common.white,
-      "& + $track": {
-        backgroundColor: "#52d869",
-        opacity: 1,
-        border: "none",
-      },
-    },
-    "&$focusVisible $thumb": {
-      color: "#52d869",
-      border: "6px solid #fff",
-    },
-  },
-  thumb: {
-    width: 24,
-    height: 24,
-  },
-  track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(["background-color", "border"]),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
-
-export default function NewProduct(props, { id, className, fileName, onSubmit }) {
+export default function NewProduct(props, { id, className, fileName, onSubmit, witchOne }) {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [client_price, setClientPrice] = useState(0);
-  const [client_sale_price, setClientSalePrice] = useState(0);
-  const [wholesaler_price, setWholesalerPrice] = useState(0);
-  const [wholesaler_sale_price, setWholesalerSalePrice] = useState(0);
+  const [client_price, setClientPrice] = useState();
+  const [client_sale_price, setClientSalePrice] = useState();
+  const [wholesaler_price, setWholesalerPrice] = useState();
+  const [wholesaler_sale_price, setWholesalerSalePrice] = useState();
   const [on_sale_client, setOnsaleClient] = useState(true);
   const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
   const [release, setRelease] = useState(true);
   const [best_seller, setBest_Seller] = useState(true);
   const [visible, setVisible] = useState(true);
-  const [stock_quantity, setQuantity] = useState(0);
-  const [min_stock, setMinimum] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [stock_quantity, setQuantity] = useState();
+  const [min_stock, setMinimum] = useState();
+  const [weight, setWeight] = useState();
   const [image_id, setImage] = useState();
   const [images, setImages] = useState(null)
   const [subcategory_id, setSubcategory] = useState(0);
+  const [category_id, setCategoryId] = useState(0);
   const [height, setHeight] = useState();
   const [width, setWidth] = useState();
   const [length, setLength] = useState();
-  const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
 
@@ -107,7 +52,7 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
   }, []);
 
   useEffect(() => {
-    if (props.wichOne === "editar") {
+    if (witchOne === "editar") {
       setEditar(true);
     }
   }, []);
@@ -241,105 +186,25 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                   <div className="price-form">
                     <div className="left-side">
                       <label htmlFor="client">Cliente</label>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend3"
-                            >
-                              R$
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="validationDefaultUsername1"
-                            placeholder="00.00"
-                            aria-describedby="inputGroupPrepend2"
-                            value={client_price}
-                            onChange={(e) => setClientPrice(e.target.value)}
-                            required
-                          />
-                        </div>
-                      </div>
+                      <SimpleInput name="R$" value={client_price} setValue={setClientPrice} />
+                      
                       <label htmlFor="promotional-price-r">
                         Preço Promocional (opcional)
-                    </label>
-                      <div className="mb-3">
-                        <div className="input-group promotionalPrice">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              R$
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="validationDefaultUsername"
-                            placeholder="00.00"
-                            aria-describedby="inputGroupPrepend2"
-                            value={client_sale_price}
-                            onChange={(e) => setClientSalePrice(e.target.value)}
-                            required
-                          />
-                        </div>
-                      </div>
+                      </label>
+                      <SimpleInput name="R$" value={client_sale_price} setValue={setClientSalePrice} 
+                        optional={true} promotion={true}
+                      />
                     </div>
                     <div className="right-side">
                       <label htmlFor="wholesale">Atacado</label>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend3"
-                            >
-                              R$
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="validationDefaultUsername1"
-                            placeholder="00.00"
-                            aria-describedby="inputGroupPrepend2"
-                            value={wholesaler_price}
-                            onChange={(e) => setWholesalerPrice(e.target.value)}
-                            required
-                          />
-                        </div>
-                      </div>
+                      <SimpleInput name="R$" value={wholesaler_price} setValue={setWholesalerPrice} />
+                     
                       <label htmlFor="promotional-price-l">
                         Preço Promocional (opcional)
-                    </label>
-                      <div className="mb-3">
-                        <div className="input-group promotionalPrice">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              R$
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="validationDefaultUsername"
-                            placeholder="00.00"
-                            aria-describedby="inputGroupPrepend2"
-                            value={wholesaler_sale_price}
-                            onChange={(e) =>
-                              setWholesalerSalePrice(e.target.value)
-                            }
-                            required
-                          />
-                        </div>
-                      </div>
+                      </label>
+                      <SimpleInput name="R$" value={wholesaler_sale_price} setValue={setWholesalerSalePrice}
+                        optional={true} promotion={true}
+                      />
                     </div>
                   </div>
 
@@ -351,7 +216,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                     <div className="input-group mb-3">
 
                       <ImageUpload onChange={handleImage} fileName={'imageFile'} />
-
 
                     </div>
 
@@ -375,245 +239,48 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
                 <div className="separator-ne"></div>
                 <div className="right-form-dois">
                   <div className="right-form">
-                    <div className="config-form">
+                    <div className="config-form" >
                       <p className="productTitle">Configuração</p>
-                      {/*SWITCHS...*/}
-                      <div className="switchConfig">
-                        <FormControlLabel
-                          control={
-                            <IOSSwitch
-                              value={visible}
-                              checked={state.checkedA}
-                              onChange={handleChange}
-                              name="checkedA"
-                            />
-                          }
-                          id="switch_1"
-                        />
-                        <label htmlFor="switch_1">Visível para compradores</label>
-                      </div>
-                      <div className="switchConfig">
-                        <FormControlLabel
-                          control={
-                            <IOSSwitch
-                              value={on_sale_client}
-                              checked={state.checkedB}
-                              onChange={handleChange}
-                              name="checkedB"
-                            />
-                          }
-                          id="switch_2"
-                        />
-                        <label htmlFor="switch_2">Em promoção (clientes)</label>
-                      </div>
-                      <div className="switchConfig">
-                        <FormControlLabel
-                          control={
-                            <IOSSwitch
-                              value={on_sale_wholesaler}
-                              checked={state.checkedC}
-                              onChange={handleChange}
-                              name="checkedC"
-                            />
-                          }
-                          id="switch_3"
-                        />
-                        <label htmlFor="switch_3">Em promoção (Atacadista)</label>
-                      </div>
-                      <div className="switchConfig">
-                        <FormControlLabel
-                          control={
-                            <IOSSwitch
-                              value={release}
-                              checked={state.checkedD}
-                              onChange={handleChange}
-                              name="checkedD"
-                            />
-                          }
-                          id="switch_4"
-                        />
-                        <label htmlFor="switch_4">Lançamento</label>
-                      </div>
-                      <div className="switchConfig">
-                        <FormControlLabel
-                          control={
-                            <IOSSwitch
-                              value={best_seller}
-                              checked={state.checkedE}
-                              onChange={handleChange}
-                              name="checkedE"
-                            />
-                          }
-                          id="switch_5"
-                        />
-                        <label htmlFor="switch_5">Mais Vendido</label>
-                      </div>
+                      <SimpleSwitch
+                        value={visible} checked={state.checkedA}
+                        handleChange={handleChange}
+                        name="checkedA"
+                        id="switch_1"
+                        label="Visível para compradores"
+                      />
+                      <SimpleSwitch
+                        value={on_sale_client}
+                        checked={state.checkedB}
+                        handleChange={handleChange}
+                        name="checkedB"
+                        id="switch_2"
+                        label="Em promoção (clientes)"
+                      />
+                      <SimpleSwitch
+                        value={on_sale_wholesaler}
+                        checked={state.checkedC}
+                        handleChange={handleChange}
+                        name="checkedC"
+                        id="switch_3"
+                        label="Em promoção (Atacadista)"
+                      />
+                      <SimpleSwitch
+                        value={featured}
+                        checked={state.checkedD}
+                        handleChange={handleChange}
+                        name="checkedD"
+                        id="switch_4"
+                        label="Em destaque"
+                      />
                     </div>
                     <div className="stock-form">
                       <p className="productTitle">Estoque</p>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              Unidades
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={stock_quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
-                            className="form-control"
-                            id="validationDefaultUsername"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              Mínimo
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={min_stock}
-                            onChange={(e) => setMinimum(e.target.value)}
-                            className="form-control"
-                            id="validationDefaultUsername"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="setProductWeightSpan"
-                            >
-                              Peso
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="setProductWeight"
-                            value={weight}
-                            onChange={(e) => setWeight(e.target.value)}
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              g
-                          </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="setProductHeight"
-                            >
-                              Altura
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={height}
-                            onChange={(e) => setHeight(e.target.value)}
-                            className="form-control"
-                            id="setProductHeight"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="setProductWidth"
-                            >
-                              Largura
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={width}
-                            onChange={(e) => setWidth(e.target.value)}
-                            className="form-control"
-                            id="setProductWidth"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mb-3">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span
-                              className="input-group-text"
-                              id="setProductLength"
-                            >
-                              Comprimento
-                          </span>
-                          </div>
-                          <input
-                            type="text"
-                            value={length}
-                            onChange={(e) => setLength(e.target.value)}
-                            className="form-control"
-                            id="setProductLength"
-                            placeholder="0"
-                            aria-describedby="inputGroupPrepend2"
-                            required
-                          />
-                          <div className="input-group-append">
-                            <span
-                              className="input-group-text"
-                              id="inputGroupPrepend2"
-                            >
-                              cm
-                          </span>
-                          </div>
-                        </div>
-                      </div>
+                      <SimpleInput name="Unidades" value={stock_quantity} setValue={setQuantity} />
+                      <SimpleInput name="Mínimo" value={min_stock} setValue={setMinimum} />
+                      <SimpleInput name="Peso" value={weight} setValue={setWeight} unit="g" />
+                      <SimpleInput name="Altura" value={height} setValue={setHeight} unit="cm" />
+                      <SimpleInput name="Largura" value={width} setValue={setWidth} unit="cm" />
+                      <SimpleInput name="Comprimento" value={length} setValue={setLength} unit="cm" />
                     </div>
                     <div className="category-form">
                       <p className="productTitle">Categorias</p>
@@ -674,6 +341,6 @@ export default function NewProduct(props, { id, className, fileName, onSubmit })
           </div>
         </form>
       </div>
-    </div>
+    </div >
   );
 }
