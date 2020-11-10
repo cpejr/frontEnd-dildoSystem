@@ -27,7 +27,7 @@ export default function UsuariosPendentes(props) {
   
 
     } catch (err) {
-      console.log(err);
+      console.err(err);
       alert('Erro ao atualizar status do usuario!');
     }
   }
@@ -42,7 +42,7 @@ export default function UsuariosPendentes(props) {
       props.setUpdate(!props.update);
 
     } catch (err) {
-      console.log(err);
+      console.err(err);
       alert('Erro ao atualizar status do usuario!');
     }
   }

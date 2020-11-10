@@ -74,8 +74,8 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
                 const response = await api.post("images", data, config)
                 alert(`Upload com sucesso!`, response);
             } catch (err) {
-                console.log(err);
-                console.log(err.response);
+                console.err(err);
+                console.err(err.response);
                 alert("Upload falho");
             }
         } else {
@@ -90,8 +90,8 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
             const response = await api.delete(`image/${selected}`)
             alert(`Deletou com sucesso!`, response);
         } catch (err) {
-            console.log(err);
-            console.log(err.response);
+            console.err(err);
+            console.err(err.response);
             alert("Falhou em deletar");
         }
     }

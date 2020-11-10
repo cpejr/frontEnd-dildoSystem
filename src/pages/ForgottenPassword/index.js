@@ -23,7 +23,7 @@ function ForgottenPassword() {
 
     } catch (err) {
       setError("Usuário não encontrado")
-      console.log(err.response.data.notification);
+      console.err(err.response.data.notification);
     }
 
   }

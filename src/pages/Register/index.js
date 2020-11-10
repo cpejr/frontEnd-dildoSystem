@@ -147,7 +147,7 @@ function Register() {
                 history.push('/login');
 
             } catch (err) {
-                console.log(err);
+                console.err(err);
                 alert('Erro ao cadastrar usuario!');
             }
         }

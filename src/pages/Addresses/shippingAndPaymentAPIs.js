@@ -40,7 +40,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
     return formattedResponse;
 
   } catch (error) {
-    console.log(error);
+    console.err(error);
     return (error);
   }
 }
@@ -77,7 +77,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     console.log(user);
     user = user.data;
   } catch (error) {
-    console.log(error);
+    console.err(error);
     return (error);
   }
 
@@ -144,7 +144,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     const redirectURL = formattedApiResponse.settings.checkoutUrl
     window.location.href = redirectURL;
   } catch (error) {
-    console.log(error)
+    console.err(error)
   }
 }
 
