@@ -265,12 +265,20 @@ export default function NewProduct(props, { id, className, fileName, onSubmit, w
                         label="Em promoção (Atacadista)"
                       />
                       <SimpleSwitch
-                        value={featured}
+                        value={release}
                         checked={state.checkedD}
                         handleChange={handleChange}
                         name="checkedD"
                         id="switch_4"
-                        label="Em destaque"
+                        label="Lançamento"
+                      />
+                      <SimpleSwitch
+                        value={best_seller}
+                        checked={state.checkedE}
+                        handleChange={handleChange}
+                        name="checkedE"
+                        id="switch_5"
+                        label="Mais vendido"
                       />
                     </div>
                     <div className="stock-form">
