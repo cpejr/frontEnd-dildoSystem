@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
-import PublishIcon from "@material-ui/icons/Publish";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Tabs from "react-bootstrap/Tabs";
@@ -19,7 +14,6 @@ import loading from "../../images/Loading.gif";
 import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from "../../components/ImageUpload";
-import { useHistory } from "react-router-dom";
 import Subedit from "./subedit.js";
 import SubproductsCreate from "./subcreate";
 import MultipleUploader from "../MultipleUploader";
@@ -320,9 +314,13 @@ export default function ProductEditor(
     setImage(img);
   }
 
-  const handleDeleteProduct = () => {
+  function handleDeleteProduct(){
     api.delete(`product/${props.match.params.id}`, config).then((response) => {
-      console.log(response);
+      alert("Produto deletado com sucesso!");
+      history.push("/admin");
+    }).catch((err) =>{
+      console.err(err);
+      alert("Falha em deletar o produto!");
     });
   };
 
@@ -867,7 +865,7 @@ export default function ProductEditor(
                       <button
                         className="edit-erase"
                         onClick={(e) => handleDeleteProduct()}
-                        type="submit"
+                        type="button"
                       >
                         Excluir Produto
                         <DeleteForeverIcon />

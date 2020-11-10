@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import api from "../../services/api";
@@ -42,6 +43,8 @@ export default function NnEProduct({ witchOne }) {
     checkedE: false,
   });
   const [editar, setEditar] = useState();
+
+  const history = useHistory();
 
   useEffect(() => {
     api.get('categories').then(response => {
@@ -132,6 +135,7 @@ export default function NnEProduct({ witchOne }) {
         }
       })
       alert(`Registro concluído!`, response);
+      history.push('/admin');
     } catch (err) {
       console.err(JSON.stringify(err));
       alert("Falha no registro!");
@@ -185,7 +189,7 @@ export default function NnEProduct({ witchOne }) {
                         Preço Promocional (opcional)
                       </label>
                       <SimpleInput name="R$" value={client_sale_price} setValue={setClientSalePrice}
-                        optional={true} promotion={true}
+                        optional promotion
                       />
                     </div>
                     <div className="right-side">
@@ -196,7 +200,7 @@ export default function NnEProduct({ witchOne }) {
                         Preço Promocional (opcional)
                       </label>
                       <SimpleInput name="R$" value={wholesaler_sale_price} setValue={setWholesalerSalePrice}
-                        optional={true} promotion={true}
+                        optional promotion
                       />
                     </div>
                   </div>
