@@ -16,7 +16,6 @@ import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 
-
 import api from "../../services/api";
 import "./styles.css";
 import ImageUpload from "../../components/ImageUpload";
@@ -105,10 +104,12 @@ export default function ProductEditor(
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
+  
 
   const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
+  const [updated, setUpdated] = useState(false);
 
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
@@ -223,7 +224,7 @@ export default function ProductEditor(
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
-        //setImage(response.data.image_id);
+        setImage(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
         setWeight(response.data.weight);
         setLength(response.data.length);
@@ -235,13 +236,20 @@ export default function ProductEditor(
     }
   }, []);
 
-  console.log("teste dos subprodutos:", subproducts);
+  useEffect(() => {
+    api.get(`images/${props.match.params.id}`).then((response) => {
+      setImages(response.data);
+    });
+  }, [updated]);
+
+  console.log("teste das imagens", images);
 
   useEffect(() => {
     if (props.wichOne === "editar") {
       setEditar(true);
     }
   }, []);
+
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -294,18 +302,6 @@ export default function ProductEditor(
     addToData("width", width);
     addToData("length", length);
 
-    let imgdata = new FormData();
-    function addToImgData(key, value) {
-      if (value !== undefined && value !== "") imgdata.append(key, value);
-    }
-
-    if (images) {
-      images.forEach(image => {
-        addToImgData("imageFiles", image);
-      })
-    }
-    addToImgData("product_id", props.match.params.id);
-
     try {
       const response = await api.put(
         `updateProduct/${props.match.params.id}`,
@@ -318,51 +314,28 @@ export default function ProductEditor(
       console.log(err.response);
       alert("Edição impedida");
     }
-
-    try {
-      const response = await api.post("images", imgdata, config)
-      alert(`Upload com sucesso!`, response);
-    } catch (err) {
-      console.log(err);
-      console.log(err.response);
-      alert("Upload falho");
-    }
-
   }
 
   function handleImage(img) {
     setImage(img);
   }
 
-  function handleImages(images) {
-    setImages(images)
-  }
-
-  const ImageHandleChange = (e) => {
-    if (e.target.files) {
-
-      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-
-      console.log(fileArray);
-
-      setImages((prevImages) => prevImages.concat(fileArray));
-
-      Array.from(e.target.files).map(
-        (file) => URL.revokeObjectURL(file)
-      );
-    }
-  }
-
-  const RenderPhotos = (source) => {
-    return source.map((photo) => {
-      return <img className="loader-img" src={photo} key={photo} />
-    })
-  }
-
   const handleDeleteProduct = () => {
     api.delete(`product/${props.match.params.id}`, config).then((response) => {
       console.log(response);
     });
+  };
+
+  const handleDeleteSecImage = (image) => {
+    // const image_index = e.target.index;
+    // const image_id = images[image_index].id;
+    // console.log(image_id);
+    console.log("ID da imagem:", image)
+
+    api.delete(`image/${image}`, config).then((response) => {
+    console.log(response);
+    });
+    setUpdated(!updated);
   };
 
   return (
@@ -510,12 +483,16 @@ export default function ProductEditor(
 
                       <div className="images-form">
                         <p className="productTitle">Imagens</p>
-                        {image_id && <ImageLoader
-                          className="image-loader-sub"
-                          src={`https://docs.google.com/uc?id=${image_id}`}
-                          loading={() => <img src={loading} alt="Loading..." />}
-                          error={() => <div>Error</div>}
-                        />}
+                        {image_id && (
+                          <ImageLoader
+                            className="image-loader-sub"
+                            src={`https://docs.google.com/uc?id=${image_id}`}
+                            loading={() => (
+                              <img src={loading} alt="Loading..." />
+                            )}
+                            error={() => <div>Error</div>}
+                          />
+                        )}
                         <br></br>
                         <label className="images-label" htmlFor="main">
                           Principal
@@ -530,20 +507,38 @@ export default function ProductEditor(
                         <label className="images-label" htmlFor="secondary">
                           Secudárias
                         </label>
+                        <div className="pres-imgs">
+                          {images.map((image, index) => (
+                            <div className="secimage-comp-loader-sub">
+                              <button
+                                className="edit-delete-secimage"
+                                type="button"
+                                onClick={() => handleDeleteSecImage(image.id)}
+                              >
+                                <DeleteForeverIcon />
+                              </button>
+                              <ImageLoader
+                                className="secimage-loader-sub"
+                                src={`https://docs.google.com/uc?id=${image.id}`}
+                                loading={() => (
+                                  <img src={loading} alt="Loading..." />
+                                )}
+                                error={() => <div>Error</div>}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <MultipleUploader
+                          canSubmit={true}
+                          canDelete={true}
+                          productId={props.match.params.id}
+                        />
                         <div className="input-group mb-3">
-                          <input
-                            type="file"
-                            id="files"
-                            className="multiple-input"
-                            name={"teste"}
-                            onChange={ImageHandleChange}
-                            multiple
-                          />
-                          <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
-                          </label>
-                          <div className="sec-images">
-                            {RenderPhotos(images)}
-                          </div>
+                          <label
+                            className="file-label"
+                            for="inputGroupFile01"
+                            htmlFor="fileName"
+                          ></label>
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG

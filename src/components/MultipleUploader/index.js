@@ -3,16 +3,32 @@ import api from "../../services/api";
 
 import "./styles.css";
 
-export default function MultipleUploader({ onChange, canSubmit, canDelete }) {
-    const [images, setImages] = useState(null);
+export default function MultipleUploader({ onChange, canSubmit, canDelete, productId, subproductId }) {
+    const [images, setImages] = useState([]);
+    const [img_urls, setImgUrls] = useState();
     const [images_names, setImagesNames] = useState();
     const [selected, setSelected] = useState();
 
+    const accessToken = localStorage.getItem("accessToken");
+
+    const config = {
+        headers: { authorization: `Bearer ${accessToken}` },
+      };
+
     function changeHandler(evt) {
+
+        let img_urls = Array.from(evt.target.files).map((file) =>  URL.createObjectURL(file) );
+
+        console.log(img_urls);
+        
+        Array.from(evt.target.files).map(
+                    (file) => URL.revokeObjectURL(file)
+                );
+
         let files = evt.target.files;
 
         files = [...files];
-
+       
         let images = [];
         let imagesNames = [];
 
@@ -22,9 +38,18 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete }) {
             imagesNames.push(file.name);
         })
 
+        setImgUrls(img_urls);
         setImages(images);
         setImagesNames(imagesNames);
         if (onChange) onChange(images);
+    
+    };
+
+    function RenderPhotos(source)  {
+        if (img_urls) {
+        return source.map((photo) => {
+            return <img className="loader-img" src={photo} key={photo}/>
+        }) }
     };
 
     async function handleSubmit(e) {
@@ -40,9 +65,13 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete }) {
             images.forEach((image) => {
                 addToData('imageFiles', image);
             })
+            addToData('product_id', productId);
+            if (subproductId) {
+            addToData('subproduct_id', subproductId)
+            }
 
             try {
-                const response = await api.post("images", data)
+                const response = await api.post("images", data, config)
                 alert(`Upload com sucesso!`, response);
             } catch (err) {
                 console.log(err);
@@ -82,18 +111,14 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete }) {
                     <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
                     </label>
                 </div>
+                <div className="sec-images">
+                       {RenderPhotos(img_urls)}
+                      </div>
 
-                {canSubmit ?
+                {canSubmit && canSubmit === true ?
                     <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar</button> : <div></div>
                 }
             </div>
-            {canDelete ?
-                <div className="delete-file">
-                    <input type="text" value={selected} className="id-selector" onChange={(e) => { setSelected(e.target.value) }} placeholder="Digite um ID" />
-                    <button type="submit" className="send" onClick={(e) => handleDelete(e, selected)}>deletar</button>
-                </div> : <div></div>
-            }
-
         </div>
     );
 };
