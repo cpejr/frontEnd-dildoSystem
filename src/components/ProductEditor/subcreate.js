@@ -53,7 +53,7 @@ export default function SubproductsCreate(props) {
       alert(`Registro concluído!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Register error");
     }
   }

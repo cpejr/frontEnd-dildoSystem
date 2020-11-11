@@ -94,7 +94,7 @@ export default function UsuariosPendentes(props) {
             alert(`Alteração concluída!`, response);
         } catch (err) {
             console.log(JSON.stringify(err));
-            console.err(err.response);
+            console.error(err.response);
             alert("Update error");
         }
     }

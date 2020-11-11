@@ -298,7 +298,7 @@ export default function ProductEditor(props) {
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Edição impedida");
     }
   }
@@ -312,7 +312,7 @@ export default function ProductEditor(props) {
       alert("Produto deletado com sucesso!");
       history.push("/admin");
     }).catch((err) => {
-      console.err(err);
+      console.error(err);
       alert("Falha em deletar o produto!");
     });
   };

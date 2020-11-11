@@ -37,7 +37,7 @@ function Main(props) {
 
     } catch (err) {
       console.log(config);
-      console.err(err);
+      console.error(err);
       alert('Erro ao atualizar pedido!');
     }
   }

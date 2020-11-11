@@ -89,7 +89,7 @@ function Login(props) {
       setChanged(true);
     } catch (err) {
       setError(err.response.data.message);
-      console.err(err);
+      console.error(err);
     }
   }
 

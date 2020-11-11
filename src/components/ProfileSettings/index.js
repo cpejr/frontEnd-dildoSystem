@@ -154,7 +154,7 @@ const handleXopen = () => {
       }
     } catch (err) {
       setError(err.response.data.message);
-      console.err(err);
+      console.error(err);
       alert("Senha incorreta");
     }
 
@@ -169,7 +169,7 @@ const handleXopen = () => {
           alert(`Edição concluída`, response);
       } catch (err) {
         console.log(JSON.stringify(err));
-        console.err(err.response);
+        console.error(err.response);
       }
 
     }
@@ -211,7 +211,7 @@ const handleXopen = () => {
         alert(`Edição concluída`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Edição não pôde ser realizada");
     }
   

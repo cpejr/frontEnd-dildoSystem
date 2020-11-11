@@ -76,7 +76,7 @@ export default function SubproductsEdit({ subproduto }) {
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Edição impedida");
     }
   }

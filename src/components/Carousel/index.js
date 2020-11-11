@@ -55,7 +55,7 @@ function Carousel(props) {
         setNewImage(undefined);
       } catch (err) {
         console.log(JSON.stringify(err));
-        console.err(err.response);
+        console.error(err.response);
         alert("Erro ao registar imagem!");
       }
     }
@@ -72,7 +72,7 @@ function Carousel(props) {
       alert(`Atualizado com sucesso!!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Erro ao editar posições!");
     }
   }

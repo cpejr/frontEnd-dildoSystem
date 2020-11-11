@@ -98,7 +98,7 @@ function Testefrete({products}) {
                 console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
-            .catch(err => console.err(err));
+            .catch(err => console.error(err));
 
 
         // const requestOptions = {
@@ -112,7 +112,7 @@ function Testefrete({products}) {
         //         setmensage(xml.children[0].children[1].value);
 
         //     })
-        //     .catch(err => console.err(err));
+        //     .catch(err => console.error(err));
 
     }
 

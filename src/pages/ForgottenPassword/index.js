@@ -21,7 +21,7 @@ function ForgottenPassword() {
       setSuccess('E-mail enviado');
     } catch (err) {
       setError("Usuário não encontrado")
-      console.err(err.response.data.notification);
+      console.error(err.response.data.notification);
     }
   }
 

@@ -73,8 +73,8 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
                 const response = await api.post("images", data, config)
                 alert(`Upload com sucesso!`, response);
             } catch (err) {
-                console.err(err);
-                console.err(err.response);
+                console.error(err);
+                console.error(err.response);
                 alert("Upload falho");
             }
         } else {
