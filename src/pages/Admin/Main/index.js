@@ -23,7 +23,7 @@ function Main(props) {
         },
       })
       .then((response) => {
-        setOrders(response.data);
+        setPendingOrders(response.data);
         console.log('orders', response.data)
       });
   }, []);

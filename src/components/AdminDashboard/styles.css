@@ -85,3 +85,10 @@
 .main-admin-container {
     margin-top: 100px;
 }
+
+@media (max-width: 890px) {
+    .userDiv .user{
+        display: none;
+    }
+}
+  
