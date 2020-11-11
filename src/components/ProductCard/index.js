@@ -82,13 +82,13 @@ export default withRouter(function ProductCard(props) {
     }
 
     useEffect(() => {
-        if (!props.featuredOnly) {
+        if (!props.releaseOnly && !props.best_sellerOnly) {
             window.addEventListener('scroll', handleScroll, { passive: true });
         }
 
 
         return (() => {
-            if (!props.featuredOnly) {
+            if (!props.releaseOnly && !props.best_sellerOnly) {
                 window.removeEventListener('scroll', handleScroll);
             }
         });
@@ -120,8 +120,8 @@ export default withRouter(function ProductCard(props) {
 
         let url = `/products/${queries}page=${page}`
 
-        if (props.featuredOnly) url += '&featured=true';
-
+        if (props.releaseOnly) url += '&release=true';
+        if (props.best_sellerOnly) url += '&best_seller=true';
         console.log('url when loading products', url);
 
         if (accessToken) {
