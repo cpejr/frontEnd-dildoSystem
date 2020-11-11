@@ -16,6 +16,7 @@ import PendingUsers from "../../components/PendingUsers";
 import Carousel from "../../components/Carousel/index.js";
 
 import PendingOrders from "../../components/PendingOrders/index.js";
+import InventoryControl from "../../components/InventoryControl/index"
 
 import AllUsers from "../../components/AllUsers";
 import LowStock from "../LowStock";
@@ -70,6 +71,10 @@ function Admin(props) {
                 <Route
                   path={`${props.match.path}/carousel`}
                   component={Carousel}
+                />
+                <Route
+                  path={`${props.match.path}/inventory-control`}
+                  component={InventoryControl}
                 />
                 <Route
                   path={`${props.match.path}/pendingorders`}

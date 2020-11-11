@@ -15,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { PersonOutline } from '@material-ui/icons';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
@@ -229,6 +230,13 @@ export default function AdminDashboard2(props) {
 
             <Divider />
 
+            <ListItem button component={Link} to="/admin/inventory-control" onClick={props.handleDrawerClose}>
+              <ListItemIcon><SettingsIcon /></ListItemIcon>
+              <ListItemText>Controle de Estoque</ListItemText>
+            </ListItem>
+
+            <Divider />
+
             <LoginContext.Consumer>
               {
                 context => (
@@ -298,6 +306,13 @@ export default function AdminDashboard2(props) {
             <ListItem button component={Link} to="/admin/carousel" onClick={props.handleDrawerClose}>
               <ListItemIcon><ImageIcon /></ListItemIcon>
               <ListItemText>Carrossel</ListItemText>
+            </ListItem>
+
+            <Divider />
+
+            <ListItem button component={Link} to="/admin/inventory-control" onClick={props.handleDrawerClose}>
+              <ListItemIcon><SettingsIcon /></ListItemIcon>
+              <ListItemText>Controle de Estoque</ListItemText>
             </ListItem>
 
             <Divider />
