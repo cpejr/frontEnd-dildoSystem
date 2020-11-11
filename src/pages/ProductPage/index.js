@@ -279,6 +279,7 @@ function ProductPage(props) {
   }
 
   useEffect(() => {
+    console.log("productData: ",productData)
     if (productData) {
       const user_id = user.id;
       console.log("User: ", user)
