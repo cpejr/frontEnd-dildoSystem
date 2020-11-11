@@ -69,7 +69,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
         Carrier: null
       })
   });
-  //console.log(shippingServices);
+  console.log(shippingServices + "esse eh o shipping services");
   //console.log(buyer)
   let user;
   try {
@@ -144,7 +144,8 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     const redirectURL = formattedApiResponse.settings.checkoutUrl
     window.location.href = redirectURL;
   } catch (error) {
-    console.err(error)
+    // console.err(error)
+    console.log("Deu error!")
   }
 }
 

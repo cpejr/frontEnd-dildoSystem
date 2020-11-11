@@ -17,6 +17,7 @@ import Addresses from './pages/Addresses';
 import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'
 import About from './pages/About'
+import Checkout from './pages/checkoutPage'
 
 function Routes() {
     return (
@@ -37,6 +38,7 @@ function Routes() {
                         <Route path='/addresses' component={Addresses}/>
                         <Route path='/about' component={About}/>
                         <Route path='/conditions' component={TermsandConditions}/>
+                        <Route path='/checkout' component={Checkout}/>
                         <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>
