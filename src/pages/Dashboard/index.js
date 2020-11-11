@@ -26,10 +26,17 @@ function Dashboard(props) {
                 {/* <HomeNavbar /> */}
                 <ControlledCarousel />
 
-                <h2>PROMOÇÕES</h2>
-
-                <ProductCard featuredOnly />
-
+                <h2>LANÇAMENTOS</h2>
+                <div className="release-container">
+                    <ProductCard releaseOnly />
+                </div>
+                <h2>MAIS VENDIDOS</h2>
+                <div className="best_seller-container">
+                    <ProductCard best_sellerOnly />
+                </div>
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

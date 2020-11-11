@@ -205,7 +205,7 @@ export default function ProductEditor(props) {
         setState({
           checkedB: Boolean(response.data.on_sale_client),
           checkedC: Boolean(response.data.on_sale_wholesaler),
-          checkedD: Boolean(response.data.featured),
+          checkedD: Boolean(response.data.release),
           checkedA: Boolean(response.data.visible),
           checkedE: Boolean(response.data.best_seller)
         });
