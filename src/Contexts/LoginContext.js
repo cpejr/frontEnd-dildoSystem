@@ -19,7 +19,7 @@ function LoginContextProvider(props) {
 
   const history = useHistory();
   const [changed, setChanged] = useState(false);
-  const location = history.location;
+  const [location] = useState(history.location)
 
   useEffect(() => {
     if (changed) {

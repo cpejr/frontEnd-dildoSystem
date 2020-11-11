@@ -6,14 +6,14 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-import api from '../../services/api';
+import api from "../../services/api";
 
-import Burger from '../../components/Burger';
-import { LoginContext } from '../../Contexts/LoginContext';
-import { SearchContext } from '../../Contexts/SearchContext';
+import Burger from "../../components/Burger";
+import { LoginContext } from "../../Contexts/LoginContext";
+import { SearchContext } from "../../Contexts/SearchContext";
 
-import './styles.css';
-import { Button } from '@material-ui/core';
+import "./styles.css";
+import { Button } from "@material-ui/core";
 
 export default function Header() {
 
@@ -28,40 +28,37 @@ export default function Header() {
 
     const searchConfig = { search: search };
 
-    searchContext.handleSearch(searchConfig)
-
+    searchContext.handleSearch(searchConfig);
   }
 
   function handleCategory(id) {
-    const searchConfig = { categoryId: id }
+    const searchConfig = { categoryId: id };
 
-    searchContext.handleSearch(searchConfig)
+    searchContext.handleSearch(searchConfig);
   }
 
   function handleSubcategory(id) {
-    const searchConfig = { subcategoryId: id }
+    const searchConfig = { subcategoryId: id };
 
-    searchContext.handleSearch(searchConfig)
+    searchContext.handleSearch(searchConfig);
   }
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem("accessToken");
 
   const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` }
-  }
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   useEffect(() => {
-    api.get("categories", config).then(response => {
-      setCategories(response.data)
+    api.get("categories", config).then((response) => {
+      setCategories(response.data);
       // console.log(response.data)
     })
   }, [])
 
   return (
     <div id="Header">
-
       <div className="headerSuperior">
-
         <div className="header-content">
           <Link to="/">
             <img className="logoCasulusDashboard" src={LogoName} alt="logo" />
@@ -70,37 +67,34 @@ export default function Header() {
           <div className="userInfoSearch">
             <form className="form-group has-search" onSubmit={handleSubmit}>
               <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-              <input type="text" className="form-control searchInput" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+              <input
+                type="text"
+                className="form-control searchInput"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </form>
 
             <Link to="/cart" className="icon-link">
               <ShoppingCartOutlinedIcon />
             </Link>
 
-
-            {
-
-              (loginContext.loggedIn)
-                ?
-                (
-                  <Link to={loginContext.type === "admin" ? "/admin" : "/user"} className="icon-link user-info">
-                    <PersonOutlinedIcon />
-                    <p>{loginContext.name}</p>
-                  </Link>
-                )
-                :
-                (
-                  <Link to="/login">
-                    <Button>Entrar</Button>
-                  </Link>
-
-                )
-
-            }
+            {loginContext.loggedIn ? (
+              <Link
+                to={loginContext.type === "admin" ? "/admin" : "/user"}
+                className="icon-link user-info"
+              >
+                <PersonOutlinedIcon />
+                <p>{loginContext.name}</p>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <Button>Entrar</Button>
+              </Link>
+            )}
           </div>
         </div>
-
-
       </div>
 
       <div className="headerInferior">
@@ -135,6 +129,21 @@ export default function Header() {
 
         <div className="empty" />
         <Burger />
+        {loginContext.loggedIn ? (
+          <Link
+            to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
+            className="icon-link user-info-responsive"
+          >
+            <PersonOutlinedIcon />
+          </Link>
+        ) : (
+          <Link to="/login" className="icon-link user-info-responsive">
+            <PersonOutlinedIcon />
+          </Link>
+        )}
+        <Link to="/cart" className="icon-link-responsive">
+          <ShoppingCartOutlinedIcon />
+        </Link>
       </div>
     </div>
   );

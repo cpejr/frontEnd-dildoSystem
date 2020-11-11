@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { FiFilter, FiHeart } from 'react-icons/fi';
+import { FiHeart } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 import { FaHeart } from 'react-icons/fa';
 
