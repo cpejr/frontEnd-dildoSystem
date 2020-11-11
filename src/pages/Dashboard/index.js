@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/index';
 import ProductCard from '../../components/ProductCard';
 import ControlledCarousel from '../../components/Slider/Slider';
+import Footer from '../../components/Footer';
 
 import './styles.css';
 
@@ -14,7 +15,7 @@ function Dashboard(props) {
         const equalsIndex = newSearch.indexOf('=') + 1;
         newSearch = newSearch.substring(equalsIndex);
         setSearch(newSearch);
-    })
+    }, [props.location.search])
 
     return (
         <div className="content">
