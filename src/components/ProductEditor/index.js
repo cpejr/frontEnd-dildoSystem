@@ -501,6 +501,7 @@ export default function ProductEditor(props) {
                         </label>
                         <div className="pres-imgs">
                           {images.map((image, index) => (
+                            image.subproduct_id === null &&
                             <div className="secimage-comp-loader-sub">
                               <button
                                 className="edit-delete-secimage"
@@ -517,8 +518,8 @@ export default function ProductEditor(props) {
                                 )}
                                 error={() => <div>Error</div>}
                               />
-                            </div>
-                          ))}
+                            </div> 
+                                ))}
                         </div>
                         <MultipleUploader
                           canSubmit={true}
