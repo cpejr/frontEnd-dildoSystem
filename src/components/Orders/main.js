@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./styles.css";
-import PendingOrders from "../../pages/PendingOrders";
 import OrderArray from "./order.js";
 import api from '../../services/api';
 function Main(props) {
@@ -30,17 +29,15 @@ function Main(props) {
         break;
     }
 
-
     console.log({order_status:engstatus,track_number:newTrackNumber});
     try {
       const response = await api.put(`order/${props.pedido.id}`,{order_status:engstatus,track_number:newTrackNumber},  config);
       console.log(config);
       alert(`Pedido Atualizado!`);
-  
 
     } catch (err) {
       console.log(config);
-      console.err(err);
+      console.error(err);
       alert('Erro ao atualizar pedido!');
     }
   }
@@ -58,6 +55,8 @@ function Main(props) {
       break;
     case "delivered":
       status = "Pedido Entregue";
+      break;
+    default :
       break;
   }
   return (

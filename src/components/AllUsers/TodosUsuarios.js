@@ -1,54 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import api from '../../services/api';
 
 import './styles.css';
 
 import CreateIcon from '@material-ui/icons/Create';
 import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
+// import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+// import IconButton from '@material-ui/core/IconButton';
+// import CloseIcon from '@material-ui/icons/Close';
+// import Typography from '@material-ui/core/Typography'
 
+// const styles = (theme) => ({
+//     root: {
+//         margin: 0,
+//         padding: theme.spacing(2),
+//     },
+//     closeButton: {
+//         position: 'absolute',
+//         right: theme.spacing(1),
+//         top: theme.spacing(1),
+//         color: theme.palette.grey[500],
+//     },
+// });
 
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+// const DialogTitle = withStyles(styles)((props) => {
+//     const { children, classes, onClose, ...other } = props;
+//     return (
+//         <MuiDialogTitle disableTypography className={classes.root} {...other}>
+//             <Typography variant="h6">{children}</Typography>
+//             {onClose ? (
+//                 <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+//                     <CloseIcon />
+//                 </IconButton>
+//             ) : null}
+//         </MuiDialogTitle>
+//     );
+// });
 
-const DialogTitle = withStyles(styles)((props) => {
-    const { children, classes, onClose, ...other } = props;
-    return (
-        <MuiDialogTitle disableTypography className={classes.root} {...other}>
-            <Typography variant="h6">{children}</Typography>
-            {onClose ? (
-                <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                    <CloseIcon />
-                </IconButton>
-            ) : null}
-        </MuiDialogTitle>
-    );
-});
-
-const DialogActions = withStyles((theme) => ({
-    root: {
-        marginTop: 470,
-        padding: theme.spacing(2),
-        marginBottom: 0,
-    },
-}))(MuiDialogActions);
+// const DialogActions = withStyles((theme) => ({
+//     root: {
+//         marginTop: 470,
+//         padding: theme.spacing(2),
+//         marginBottom: 0,
+//     },
+// }))(MuiDialogActions);
 
 const DialogContent = withStyles((theme) => ({
     root: {
@@ -61,10 +59,8 @@ const DialogContent = withStyles((theme) => ({
 
 export default function UsuariosPendentes(props) {
 
-    const [id, setid] = useState();
     const [open, setOpen] = useState(false);
 
-    const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('lg');
 
     const accessToken = localStorage.getItem('accessToken')
@@ -98,7 +94,7 @@ export default function UsuariosPendentes(props) {
             alert(`Alteração concluída!`, response);
         } catch (err) {
             console.log(JSON.stringify(err));
-            console.err(err.response);
+            console.error(err.response);
             alert("Update error");
         }
     }

@@ -262,7 +262,7 @@ function ProductPage(props) {
 
     const indexOfChar = accepted.indexOf(event.target.value.slice(-1));
     console.log(event.target.value)
-    if (event.target.value != '' && (indexOfChar < 0 || (indexOfChar == 10 && event.target.value.length != 5 && event.target.value.length != 6))) {
+    if (event.target.value !== '' && (indexOfChar < 0 || (indexOfChar == 10 && event.target.value.length !== 5 && event.target.value.length !== 6))) {
       console.log(event.target.value.length)
       setCep(cep);
       return;
@@ -279,12 +279,13 @@ function ProductPage(props) {
   }
 
   useEffect(() => {
+    console.log("productData: ",productData)
     if (productData) {
       const user_id = user.id;
       console.log("User: ", user)
       console.log("User_id: ", user_id)
       api.get(`userwishlist/${user_id}`, config).then((response) => {
-        const result = response.data.find(product => product.id == productData.id);
+        const result = response.data.find(product => product.id === productData.id);
         if(result){
           setIsWish(true);
         }

@@ -30,7 +30,7 @@ function CarouselImages(props) {
 
 
     } catch (err) {
-      console.err(err);
+      console.error(err);
       alert('Erro ao deletar imagem!');
     }
   }

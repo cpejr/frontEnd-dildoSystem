@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -21,10 +21,10 @@ import Checkout from './pages/checkoutPage'
 
 function Routes() {
     return (
-        <BrowserRouter> 
+        <BrowserRouter>
             <LoginContextProvider>
                 <SearchContextProvider>
-                <Switch>
+                    <Switch>
                         <Route path='/' exact component={Dashboard} />
                         <Route path='/search' component={Search} />
                         <Route path='/login' exact component={Login} />
@@ -40,9 +40,9 @@ function Routes() {
                         <Route path='/conditions' component={TermsandConditions}/>
                         <Route path='/checkout' component={Checkout}/>
                         <Route exact={true} component={NotFound} />
-                        </Switch>
-                    </SearchContextProvider>
-                </LoginContextProvider>
+                    </Switch>
+                </SearchContextProvider>
+            </LoginContextProvider>
         </BrowserRouter>
     );
 }

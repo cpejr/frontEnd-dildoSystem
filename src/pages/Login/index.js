@@ -48,7 +48,7 @@ function Login(props) {
       localStorage.setItem("accessToken", response.data.accessToken);
 
       const user = response.data.user;
-      if (user.type == "wholesaler" && user.user_status != "approved") {
+      if (user.type === "wholesaler" && user.user_status !== "approved") {
         let timerInterval;
         Swal.fire({
           title: "Notificação de aprovação",
@@ -89,7 +89,7 @@ function Login(props) {
       setChanged(true);
     } catch (err) {
       setError(err.response.data.message);
-      console.err(err);
+      console.error(err);
     }
   }
 

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import api from "../../services/api";
+import PublishIcon from "@material-ui/icons/Publish";
 
 import "./styles.css";
 
-export default function MultipleUploader({ onChange, canSubmit, canDelete, productId, subproductId }) {
+export default function MultipleUploader({ onChange, canSubmit, productId, subproductId }) {
     const [images, setImages] = useState([]);
     const [img_urls, setImgUrls] = useState();
-    const [images_names, setImagesNames] = useState();
-    const [selected, setSelected] = useState();
+    //const [images_names, setImagesNames] = useState();
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -40,15 +40,15 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
 
         setImgUrls(img_urls);
         setImages(images);
-        setImagesNames(imagesNames);
+        //setImagesNames(imagesNames);
         if (onChange) onChange(images);
     
     };
 
     function RenderPhotos(source)  {
         if (img_urls) {
-        return source.map((photo) => {
-            return <img className="loader-img" src={photo} key={photo}/>
+        return source.map((photo, index) => {
+            return <img className="loader-img" src={photo} key={photo} alt={`img_${index}`}/>
         }) }
     };
 
@@ -74,8 +74,8 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
                 const response = await api.post("images", data, config)
                 alert(`Upload com sucesso!`, response);
             } catch (err) {
-                console.err(err);
-                console.err(err.response);
+                console.error(err);
+                console.error(err.response);
                 alert("Upload falho");
             }
         } else {
@@ -83,42 +83,30 @@ export default function MultipleUploader({ onChange, canSubmit, canDelete, produ
         }
     }
 
-    async function handleDelete(e, selected) {
-        e.preventDefault();
-        alert("Clicou! ", selected);
-        try {
-            const response = await api.delete(`image/${selected}`)
-            alert(`Deletou com sucesso!`, response);
-        } catch (err) {
-            console.err(err);
-            console.err(err.response);
-            alert("Falhou em deletar");
-        }
-    }
-
     return (
-        <div className="input-content">
-            <div className="file-selector">
-                <div className="selector-row">
+        <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroupFileAddon01">
+        <PublishIcon style={{ fontSize: 17 }} />
+      </span>
+                <div className="custom-file">
                     <input
                         type="file"
                         id="files"
-                        className="multiple-input"
+                        className="custom-file-input"
                         name={"teste"}
                         onChange={changeHandler}
                         multiple
                     />
-                    <label className="file-label" for="inputGroupFile01" htmlFor="fileName">
+                    <label className="custom-file-label" for="inputGroupFile01" htmlFor="fileName">
+                        Selecione os arquivos
                     </label>
                 </div>
                 <div className="sec-images">
                        {RenderPhotos(img_urls)}
                       </div>
-
-                {canSubmit && canSubmit === true ?
-                    <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar</button> : <div></div>
-                }
-            </div>
-        </div>
+                      {canSubmit && canSubmit === true ?
+            <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar secundárias</button> : <div></div>
+        }
+        </div>  
     );
 };

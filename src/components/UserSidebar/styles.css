@@ -14,3 +14,38 @@
     position: sticky;
     flex-direction: column;
 }
+
+.cartDiv {
+    display: none;
+    
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    color: black;
+}
+
+.cartDiv div {
+    
+    display: none;
+    flex-direction: column;
+    justify-content: right;
+    align-content: flex-end;
+}
+
+@media (max-width: 890px) {
+    .cartDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        color: black;
+    }
+    .cartDiv div {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        align-content: flex-end;
+        margin-right: 8px;
+    }
+}
+  

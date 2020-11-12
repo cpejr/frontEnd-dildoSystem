@@ -53,6 +53,13 @@ export default function SideBar(props) {
 
                 <Divider />
 
+                <ListItem button component={Link} to="/pendingorders" onClick={props.handleDrawerClose}>
+                    <ListItemIcon><ChromeReaderMode /></ListItemIcon>
+                    <ListItemText>Controle de Estoque</ListItemText>
+                </ListItem>
+
+                <Divider />
+
                 <ListItem button component={Link} to="/login" onClick={props.handleDrawerClose}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>

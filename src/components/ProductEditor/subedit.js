@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect, useHistory } from "react";
+import { useState, useEffect } from "react";
 import "./styles.css";
 import api from "../../services/api";
 import ImageUpload from "../../components/ImageUpload";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import PublishIcon from "@material-ui/icons/Publish";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 
@@ -16,9 +15,7 @@ export default function SubproductsEdit({ subproduto }) {
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImage] = useState();
-  const [imageFile, setimageFile] = useState();
   
-
   const [editar, setEditar] = useState("editar");
 
   const accessToken = localStorage.getItem("accessToken");
@@ -79,7 +76,7 @@ export default function SubproductsEdit({ subproduto }) {
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Edição impedida");
     }
   }

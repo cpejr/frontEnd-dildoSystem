@@ -59,7 +59,7 @@ export default function NnEProduct({ witchOne }) {
   }, []);
 
   function handleCategorySelection(event) {
-    const newCat = categories.find(cat => cat.id == event.target.value);
+    const newCat = categories.find(cat => cat.id === event.target.value);
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
@@ -86,6 +86,7 @@ export default function NnEProduct({ witchOne }) {
         break;
       case "checkedD":
         setRelease(!release);
+        break;
       case "checkedE":
         setBest_Seller(!best_seller);
         break;
@@ -169,6 +170,7 @@ export default function NnEProduct({ witchOne }) {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      required
                     />
                     <label htmlFor="description">Descrição</label>
                     <textarea

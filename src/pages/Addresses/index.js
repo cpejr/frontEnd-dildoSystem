@@ -58,12 +58,12 @@ function Addresses() {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
       }
-      api.get(`/useraddress/${loginContext.id}`, config).then(response => {console.log(response.data);setAddressList(response.data)});
+      api.get(`/useraddress/${loginContext.id}`, config).then(response => { console.log(response.data); setAddressList(response.data) });
     } catch (error) {
 
     }
-    
-  }, []);
+
+  });
 
   if (!loginContext.loggedIn) {
     history.push('login?return-to-addresses');
@@ -112,7 +112,7 @@ function Addresses() {
       }
 
       goToCheckout(newAddress);
-      
+
     } else {
       alert("Preencha todos os campos para enviar um novo endereço!")
     }

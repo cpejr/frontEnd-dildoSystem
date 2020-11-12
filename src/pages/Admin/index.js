@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, useHistory } from "react-router-dom";
 
 import { LoginContext } from "../../Contexts/LoginContext";
-
-import api from "../../services/api";
 
 import Main from "./Main";
 import "./styles.css";
@@ -15,18 +13,15 @@ import EditProduct from "../../pages/EditProduct";
 import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
-import Products from "../../components/Products/index.js";
 import Carousel from "../../components/Carousel/index.js";
 
 import PendingOrders from "../../components/PendingOrders/index.js";
+import InventoryControl from "../../components/InventoryControl/index"
 
 import AllUsers from "../../components/AllUsers";
 import LowStock from "../LowStock";
 
 function Admin(props) {
-  let [nome, setNome] = useState("Nome do usuario");
-  let [type, setType] = useState("Tipo");
-
   const history = useHistory();
 
   return (
@@ -76,6 +71,10 @@ function Admin(props) {
                 <Route
                   path={`${props.match.path}/carousel`}
                   component={Carousel}
+                />
+                <Route
+                  path={`${props.match.path}/inventory-control`}
+                  component={InventoryControl}
                 />
                 <Route
                   path={`${props.match.path}/pendingorders`}

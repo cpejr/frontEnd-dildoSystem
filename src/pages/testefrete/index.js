@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form'
-import api from '../../services/api';
-import Button from 'react-bootstrap/Button'
-import axios from 'axios';
-import XMLParser from 'react-xml-parser'
+import React, { useState } from 'react';
 
 import './styles.css'
 
@@ -103,7 +98,7 @@ function Testefrete({products}) {
                 console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
-            .catch(err => console.err(err));
+            .catch(err => console.error(err));
 
 
         // const requestOptions = {
@@ -117,7 +112,7 @@ function Testefrete({products}) {
         //         setmensage(xml.children[0].children[1].value);
 
         //     })
-        //     .catch(err => console.err(err));
+        //     .catch(err => console.error(err));
 
     }
 

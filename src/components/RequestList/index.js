@@ -1,13 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./styles.css";
-import RequestArray from "./request.js";
 
 import api from "../../services/api"
 import MainRequest from "./main";
 import { LoginContext } from "../../Contexts/LoginContext";
-import RequestDetails from "../RequestDetails";
-
-
 
 // const MeusPedidos = [
 //   {

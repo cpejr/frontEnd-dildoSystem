@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,30 +14,30 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { PersonOutline } from '@material-ui/icons';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';
+import { ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StarIcon from '@material-ui/icons/Star';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReplyIcon from '@material-ui/icons/Reply';
 import {useState, useEffect} from 'react';
 
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
-import Text from '../../images/CASULUS01LOGONAME.svg';
+import Logo from "../../images/CASULUS01LOGODESIGN.svg";
+import Text from "../../images/CASULUS01LOGONAME.svg";
 
-import './styles.css';
-import { LoginContext } from '../../Contexts/LoginContext';
+import "./styles.css";
+import { LoginContext } from "../../Contexts/LoginContext";
 
 const drawerWidth = 265;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -45,16 +45,16 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2), 
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -64,19 +64,20 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-    backgroundColor: '#DAA621',
-    boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+    justifyContent: "flex-end",
+    backgroundColor: "#DAA621",
+    boxShadow:
+      "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -85,13 +86,13 @@ const useStyles = makeStyles((theme) => ({
   content2: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -102,15 +103,14 @@ const useStyles = makeStyles((theme) => ({
 export default function UserSidebar(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(window.innerWidth > 1000
-  );
+  const [open, setOpen] = React.useState(window.innerWidth > 1000);
 
   function getWindowdimension() {
     const width = window.innerWidth;
     const height = window.innerHeight;
     return {
-      width, 
-      height
+      width,
+      height,
     };
   }
 
@@ -122,20 +122,15 @@ export default function UserSidebar(props) {
     setOpen(false);
   };
 
-  const [Windowdimension, setWindowdimension] = useState (
-    getWindowdimension ()
- );
+  const [Windowdimension, setWindowdimension] = useState(getWindowdimension());
 
-   useEffect ( 
-     ()=> {
-       function handleSize () {
-         setWindowdimension (getWindowdimension())
-       }
-       window.addEventListener("resize", handleSize);
-       return () => window.removeEventListener("resize", handleSize);
-     }, []
-   ); 
-
+  useEffect(() => {
+    function handleSize() {
+      setWindowdimension(getWindowdimension());
+    }
+    window.addEventListener("resize", handleSize);
+    return () => window.removeEventListener("resize", handleSize);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -146,7 +141,7 @@ export default function UserSidebar(props) {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar style={{height: 75, display: "flex"}}>
+        <Toolbar style={{ height: 75, display: "flex" }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -157,145 +152,253 @@ export default function UserSidebar(props) {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-          <div className="iconDiv">
-              <img className="logo" src={Logo} alt="logo" width="75" height="75" />
-              <img className="text" src={Text} alt="text" width="75" height="75" />
-          </div>
-          </Link>
-          <div className="userDiv">
-                <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
-                <div><PersonOutline /></div>
+            <div className="iconDiv">
+              <img
+                className="logo"
+                src={Logo}
+                alt="logo"
+                width="75"
+                height="75"
+              />
+              <img
+                className="text"
+                src={Text}
+                alt="text"
+                width="75"
+                height="75"
+              />
             </div>
+          </Link>
+
+          <div className="userDiv">
+            <Link to="/cart">
+              <div className="cartDiv">
+                <div className="cart">
+                  <ShoppingCartOutlinedIcon />
+                </div>
+              </div>
+            </Link>
+            <div className="user">
+              <h5>{props.name}</h5>
+              <p>{props.type}</p>
+            </div>
+            <div>
+              <PersonOutline />
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
       {Windowdimension.width > 900 ? (
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader} style={{height: 75}}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon/>}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-
-                <ListItem button component={Link} to="/user/myrequests" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LocalMallIcon /></ListItemIcon>
-                    <ListItemText>Meus Pedidos</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/user/wishlist" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><StarIcon /></ListItemIcon>
-                    <ListItemText>Lista de Desejos</ListItemText>
-                </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/user/usersettings" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><SettingsIcon /></ListItemIcon>
-                    <ListItemText>Meus Dados</ListItemText>
-                </ListItem>
-                <Divider />
-
-                <ListItem button component={Link} to="/" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><ReplyIcon /></ListItemIcon>
-                    <ListItemText>Voltar às Compras</ListItemText>
-                </ListItem>
-
-                <Divider />
-              <LoginContext.Consumer>
-                {
-                  context => (
-                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
-                    <ListItemIcon><ExitToApp /></ListItemIcon>
-                    <ListItemText>Sair</ListItemText>
-                </ListItem>)}
-              </LoginContext.Consumer>
-            </List>
-      </Drawer> ) : (
         <Drawer
-        className={classes.drawer}
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader} style={{height: 75}}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon/>}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader} style={{ height: 75 }}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem
+              button
+              component={Link}
+              to="/user/myrequests"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <LocalMallIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Pedidos</ListItemText>
+            </ListItem>
 
-                <ListItem button component={Link} to="/user/myrequests" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><LocalMallIcon /></ListItemIcon>
-                    <ListItemText>Meus Pedidos</ListItemText>
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/user/wishlist"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <StarIcon />
+              </ListItemIcon>
+              <ListItemText>Lista de Desejos</ListItemText>
+            </ListItem>
+
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/user/usersettings"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Dados</ListItemText>
+            </ListItem>
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/cart"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <ShoppingCartOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText>Meu Carrinho</ListItemText>
+            </ListItem>
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <ReplyIcon />
+              </ListItemIcon>
+              <ListItemText>Voltar às Compras</ListItemText>
+            </ListItem>
+
+            <Divider />
+            <LoginContext.Consumer>
+              {(context) => (
+                <ListItem
+                  button
+                  onClick={context.handleLogout}
+                  style={{ position: "fixed", bottom: 0, width: 240 }}
+                >
+                  <ListItemIcon>
+                    <ExitToApp />
+                  </ListItemIcon>
+                  <ListItemText>Sair</ListItemText>
                 </ListItem>
+              )}
+            </LoginContext.Consumer>
+          </List>
+        </Drawer>
+      ) : (
+        <Drawer
+          className={classes.drawer}
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader} style={{ height: 75 }}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem
+              button
+              component={Link}
+              to="/user/myrequests"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <LocalMallIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Pedidos</ListItemText>
+            </ListItem>
 
-                <Divider />
+            <Divider />
 
-                <ListItem button component={Link} to="/user/wishlist" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><StarIcon /></ListItemIcon>
-                    <ListItemText>Lista de Desejos</ListItemText>
+            <ListItem
+              button
+              component={Link}
+              to="/user/wishlist"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <StarIcon />
+              </ListItemIcon>
+              <ListItemText>Lista de Desejos</ListItemText>
+            </ListItem>
+
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/user/usersettings"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Dados</ListItemText>
+            </ListItem>
+            <Divider />
+
+            <ListItem
+              button
+              component={Link}
+              to="/"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <ReplyIcon />
+              </ListItemIcon>
+              <ListItemText>Voltar às Compras</ListItemText>
+            </ListItem>
+
+            <Divider />
+            <LoginContext.Consumer>
+              {(context) => (
+                <ListItem
+                  button
+                  onClick={context.handleLogout}
+                  style={{ position: "fixed", bottom: 0, width: 240 }}
+                >
+                  <ListItemIcon>
+                    <ExitToApp />
+                  </ListItemIcon>
+                  <ListItemText>Sair</ListItemText>
                 </ListItem>
-
-                <Divider />
-
-                <ListItem button component={Link} to="/user/usersettings" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><SettingsIcon /></ListItemIcon>
-                    <ListItemText>Meus Dados</ListItemText>
-                </ListItem>
-                <Divider />
-
-                <ListItem button component={Link} to="/" onClick={props.handleDrawerClose}>
-                    <ListItemIcon><ReplyIcon /></ListItemIcon>
-                    <ListItemText>Voltar às Compras</ListItemText>
-                </ListItem>
-
-                <Divider />
-              <LoginContext.Consumer>
-                {
-                  context => (
-                <ListItem button onClick={context.handleLogout}  style={{position: 'fixed', bottom: 0, width: 240}}>
-                    <ListItemIcon><ExitToApp /></ListItemIcon>
-                    <ListItemText>Sair</ListItemText>
-                </ListItem>)}
-              </LoginContext.Consumer>
-            </List>
-      </Drawer>
+              )}
+            </LoginContext.Consumer>
+          </List>
+        </Drawer>
       )}
       {Windowdimension.width > 900 ? (
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className='main-admin-container'>
-          {props.children}
-        </div>
-        
-      </main> ) : (
         <main
-        className={clsx(classes.content2, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className='main-admin-container'>
-          {props.children}
-        </div>
-        
-      </main>
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className="main-admin-container">{props.children}</div>
+        </main>
+      ) : (
+        <main
+          className={clsx(classes.content2, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className="main-admin-container">{props.children}</div>
+        </main>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./styles.css";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -40,9 +40,9 @@ function Pedido2(props) {
           </div>
         );
       }
+      default:
     }
   }
-  let editurl
   useEffect(() => {
   console.log(props);
   if (props.dashboard) {

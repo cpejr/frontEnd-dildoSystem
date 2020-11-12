@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 
-import api from '../../services/api';
-
 import { PersonOutline } from '@material-ui/icons';
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';

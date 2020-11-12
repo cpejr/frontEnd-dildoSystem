@@ -19,7 +19,7 @@ function LoginContextProvider(props) {
 
   const history = useHistory();
   const [changed, setChanged] = useState(false);
-  const [location, setLocation] = useState(history.location);
+  const [location] = useState(history.location)
 
   useEffect(() => {
     if (changed) {
@@ -38,7 +38,7 @@ function LoginContextProvider(props) {
         const resp = await api.get("verify", config);
 
         if (resp.data.verified) {
-          const userType = (resp.data.user.type == "wholesaler" && resp.data.user.user_status != "approved") ? "retailer" : resp.data.user.type;   
+          const userType = (resp.data.user.type === "wholesaler" && resp.data.user.user_status !== "approved") ? "retailer" : resp.data.user.type;   
           await Promise.all([
             setUsername(resp.data.user.name),
             setUserId(resp.data.user.id),

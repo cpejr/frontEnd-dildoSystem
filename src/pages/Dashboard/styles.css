@@ -32,3 +32,18 @@
     align-items: center;
     
 }
+
+.release-container{
+    max-width: 1200px;
+    width: 90vw;
+    background: white;
+    border-radius: 2vh;
+}
+
+.best_seller-container{
+    max-width: 1200px;
+    width: 90vw;
+    background: white;
+    border-radius: 2vh;
+    margin-bottom: 3vh;
+}

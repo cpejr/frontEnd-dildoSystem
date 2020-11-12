@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import api from '../../services/api';
 
 import './styles.css';
@@ -8,7 +8,7 @@ import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 
 export default function UsuariosPendentes(props) {
   
-  const [id, setid] = useState(props.pendingusers.id);
+  const id = props.pendingusers.id;
 
   const accessToken = localStorage.getItem('accessToken')
 
@@ -20,14 +20,14 @@ export default function UsuariosPendentes(props) {
 
     try {
       
-      const response = await api.put('/user/' + id,{ "user_status": 'approved' }, config);
+      await api.put('/user/' + id,{ "user_status": 'approved' }, config);
 
       alert(`Usuario Aprovado com sucesso`);
       props.setUpdate(!props.update);
   
 
     } catch (err) {
-      console.err(err);
+      console.error(err);
       alert('Erro ao atualizar status do usuario!');
     }
   }
@@ -36,13 +36,13 @@ export default function UsuariosPendentes(props) {
 
     try {
       
-      const response = await api.put('/user/' + id,{ "user_status": 'refused' }, config);
+      await api.put('/user/' + id,{ "user_status": 'refused' }, config);
 
       alert(`Usuario negado com sucesso`);
       props.setUpdate(!props.update);
 
     } catch (err) {
-      console.err(err);
+      console.error(err);
       alert('Erro ao atualizar status do usuario!');
     }
   }

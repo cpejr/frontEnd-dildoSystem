@@ -4,8 +4,6 @@ import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
@@ -71,10 +69,7 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function ProductEditor(
-  props,
-  { id, className, fileName, onSubmit, match }
-) {
+export default function ProductEditor(props) {
   // console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -99,35 +94,33 @@ export default function ProductEditor(
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [images, setImages] = useState([]);
-  
 
-  const [imageFile, setimageFile] = useState();
+  // const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
   const [updated, setUpdated] = useState(false);
 
-  const [open, setOpen] = React.useState(true);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [fullWidth, setFullWidth] = React.useState();
-  const [maxWidth, setMaxWidth] = React.useState("md");
+  // const [open, setOpen] = useState(true);
+  // // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  // const [fullWidth, setFullWidth] = useState();
+  // const [maxWidth, setMaxWidth] = useState("md");
   const history = useHistory();
 
-  const handleMaxWidthChange = (event) => {
-    setMaxWidth(event.target.value);
-  };
+  // const handleMaxWidthChange = (event) => {
+  //   setMaxWidth(event.target.value);
+  // };
 
-  const handleFullWidthChange = (event) => {
-    setFullWidth(event.target.checked);
-  };
+  // const handleFullWidthChange = (event) => {
+  //   setFullWidth(event.target.checked);
+  // };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    history.goBack();
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   history.goBack();
+  //   setOpen(false);
+  // };
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -163,7 +156,7 @@ export default function ProductEditor(
   }
 
   useEffect(() => {
-    console.log(props);
+    // console.log(props);
     const url = `product/${props.match.params.id}`;
 
     if (props.location.state) {
@@ -189,6 +182,7 @@ export default function ProductEditor(
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
       setSubcategory(product.subcategory_id);
+      setImage(product.image_id)
       setWeight(product.weight);
       setLength(product.length);
       setWidth(product.width);
@@ -212,7 +206,7 @@ export default function ProductEditor(
         setState({
           checkedB: Boolean(response.data.on_sale_client),
           checkedC: Boolean(response.data.on_sale_wholesaler),
-          checkedD: Boolean(response.data.featured),
+          checkedD: Boolean(response.data.release),
           checkedA: Boolean(response.data.visible),
           checkedE: Boolean(response.data.best_seller)
         });
@@ -305,7 +299,7 @@ export default function ProductEditor(
       alert(`Edição concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
-      console.err(err.response);
+      console.error(err.response);
       alert("Edição impedida");
     }
   }
@@ -314,12 +308,12 @@ export default function ProductEditor(
     setImage(img);
   }
 
-  function handleDeleteProduct(){
+  function handleDeleteProduct() {
     api.delete(`product/${props.match.params.id}`, config).then((response) => {
       alert("Produto deletado com sucesso!");
       history.push("/admin");
-    }).catch((err) =>{
-      console.err(err);
+    }).catch((err) => {
+      console.error(err);
       alert("Falha em deletar o produto!");
     });
   };
@@ -331,7 +325,7 @@ export default function ProductEditor(
     console.log("ID da imagem:", image)
 
     api.delete(`image/${image}`, config).then((response) => {
-    console.log(response);
+      console.log(response);
     });
     setUpdated(!updated);
   };

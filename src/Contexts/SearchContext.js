@@ -25,9 +25,9 @@ function SearchContextProvider(props) {
   //Organiza informação quando pesquisa é feita
   function handleSearch(searchConfig) {
 
-    const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId } = searchConfig;
+    const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId} = searchConfig;
 
-    let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId };
+    let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId};
 
     if (search) {
       newFilters.search = search;
@@ -113,9 +113,7 @@ function SearchContextProvider(props) {
       }
     })
 
-  }, [])
-
-
+  })
 
   return (
     <SearchContext.Provider value={{ handleSearch, rawSearch }}>

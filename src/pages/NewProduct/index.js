@@ -5,13 +5,11 @@ import './styles.css'
 
 export default function NewProduct() {
 
-    
     return (
 
         <div>
             <AdminDashBoard />
             <NnEProduct />            
-
         </div>
     )
 }
