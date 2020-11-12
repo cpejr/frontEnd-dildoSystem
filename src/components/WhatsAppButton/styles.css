@@ -15,8 +15,5 @@
 
 .MuiSvgIcon-root {
     margin-top: 13px !important;
-}
-
-.MuiSvgIcon-root:hover {
     color: #fff;
 }
