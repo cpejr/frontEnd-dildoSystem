@@ -33,7 +33,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
     console.log(requestOptions)
-    
+
 
     const formattedResponse = await response.json();
     console.log(formattedResponse);
@@ -50,7 +50,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return {
       Name: p.product.name,
       Description: p.product.description,
-      UnitPrice: getProductPrice(p.product)*100,
+      UnitPrice: getProductPrice(p.product) * 100,
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
@@ -81,9 +81,20 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return (error);
   }
 
+  let orderID;
+  try {
+    orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
+    orderID = orderID.data;
+    console.log(orderID);
+  } catch (error) {
+    console.error(error);
+    return (error);
+  }
+
+
 
   const requestBody = {
-    "OrderNumber": "Pedido01",
+    "OrderNumber": orderID,
     "SoftDescriptor": "LOJACASULUS",
     "Cart": {
       "Discount": {
@@ -120,7 +131,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     },
     "Options": {
       "AntifraudEnabled": true,
-      "ReturnUrl": "http://www.cpejr.com.br/blog/3"
+      "ReturnUrl": `https://www.lojacasulus.com.br/checkout/${orderID}`
     },
     "Settings": null
   }
@@ -141,7 +152,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
     const formattedApiResponse = await response.json();
-    const redirectURL = formattedApiResponse.settings.checkoutUrl
+    const redirectURL = formattedApiResponse.settings.checkoutUrl;
     window.location.href = redirectURL;
   } catch (error) {
     console.error(error)

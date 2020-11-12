@@ -63,7 +63,7 @@ function Addresses() {
 
     }
 
-  });
+  }, [loginContext.id]);
 
   if (!loginContext.loggedIn) {
     history.push('login?return-to-addresses');
@@ -76,7 +76,19 @@ function Addresses() {
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
     shippingOptions = shippingOptions.ShippingSevicesArray;
     console.log(shippingOptions);
-    callPaymentAPI(cart, address, shippingOptions, loginContext)
+
+    const ongoingOrder = {
+      address_id: address.id,
+      products: cart.map(item => {
+        return {
+          product_id: item.product.id,
+          product_quantity: item.quantity
+        }
+      })
+    };
+    localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
+
+    callPaymentAPI(cart, address, shippingOptions, loginContext);
   }
 
   async function handleSubmitExistingAddress() {
