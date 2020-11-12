@@ -69,7 +69,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
         Carrier: null
       })
   });
-  //console.log(shippingServices);
+  console.log(shippingServices + "esse eh o shipping services");
   //console.log(buyer)
   let user;
   try {
