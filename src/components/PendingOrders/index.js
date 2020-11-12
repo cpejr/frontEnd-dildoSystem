@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import Pedido from "../../pages/Admin/Main/Pedido";
 
+import './styles.css'
+
 export default function PendingOrders(props) {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
@@ -36,18 +38,19 @@ export default function PendingOrders(props) {
 
   return (
     <div className="main-container">
-      <h4 className="titulo">Pedidos Pendentes</h4>
+      <h4>Pedidos Pendentes</h4>
+      
       <div className="pedidos-pendentes">
-        <form onSubmit={handleSubmit}>
+        <form className="pending-orders-form" onSubmit={handleSubmit}>
         <input
           type="search"
-          className="input-search"
+          className="input-search-pending-orders"
           name="searchTerm"
-          placeholder="Pesquise o pedido a editar"
+          placeholder="Insira o ID do pedido"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button type="submit">Enviar</button>
+        <button type="submit" className="pending-orders-button">Buscar</button>
         </form>
         <div className="ultimos-pedidos">
           {orders.map((pedido, index) => (

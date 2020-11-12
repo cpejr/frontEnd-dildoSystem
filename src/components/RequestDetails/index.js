@@ -148,15 +148,15 @@ export default function RequestDetails(props) {
             <h5>Resumo</h5>
             <div className="rd-product-item">
               <strong>Subtotal:</strong>
-              <p>{`R$ ${totalprice}`}</p>
+              <p>{`R$ ${Math.round(totalprice * 100)/100}`}</p>
             </div>
             <div className="rd-product-item">
               <strong>Frete:</strong>
-              <p>{`R$ ${track_price}`}</p>
+              <p>{`R$ ${Math.round(track_price * 100)/100}`}</p>
             </div>
             <div className="rd-product-item">
               <h6>Total:</h6>
-              <h6 className="rd-product-item-total">{`R$ ${totalprice + track_price}`}</h6>
+              <h6 className="rd-product-item-total">{`R$ ${Math.round((totalprice + track_price)* 100)/100}`}</h6>
             </div>
           </div>
         </div>

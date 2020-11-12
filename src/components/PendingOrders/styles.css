@@ -1,4 +1,46 @@
-.input-search {
+.input-search-pending-orders {
   padding-left: 50px;
-  border-radius: 20px;
+  border-radius: 8px;
+  width: 80%;
+  height: 36px;
+  border: 1px solid grey;
+  margin-right: 15px;
+}
+
+.titulo-pedidos-pendentes {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  flex-direction: column;
+}
+
+.pending-orders-button {
+  background-color: #14bc48;
+  border-radius: 8px;
+  border: 0 solid transparent;
+  height: 35px;
+  color: white;
+  font-size: 1.1em;
+  width: 10%;
+}
+
+.pending-orders-form {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+  .pending-orders-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-search-pending-orders {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+  .pending-orders-button {
+    width: 50%;
+  }
 }
