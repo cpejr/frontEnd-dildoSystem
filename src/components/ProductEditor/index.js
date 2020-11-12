@@ -182,6 +182,7 @@ export default function ProductEditor(props) {
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
       setSubcategory(product.subcategory_id);
+      setImage(product.image_id)
       setWeight(product.weight);
       setLength(product.length);
       setWidth(product.width);

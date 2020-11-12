@@ -225,8 +225,8 @@
   }
 
   .image-loader-sub {
-    width: 8vw;
-    height: 8vh;
+    width: 10vw;
+    height: 10vh;
     border-style: solid;
     border-color:#707070;
     padding: 2%;
@@ -341,11 +341,12 @@
     display: grid;
     grid-template-columns: 10vw 10vw;
     justify-content: space-around;
+    margin-left: 0;
   }
 
   .loader-img {
-      width: 8vw;
-      height: 8vh;
+      width: 10vw;
+      height: 10vh;
       border-style: solid;
       border-color: black;
       padding: 2%;
@@ -358,8 +359,8 @@
   }
 
   .secimage-loader-sub {
-    width: 8vw;
-    height: 8vh;
+    width: 10vw;
+    height: 10vh;
     border-style: solid;
     border-color:#707070;
     padding: 2%;

@@ -49,3 +49,18 @@
     width: 20%;
     font-weight: 400;
 }
+
+.custom-file input[type='file'] {
+    color: transparent;
+  }
+
+.custom-file-label{
+    overflow: hidden;
+    line-height: 25px;
+    border-radius: 0;
+}
+
+.send-button {
+    width: 25vw;
+}
+
