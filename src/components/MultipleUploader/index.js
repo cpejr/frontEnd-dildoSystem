@@ -84,11 +84,12 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
     }
 
     return (
-        <div className="input-group-prepend">
+        <div>
+        <div className="input-group-prepend" >
             <span className="input-group-text" id="inputGroupFileAddon01">
         <PublishIcon style={{ fontSize: 17 }} />
       </span>
-                <div className="custom-file">
+                <div className="custom-file">     
                     <input
                         type="file"
                         id="files"
@@ -101,12 +102,13 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
                         Selecione os arquivos
                     </label>
                 </div>
-                <div className="sec-images">
+        </div> 
+        <div className="sec-images">
                        {RenderPhotos(img_urls)}
                       </div>
-                      {canSubmit && canSubmit === true ?
+        {canSubmit && canSubmit === true ?
             <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar secundárias</button> : <div></div>
         }
-        </div>  
+        </div> 
     );
 };

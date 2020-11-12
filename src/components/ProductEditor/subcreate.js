@@ -5,6 +5,7 @@ import api from '../../services/api';
 import ImageUpload from '../../components/ImageUpload';
 import PublishIcon from "@material-ui/icons/Publish";
 import { useParams } from "react-router-dom";
+import MultipleUploader from "../MultipleUploader";
 
 export default function SubproductsCreate(props) {
 
@@ -16,6 +17,8 @@ export default function SubproductsCreate(props) {
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImage] = useState();
   const [editar, setEditar] = useState();
+  const [updated, setUpdated] = useState(false);
+  const [images, setImages] = useState([]);
 
   const accessToken = localStorage.getItem("accessToken");
 
@@ -49,12 +52,13 @@ export default function SubproductsCreate(props) {
           "Content-Type": "application/json",
           authorization: "Bearer " + localStorage.accessToken,
         }
-      })
+      }) 
       alert(`Registro concluído!`, response);
+      setUpdated(!updated);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Register error");
+      alert("Registro impedido");
     }
   }
 
@@ -136,33 +140,6 @@ export default function SubproductsCreate(props) {
                   </label>
           <div className="input-group mb-3">
             <ImageUpload onChange={handleImage} fileName={'imageFile'} />
-          </div>
-          <label className="images-label" htmlFor="secondary">
-            Secudárias
-                  </label>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span
-                className="input-group-text"
-                id="inputGroupFileAddon01"
-              >
-                <PublishIcon style={{ fontSize: 17 }} />
-              </span>
-            </div>
-            <div className="custom-file">
-              <input
-                type="file"
-                className="custom-file-input"
-                id="inputGroupFile01"
-                aria-describedby="inputGroupFileAddon01"
-              />
-              <label
-                className="custom-file-label"
-                for="inputGroupFile01"
-              >
-                Selecione o arquivo
-                      </label>
-            </div>
           </div>
           <span className="images-label">
             Formatos aceitos: JPG, PNG
