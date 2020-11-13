@@ -1,5 +1,4 @@
 #Header {
-  font-family: "Roboto Mono", monospace;
   position: relative;
   top: 0;
   left: 0;
@@ -31,6 +30,13 @@
 
 .icon-link {
   color: black;
+}
+
+.icon-link > svg:first-child,
+.icon-link-responsive > svg:first-child {
+  margin: 0 15px;
+  width: 25px;
+  height: 25px;
 }
 
 .user-info {
@@ -80,16 +86,22 @@
 }
 #Header .headerSuperior .userInfoSearch .form-group {
   margin-bottom: 0;
+  display: flex;
   justify-content: left;
+  align-items: center;
+  min-width: 348px;
+  width: 35vw;
+  max-width: 600px;
+  height: 40px;
 }
 #Header .headerSuperior .userInfoSearch .has-search .form-control {
   padding-left: 50px;
   border-radius: 20px;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-#Header .headerSuperior .MuiSvgIcon-root {
-  color: black;
-  margin: 0 15px;
-}
+
 #Header .headerSuperior .userInfoSearch .has-search .form-control-feedback {
   position: absolute;
   z-index: 2;
@@ -97,6 +109,7 @@
   width: 2.375rem;
   height: 2.375rem;
   line-height: 2.375rem;
+  margin: 0 0 0 10px !important;
   text-align: center;
   pointer-events: none;
   color: #616161;
@@ -146,7 +159,16 @@
 .logoCasulusDashboard {
   border: none;
   position: relative;
-  height: 140px;
+  height: 100px;
+  border: none;
+  margin: 0;
+  z-index: 1;
+}
+.logoNameCasulusDashboard {
+  border: none;
+  position: relative;
+  left: -40px;
+  height: 180px;
   border: none;
   margin: 0;
 }
@@ -162,21 +184,37 @@
 }
 
 .icon-link-responsive {
-  position: absolute;
+  /* position: absolute; */
   z-index: 1000;
   cursor: pointer;
-  right: 10px;
-  top: 20px;
+  margin-right: 10px;
+  margin-top: 20px;
   display: none;
 }
 
 .user-info-responsive {
-  position: absolute;
-  z-index: 1000;
+  /* position: absolute; */
+  z-index: 1;
   cursor: pointer;
-  right: 10px;
-  top: 20px;
+  margin-right: 10px;
+  margin-top: 20px;
   display: none;
+}
+
+.responsive-search {
+  display: none;
+}
+
+.loginBtn {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ddbd69;
+  color: black;
+  transition: background-color 200ms;
+}
+.loginBtn:hover {
+  background-color: #b49852;
 }
 
 @media (max-width: 1200px) {
@@ -209,7 +247,8 @@
     cursor: pointer;
   }
 }
-@media (max-width: 890px) {
+
+@media (max-width: 925px) {
   .dropbtn {
     background-color: transparent;
     color: black;
@@ -218,8 +257,6 @@
     border: none;
     cursor: pointer;
   }
-}
-@media (max-width: 890px) {
   .emptyDiv {
     height: 75px;
     background-color: #daa621;
@@ -229,6 +266,9 @@
   }
   .dropdown {
     display: contents;
+  }
+  .logoNameCasulusDashboard {
+    display: none;
   }
   .logoCasulusDashboard {
     display: none;
@@ -276,15 +316,44 @@
   .icone {
     color: #000000;
   }
+  .responsive-search {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 10px;
+    background-color: #ddbd69;
+    margin-right: auto;
+  }
+  .responsive-search input {
+    height: 40px;
+  }
+  .responsive-search button {
+    border: none;
+    background-color: var(--mainColor);
+    color: black;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .responsive-search button svg {
+    margin: 0 !important;
+  }
 
   .icon-link-responsive {
     display: block;
-    right: 100px;
+    margin-right: 80px !important;
   }
 
   .user-info-responsive {
     display: block;
-    right: 60px;
+    margin: 0px;
+  }
+
+  .icon-link-responsive svg {
+    margin: 0 !important;
   }
 }
 .iconsDashboard {
