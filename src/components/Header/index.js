@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import SearchIcon from '@material-ui/icons/Search';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
+import { FaShoppingCart, FaUserAlt } from 'react-icons/fa'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+
+import LogoName from '../../images/CASULUS01LOGONAME.svg';
+import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 
 import api from "../../services/api";
 
@@ -13,7 +14,8 @@ import { LoginContext } from "../../Contexts/LoginContext";
 import { SearchContext } from "../../Contexts/SearchContext";
 
 import "./styles.css";
-import { Button } from "@material-ui/core";
+
+
 
 export default function Header() {
 
@@ -54,14 +56,17 @@ export default function Header() {
       setCategories(response.data);
       // console.log(response.data)
     })
-  }, [])
+  }, [config])
+
+
 
   return (
     <div id="Header">
       <div className="headerSuperior">
         <div className="header-content">
           <Link to="/">
-            <img className="logoCasulusDashboard" src={LogoName} alt="logo" />
+            <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+            <img className="logoNameCasulusDashboard" src={LogoName} alt="logo name" />
           </Link>
 
           <div className="userInfoSearch">
@@ -70,14 +75,14 @@ export default function Header() {
               <input
                 type="text"
                 className="form-control searchInput"
-                placeholder="Search"
+                placeholder="O que você está buscando?"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </form>
 
             <Link to="/cart" className="icon-link">
-              <ShoppingCartOutlinedIcon />
+              <FaShoppingCart />
             </Link>
 
             {loginContext.loggedIn ? (
@@ -85,14 +90,14 @@ export default function Header() {
                 to={loginContext.type === "admin" ? "/admin" : "/user"}
                 className="icon-link user-info"
               >
-                <PersonOutlinedIcon />
+                <FaUserAlt />
                 <p>{loginContext.name}</p>
               </Link>
             ) : (
-              <Link to="/login">
-                <Button>Entrar</Button>
-              </Link>
-            )}
+                <Link to="/login">
+                  <button className="loginBtn">Login / Cadastrar</button>
+                </Link>
+              )}
           </div>
         </div>
       </div>
@@ -134,17 +139,39 @@ export default function Header() {
             to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
             className="icon-link user-info-responsive"
           >
-            <PersonOutlinedIcon />
+            <FaUserAlt />
           </Link>
         ) : (
-          <Link to="/login" className="icon-link user-info-responsive">
-            <PersonOutlinedIcon />
-          </Link>
-        )}
+            <Link to="/login" className="icon-link user-info-responsive">
+              <FaUserAlt />
+            </Link>
+          )}
         <Link to="/cart" className="icon-link-responsive">
-          <ShoppingCartOutlinedIcon />
+          <FaShoppingCart />
         </Link>
       </div>
+      <ResponsiveSearch
+        className="responsive-search"
+        search={search}
+        setSearch={setSearch}
+        handleSubmit={handleSubmit}
+      />
     </div>
+  );
+}
+
+function ResponsiveSearch({ className, handleSubmit, search, setSearch }) {
+  return (
+    <form className={`form-group has-search ${className}`} onSubmit={handleSubmit}>
+
+      <input
+        type="text"
+        className="form-control searchInput"
+        placeholder="Buscar"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <button type="submit"><SearchIcon className="fa fa-search form-control-feedback searchIcon" /></button>
+    </form>
   );
 }
