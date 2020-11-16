@@ -114,6 +114,12 @@
   pointer-events: none;
   color: #616161;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
 .dropbtn {
   background-color: transparent;
   color: black;
@@ -123,9 +129,8 @@
   cursor: pointer;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+.dropdown .dropbtn svg {
+  color: black;
 }
 
 .dropdown-content {
