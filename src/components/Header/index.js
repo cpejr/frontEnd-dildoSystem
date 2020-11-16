@@ -106,14 +106,14 @@ export default function Header() {
 
             {
               categories.map(cat => (
-                <div className="dropdown">
+                <div className="dropdown" key={cat.id}>
                   <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
                   <div className="dropdown-content">
                     <div className="emptyHeaderDiv"></div>
                     <div className="dropdownLinks">
                       {
                         cat.subcategories.map(subcat => (
-                          <a href="#" onClick={() => handleSubcategory(subcat.id)}>
+                          <a key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
                             {subcat.name}
                           </a>
                         ))}

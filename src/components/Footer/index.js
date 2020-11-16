@@ -40,11 +40,11 @@ export default function Footer() {
         </Link>
       </div>
       <div id="ContatoFooter">
-        <spam>
+        <span>
           Contato: <br /> <br />
           sklep@uikit.com <br />
           Hotline: +46 131 138 138
-        </spam>
+        </span>
       </div>
     </div>
     </div>

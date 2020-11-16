@@ -36,7 +36,12 @@ function Cart() {
           <div className="cart-items">
             {products.map((product) => (
               // console.log("Produto: ", product);
-              <CartCard name={product.product.name} description={product.product.description} productId={product.product.id} product={product} image_id={product.product.image_id} />
+              <CartCard key={product.product.id} 
+                        name={product.product.name} 
+                        description={product.product.description} 
+                        productId={product.product.id} 
+                        product={product} 
+                        image_id={product.product.image_id} />
             ))}
           </div>
           <Frete products={products} />

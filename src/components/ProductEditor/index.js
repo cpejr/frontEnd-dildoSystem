@@ -145,7 +145,7 @@ export default function ProductEditor(props) {
   }, []);
 
   function handleCategorySelection(event) {
-    const newCat = categories.find((cat) => cat.id == event.target.value);
+    const newCat = categories.find((cat) => cat.id === event.target.value);
     if (newCat) {
       setCategoryId(Number(newCat.id));
       setSubcategories(newCat.subcategories);

@@ -125,7 +125,7 @@ function Addresses() {
         <div className="addresses-content">
           <h2>Para qual endereço você gostaria de enviar a sua compra, {loginContext.name}?</h2>
           <div className="addresses">
-            {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} address={address} selected={index == selected} key={`address-${index}`} />)}
+            {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} address={address} selected={index === selected} key={`address-${index}`} />)}
           </div>
           <button onClick={handleSubmitExistingAddress}>Continuar com o endereço selecionado</button>
           <div className="new-address">
