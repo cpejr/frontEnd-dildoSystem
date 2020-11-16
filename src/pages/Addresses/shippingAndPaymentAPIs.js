@@ -124,14 +124,14 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
       "MaxNumberOfInstallments": 10
     },
     "Customer": {
-      "Identity": user.cpf,
+      "Identity": String(user.cpf),
       "FullName": user.name,
       "Email": user.email,
       "Phone": user.phonenumber
     },
     "Options": {
       "AntifraudEnabled": true,
-      "ReturnUrl": `https://www.lojacasulus.com.br/checkout/${orderID}`
+      "ReturnUrl": `https://lojacasulus.com.br/checkout/${orderID}`
     },
     "Settings": null
   }
