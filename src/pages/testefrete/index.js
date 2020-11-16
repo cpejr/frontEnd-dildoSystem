@@ -3,53 +3,11 @@ import React, { useState } from 'react';
 import './styles.css'
 
 function Testefrete({products}) {
-    const [cep, setCEP] = useState();
+    const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
 
-    // const [products, setProducts] = useState(products);
-
     let produtos = []
-
-    // useEffect(() => {
-    //     let cart = [];
-    //     if (localStorage.getItem('cart')) {
-    //         cart = JSON.parse(localStorage.getItem('cart'));
-    //     }
-    //     setProducts(cart);
-    //     console.log(cart)
-
-    // }, [])
-
-    // useEffect(() => {
-    //     products.map(p => (
-    //         produtos.push(
-    //             {
-    //                 Weight: p.product.weight,
-    //                 Height: p.product.height,
-    //                 Width: p.product.width,
-    //                 Length: p.product.length,
-    //                 Quantity: p.quantity
-    //             }
-    //         )
-    //     ))
-    // }, [cep])
-
-    // useEffect(() => (
-
-
-    //     produtos.map(p => (
-
-    //         products.push({
-    //             Height: p.height,
-    //             Length: p.length,
-    //             Quantity: 1,
-    //             Weight: p.weight,
-    //             Width: p.width,
-    //         }),
-    //         console.log(p)
-    //     ))
-    // ), [])
 
 
     async function handleSubmit(e) {
@@ -67,7 +25,7 @@ function Testefrete({products}) {
             )
         ))
 
-        console.log('dimensoes dos produtos: ', produtos)
+        // console.log('dimensoes dos produtos: ', produtos)
 
         const freteData = {
 
@@ -94,25 +52,12 @@ function Testefrete({products}) {
         const response = fetch(proxyUrl + targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                console.log(data.ShippingSevicesArray[0].ShippingPrice)
+                // console.log(data)
+                // console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
             .catch(err => console.error(err));
 
-
-        // const requestOptions = {
-        //     method: 'POST',
-
-        // };
-        // const response = fetch(`https://cors-anywhere.herokuapp.com/http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?sCepOrigem=70002900&sCepDestino=${cep}&nVlPeso=3&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`, requestOptions)
-        //     .then(res => res.text())
-        //     .then(data => {
-        //         var xml = new XMLParser().parseFromString(data);
-        //         setmensage(xml.children[0].children[1].value);
-
-        //     })
-        //     .catch(err => console.error(err));
 
     }
 
@@ -139,7 +84,7 @@ function Testefrete({products}) {
                             envio.Error ?
                                 ''
                                 :
-                                <option value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
+                                <option key={envio.ShippingPrice} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
                                     {envio.ServiceDescription} - R$ {envio.ShippingPrice}
                                 </option>
                         ))

@@ -55,7 +55,7 @@ function Filters(props) {
   function handleCategorySelection(event) {
     const newCat = categories.find(cat => cat.id === event.target.value);
     if (newCat) {
-      setCategoryId(Number(newCat.id));
+      setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
     }
     else {
@@ -71,7 +71,7 @@ function Filters(props) {
         <GrClose className="close-icon" onClick={()=>{props.setVisible(!props.visible)}}/>
       </div>
       
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={e => handleSubmit(e)}>
         <h4>Filtros</h4>
         <strong>Faixa de preço</strong>
         <div className='price-range'>
@@ -92,7 +92,7 @@ function Filters(props) {
         <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
 
         <strong>Categoria</strong>
-        <select name="category" id="category" value={categoryId} onChange={handleCategorySelection}>
+        <select name="category" id="category" value={categoryId} onChange={e => handleCategorySelection(e)}>
           <option value="0" default>Nenhuma</option>
           {categories.length > 0 && categories.map(cat => {
             return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>

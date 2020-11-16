@@ -54,9 +54,9 @@ function SearchContextProvider(props) {
       }
     }
 
-    if (categoryId) newFilters.categoryId = Number(categoryId);
+    if (categoryId) newFilters.categoryId = (categoryId);
 
-    if (subcategoryId) newFilters.subcategoryId = Number(subcategoryId);
+    if (subcategoryId) newFilters.subcategoryId = (subcategoryId);
 
     setMinPrice(newFilters.minPrice);
     setMaxPrice(newFilters.maxPrice);
