@@ -9,41 +9,12 @@ import { callPaymentAPI, getShippingOptions } from './shippingAndPaymentAPIs';
 
 import './styles.css';
 
-const addresses = [
-  {
-    street: 'Rua wilson modesto ribeiro da silva rodrigues de paula',
-    number: 215,
-    complement: 'ap 301',
-    neighborhood: 'Ipiranga',
-    city: 'Belo Horizonte',
-    state: 'MG',
-    zipcode: '31160430'
-  },
-  {
-    street: 'Rua joao modesto ribeiro',
-    number: 215,
-    complement: 'ap 301',
-    neighborhood: 'Ipiranga',
-    city: 'Belo Horizonte',
-    state: 'MG',
-    zipcode: '31160430'
-  },
-  {
-    street: 'Rua marcelo modesto ribeiro',
-    number: 215,
-    complement: 'ap 301',
-    neighborhood: 'Ipiranga',
-    city: 'Belo Horizonte',
-    state: 'MG',
-    zipcode: '31160430'
-  },
-];
-const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
+const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
 function Addresses() {
 
-  const [addressList, setAddressList] = useState(addresses);
+  const [addressList, setAddressList] = useState([]);
   const [selected, setSelected] = useState(-1);
 
   const [newAddress, setNewAddress] = useState({});
@@ -63,7 +34,7 @@ function Addresses() {
 
     }
 
-  });
+  }, [loginContext.id]);
 
   if (!loginContext.loggedIn) {
     history.push('login?return-to-addresses');
@@ -76,7 +47,19 @@ function Addresses() {
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
     shippingOptions = shippingOptions.ShippingSevicesArray;
     console.log(shippingOptions);
-    callPaymentAPI(cart, address, shippingOptions, loginContext)
+
+    const ongoingOrder = {
+      address_id: address.id,
+      products: cart.map(item => {
+        return {
+          product_id: item.product.id,
+          product_quantity: item.quantity
+        }
+      })
+    };
+    localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
+
+    callPaymentAPI(cart, address, shippingOptions, loginContext);
   }
 
   async function handleSubmitExistingAddress() {

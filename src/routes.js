@@ -35,10 +35,10 @@ function Routes() {
                         <Route path='/user' component={User} />
                         <Route path='/product/:id' component={ProductPage} />
                         <Route path='/testefrete' component={Testefrete} />
-                        <Route path='/addresses' component={Addresses}/>
-                        <Route path='/about' component={About}/>
-                        <Route path='/conditions' component={TermsandConditions}/>
-                        <Route path='/checkout' component={Checkout}/>
+                        <Route path='/addresses' component={Addresses} />
+                        <Route path='/about' component={About} />
+                        <Route path='/conditions' component={TermsandConditions} />
+                        <Route path='/checkout/:order_id' component={Checkout} />
                         <Route exact={true} component={NotFound} />
                     </Switch>
                 </SearchContextProvider>
