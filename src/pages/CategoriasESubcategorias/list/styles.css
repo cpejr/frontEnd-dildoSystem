@@ -1,0 +1,58 @@
+.list-wrapper {
+  display: flex;
+    flex-direction: column;
+}
+
+.list-cat {
+  cursor: pointer;
+}
+
+.list-cat-name {
+  justify-content: start;
+  padding-left: 2%;
+}
+
+.list-cat-sub {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 4%;
+
+  width: 100%;
+  cursor: default;
+}
+
+.facircle {
+  font-size: 5px;
+  margin-right: 8px;
+}
+
+.sub-wrapper-area{
+  display: flex;
+  border-bottom: 1px solid gainsboro;
+}
+
+.sub-wrapper-area .button-area-sub{
+  display: flex;
+  width: 8%;
+  justify-content: space-evenly;
+}
+
+.sub-wrapper-area .button-area-sub .edit-button-sub,
+.sub-wrapper-area .button-area-sub .trash-button-sub {
+  border: none;
+}
+
+.test-sub {
+  display: none;
+}
+
+.list-cat-add-sub {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 4%;
+
+  width: 100%;
+  cursor: pointer;
+}
