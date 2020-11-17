@@ -226,6 +226,7 @@
 
   .image-loader-sub {
     width: 10vw;
+    min-width: 180px;
     height: 10vh;
     border-style: solid;
     border-color:#707070;
@@ -346,6 +347,7 @@
 
   .loader-img {
       width: 10vw;
+      min-width: 180px;
       height: 10vh;
       border-style: solid;
       border-color: black;
@@ -360,6 +362,7 @@
 
   .secimage-loader-sub {
     width: 10vw;
+    min-width: 180px;
     height: 10vh;
     border-style: solid;
     border-color:#707070;
@@ -376,6 +379,13 @@
     display: grid;
     grid-template-columns: 10vw 10vw;
     justify-content: space-around;
+  }
+
+  @media (max-width: 800px) {
+.pres-imgs {
+  display: flex;
+  flex-direction: column;
+}
   }
 
   .edit-delete-secimage {
