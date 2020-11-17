@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header/index';
 import ProductCard from '../../components/ProductCard';
+import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';
 import Footer from '../../components/Footer';
 
@@ -29,7 +30,7 @@ function Dashboard(props) {
 
                 <h2>LANÇAMENTOS</h2>
                 <div className="release-container">
-                    <ProductCard releaseOnly />
+                    <CarouselProducts />
                 </div>
                 <h2>MAIS VENDIDOS</h2>
                 <div className="best_seller-container">
