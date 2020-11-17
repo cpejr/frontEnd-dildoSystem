@@ -108,11 +108,14 @@
     .products-container {
         flex-direction: column;
     }
-    .Card {
-        width: 100%;
-    }
+ 
     .Card img {
         width: 35vw;
         height: 35vw;
     }
+}
+
+.number{
+    display: flex;
+    justify-content: space-around;
 }
