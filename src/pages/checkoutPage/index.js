@@ -20,7 +20,7 @@ export default function CheckoutPage(props) {
 
     const loginContext = useContext(LoginContext);
 
-    const [order, setOrder] = useState({});
+    const [order, setOrder] = useState();
 
     useEffect(() => {
 
@@ -94,6 +94,7 @@ export default function CheckoutPage(props) {
 
             const order = await createOrder(newOrder);
             setOrder(order);
+            localStorage.removeItem("ongoingOrder");
         }
 
 
@@ -102,7 +103,7 @@ export default function CheckoutPage(props) {
     }, [loginContext.accessToken])
 
     function getPrice() {
-        return (Math.round(2 * 100) / 100).toFixed(2);
+        return (Math.round((order.price || 2) * 100) / 100).toFixed(2);
     }
 
     return (
@@ -111,7 +112,7 @@ export default function CheckoutPage(props) {
                 <img className="logo" src={Logo} alt="logo" width="75" height="75" />
                 <img className="text" src={Text} alt="text" width="75" height="75" />
             </header>
-            {!order ? <img src={Loading} alt={'Loading...'} /> :
+            {!order ? <div className="loading-container"><img src={Loading} alt={'Loading...'} /> </div> :
                 (<>
                     <div className="wrapper-check">
                         <div className="checkout-wrapper">
