@@ -29,9 +29,6 @@ export default function ImageUpload({
 
   return (
     <div className="input-group-prepend">
-      <span className="input-group-text" id="inputGroupFileAddon01">
-        <PublishIcon style={{ fontSize: 17 }} />
-      </span>
       <div className="custom-file">
         <input
           type="file"
