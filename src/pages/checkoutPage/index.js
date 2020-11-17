@@ -122,7 +122,7 @@ export default function CheckoutPage(props) {
                     Seu pedido está sendo processado e será enviado normalmente. <br />
                     Você receberá uma confirmação e atualizações do status por e-mail. <br />
                             </p>
-                            <span>{order.name}</span>
+                            <span>{order.user.name}</span>
                             <p className="detalhes-checkout">
                                 {order.street}, numero {order.number} {order.complement && ` - ${order.complement}`}  <br />
                         Bairro {order.neighborhood} - {order.city} - {order.state} <br />

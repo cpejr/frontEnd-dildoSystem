@@ -45,18 +45,19 @@ export default function Header() {
     searchContext.handleSearch(searchConfig);
   }
 
-  const accessToken = localStorage.getItem("accessToken");
 
-  const config = {
-    headers: { authorization: `Bearer ${accessToken}` },
-  };
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const config = {
+      headers: { authorization: `Bearer ${accessToken}` },
+    };
     api.get("categories", config).then((response) => {
       setCategories(response.data);
       // console.log(response.data)
     })
-  }, [config])
+  }, [])
 
 
 
