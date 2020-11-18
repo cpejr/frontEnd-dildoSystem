@@ -103,7 +103,7 @@ export default function CheckoutPage(props) {
     }, [loginContext.accessToken])
 
     function getPrice() {
-        return (Math.round((order.price || 2) * 100) / 100).toFixed(2);
+        return (Math.round((order.total_price || 0) * 100) / 100).toFixed(2);
     }
 
     return (
