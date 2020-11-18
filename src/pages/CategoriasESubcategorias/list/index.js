@@ -1,60 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Collapse } from 'antd';
 
-import './styles.css'
-
-import { FaCircle } from 'react-icons/fa';
 import { BsTrash } from 'react-icons/bs';
-import { FiEdit2 } from 'react-icons/fi';
 import { FaPlusCircle } from 'react-icons/fa';
+import { SettingOutlined } from '@ant-design/icons';
 
 import api from '../../../services/api';
 
+import './styles.css'
+import "antd/dist/antd.css"; 
 
-export default function ListCat(props) {
-  const [show, setShow] = useState(false);
-  const [id_value, setId_value] = useState('');
-  const [ novo, setNovo ] = useState('');
-  const [ novoDif, setNovoDif ] = useState('');
-  const [ lista, setLista] = useState([]);
-  const [ submitData, setSubmitData ] = useState('');
+export default function List2({newCategory}) {
+  const [update, setUpdate] = useState(0);
+  const [lista, setLista] = useState([]);
+  const [submitData, setSubmitData] = useState('');
 
-  let arrayLen;
-  let confirm;
-
-  const config ={ 
-    headers: {
-    "Content-Type": "application/json",
-    authorization: "Bearer " + localStorage.accessToken,
-  }
-}
-
+  const { Panel } = Collapse;
 
   useEffect(() => {
+    console.log('renderizei dnv')
     api.get('/categories').then((response) => {
       // console.log('resposta da chamada',response)
       setLista(response.data)
     })
-  }, [novo, novoDif])
-  
-
-
-  function handleClick(e) {
-    setId_value(e.target.id)
-    if (show)
-      setShow(false)
-    else
-      setShow(true)
-  }
-
-  function handleClickButton(e, sub_id) {
-
-    api.delete(`/subcategory/${sub_id}`,  config ).then(() => {
-      alert('Subcategoria deletada com sucesso!')
-      setNovo(`t${sub_id}`)
-    })
-
-    
-  }
+  }, [update, newCategory])
 
   function handleClickAddSub(e, data, catId) {
     e.preventDefault();
@@ -65,77 +34,109 @@ export default function ListCat(props) {
       category_id: catId
     }
 
-    api.post('newSubcategory', sendData,  config ).then(() => {
+    api.post('newSubcategory', sendData, config).then(() => {
       alert('Subcategoria criada com sucesso!')
-      setNovoDif(`${catId} ${Math.random()}`)
+      setUpdate(!update)
     })
 
-    
+
+  }
+
+  function handleClickButton(e, sub_id) {
+
+    api.delete(`/subcategory/${sub_id}`, config).then(() => {
+      alert('Subcategoria deletada com sucesso!')
+      setUpdate(!update)
+    })
   }
 
 
-  return (
-    <div>
-      <span className="list-wrapper">
-        {
-          lista.map(cat => {
-            return (
-              <div className="list-cat" key={cat.id}>
-                <div
-                  id={cat.name}
-                  className="list-cat-name"
-                  onClick={(e) => handleClick(e)}>
-                  {cat.name}
-                </div>
-                <div className="test-sub">{arrayLen = cat.subcategories.length}</div>
-                {
-                  (show && cat.name === id_value) ?
-                    cat.subcategories.map((sub, i) => {
-                      // se for o final do map, colocar o componente de
-                      // adicionar subcategoria
-                      if(i === (arrayLen -1)){
-                        confirm = true
-                      }
-                      return (
-                        <div key={sub.id}>
-                        <div  className="sub-wrapper-area">
-                          <span className="list-cat-sub"  >
-                            {sub.name}
-                          </span>
-                          <div className="button-area-sub">                       
-                            <button
-                              className="trash-button-sub"
-                              onClick={(e) => handleClickButton(e, sub.id)}>
-                              < BsTrash />
-                            </button>
-                          </div>
-                        </div>
-                        {
-                        confirm ?
-                        <div key={sub.id} className="sub-wrapper-area">
-                          <span className="list-cat-add-sub" >
-                            < FaPlusCircle />
-                            <form onSubmit={(e) => handleClickAddSub(e, submitData, cat.id)}>
-                            <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
-                            </form>
-                            (adicionar subcategoria)
-                          </span>
-                        </div>
-                        :
-                        ''
+  function callback(key) {
+    console.log(key);
+  }
 
-                        }
-                        </div>
-                      )
-                    })
-                    :
-                    ''
-                }
-              </div>
-            )
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + localStorage.accessToken,
+    }
+  }
+
+  function handleClickCategoryTButton(vazio, catId) {
+    if(vazio.length === 0){
+      console.log(vazio.length, catId)
+      api.delete(`/category/${catId}`, config).then(() => {
+        alert('Categoria deletada com sucesso!')
+        setUpdate(!update)
+      })
+    }
+    else {
+      alert('Categoria deve estar vazia antes de ser deletada.')
+    }
+  }
+
+  function genExtra(subcategories, catId) {
+    return(
+      <BsTrash
+    onClick={event => {
+      // If you don't want click extra trigger collapse, you can prevent this:
+      event.stopPropagation();
+      handleClickCategoryTButton(subcategories, catId)
+    }}
+    className="trash-icon-cat"
+  />
+    )
+  }
+
+
+  function SubListComponent({ sub }) {
+
+    return (
+      // se for o final do map, colocar o componente de
+      // adicionar subcategoria
+
+      <div className="sub-wrapper-area">
+        <span className="list-cat-sub"  >
+          {sub.name}
+        </span>
+        <div className="button-area-sub">
+          <button
+            className="trash-button-sub"
+            onClick={(e) => handleClickButton(e, sub.id)}>
+            < BsTrash />
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <Collapse defaultActiveKey={['']} onChange={callback} className="collapse-sub">
+      {
+        lista.map((cat, i) => {
+          return (
+          <Panel header={cat.name} key={i+1} extra={genExtra(cat.subcategories, cat.id)}>
+            {
+            cat.subcategories.map((sub, i) => {
+            return (< SubListComponent key={i} sub={sub}/>)
           })
-        }
-      </span>
-    </div>
+          }
+          <div className="sub-wrapper-area">
+            <span className="list-cat-add-sub" >
+              
+              <form onSubmit={(e) => handleClickAddSub(e, submitData, cat.id)}>
+                <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
+              </form>
+              < FaPlusCircle />
+                  (adicionar subcategoria)
+            </span>
+          </div>
+          </Panel>
+          )
+        })
+      }
+    </Collapse>
   )
-}
+};
+
+

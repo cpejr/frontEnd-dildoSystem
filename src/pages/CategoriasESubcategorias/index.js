@@ -7,12 +7,66 @@ import api from '../../services/api';
 import Lista from './list/index.js';
 
 export default function CatNSubCat() {
+  const [newCategory, setNewCategory] = useState(false);
+
+  function ButtonAddCat() {
+    const [inputShow, setInputShow] = useState(false);
+    const [submitData, setSubmitData] = useState('');
+    
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.accessToken,
+      }
+    }
+
+    function handleClickButton() {
+      setInputShow(!inputShow)
+    }
+
+    function handleClickAddSub(e, data) {
+      e.preventDefault();
+      console.log('esse eh o data dentro do handle: ', data)
+  
+      const sendData = {
+        name: data
+      }
+      // setUpdate(!update)
+
+      api.post('newCategory', sendData, config).then(() => {
+        alert('Categoria criada com sucesso!')
+        setNewCategory(!newCategory)
+      })
+    }
+
+    return (
+      <div>
+        <button className="add-cat" onClick={() => handleClickButton()}>
+          <FaPlusCircle />
+          <span className="add-cat-descrip">Adiconar Categorias</span>
+        </button>
+        {
+          inputShow ?
+            <span className="list-cat-add-sub" >
+              <form onSubmit={(e) => handleClickAddSub(e, submitData)}>
+                <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
+              </form>
+              < FaPlusCircle />
+              (adicionar categoria)
+            </span>
+            :
+            ''
+        }
+      </div>
+    )
+  }
 
   return (
-    <div>
+    <div className="geral-wrapper-cat-sub">
       <h1 className="cat-title">Categorias</h1>
       <div className="info-search-area">
-        
+
         <p className="descrip-cat">
           Você poderá pesquisar, visualizar e editar
           as categorias selecionando-as na lista abaixo. Para
@@ -20,23 +74,10 @@ export default function CatNSubCat() {
           subcategorias e produtos. Você também poderá adicionar
           uma nova categoria na área ao lado.
         </p>
-        <button className="add-cat">
-          <FaPlusCircle />
-          <span className="add-cat-descrip">Adiconar Categorias</span>
-        </button>
+        < ButtonAddCat />
 
       </div>
-      <div className="cat-table" >
-        <div className="cat-table-header">
-          <span> Categoria </span>
-        </div>
-        <div className="list-wrapper">
-
-        <Lista  />
-        
-        </div>
-        
-      </div>
+      <Lista newCategory={newCategory}/>
     </div>
   )
 }

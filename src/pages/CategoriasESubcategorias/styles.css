@@ -1,3 +1,11 @@
+.geral-wrapper-cat-sub {
+  justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .info-search-area {
   display: flex;
     justify-content: space-evenly;
@@ -30,6 +38,10 @@
     border: none;
     background: #08ca44;
     color: #fff;
+    margin-left: 13px;
+}
+.add-cat:focus{
+  outline: none;
 }
 
 .add-cat .add-cat-descrip{
