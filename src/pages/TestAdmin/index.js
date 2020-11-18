@@ -203,6 +203,13 @@ export default function AdminDashboard2(props) {
 
             <Divider />
 
+            <ListItem button component={Link} to="/admin/categorias" onClick={props.handleDrawerClose}>
+              <ListItemIcon><LocalOffer /></ListItemIcon>
+              <ListItemText>Editar Categorias</ListItemText>
+            </ListItem>
+
+            <Divider />
+
             <ListItem button component={Link} to="/admin/allusers" onClick={props.handleDrawerClose}>
               <ListItemIcon><Group /></ListItemIcon>
               <ListItemText>Todos os Usuários</ListItemText>

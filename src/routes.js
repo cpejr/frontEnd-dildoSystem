@@ -18,6 +18,7 @@ import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'
 import About from './pages/About'
 import Checkout from './pages/checkoutPage'
+import CatNSubCat from './pages/CategoriasESubcategorias'
 
 function Routes() {
     return (

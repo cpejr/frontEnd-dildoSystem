@@ -14,6 +14,7 @@ import AdminDashboard2 from "../TestAdmin";
 import Orders from "../../components/Orders";
 import PendingUsers from "../../components/PendingUsers";
 import Carousel from "../../components/Carousel/index.js";
+import CategorieEditor from "../../pages/CategoriasESubcategorias"
 
 import PendingOrders from "../../components/PendingOrders/index.js";
 import InventoryControl from "../../components/InventoryControl/index"
@@ -46,6 +47,11 @@ function Admin(props) {
                 <Route
                   path={`${props.match.path}/editproduct`}
                   component={EditProduct}
+                />
+                
+                <Route
+                  path={`${props.match.path}/categorias`}
+                  component={CategorieEditor}
                 />
 
                 <Route
