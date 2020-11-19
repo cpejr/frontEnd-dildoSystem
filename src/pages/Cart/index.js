@@ -36,7 +36,7 @@ function Cart() {
           <div className="cart-items">
             {products.map((product) => (
               // console.log("Produto: ", product);
-              <CartCard key={product.product.id} 
+              <CartCard //key={product.product.id} 
                         name={product.product.name} 
                         description={product.product.description} 
                         productId={product.product.id} 
