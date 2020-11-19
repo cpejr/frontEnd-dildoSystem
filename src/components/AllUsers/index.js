@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from "react";
+import { useTableSearch } from "./useTableSearch";
+import { Input } from "antd";
 
 import api from "../../services/api";
 
 import "./styles.css";
 import TodosUsuarios from "./TodosUsuarios.js"
 
+const { Search } = Input;
+
+const fetchUsers = async () => {
+  const { data } = await api.get("users", {
+    headers: {
+      authorization: "Bearer " + localStorage.accessToken,
+    },
+  });
+  console.log("User data: ", data);
+  return { data };
+};
+
 
 export default function AllUsers() {
   const [todosUsuarios, setTodosUsuarios] = useState([]);
-
-  useEffect(() => {
-    api
-      .get("users", {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setTodosUsuarios(response.data);
-        console.log(todosUsuarios);
-      });
-  }, []);
+  const [searchVal, setSearchVal] = useState(null);
+  const { filteredData, loading } = useTableSearch({
+    searchVal,
+    retrieve: fetchUsers
+  });
 
   return (
     <div className="pending-users-container">
       <h4>Todos os Usuários</h4>
       <div className="pending-users-content">
-        {todosUsuarios.map((todosUsuarios, index) => (
+        <Search
+          className="search-users"
+          onChange={e => setSearchVal(e.target.value)}
+          placeholder="Buscar usuário..."
+          enterButton
+        />
+        {filteredData.map((todosUsuarios, index) => (
           <TodosUsuarios
             key={`pendingusers-${index}`}
             todosUsuarios={todosUsuarios}

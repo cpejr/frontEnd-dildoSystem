@@ -12,6 +12,7 @@ import Frete from '../testefrete'
 
 function Cart() {
   const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     let cart = [];
@@ -20,6 +21,16 @@ function Cart() {
     }
     setProducts(cart);
   }, [])
+
+  useEffect(() => {
+    products.forEach(p => {
+      console.log("Estou no produto: ", p)
+      let newTotalPrice = totalPrice;
+      let newPrice = newTotalPrice += (p.product.client_price * p.quantity)
+      console.log("newPrice: ", newPrice)
+      setTotalPrice(newPrice)
+    });
+  }, [products]);
 
   return (
     <div>
@@ -44,6 +55,10 @@ function Cart() {
                         image_id={product.product.image_id} />
             ))}
           </div>
+          <div className='total-price'>
+            <h3>Valor Total: R${totalPrice}</h3>
+          </div>
+          <div className="borderEmpty"></div>
           <Frete products={products} />
           <div className="button-area">
             <button className="cart-primary-button">COMPRAR</button>

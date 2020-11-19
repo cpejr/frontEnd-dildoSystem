@@ -162,6 +162,13 @@
     display: flex;
     width: 70%;
 }
+.total-price{
+    padding: 0 5%;
+}
+.total-price h3{
+    text-align: end;
+    margin-top: 0.5em;
+}
 
 @media (max-width: 1000px) {
     .cart-img {
