@@ -20,6 +20,7 @@ import "./styles.css";
 export default function Header() {
 
   const [search, setSearch] = useState('');
+  const [cartQuantity, setCartQuantity] = useState(0)
   const [categories, setCategories] = useState([]);
 
   const searchContext = useContext(SearchContext);
@@ -57,7 +58,17 @@ export default function Header() {
       // console.log(response.data)
     })
   }, [config])
-
+  useEffect(() => {
+    let products_quantity = 0;
+    let newCart;
+    if (localStorage.getItem('cart')) {
+      newCart = JSON.parse(localStorage.getItem('cart'));
+    }
+    for (var i = 0; i < newCart.length; i++) {
+      products_quantity += newCart[i].quantity
+    }
+    setCartQuantity(products_quantity)
+  })
 
 
   return (
@@ -83,6 +94,7 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <FaShoppingCart />
+              <span class='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
             </Link>
 
             {loginContext.loggedIn ? (

@@ -15,6 +15,7 @@ import Frete from "../../pages/testefrete/index.js"
 function PriceElement(props) {
 
     const product = props.product.product;
+    const { product_quantity } = props;
 
     if (product.wholesaler_price) {
         if (product.on_sale_wholesaler) {
@@ -23,14 +24,14 @@ function PriceElement(props) {
                     <p className="preco-card cortado">{`R$ ${Number(product.wholesaler_price).toFixed(2)}`}</p>
 
                     <p className="preco-promocao">
-                        {`R$ ${Number(product.wholesaler_sale_price).toFixed(2)}`}
+                        {`R$ ${Number(product.wholesaler_sale_price).toFixed(2) * product_quantity}`}
                     </p>
                 </div>
             )
         } else {
             return (
                 <div className="price-container">
-                    <span className="preco-card">{`R$ ${Number(product.wholesaler_price).toFixed(2)}`}</span>
+                    <span className="preco-card">{`R$ ${Number(product.wholesaler_price).toFixed(2) * product_quantity}`}</span>
                 </div>)
 
         }
@@ -38,7 +39,7 @@ function PriceElement(props) {
         if (product.on_sale_client) {
             return (
                 <div className="price-container">
-                    <p className="preco-card cortado">{`R$ ${Number(product.client_price).toFixed(2)}`}</p>
+                    <p className="preco-card cortado">{`R$ ${Number(product.client_price).toFixed(2) * product_quantity}`}</p>
 
                     <p className="preco-promocao">
                         {`R$ ${Number(product.client_sale_price).toFixed(2)}`}
@@ -47,7 +48,7 @@ function PriceElement(props) {
             )
         } else {
             return (
-                <span className="preco-card">{`R$ ${Number(product.client_price).toFixed(2)}`}</span>
+                <span className="preco-card">{`R$ ${Number(product.client_price).toFixed(2) * product_quantity}`}</span>
             )
         }
     }
@@ -88,6 +89,7 @@ function CartCard(props) {
 
     return (
         <>
+        {isVisible ? <>
             <div className="cart-card">
                 <div className="cart-img">
 
@@ -130,7 +132,7 @@ function CartCard(props) {
                             <MdDeleteForever className="delete" size={30} onClick={(e) => { cart.deleteItem(props.productId); setIsVisible(false) }} />
                         </div>
 
-                        <PriceElement product={props.product} />
+                        <PriceElement product={props.product} product_quantity={productQuantity} />
                     </div>
 
                 </div>
@@ -138,6 +140,9 @@ function CartCard(props) {
             </div>
 
             <div className="borderEmpty"></div>
+            </>
+            : <div></div>
+            }
         </>
     );
 }

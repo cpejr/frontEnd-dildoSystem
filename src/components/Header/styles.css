@@ -222,6 +222,24 @@
   background-color: #b49852;
 }
 
+.header-content #lblCartCount {
+  font-size: 12px;
+  color: #fff;
+  vertical-align: super;
+  margin-left: -20px;
+  border: 2px solid white;
+}
+.header-content .badge {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.header-content .label-warning[href],
+.header-content .badge-warning[href] {
+  background-color: #ddbd69;
+}
+
 @media (max-width: 1200px) {
   .dropbtn {
     background-color: transparent;
