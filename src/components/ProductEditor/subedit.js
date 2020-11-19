@@ -189,13 +189,9 @@ export default function SubproductsEdit({ subproduto }) {
           <div className="pres-sub-imgs">
                           {images.map((image, index) => (
                             <div className="secimage-comp-loader-sub">
-                              <button
-                                className="edit-delete-secimage"
+                                <DeleteForeverIcon className="edit-delete-secimage"
                                 type="button"
-                                onClick={() => handleDeleteSecImage(image.id)}
-                              >
-                                <DeleteForeverIcon />
-                              </button>
+                                onClick={() => handleDeleteSecImage(image.id)} />
                               <ImageLoader
                                 className="secimage-loader-sub"
                                 src={`https://docs.google.com/uc?id=${image.id}`}
@@ -226,7 +222,6 @@ export default function SubproductsEdit({ subproduto }) {
           <button
             className="sub-del-button"
             onClick={(e) => handleDeleteSubproduct()}
-            type="submit"
           >
             Excluir Subproduto
           </button>

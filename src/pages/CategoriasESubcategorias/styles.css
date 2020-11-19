@@ -1,0 +1,49 @@
+.geral-wrapper-cat-sub {
+  justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.info-search-area {
+  display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.info-search-area .descrip-cat {
+  width: 50%
+}
+
+.info-search-area .add-cat {
+  height: 50%;
+    padding: 8px;
+}
+
+.cat-table {
+  border: 1px solid;
+  margin: 1%;
+}
+
+.cat-table-header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-cat {
+  display: flex;
+  align-items: center;
+  border-radius: 17px;
+    border: none;
+    background: #08ca44;
+    color: #fff;
+    margin-left: 13px;
+}
+.add-cat:focus{
+  outline: none;
+}
+
+.add-cat .add-cat-descrip{
+  margin-left: 10px;
+}

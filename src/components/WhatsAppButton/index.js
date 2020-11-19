@@ -9,7 +9,7 @@ export default function WhatsButton() {
         <div>
             <a className="whatsapp-button" href="https://web.whatsapp.com/send?phone=553188532806" >
                 {/* <WhatsAppIcon /> */}
-                < RiWhatsappLine className="MuiSvgIcon-root"/>
+                < RiWhatsappLine className="whats-icon"/>
             </a>
         </div>
     )

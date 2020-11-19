@@ -86,9 +86,6 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
     return (
         <div>
         <div className="input-group-prepend" >
-            <span className="input-group-text" id="inputGroupFileAddon01">
-        <PublishIcon style={{ fontSize: 17 }} />
-      </span>
                 <div className="custom-file">     
                     <input
                         type="file"
