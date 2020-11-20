@@ -42,6 +42,10 @@ function Filters(props) {
     console.log(search);
     if (search.category_id) {
       setCategoryId(search.category_id);
+      if (categories.length > 0) {
+        const category = categories.find(cat => cat.id === search.category_id);
+        setSubcategories(category.subcategories)
+      }
     }
     if (search.subcategory_id) {
       const correspondingCat = categories.find(cat => cat.subcategories.some(subcat => subcat.id === search.subcategory_id));
