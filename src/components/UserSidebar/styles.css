@@ -1,51 +1,54 @@
 .user-bar-container {
-    height: 100%;
-    display: flex;
-    margin: 0;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  margin: 0;
+  flex-direction: column;
 }
 .user-bar-container .MuiDrawer-paper {
-    top: 0;
-    left: 0;
-    width: 260px;
-    min-height: 100%;
-    display: flex;
-    outline: 0;
-    position: sticky;
-    flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 260px;
+  min-height: 100%;
+  display: flex;
+  outline: 0;
+  position: sticky;
+  flex-direction: column;
 }
 
 .cartDiv {
-    display: none;
-    
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: black;
+}
+
+.cartDiv div {
+  display: none;
+  flex-direction: column;
+  justify-content: right;
+  align-content: flex-end;
+}
+
+@media (max-width: 890px) {
+  .cartDiv {
+    display: flex;
     align-items: center;
     justify-content: center;
     margin-left: auto;
     color: black;
-}
-
-.cartDiv div {
-    
-    display: none;
+  }
+  .cartDiv div {
+    display: flex;
     flex-direction: column;
     justify-content: right;
     align-content: flex-end;
+    margin-right: 8px;
+  }
 }
-
-@media (max-width: 890px) {
-    .cartDiv {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: auto;
-        color: black;
-    }
-    .cartDiv div {
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-        align-content: flex-end;
-        margin-right: 8px;
-    }
+@media (max-width: 830px) {
+  .iconDiv {
+    display: none;
+  }
 }
-  

@@ -109,8 +109,10 @@ export default function CheckoutPage(props) {
     return (
         <div>
             <header className="checkout-header">
-                <img className="logo" src={Logo} alt="logo" width="75" height="75" />
-                <img className="text" src={Text} alt="text" width="75" height="75" />
+                <Link to="/">
+                    <img className="logo" src={Logo} alt="logo" />
+                    <img className="text" src={Text} alt="text" />
+                </Link>
             </header>
             {!order ? <div className="loading-container"><img src={Loading} alt={'Loading...'} /> </div> :
                 (<>

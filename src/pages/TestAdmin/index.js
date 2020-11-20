@@ -14,12 +14,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { PersonOutline } from '@material-ui/icons';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
 import { useState, useEffect } from 'react';
+
+import { FaUserAlt } from 'react-icons/fa';
 
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
 import Text from '../../images/CASULUS01LOGONAME.svg';
@@ -138,11 +139,11 @@ export default function AdminDashboard2(props) {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={`${clsx(classes.appBar, {
           [classes.appBarShift]: open,
-        })}
+        })} header-bar`}
       >
-        <Toolbar style={{ height: 75, display: "flex" }}>
+        <Toolbar style={{ height: 70, display: "flex" }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -154,13 +155,13 @@ export default function AdminDashboard2(props) {
           </IconButton>
           <Link to="/">
             <div className="iconDiv">
-              <img className="logo" src={Logo} alt="logo" width="75" height="75" />
-              <img className="text" src={Text} alt="text" width="75" height="75" />
+              <img className="logo" src={Logo} alt="logo" />
+              <img className="text" src={Text} alt="text" />
             </div>
           </Link>
           <div className="userDiv">
-            <div className="user"><h5>{props.name}</h5><p>{props.type}</p></div>
-            <div><Link to="/admin"><PersonOutline /></Link></div>
+            <div className="user"><h5>{props.name}   </h5><p>({props.type})  </p></div>
+            <div><Link to="/admin"><FaUserAlt /></Link></div>
           </div>
         </Toolbar>
       </AppBar>
@@ -174,7 +175,7 @@ export default function AdminDashboard2(props) {
             paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.drawerHeader} style={{ height: 75 }}>
+          <div className={classes.drawerHeader} style={{ height: 70 }}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
