@@ -76,6 +76,7 @@
 
 #Header .headerInferior .links {
   margin: 0px;
+  width: 100%;
 }
 #Header .headerInferior .links.active {
   right: 0;
@@ -124,7 +125,7 @@
 .dropbtn {
   background-color: transparent;
   color: black;
-  padding: 16px;
+  padding: 8px;
   font-size: 1em;
   border: none;
   cursor: pointer;

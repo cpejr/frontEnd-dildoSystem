@@ -80,7 +80,7 @@ export default function Header() {
       if (headerRef && categories) {
         console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
-        //console.log(width);
+        console.log(width);
         setCategoryWidth(width);
       }
     }
@@ -146,7 +146,7 @@ export default function Header() {
 
             {
               categories.map(cat => (
-                <div className="dropdown" key={cat.id} style={{ maxWidth: categoryWidth }}>
+                <div className="dropdown" key={cat.id} style={{ maxWidth: categoryWidth, flex: 1 }}>
                   <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
                   <div className="dropdown-content">
                     <div className="emptyHeaderDiv"></div>
