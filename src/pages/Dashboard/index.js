@@ -5,6 +5,7 @@ import ProductCard from '../../components/ProductCard';
 import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';
 import Footer from '../../components/Footer';
+import FeaturedImages from '../../components/FeaturedImages';
 
 import './styles.css';
 
@@ -32,6 +33,7 @@ function Dashboard(props) {
                 <div className="release-container">
                     <CarouselProducts />
                 </div>
+                <FeaturedImages />
                 <h2>MAIS VENDIDOS</h2>
                 <div className="best_seller-container">
                     <ProductCard best_sellerOnly />
