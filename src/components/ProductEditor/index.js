@@ -296,11 +296,11 @@ export default function ProductEditor(props) {
         data,
         config
       );
-      alert(`Edição concluída!`, response);
+      alert(`Edição do produto concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição impedida");
+      alert("Edição do produto impedida");
     }
   }
 
@@ -482,7 +482,7 @@ export default function ProductEditor(props) {
                             loading={() => (
                               <img src={loading} alt="Loading..." />
                             )}
-                            error={() => <div>Error</div>}
+                            error={() => <div>O arquivo abaixo será adicionado como imagem principal.</div>}
                           />
                         )}
                         <br></br>
@@ -803,7 +803,7 @@ export default function ProductEditor(props) {
                                   onChange={handleCategorySelection}
                                 >
                                   <option value="0" disabled>
-                                    Selecionar
+                                   Selecionar
                                   </option>
                                   {categories.map((cat) => {
                                     return (

@@ -55,14 +55,15 @@ export default function SubproductsEdit({ subproduto }) {
     api.delete(`subproducts/${subproduto.id}`, config).then((response) => {
       console.log(response);
     });
+    window.location.reload();
   };
 
-  async function handleSubmit(e) {
+  async function handleSubSubmit(e) {
     e.preventDefault();
 
-    let data = {};
+    let data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data = { ...data, [key]: value };
+      if (value !== undefined && value !== "") data.append(key, value);
     }
 
     addToData("name", name);
@@ -83,11 +84,11 @@ export default function SubproductsEdit({ subproduto }) {
         }
       );
       console.log("teste date:", data);
-      alert(`Edição concluída!`, response);
+      alert(`Edição do subproduto concluída!`, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição impedida");
+      alert("Edição do subproduto impedida");
     }
   }
 
@@ -108,7 +109,7 @@ export default function SubproductsEdit({ subproduto }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubSubmit}>
       <div className="subproduct-form">
         <p className="subproduct-form-title">Nome do subproduto</p>
         <input
