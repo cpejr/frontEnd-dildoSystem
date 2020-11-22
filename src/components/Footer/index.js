@@ -14,13 +14,33 @@ export default function Footer() {
       <div id="LogoFooter">
         <img className="logos" src={Logos} alt="logos" />
       </div>
-      <div id="TextoFooter">
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and 
-          typesetting industry. Lorem Ipsum has been the industry's 
-          standard dummy text ever since the 1500s, when an unknown 
-          printer took a gallery of type and scrambled.
-        </p>
+      <div className="TextoFooter">
+        <div className="textos-footer">
+        <div id="texto-institucional">
+         <h3>Institucional</h3>
+         <Link to="/about" className="term-link">
+          Quem Somos
+        </Link>
+        <Link to="/conditions" className="term-link">
+          Termos de uso e política de privacidade.
+        </Link>
+        <Link to="/about" className="term-link">
+          Como comprar
+        </Link>
+        <Link to="/about" className="term-link">
+          Seja um(a) revendedor(a)
+        </Link>
+        </div>
+        <div id="texto-ajuda">
+         <h3>Ajuda</h3>
+         <Link to="/about" className="term-link">
+          Fale conosco
+        </Link>
+        <Link to="/about" className="term-link">
+          Perguntas frequentes
+        </Link>
+        </div>
+        </div>
         <div className="icons">
             <a className="footer-buttons">
             <WhatsAppIcon />
@@ -35,9 +55,6 @@ export default function Footer() {
             <TwitterIcon />
             </a>
         </div>
-        <Link to="/conditions" className="term-link">
-          Acesse nossos termos de uso e nossa política de privacidade.
-        </Link>
       </div>
       <div id="ContatoFooter">
         <span>
