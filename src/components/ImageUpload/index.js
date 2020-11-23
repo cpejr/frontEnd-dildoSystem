@@ -7,6 +7,7 @@ export default function ImageUpload({
   fileName,
   onSubmit,
   onChange,
+  url,
 }) {
   const [image_id, setImage] = useState(null);
   const [image_name, setImageName] = useState();
@@ -27,7 +28,14 @@ export default function ImageUpload({
     onSubmit && onSubmit(data);
   };
 
+  function RenderPhotos(url)  {
+    if (url) {
+        return <div> <br></br> A imagem abaixo será a nova imagem principal: <img className="loader-img" src={url} key={url}/></div>
+    }
+};
+
   return (
+    <div>
     <div className="input-group-prepend">
       <div className="custom-file">
         <input
@@ -43,5 +51,10 @@ export default function ImageUpload({
       </div>
       {onSubmit && <button onClick={handleSubmit}>Enviar</button>}
     </div>
+    <div className="sec-images">
+                       {RenderPhotos(url)}
+                      </div>
+    </div>
+    
   );
 }

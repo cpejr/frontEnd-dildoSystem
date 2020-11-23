@@ -17,6 +17,7 @@ export default function SubproductsCreate(props) {
   const [min_stock, setMinimum] = useState(0);
   const [image_id, setImageID] = useState();
   const [image, setImage] = useState();
+  const [img_url, setImgURL] = useState();
 
   const [editar, setEditar] = useState();
   const [updated, setUpdated] = useState(false);
@@ -71,6 +72,9 @@ export default function SubproductsCreate(props) {
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    console.log("Esta é a url da imagem:", img_url);
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -147,7 +151,7 @@ export default function SubproductsCreate(props) {
             Principal
                   </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={'imageFile'} />
+            <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url} />
           </div>
           <span className="images-label">
             Formatos aceitos: JPG, PNG
