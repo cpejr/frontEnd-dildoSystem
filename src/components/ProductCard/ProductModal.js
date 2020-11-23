@@ -26,12 +26,16 @@ export default function ProductModal({ product, visible, onCancel }) {
 
   useEffect(() => {
     if (childrenRef.current && visible && firstTime) {
-      const newWidth = childrenRef.current.scrollWidth;
-      console.log("newWidth is", childrenRef.current.scrollWidth);
-      setModalWidth(newWidth);
+      setModalSize();
       setFirstTime(false);
     }
   }, [childrenRef.current, visible])
+
+  function setModalSize() {
+    const newWidth = childrenRef.current.scrollWidth;
+    setModalWidth(newWidth);
+    console.log("newWidth is", childrenRef.current.scrollWidth);
+  }
 
   function selectSubproduct(event) {
     const newIndex = event.target.value;
@@ -51,9 +55,16 @@ export default function ProductModal({ product, visible, onCancel }) {
   }
 
   return (
-    <Modal visible={visible} footer={null} onCancel={onCancel} title={product.name} width={Math.min(modalWidth + 48, window.innerWidth)} >
+    <Modal
+      visible={visible}
+      footer={null}
+      onCancel={onCancel}
+      title={product.name}
+      width={Math.min(modalWidth + 48, window.innerWidth)}
+    // destroyOnClose={true}
+    >
       <div className="product-modal-wrapper" ref={childrenRef}>
-        <img className="product-modal-image" src={`https://docs.google.com/uc?id=${product.image_id}`} alt={product.name} />
+        <img className="product-modal-image" src={`https://docs.google.com/uc?id=${product.image_id}`} alt={product.name} onLoad={setModalSize} />
         <div className="buying-configs">
           <div className="subproduct-selection">
             <p>Opção: </p>
