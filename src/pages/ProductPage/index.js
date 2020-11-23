@@ -27,7 +27,6 @@ function ProductPage(props) {
   const [selectedSubpIndex, setSelectedSubpIndex] = useState(0);
   const [relevantStock, setRelevantStock] = useState();
   const [quantity, setQuantity] = useState(1);
-  const [cep, setCep] = useState('');
 
   const user = useContext(LoginContext);
   const history = useHistory();
@@ -37,7 +36,7 @@ function ProductPage(props) {
   const accessToken = localStorage.getItem('accessToken');
   //const accessToken = localStorage.getItem(user.accessToken);
 
-  let config = accessToken ? {headers: { authorization: `Bearer ${accessToken}` }} : {};
+  let config = accessToken ? { headers: { authorization: `Bearer ${accessToken}` } } : {};
 
   async function getProductData(productId, setStockFunction, accessToken) {
     const url = `product/${productId}`;
@@ -63,7 +62,7 @@ function ProductPage(props) {
         return `https://docs.google.com/uc?id=${secondary.id}`;
       });
     }
-    
+
     let param_ids = [];
     if (currentData.subproducts !== undefined) {
       currentSubproducts = currentData.subproducts.map((subproduct) => {
@@ -71,9 +70,9 @@ function ProductPage(props) {
         return `https://docs.google.com/uc?id=${subproduct.image_id}`;
       });
     }
-    
-    let subSecondary_response = {data: []};
-    if (param_ids.length > 0){
+
+    let subSecondary_response = { data: [] };
+    if (param_ids.length > 0) {
       param_ids = param_ids.join("-*-");
       subSecondary_response = await api.get(`/images/${param_ids}`)
       console.log("Imagens subSecundarias: ", subSecondary_response.data);
@@ -81,8 +80,8 @@ function ProductPage(props) {
 
     const subSecondary = subSecondary_response.data;
 
-    if (subSecondary !== undefined){
-      currentSubSecondaries = subSecondary.map((images) =>{
+    if (subSecondary !== undefined) {
+      currentSubSecondaries = subSecondary.map((images) => {
         return `https://docs.google.com/uc?id=${images.id}`
       })
     }
@@ -257,36 +256,16 @@ function ProductPage(props) {
     })
   }
 
-  function handleCepChange(event) {
-    const accepted = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'];
-
-    const indexOfChar = accepted.indexOf(event.target.value.slice(-1));
-    console.log(event.target.value)
-    if (event.target.value !== '' && (indexOfChar < 0 || (indexOfChar == 10 && event.target.value.length !== 5 && event.target.value.length !== 6))) {
-      console.log(event.target.value.length)
-      setCep(cep);
-      return;
-    }
-
-    let newCep = event.target.value;
-
-    if (newCep.length === 5 && cep.length === 4) {
-      newCep += '-';
-    }
-
-    setCep(newCep);
-
-  }
 
   useEffect(() => {
-    console.log("productData: ",productData)
+    console.log("productData: ", productData)
     if (productData) {
       const user_id = user.id;
       console.log("User: ", user)
       console.log("User_id: ", user_id)
       api.get(`userwishlist/${user_id}`, config).then((response) => {
         const result = response.data.find(product => product.id === productData.id);
-        if(result){
+        if (result) {
           setIsWish(true);
         }
       });
@@ -297,7 +276,7 @@ function ProductPage(props) {
   return (
     <div className="full-page-wrapper">
       <Header />
-      {(!productData) && <img src={loading} />}
+      {(!productData) && <div className="loading-container"><img src={loading} alt="loading..." /></div>}
       {(productData) &&
 
         (
@@ -382,14 +361,11 @@ function ProductPage(props) {
                   </div>
                 </div>
                 {(relevantStock > 0
-                  ? (<button className="buy-button" onClick={() => {  cart.addItem(productData, quantity); history.push('/cart') }}>COMPRAR</button>)
+                  ? (<button className="buy-button" onClick={() => { cart.addItem(productData, quantity); history.push('/cart') }}>COMPRAR</button>)
                   : (<div className="unavailable">Produto indisponível</div>)
                 )}
 
-                <div className="shipping">
-                  <input type="text" placeholder="Digite seu CEP" value={cep} onChange={handleCepChange} min="0" maxlength="9" />
-                  <button>CALCULAR FRETE</button>
-                </div>
+
 
               </div>
             </div>
