@@ -35,6 +35,7 @@ export default function NnEProduct({ witchOne }) {
   const [length, setLength] = useState();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [img_url, setImgURL] = useState();
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -151,6 +152,9 @@ export default function NnEProduct({ witchOne }) {
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    console.log("Esta é a url da imagem:", img_url);
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -221,7 +225,7 @@ export default function NnEProduct({ witchOne }) {
                   </label>
                     <div className="input-group mb-3">
 
-                      <ImageUpload onChange={handleImage} fileName={'imageFile'} />
+                      <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url}/>
 
                     </div>
 

@@ -95,6 +95,7 @@ export default function ProductEditor(props) {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [images, setImages] = useState([]);
+  const [img_url, setImgURL] = useState();
 
   // const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -264,6 +265,8 @@ export default function ProductEditor(props) {
     }
   };
 
+  
+
   async function handleSubmit(e) {
     e.preventDefault();
     let data = new FormData();
@@ -291,6 +294,8 @@ export default function ProductEditor(props) {
     addToData("width", width);
     addToData("length", length);
 
+    console.log("Esta é a url da imagem", img_url);
+
     try {
       const response = await api.put(
         `updateProduct/${props.match.params.id}`,
@@ -306,6 +311,9 @@ export default function ProductEditor(props) {
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    console.log("Esta é a url da imagem:", img_url);
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -494,6 +502,7 @@ export default function ProductEditor(props) {
                           <ImageUpload
                             onChange={handleImage}
                             fileName={"imageFile"}
+                            url={img_url}
                           />
                         </div>
 

@@ -21,6 +21,7 @@ export default function SubproductsEdit({ subproduto }) {
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
   const { id } = useParams();
+  const [img_url, setImgURL] = useState();
   
   const [editar, setEditar] = useState("editar");
 
@@ -94,6 +95,9 @@ export default function SubproductsEdit({ subproduto }) {
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    console.log("Esta é a url da imagem:", img_url);
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -183,7 +187,7 @@ export default function SubproductsEdit({ subproduto }) {
             Principal
           </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={"imageFile"} />
+            <ImageUpload onChange={handleImage} fileName={"imageFile"} url={img_url} />
           </div>
           <label className="images-label" htmlFor="secondary">
             Secudárias
