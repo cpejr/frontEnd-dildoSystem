@@ -16,7 +16,8 @@ export default function SubproductsEdit({ subproduto }) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
   const { id } = useParams();
