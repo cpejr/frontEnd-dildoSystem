@@ -25,7 +25,8 @@ export default function NnEProduct({ witchOne }) {
   const [stock_quantity, setQuantity] = useState();
   const [min_stock, setMinimum] = useState();
   const [weight, setWeight] = useState();
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [images, setImages] = useState(null)
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategoryId] = useState(0);
@@ -116,7 +117,7 @@ export default function NnEProduct({ witchOne }) {
     addToData('on_sale_wholesaler', on_sale_wholesaler);
     addToData('best_seller', best_seller);
     addToData('release', release);
-    addToData('imageFile', image_id);
+    addToData('imageFile', image);
     if (images) {
       images.forEach(image => {
         addToData('imageFiles', image);
@@ -138,8 +139,14 @@ export default function NnEProduct({ witchOne }) {
       alert(`Registro concluído!`, response);
       history.push('/admin');
     } catch (err) {
-      console.err(JSON.stringify(err));
+      console.log(JSON.stringify(err));
+      console.error(err.response);
+      if (!image) {
+      alert("Imagem requerida")
+      }
+      else {
       alert("Falha no registro!");
+      }
     }
   }
 

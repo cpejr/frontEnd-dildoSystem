@@ -15,7 +15,9 @@ export default function SubproductsCreate(props) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
+
   const [editar, setEditar] = useState();
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
@@ -43,7 +45,7 @@ export default function SubproductsCreate(props) {
     addToData('stock_quantity', stock_quantity);
     addToData('min_stock', min_stock);
     addToData('visible', visible);
-    addToData('imageFile', image_id);
+    addToData('imageFile', image);
     addToData('product_id', id);
 
     try {
@@ -53,12 +55,18 @@ export default function SubproductsCreate(props) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       }) 
-      alert(`Registro concluído!`, response);
+      alert(`Registro de subproduto concluído!`, response);
       setUpdated(!updated);
+      window.location.reload();
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Registro impedido");
+      if (!image) {
+        alert("Imagem requerida");
+      }
+      else {
+      alert("Registro de subproduto impedido");
+      }
     }
   }
 

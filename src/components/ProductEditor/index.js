@@ -84,7 +84,8 @@ export default function ProductEditor(props) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
@@ -182,7 +183,7 @@ export default function ProductEditor(props) {
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
       setSubcategory(product.subcategory_id);
-      setImage(product.image_id)
+      setImageID(product.image_id);
       setWeight(product.weight);
       setLength(product.length);
       setWidth(product.width);
@@ -212,7 +213,7 @@ export default function ProductEditor(props) {
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
-        setImage(response.data.image_id);
+        setImageID(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
         setWeight(response.data.weight);
         setLength(response.data.length);
@@ -283,7 +284,7 @@ export default function ProductEditor(props) {
     addToData("on_sale_wholesaler", on_sale_wholesaler);
     addToData('best_seller', best_seller);
     addToData('release', release);
-    addToData("imageFile", image_id);
+    addToData("imageFile", image);
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
     addToData("height", height);
