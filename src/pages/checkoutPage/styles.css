@@ -17,6 +17,23 @@
   margin-bottom: 20px;
   box-shadow: 0px 1px 9px grey;
   margin-bottom: 4%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-left: min(20vw, 200px);
+}
+
+.checkout-header .logo {
+  height: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.checkout-header .text {
+  height: 180px;
+  position: relative;
+  left: -40px;
 }
 
 .checkout-wrapper span {

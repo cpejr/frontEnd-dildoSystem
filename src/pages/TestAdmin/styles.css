@@ -1,27 +1,66 @@
+.header-bar {
+  overflow: hidden;
+}
 
 .userDiv {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: black;
 }
 
 .userDiv div {
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    align-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: right; */
+  align-items: center;
+}
+
+.userDiv svg {
+  height: 25px;
+  width: 25px;
+}
+
+.userDiv h5 {
+  padding: 0;
+  margin: 0;
+}
+
+.userDiv p {
+  margin: 0 10px;
 }
 
 .main-admin-container {
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 .LogoutSidebar {
-    margin-top: 230%;
+  margin-top: 230%;
 }
 
-.userDiv a{
-    color:black;
+.userDiv a {
+  color: black;
+}
+
+.iconDiv {
+  overflow-y: hidden !important;
+}
+
+.iconDiv .logo {
+  position: relative;
+  height: 100px;
+  z-index: 1;
+}
+
+.iconDiv .text {
+  height: 180px;
+  position: relative;
+  left: -40px;
+}
+
+@media (max-width: 830px) {
+  .iconDiv {
+    display: none;
+  }
 }
