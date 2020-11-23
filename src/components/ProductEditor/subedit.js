@@ -96,7 +96,6 @@ export default function SubproductsEdit({ subproduto }) {
 
   function handleImage(img) {
     let img_url = URL.createObjectURL(img); 
-    console.log("Esta é a url da imagem:", img_url);
     setImgURL(img_url);
     setImage(img);
   }
