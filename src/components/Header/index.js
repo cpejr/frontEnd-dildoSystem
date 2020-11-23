@@ -77,7 +77,7 @@ export default function Header() {
 
   useEffect(() => {
     function handleCategoriesSize() {
-      if (headerRef && categories) {
+      if (headerRef.current && categories) {
         console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
         console.log(width);
