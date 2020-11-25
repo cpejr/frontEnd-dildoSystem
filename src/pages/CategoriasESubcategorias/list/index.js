@@ -4,13 +4,14 @@ import { Collapse } from 'antd';
 import { BsTrash } from 'react-icons/bs';
 import { FaPlusCircle } from 'react-icons/fa';
 import { SettingOutlined } from '@ant-design/icons';
+import {FiEdit2} from 'react-icons/fi';
 
 import api from '../../../services/api';
 
 import './styles.css'
-import "antd/dist/antd.css"; 
+import "antd/dist/antd.css";
 
-export default function List2({newCategory}) {
+export default function List2({ newCategory }) {
   const [update, setUpdate] = useState(0);
   const [lista, setLista] = useState([]);
   const [submitData, setSubmitData] = useState('');
@@ -63,7 +64,7 @@ export default function List2({newCategory}) {
   }
 
   function handleClickCategoryTButton(vazio, catId) {
-    if(vazio.length === 0){
+    if (vazio.length === 0) {
       console.log(vazio.length, catId)
       api.delete(`/category/${catId}`, config).then(() => {
         alert('Categoria deletada com sucesso!')
@@ -75,16 +76,29 @@ export default function List2({newCategory}) {
     }
   }
 
+  function handleClickCategoryEditButton(catId){
+    console.log(catId)
+  }
+
   function genExtra(subcategories, catId) {
-    return(
-      <BsTrash
-    onClick={event => {
-      // If you don't want click extra trigger collapse, you can prevent this:
-      event.stopPropagation();
-      handleClickCategoryTButton(subcategories, catId)
-    }}
-    className="trash-icon-cat"
-  />
+    return (
+      <div>
+        <FiEdit2 
+        onClick={e => {
+          e.stopPropagation();
+          handleClickCategoryEditButton(catId)
+        }}
+        />
+
+        <BsTrash
+          onClick={event => {
+            // If you don't want click extra trigger collapse, you can prevent this:
+            event.stopPropagation();
+            handleClickCategoryTButton(catId)
+          }}
+          className="trash-icon-cat"
+        />
+      </div>
     )
   }
 
@@ -115,23 +129,23 @@ export default function List2({newCategory}) {
       {
         lista.map((cat, i) => {
           return (
-          <Panel header={cat.name} key={i+1} extra={genExtra(cat.subcategories, cat.id)}>
-            {
-            cat.subcategories.map((sub, i) => {
-            return (< SubListComponent key={i} sub={sub}/>)
-          })
-          }
-          <div className="sub-wrapper-area">
-            <span className="list-cat-add-sub" >
-              
-              <form onSubmit={(e) => handleClickAddSub(e, submitData, cat.id)}>
-                <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
-              </form>
-              < FaPlusCircle />
+            <Panel header={cat.name} key={i + 1} extra={genExtra(cat.subcategories, cat.id)}>
+              {
+                cat.subcategories.map((sub, i) => {
+                  return (< SubListComponent key={i} sub={sub} />)
+                })
+              }
+              <div className="sub-wrapper-area">
+                <span className="list-cat-add-sub" >
+
+                  <form onSubmit={(e) => handleClickAddSub(e, submitData, cat.id)}>
+                    <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
+                  </form>
+                  < FaPlusCircle />
                   (adicionar subcategoria)
             </span>
-          </div>
-          </Panel>
+              </div>
+            </Panel>
           )
         })
       }
