@@ -341,7 +341,6 @@ export default function ProductEditor(props) {
   return (
     <div>
       <div className="new-product-all">
-        <form onSubmit={handleSubmit}>
           <div className="product-title-page">
             <h4>Editar Produto</h4>
             <Tabs
@@ -350,6 +349,7 @@ export default function ProductEditor(props) {
               id="noanim-tab-example"
             >
               <Tab eventKey="product" title="Produto">
+              <form onSubmit={handleSubmit}>
                 <div className="form-wrapper">
                   <div className="divisor-teste">
                     <div className="left-form">
@@ -880,6 +880,7 @@ export default function ProductEditor(props) {
                       </div>
                     )}
                 </div>
+                </form>
               </Tab>
               <Tab eventKey="subproduct" title="Subprodutos">
                 {subproducts ? (
@@ -897,7 +898,6 @@ export default function ProductEditor(props) {
               </Tab>
             </Tabs>
           </div>
-        </form>
       </div>
     </div>
   );
