@@ -149,7 +149,7 @@ export default function ProductEditor(props) {
   function handleCategorySelection(event) {
     const newCat = categories.find((cat) => cat.id === event.target.value);
     if (newCat) {
-      setCategoryId(Number(newCat.id));
+      setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
     } else {
       setCategoryId(0);
@@ -179,7 +179,7 @@ export default function ProductEditor(props) {
         checkedC: Boolean(product.on_sale_wholesaler),
         checkedD: Boolean(product.release),
         checkedA: Boolean(product.visible),
-        checkedE: Boolean(product.best_seller)
+        checkedE: Boolean(product.best_seller),
       });
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
@@ -210,7 +210,7 @@ export default function ProductEditor(props) {
           checkedC: Boolean(response.data.on_sale_wholesaler),
           checkedD: Boolean(response.data.release),
           checkedA: Boolean(response.data.visible),
-          checkedE: Boolean(response.data.best_seller)
+          checkedE: Boolean(response.data.best_seller),
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
@@ -240,7 +240,6 @@ export default function ProductEditor(props) {
     }
   }, []);
 
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     // setVisible(!visible);
@@ -265,8 +264,6 @@ export default function ProductEditor(props) {
     }
   };
 
-  
-
   async function handleSubmit(e) {
     e.preventDefault();
     let data = new FormData();
@@ -285,8 +282,8 @@ export default function ProductEditor(props) {
     addToData("visible", visible);
     addToData("on_sale_client", on_sale_client);
     addToData("on_sale_wholesaler", on_sale_wholesaler);
-    addToData('best_seller', best_seller);
-    addToData('release', release);
+    addToData("best_seller", best_seller);
+    addToData("release", release);
     addToData("imageFile", image);
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
@@ -311,26 +308,29 @@ export default function ProductEditor(props) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img); 
+    let img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
 
   function handleDeleteProduct() {
-    api.delete(`product/${props.match.params.id}`, config).then((response) => {
-      alert("Produto deletado com sucesso!");
-      history.push("/admin");
-    }).catch((err) => {
-      console.error(err);
-      alert("Falha em deletar o produto!");
-    });
-  };
+    api
+      .delete(`product/${props.match.params.id}`, config)
+      .then((response) => {
+        alert("Produto deletado com sucesso!");
+        history.push("/admin");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Falha em deletar o produto!");
+      });
+  }
 
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
     // console.log(image_id);
-    console.log("ID da imagem:", image)
+    console.log("ID da imagem:", image);
 
     api.delete(`image/${image}`, config).then((response) => {
       console.log(response);
@@ -341,14 +341,14 @@ export default function ProductEditor(props) {
   return (
     <div>
       <div className="new-product-all">
-          <div className="product-title-page">
-            <h4>Editar Produto</h4>
-            <Tabs
-              defaultActiveKey="product"
-              transition={false}
-              id="noanim-tab-example"
-            >
-              <Tab eventKey="product" title="Produto">
+        <div className="product-title-page">
+          <h4>Editar Produto</h4>
+          <Tabs
+            defaultActiveKey="product"
+            transition={false}
+            id="noanim-tab-example"
+          >
+            <Tab eventKey="product" title="Produto">
               <form onSubmit={handleSubmit}>
                 <div className="form-wrapper">
                   <div className="divisor-teste">
@@ -490,7 +490,12 @@ export default function ProductEditor(props) {
                             loading={() => (
                               <img src={loading} alt="Loading..." />
                             )}
-                            error={() => <div>O arquivo abaixo será adicionado como imagem principal.</div>}
+                            error={() => (
+                              <div>
+                                O arquivo abaixo será adicionado como imagem
+                                principal.
+                              </div>
+                            )}
                           />
                         )}
                         <br></br>
@@ -509,22 +514,28 @@ export default function ProductEditor(props) {
                           Secudárias
                         </label>
                         <div className="pres-imgs">
-                          {images.map((image, index) => (
-                            image.subproduct_id === null &&
-                            <div className="secimage-comp-loader-sub">
-                                <DeleteForeverIcon className="edit-delete-secimage"
-                                type="button"
-                                onClick={() => handleDeleteSecImage(image.id)} />
-                              <ImageLoader
-                                className="secimage-loader-sub"
-                                src={`https://docs.google.com/uc?id=${image.id}`}
-                                loading={() => (
-                                  <img src={loading} alt="Loading..." />
-                                )}
-                                error={() => <div>Error</div>}
-                              />
-                            </div> 
-                                ))}
+                          {images.map(
+                            (image, index) =>
+                              image.subproduct_id === null && (
+                                <div className="secimage-comp-loader-sub">
+                                  <DeleteForeverIcon
+                                    className="edit-delete-secimage"
+                                    type="button"
+                                    onClick={() =>
+                                      handleDeleteSecImage(image.id)
+                                    }
+                                  />
+                                  <ImageLoader
+                                    className="secimage-loader-sub"
+                                    src={`https://docs.google.com/uc?id=${image.id}`}
+                                    loading={() => (
+                                      <img src={loading} alt="Loading..." />
+                                    )}
+                                    error={() => <div>Error</div>}
+                                  />
+                                </div>
+                              )
+                          )}
                         </div>
                         <MultipleUploader
                           canSubmit={true}
@@ -812,7 +823,7 @@ export default function ProductEditor(props) {
                                   onChange={handleCategorySelection}
                                 >
                                   <option value="0" disabled>
-                                   Selecionar
+                                    Selecionar
                                   </option>
                                   {categories.map((cat) => {
                                     return (
@@ -875,29 +886,29 @@ export default function ProductEditor(props) {
                       </button>
                     </div>
                   ) : (
-                      <div className="product-button">
-                        <button type="submit">ENVIAR ALTERAÇÕES</button>
-                      </div>
-                    )}
-                </div>
-                </form>
-              </Tab>
-              <Tab eventKey="subproduct" title="Subprodutos">
-                {subproducts ? (
-                  <div className="sub-form">
-                    <SubproductsCreate />
-                    {subproducts.map((subproduto, index) => (
-                      <Subedit subproduto={subproduto} />
-                    ))}
-                  </div>
-                ) : (
-                    <div className="sub-form">
-                      <SubproductsCreate />
+                    <div className="product-button">
+                      <button type="submit">ENVIAR ALTERAÇÕES</button>
                     </div>
                   )}
-              </Tab>
-            </Tabs>
-          </div>
+                </div>
+              </form>
+            </Tab>
+            <Tab eventKey="subproduct" title="Subprodutos">
+              {subproducts ? (
+                <div className="sub-form">
+                  <SubproductsCreate />
+                  {subproducts.map((subproduto, index) => (
+                    <Subedit subproduto={subproduto} />
+                  ))}
+                </div>
+              ) : (
+                <div className="sub-form">
+                  <SubproductsCreate />
+                </div>
+              )}
+            </Tab>
+          </Tabs>
+        </div>
       </div>
     </div>
   );

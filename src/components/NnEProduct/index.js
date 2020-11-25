@@ -166,10 +166,10 @@ export default function NnEProduct({ witchOne }) {
       <div className="new-product-all">
 
         <form onSubmit={handleSubmit}>
-          <div className="product-title-page">
+          <div className="product-title-page-create">
             <h3>Novo Produto</h3>
 
-            <div className="form-wrapper">
+            <div className="form-wrapper-create">
               <div className="divisor-teste">
                 <div className="left-form">
                   <div className="general-form">
