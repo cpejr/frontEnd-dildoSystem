@@ -1,4 +1,5 @@
 .new-product-all {
+  margin-left: 4vw;
     width: 100%;
     background-color: #f8f8f4;
   }
@@ -9,21 +10,26 @@
     flex-direction: column;
   }
   
+  .nav-tabs {
+    border-bottom: 0px;
+  }
+
   form {
     display: flex;
-    justify-content: center;
+    justify-content: left;
   }
   .form-wrapper {
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2%;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0px 3px 6px 0px rgba(157, 206, 255, 0.16);
   }
   .divisor-teste{
     display: flex;
+    width: 100%;
   }
   .left-form{
     width: 59%;
@@ -187,6 +193,7 @@
     background-color: white;
     display: grid;
     grid-template-columns: 30vw 30vw;
+    width: 80%;
   }
 
   .sub-buttons {
