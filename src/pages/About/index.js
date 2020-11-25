@@ -83,7 +83,7 @@ function About() {
                         Experiência de compra personalizada, em um ambiente que traz
                   conforto e aconchego. Além disso, trabalhamos com preços
                   justos e com várias formas de pagamento (depósito/
-                  transferência bancária, boleto, cartão de débito frequentes e
+                  transferência bancária, boleto, cartão de débito e
                   crédito, e parcelamentos). A empresa conta também com
                   novidades frequentes e lançamentos exclusivos em todas as
                   categorias de produtos.
