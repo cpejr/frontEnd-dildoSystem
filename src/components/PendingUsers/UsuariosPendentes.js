@@ -5,6 +5,8 @@ import './styles.css';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function UsuariosPendentes(props) {
   
@@ -22,13 +24,33 @@ export default function UsuariosPendentes(props) {
       
       await api.put('/user/' + id,{ "user_status": 'approved' }, config);
 
-      alert(`Usuario Aprovado com sucesso`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Usuário aprovado com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       props.setUpdate(!props.update);
   
 
     } catch (err) {
       console.error(err);
-      alert('Erro ao atualizar status do usuario!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao atualizar status do usuário.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -38,12 +60,32 @@ export default function UsuariosPendentes(props) {
       
       await api.put('/user/' + id,{ "user_status": 'refused' }, config);
 
-      alert(`Usuario negado com sucesso`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Usuário negado com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       props.setUpdate(!props.update);
 
     } catch (err) {
       console.error(err);
-      alert('Erro ao atualizar status do usuario!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao atualizar status do usuário.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 

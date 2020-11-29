@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./styles.css";
 import OrderArray from "./order.js";
 import api from '../../services/api';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 function Main(props) {
   const [newStatus, setnewStatus] = useState();
   const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number);
@@ -33,12 +36,32 @@ function Main(props) {
     try {
       const response = await api.put(`order/${props.pedido.id}`,{order_status:engstatus,track_number:newTrackNumber},  config);
       console.log(config);
-      alert(`Pedido Atualizado!`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Pedido atualizado.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
 
     } catch (err) {
       console.log(config);
       console.error(err);
-      alert('Erro ao atualizar pedido!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao atualizar pedido.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 

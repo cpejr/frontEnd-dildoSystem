@@ -9,6 +9,8 @@ import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 import MultipleUploader from "../../components/MultipleUploader";
 import { useParams } from "react-router-dom";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function SubproductsEdit({ subproduto }) {
   const [name, setName] = useState("");
@@ -86,11 +88,31 @@ export default function SubproductsEdit({ subproduto }) {
         }
       );
       console.log("teste date:", data);
-      alert(`Edição do subproduto concluída!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Edição de subproduto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição do subproduto impedida");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do subproduto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 

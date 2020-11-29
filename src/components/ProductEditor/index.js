@@ -8,6 +8,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from "../../services/api";
 import "./styles.css";
@@ -299,11 +301,31 @@ export default function ProductEditor(props) {
         data,
         config
       );
-      alert(`Edição do produto concluída!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Edição do produto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição do produto impedida");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do produto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -317,12 +339,32 @@ export default function ProductEditor(props) {
     api
       .delete(`product/${props.match.params.id}`, config)
       .then((response) => {
-        alert("Produto deletado com sucesso!");
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Produto deletado com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
         history.push("/admin");
       })
       .catch((err) => {
         console.error(err);
-        alert("Falha em deletar o produto!");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Falha em deletar o produto.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       });
   }
 
