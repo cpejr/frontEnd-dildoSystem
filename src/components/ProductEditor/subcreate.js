@@ -6,6 +6,8 @@ import ImageUpload from '../../components/ImageUpload';
 import PublishIcon from "@material-ui/icons/Publish";
 import { useParams } from "react-router-dom";
 import MultipleUploader from "../MultipleUploader";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function SubproductsCreate(props) {
 
@@ -56,17 +58,47 @@ export default function SubproductsCreate(props) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       }) 
-      alert(`Registro de subproduto concluído!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Registro de subproduto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
       setUpdated(!updated);
       window.location.reload();
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
       if (!image) {
-        alert("Imagem requerida");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Imagem requerida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       }
       else {
-      alert("Registro de subproduto impedido");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Registro de subproduto impedida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       }
     }
   }

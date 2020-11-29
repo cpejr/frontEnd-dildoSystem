@@ -8,6 +8,8 @@ import SimpleInput from "./SimpleInput";
 import SimpleSwitch from "./SimpleSwitch";
 import ImageUpload from '../../components/ImageUpload';
 import MultipleUploader from '../../components/MultipleUploader';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function NnEProduct({ witchOne }) {
 
@@ -137,16 +139,45 @@ export default function NnEProduct({ witchOne }) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       })
-      alert(`Registro concluído!`, response);
-      history.push('/admin');
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'O registro do produto foi concluído com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#108ee9' }} />,
+          style: {
+            width: 600,
+          },
+        });
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
       if (!image) {
-      alert("Imagem requerida")
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Imagem requerida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       }
-      else {
-      alert("Falha no registro!");
+      else {   
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Falha no registro do produto.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       }
     }
   }
