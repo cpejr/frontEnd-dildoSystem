@@ -9,6 +9,7 @@ import Text from '../../images/CASULUS01LOGONAME.svg';
 import Loading from '../../images/Loading.gif';
 
 import api from '../../services/api';
+import cart from '../../services/cart';
 import { LoginContext } from '../../Contexts/LoginContext';
 
 import './styles.css'
@@ -95,6 +96,7 @@ export default function CheckoutPage(props) {
             const order = await createOrder(newOrder);
             setOrder(order);
             localStorage.removeItem("ongoingOrder");
+            cart.clear();
         }
 
 

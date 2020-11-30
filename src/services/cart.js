@@ -13,14 +13,14 @@ let cart = {
             notification.open({
                 message: 'Sucesso!',
                 description:
-                  'O produto foi adicionado ao carrinho.',
+                    'O produto foi adicionado ao carrinho.',
                 className: 'ant-notification',
                 top: '100px',
                 icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });
+            });
         }
         for (var i = 0; i < products.length; i++) {
             console.log(product.id === products[i].product.id)
@@ -34,7 +34,7 @@ let cart = {
                 break;  //exit loop since you found the person
             }
         }
-        if(!id_found){
+        if (!id_found) {
             products.push({ 'product': product, 'quantity': product_quantity || 1 });
             localStorage.setItem('cart', JSON.stringify(products));
         }
@@ -45,6 +45,9 @@ let cart = {
         let products = storageProducts.filter(product => product.product.id !== productId);
         localStorage.setItem('cart', JSON.stringify(products));
     },
+    clear() {
+        localStorage.removeItem('cart');
+    }
 };
 export default cart;
 // localStorage.setItem()
