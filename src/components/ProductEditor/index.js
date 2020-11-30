@@ -353,18 +353,35 @@ export default function ProductEditor(props) {
         history.push("/admin");
       })
       .catch((err) => {
+        JSON.stringify(err.response);
         console.error(err);
-        notification.open({
-          message: 'Erro!',
-          description:
-            'Falha em deletar o produto.',
-          className: 'ant-notification',
-          top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
-          style: {
-            width: 600,
-          },
-        });
+        console.error(err.response);
+        if (err.response.data.code === 527) {
+          notification.open({
+            message: 'Erro!',
+            description:
+              'Produto não pode ser deletado pois está incluído em um pedido.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          });
+        }
+        else {
+          notification.open({
+            message: 'Erro!',
+            description:
+              'Falha em deletar o produto.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          });
+        }
       });
   }
 
