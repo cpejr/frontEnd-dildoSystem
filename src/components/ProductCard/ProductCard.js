@@ -89,7 +89,7 @@ export default function CardProduct(props) {
     }
 
     function buyButton() {
-        console.log(product);
+        //console.log(product);
         if ((subproducts && subproducts.length > 0 && subproducts.find(subp => subp.stock_quantity > 0)) || product.stock_quantity > 0) {
             return (
                 <div id="botao-comprar" onClick={(e) => setVisibleModal(true)}>
@@ -106,11 +106,11 @@ export default function CardProduct(props) {
     }
 
     useEffect(() => {
-        console.log("productData: ", product)
+        //console.log("productData: ", product)
         if (product) {
             const user_id = user.id;
-            console.log("User: ", user)
-            console.log("User_id: ", user_id)
+            //console.log("User: ", user)
+            //console.log("User_id: ", user_id)
             api.get(`userwishlist/${user_id}`, config).then((response) => {
                 const result = response.data.find(p => p.id === product.id);
                 if (result) {
@@ -120,7 +120,7 @@ export default function CardProduct(props) {
         }
     }, [product])
 
-    console.log("Product Card Props: ", props)
+    //console.log("Product Card Props: ", props)
     return (
         <div className="Card" key={`product-${product.id}`}>
             <Link to={`/product/${product.id}`} className="image-text-container">
