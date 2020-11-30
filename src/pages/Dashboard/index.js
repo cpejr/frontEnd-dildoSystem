@@ -5,6 +5,7 @@ import ProductCard from '../../components/ProductCard';
 import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';
 import Footer from '../../components/Footer';
+import Instafeed from '../../components/Instafeed';
 
 import './styles.css';
 
@@ -39,6 +40,7 @@ function Dashboard(props) {
             </div>
             <div>
                 <Footer />
+                <Instafeed />
             </div>
         </div>
     );
