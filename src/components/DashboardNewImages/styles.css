@@ -1,0 +1,49 @@
+.featuredimages-wrapper {
+  padding-bottom: 10%;
+  padding-top: 10%;
+}
+
+.col-images {
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+
+.textbanner {
+  position: relative;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.textbanner a{
+  display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.text-banner-image {
+  position: relative;
+  padding-top: 115%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-banner-image img{
+  position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 685px) {
+  .col-images {
+    flex: none !important;
+    max-width: none !important;
+  }
+  .ant-row-images {
+    flex-flow: column !important;
+  }
+  
+}
