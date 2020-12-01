@@ -19,6 +19,7 @@ function Carousel(props) {
 
   const [bannerImages, setBannerImages] = useState([]);
   const [bannerNewImage, setBannerNewImage] = useState(null);
+  const [linkBanner, setLinkBanner] = useState([]);
 
   useEffect(() => {
     api.get("Carousel", config).then((response) => {
@@ -46,6 +47,15 @@ function Carousel(props) {
       if (bannerImages[i].id === id) {
         newarray[i].position = parseInt(pos);
         setBannerImages(newarray)
+      }
+    }
+  }
+
+  function handleLinkChangeBanner(id, link) {
+    setLinkBanner(link)
+    for (let j = 0; j < bannerImages.length; j++) {
+      if (bannerImages[j].id === id) {
+        bannerImages[j].link = link
       }
     }
   }
@@ -114,6 +124,7 @@ function Carousel(props) {
     }
 
     addToData("imageFile", bannerNewImage);
+    addToData("link", linkBanner);
 
     if (bannerNewImage) {
 
@@ -198,6 +209,7 @@ function Carousel(props) {
                             update={update}
                             setUpdate={setUpdate}
                             handlePositionChangeBanner={handlePositionChangeBanner}
+                            handleLinkChangeBanner={handleLinkChangeBanner}
                           />
                         </div>
                     </div>

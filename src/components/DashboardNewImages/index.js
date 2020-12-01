@@ -29,7 +29,7 @@ export default function FeaturedImages() {
           images.map(img => (
             <Col span={8} className="col-images">
               <div className="textbanner">
-                <a href="">
+                <a href={img.link}>
                   <div className="text-banner-image">
                     <img src={`https://docs.google.com/uc?id=${img.image_id}`} ></img>
                   </div>

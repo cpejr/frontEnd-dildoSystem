@@ -7,11 +7,13 @@ import api from '../../services/api';
 
 function BannerImages(props) {
   const [newBannerPosition, setBannerNewPosition] = useState();
+  const [linkState, setLinkState] = useState();
 
   useEffect(() => {
     if (!isNaN(props.image.position))
       setBannerNewPosition(props.image.position)
-  }, [props.image.position]);
+    setLinkState(props.image.link)
+  }, [props.image.position, props.image.link]);
 
   const accessToken = localStorage.getItem('accessToken')
 
@@ -61,7 +63,28 @@ function BannerImages(props) {
             required
           />
         </div>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroupPrepend2">
+              Link
+            </span>
+          </div>
+          <input
+            type="text"
+            value={linkState}
+            onChange={(e) => {
+              setLinkState(e.target.value)
+              props.handleLinkChangeBanner(props.image.id, e.target.value)
+            }}
+            className="form-control"
+            id="validationDefaultUsername"
+            aria-describedby="inputGroupPrepend2"
+            required
+          />
+        </div>
       </div>
+      
+      
 
       <div className="enviar-button-carousel">
 
