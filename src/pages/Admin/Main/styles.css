@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .main-container {
   margin-top: 50px;
   width: 100%;
@@ -261,4 +263,7 @@ color:black;
   }
 }
 
+.pedidos-pendentes .ant-table-wrapper {
+  font-family: 'Roboto' !important;
+}
  

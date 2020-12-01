@@ -2,6 +2,7 @@ import React from 'react';
 
 import './global.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
 
 import Routes from './routes';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import api from "../../../services/api";
 
+import { Table, Tag, Space } from 'antd';
+import 'antd/dist/antd.css';
+
 import Pedido from "./Pedido";
 import "./styles.css";
 
@@ -16,6 +19,8 @@ function Main(props) {
   const [dashboard, setDashboard] = useState(true);
   const [farol, setFarol] = useState(true);
 
+  const data = [];
+
   useEffect(() => {
     api.get("orders?byStatus=pending", {
         headers: {
@@ -24,7 +29,7 @@ function Main(props) {
       })
       .then((response) => {
         setPendingOrders(response.data);
-        console.log('orders', response.data)
+        console.log('Pending Orders', response.data)
       });
   }, []);
 
@@ -36,7 +41,7 @@ function Main(props) {
       })
       .then((response) => {
         setOrders(response.data);
-        console.log('orders', response.data)
+        console.log('Orders', response.data);
       });
   }, []);
 
@@ -61,6 +66,83 @@ function Main(props) {
         setUsers(response.data);
       });
   }, []);
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Nome',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Tipo de usário',
+      dataIndex: 'usertype',
+      key: 'usertype',
+    },
+    {
+      title: 'Data',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
+      title: 'Valor',
+      dataIndex: 'value',
+      key: 'value',
+    },
+    {
+      title: 'Status',
+      key: 'tags',
+      dataIndex: 'tags',
+      render: tags => (
+        <>
+          {tags.map(tag => {
+            let color = tag.length > 5 ? 'geekblue' : 'green';
+            if (tag === 'loser') {
+              color = 'volcano';
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Space size="middle">
+          <a>Editar</a>
+        </Space>
+      ),
+    },
+  ];
+
+  orders.map( (order, i) => (
+    data.push({
+      key: `${i}+1`,
+      id: order.id,
+      name: order.user.name,
+      email: order.user.email,
+      usertype: order.user.type,
+      date: order.created_at,
+      value: order.totalPrice,
+      tags: [ `${order.order_status}` ]
+    })
+  ))
+
 
   return (
     <div className="main-container">
@@ -91,14 +173,8 @@ function Main(props) {
       <div className="pedidos-pendentes">
         <h4 className="titulo">Últimos Pedidos</h4>     
         <div className="ultimos-pedidos">
-        {orders.map((pedido, index) => (
-            <Pedido key={`pedido-${index}`} pedido={pedido} dashboard={dashboard} />
-          ))}
+          <Pedido  dashboard={dashboard} orders={orders}/>
         </div>
-
-
-
-
       </div>
     </div>
   );
