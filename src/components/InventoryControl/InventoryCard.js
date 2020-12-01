@@ -6,6 +6,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import '../ProductEditor';
 import api from '../../services/api';
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import './styles.css'
 import loading from '../../images/Loading.gif';
@@ -146,11 +148,31 @@ export default function InventoryCard(props) {
                 data,
                 config
             );
-            alert(`Edição concluída!`, response);
+            notification.open({
+                message: 'Sucesso!',
+                description:
+                  'Edição concluída.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                style: {
+                  width: 600,
+                },
+              });
         } catch (err) {
             console.log(JSON.stringify(err));
             console.err(err.response);
-            alert("Edição impedida");
+            notification.open({
+                message: 'Erro!',
+                description:
+                  'Edição impedida.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                style: {
+                  width: 600,
+                },
+              });
         }
     }
 

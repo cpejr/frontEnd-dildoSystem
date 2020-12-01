@@ -1,4 +1,5 @@
 .new-product-all {
+  margin-left: 4vw;
     width: 100%;
     background-color: #f8f8f4;
   }
@@ -9,11 +10,16 @@
     flex-direction: column;
   }
   
+  .nav-tabs {
+    border-bottom: 0px;
+  }
+
   form {
     display: flex;
-    justify-content: center;
+    justify-content: left;
   }
   .form-wrapper {
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +30,7 @@
   }
   .divisor-teste{
     display: flex;
+    width: 100%;
   }
   .left-form{
     width: 59%;
@@ -187,6 +194,7 @@
     background-color: white;
     display: grid;
     grid-template-columns: 30vw 30vw;
+    width: 80%;
   }
 
   .sub-buttons {
@@ -230,7 +238,7 @@
     height: 10vh;
     border-style: solid;
     border-color:#707070;
-    padding: 2%;
+    padding: 1%;
     border-radius: 20px;
 
     margin-top: 0.5vh;
@@ -258,6 +266,8 @@
     }
   
   }
+
+ 
 
   @media (max-width: 1100px) {
     .sub-form {
@@ -399,4 +409,15 @@ border-radius: 5px;
     display: grid;
     grid-template-columns: 10vw 10vw;
     justify-content: space-around;
+  }
+
+  @media (max-width: 1600px) {
+    .pres-sub-imgs {
+      display: flex;
+      flex-direction: column;
+    }
+    .sec-images {
+      display: flex;
+      flex-direction: column;
+    }
   }

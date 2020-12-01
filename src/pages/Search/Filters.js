@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { GrClose } from 'react-icons/gr';
+import { useLocation } from 'react-router-dom';
 
 import { SearchContext } from '../../Contexts/SearchContext';
 import api from '../../services/api';
@@ -15,23 +16,47 @@ function Filters(props) {
   const [min_price, setMin_Price] = useState('');
   const [order_by, setOrder_by] = useState('');
   const [search, setSearch] = useState(searchContext.rawSearch || '');
-  const [categoryId, setCategoryId] = useState('');
-  const [subcategory_id, setSubcategory_id] = useState('');
+  const [categoryId, setCategoryId] = useState(/*searchContext.categoryId ||*/ '');
+  const [subcategory_id, setSubcategory_id] = useState(/*searchContext.subcategoryId ||*/ '');
 
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
 
+  const location = useLocation();
 
   useEffect(() => {
     api.get('categories').then(response => {
       setCategories(response.data);
-      console.log(response.data);
+
+      //console.log(response.data);
     })
   }, []);
 
   useEffect(() => {
     setSearch(searchContext.rawSearch);
   }, [searchContext.rawSearch])
+
+  useEffect(() => {
+    let search = location.search.substring(1);
+    search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    console.log(search);
+    if (search.category_id) {
+      setCategoryId(search.category_id);
+      if (categories.length > 0) {
+        const category = categories.find(cat => cat.id === search.category_id);
+        setSubcategories(category.subcategories)
+      }
+    }
+    if (search.subcategory_id) {
+      const correspondingCat = categories.find(cat => cat.subcategories.some(subcat => subcat.id === search.subcategory_id));
+      if (correspondingCat) {
+        setCategoryId(correspondingCat.id);
+        setSubcategories(correspondingCat.subcategories)
+        setSubcategory_id(search.subcategory_id)
+      }
+      console.log(search.subcategory_id)
+    }
+  }, [categories, location.search])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,7 +69,7 @@ function Filters(props) {
       subcategoryId: subcategory_id
     }
 
-    if(props.visible) {
+    if (props.visible) {
       props.setVisible(false);
     }
 
@@ -68,9 +93,9 @@ function Filters(props) {
   return (
     <div className={`filters-container ${props.visible && 'visible slide-in-left'}`}>
       <div className="close-icon-container">
-        <GrClose className="close-icon" onClick={()=>{props.setVisible(!props.visible)}}/>
+        <GrClose className="close-icon" onClick={() => { props.setVisible(!props.visible) }} />
       </div>
-      
+
       <form onSubmit={e => handleSubmit(e)}>
         <h4>Filtros</h4>
         <strong>Faixa de preço</strong>

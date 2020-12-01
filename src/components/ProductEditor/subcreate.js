@@ -6,6 +6,8 @@ import ImageUpload from '../../components/ImageUpload';
 import PublishIcon from "@material-ui/icons/Publish";
 import { useParams } from "react-router-dom";
 import MultipleUploader from "../MultipleUploader";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function SubproductsCreate(props) {
 
@@ -15,7 +17,10 @@ export default function SubproductsCreate(props) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
+  const [img_url, setImgURL] = useState();
+
   const [editar, setEditar] = useState();
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
@@ -43,7 +48,7 @@ export default function SubproductsCreate(props) {
     addToData('stock_quantity', stock_quantity);
     addToData('min_stock', min_stock);
     addToData('visible', visible);
-    addToData('imageFile', image_id);
+    addToData('imageFile', image);
     addToData('product_id', id);
 
     try {
@@ -53,16 +58,54 @@ export default function SubproductsCreate(props) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       }) 
-      alert(`Registro concluído!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Registro de subproduto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
       setUpdated(!updated);
+      window.location.reload();
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Registro impedido");
+      if (!image) {
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Imagem requerida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+      }
+      else {
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Registro de subproduto impedida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+      }
     }
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -139,7 +182,7 @@ export default function SubproductsCreate(props) {
             Principal
                   </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={'imageFile'} />
+            <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url} />
           </div>
           <span className="images-label">
             Formatos aceitos: JPG, PNG

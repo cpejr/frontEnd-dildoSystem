@@ -9,6 +9,7 @@ import Text from '../../images/CASULUS01LOGONAME.svg';
 import Loading from '../../images/Loading.gif';
 
 import api from '../../services/api';
+import cart from '../../services/cart';
 import { LoginContext } from '../../Contexts/LoginContext';
 
 import './styles.css'
@@ -95,6 +96,7 @@ export default function CheckoutPage(props) {
             const order = await createOrder(newOrder);
             setOrder(order);
             localStorage.removeItem("ongoingOrder");
+            cart.clear();
         }
 
 
@@ -109,8 +111,10 @@ export default function CheckoutPage(props) {
     return (
         <div>
             <header className="checkout-header">
-                <img className="logo" src={Logo} alt="logo" width="75" height="75" />
-                <img className="text" src={Text} alt="text" width="75" height="75" />
+                <Link to="/">
+                    <img className="logo" src={Logo} alt="logo" />
+                    <img className="text" src={Text} alt="text" />
+                </Link>
             </header>
             {!order ? <div className="loading-container"><img src={Loading} alt={'Loading...'} /> </div> :
                 (<>

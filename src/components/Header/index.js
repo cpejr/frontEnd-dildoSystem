@@ -14,6 +14,7 @@ import { LoginContext } from "../../Contexts/LoginContext";
 import { SearchContext } from "../../Contexts/SearchContext";
 
 import "./styles.css";
+import { createRef } from 'react';
 
 
 
@@ -22,9 +23,12 @@ export default function Header() {
   const [search, setSearch] = useState('');
   const [cartQuantity, setCartQuantity] = useState(0)
   const [categories, setCategories] = useState([]);
+  const [categoryWidth, setCategoryWidth] = useState(0);
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
+
+  const headerRef = createRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,7 +65,7 @@ export default function Header() {
   }, [])
   useEffect(() => {
     let products_quantity = 0;
-    let newCart;
+    let newCart = [];
     if (localStorage.getItem('cart')) {
       newCart = JSON.parse(localStorage.getItem('cart'));
     }
@@ -70,6 +74,24 @@ export default function Header() {
     }
     setCartQuantity(products_quantity)
   })
+
+  useEffect(() => {
+    function handleCategoriesSize() {
+      if (headerRef.current && categories) {
+        console.log(headerRef)
+        const width = headerRef.current.scrollWidth / categories.length;
+        console.log(width);
+        setCategoryWidth(width);
+      }
+    }
+
+    window.addEventListener("resize", handleCategoriesSize);
+
+    handleCategoriesSize();
+
+    return () => { window.removeEventListener("resize", handleCategoriesSize) }
+
+  }, [headerRef])
 
 
   return (
@@ -118,35 +140,36 @@ export default function Header() {
       <div className="headerInferior">
         <div className="header-content">
           <img className="headerImg" src={LogoName} alt="logo" />
-          <div className="links">
+          <div className="links" ref={headerRef}>
             <div className="emptyDiv"> </div>
             <div className="empty" />
 
             {
               categories.map(cat => (
-                <div className="dropdown" key={cat.id}>
+                <div className="dropdown" key={cat.id} style={{ maxWidth: categoryWidth, flex: 1 }}>
                   <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
                   <div className="dropdown-content">
                     <div className="emptyHeaderDiv"></div>
                     <div className="dropdownLinks">
                       {
                         cat.subcategories.map(subcat => (
-                          <a key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
+                          <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
                             {subcat.name}
-                          </a>
+                          </button>
                         ))}
                     </div>
 
                   </div>
                 </div>
-              ))
+              )
+              )
             }
 
           </div>
         </div>
 
         <div className="empty" />
-        <Burger />
+
         {loginContext.loggedIn ? (
           <Link
             to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
@@ -162,6 +185,7 @@ export default function Header() {
         <Link to="/cart" className="icon-link-responsive">
           <FaShoppingCart />
         </Link>
+        <Burger />
       </div>
       <ResponsiveSearch
         className="responsive-search"

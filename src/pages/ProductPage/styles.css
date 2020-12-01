@@ -63,16 +63,18 @@
 .photos-column .thumbnails {
   width: 90%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .photos-column .thumbnails img {
   height: 50px;
   width: 50px;
+  margin: 5px 2.5px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.photos-column .thumbnails div + div {
+.photos-column .thumbnails div {
   margin-left: 10px;
 }
 
@@ -116,7 +118,6 @@
   flex-direction: column;
   margin: 20px 0;
   font-size: 1.1rem;
-  
 }
 
 .info-column .options .subproduct-options .option-selector {
@@ -175,8 +176,8 @@
   height: 40px;
   border: none;
   border-radius: 10px;
-  
-  font-weight:normal;
+
+  font-weight: normal;
   font-size: 1.4rem;
 }
 
@@ -192,8 +193,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  font-weight:normal;
+
+  font-weight: normal;
   font-size: 1.4rem;
 }
 
@@ -203,8 +204,6 @@
   display: flex;
   align-items: center;
 }
-
-
 
 .info-column .shipping input {
   border: 2px solid var(--mainColor);
@@ -240,7 +239,8 @@
     width: 100vw;
     margin-top: 0;
   }
-  .photos-column, .info-column {
+  .photos-column,
+  .info-column {
     width: 90%;
     align-items: center;
   }
@@ -253,4 +253,3 @@
     width: min(400px, 90vw);
   }
 }
-

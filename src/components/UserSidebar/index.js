@@ -15,14 +15,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { PersonOutline } from '@material-ui/icons';
 import { ExitToApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StarIcon from '@material-ui/icons/Star';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReplyIcon from '@material-ui/icons/Reply';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
+import { FaUserAlt } from 'react-icons/fa'
 
 import Logo from "../../images/CASULUS01LOGODESIGN.svg";
 import Text from "../../images/CASULUS01LOGONAME.svg";
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: theme.spacing(2), 
+    marginRight: theme.spacing(2),
   },
   hide: {
     display: "none",
@@ -137,11 +137,11 @@ export default function UserSidebar(props) {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={`${clsx(classes.appBar, {
           [classes.appBarShift]: open,
-        })}
+        })} header-bar`}
       >
-        <Toolbar style={{ height: 75, display: "flex" }}>
+        <Toolbar style={{ height: 70, display: "flex" }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -157,15 +157,13 @@ export default function UserSidebar(props) {
                 className="logo"
                 src={Logo}
                 alt="logo"
-                width="75"
-                height="75"
+
               />
               <img
                 className="text"
                 src={Text}
                 alt="text"
-                width="75"
-                height="75"
+
               />
             </div>
           </Link>
@@ -180,10 +178,10 @@ export default function UserSidebar(props) {
             </Link>
             <div className="user">
               <h5>{props.name}</h5>
-              <p>{props.type}</p>
+              <p>({props.type})</p>
             </div>
             <div>
-              <PersonOutline />
+              <FaUserAlt />
             </div>
           </div>
         </Toolbar>
@@ -198,13 +196,13 @@ export default function UserSidebar(props) {
             paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.drawerHeader} style={{ height: 75 }}>
+          <div className={classes.drawerHeader} style={{ height: 70 }}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
               ) : (
-                <ChevronRightIcon />
-              )}
+                  <ChevronRightIcon />
+                )}
             </IconButton>
           </div>
           <Divider />
@@ -293,96 +291,96 @@ export default function UserSidebar(props) {
           </List>
         </Drawer>
       ) : (
-        <Drawer
-          className={classes.drawer}
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader} style={{ height: 75 }}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <ListItem
-              button
-              component={Link}
-              to="/user/myrequests"
-              onClick={props.handleDrawerClose}
-            >
-              <ListItemIcon>
-                <LocalMallIcon />
-              </ListItemIcon>
-              <ListItemText>Meus Pedidos</ListItemText>
-            </ListItem>
-
+          <Drawer
+            className={classes.drawer}
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div className={classes.drawerHeader} style={{ height: 75 }}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                    <ChevronRightIcon />
+                  )}
+              </IconButton>
+            </div>
             <Divider />
+            <List>
+              <ListItem
+                button
+                component={Link}
+                to="/user/myrequests"
+                onClick={props.handleDrawerClose}
+              >
+                <ListItemIcon>
+                  <LocalMallIcon />
+                </ListItemIcon>
+                <ListItemText>Meus Pedidos</ListItemText>
+              </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to="/user/wishlist"
-              onClick={props.handleDrawerClose}
-            >
-              <ListItemIcon>
-                <StarIcon />
-              </ListItemIcon>
-              <ListItemText>Lista de Desejos</ListItemText>
-            </ListItem>
+              <Divider />
 
-            <Divider />
+              <ListItem
+                button
+                component={Link}
+                to="/user/wishlist"
+                onClick={props.handleDrawerClose}
+              >
+                <ListItemIcon>
+                  <StarIcon />
+                </ListItemIcon>
+                <ListItemText>Lista de Desejos</ListItemText>
+              </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to="/user/usersettings"
-              onClick={props.handleDrawerClose}
-            >
-              <ListItemIcon>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText>Meus Dados</ListItemText>
-            </ListItem>
-            <Divider />
+              <Divider />
 
-            <ListItem
-              button
-              component={Link}
-              to="/"
-              onClick={props.handleDrawerClose}
-            >
-              <ListItemIcon>
-                <ReplyIcon />
-              </ListItemIcon>
-              <ListItemText>Voltar às Compras</ListItemText>
-            </ListItem>
+              <ListItem
+                button
+                component={Link}
+                to="/user/usersettings"
+                onClick={props.handleDrawerClose}
+              >
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText>Meus Dados</ListItemText>
+              </ListItem>
+              <Divider />
 
-            <Divider />
-            <LoginContext.Consumer>
-              {(context) => (
-                <ListItem
-                  button
-                  onClick={context.handleLogout}
-                  style={{ position: "fixed", bottom: 0, width: 240 }}
-                >
-                  <ListItemIcon>
-                    <ExitToApp />
-                  </ListItemIcon>
-                  <ListItemText>Sair</ListItemText>
-                </ListItem>
-              )}
-            </LoginContext.Consumer>
-          </List>
-        </Drawer>
-      )}
+              <ListItem
+                button
+                component={Link}
+                to="/"
+                onClick={props.handleDrawerClose}
+              >
+                <ListItemIcon>
+                  <ReplyIcon />
+                </ListItemIcon>
+                <ListItemText>Voltar às Compras</ListItemText>
+              </ListItem>
+
+              <Divider />
+              <LoginContext.Consumer>
+                {(context) => (
+                  <ListItem
+                    button
+                    onClick={context.handleLogout}
+                    style={{ position: "fixed", bottom: 0, width: 240 }}
+                  >
+                    <ListItemIcon>
+                      <ExitToApp />
+                    </ListItemIcon>
+                    <ListItemText>Sair</ListItemText>
+                  </ListItem>
+                )}
+              </LoginContext.Consumer>
+            </List>
+          </Drawer>
+        )}
       {Windowdimension.width > 900 ? (
         <main
           className={clsx(classes.content, {
@@ -392,14 +390,14 @@ export default function UserSidebar(props) {
           <div className="main-admin-container">{props.children}</div>
         </main>
       ) : (
-        <main
-          className={clsx(classes.content2, {
-            [classes.contentShift]: open,
-          })}
-        >
-          <div className="main-admin-container">{props.children}</div>
-        </main>
-      )}
+          <main
+            className={clsx(classes.content2, {
+              [classes.contentShift]: open,
+            })}
+          >
+            <div className="main-admin-container">{props.children}</div>
+          </main>
+        )}
     </div>
   );
 }

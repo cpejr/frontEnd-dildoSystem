@@ -64,7 +64,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     if (!sh.Error)
       shippingServices.push({
         Name: `${sh.ServiceDescription} - até ${sh.DeliveryTime} dias úteis`,
-        Price: Number(sh.ShippingPrice),
+        Price: Number(sh.ShippingPrice) * 100,
         Deadline: Number(sh.DeliveryTime),
         Carrier: null
       })

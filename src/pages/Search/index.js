@@ -4,7 +4,7 @@ import { FiFilter } from 'react-icons/fi';
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import Filters from './Filters';
-import {SearchContext} from '../../Contexts/SearchContext';
+import { SearchContext } from '../../Contexts/SearchContext';
 
 function Search(props) {
 
@@ -24,12 +24,12 @@ function Search(props) {
         <div className="results">
           <div className="search-title">
             {searchContext.rawSearch && <h2>Resultados da sua busca por "{searchContext.rawSearch.replace(/%/g, ' ')}"</h2>}
-            <div className="filter-icon" onClick={()=>{setFiltersVisible(!filtersVisible)}}>
+            <div className="filter-icon" onClick={() => { setFiltersVisible(!filtersVisible) }}>
               <FiFilter />
             </div>
           </div>
 
-            <ProductCard />
+          <ProductCard />
 
         </div>
 

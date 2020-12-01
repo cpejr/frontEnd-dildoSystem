@@ -10,8 +10,9 @@ import loading from '../../images/Loading.gif';
 
 import api from '../../services/api';
 import cart from "../../services/cart"
+import ProductModal from './ProductModal';
 
-function PriceElement(props) {
+export function PriceElement(props) {
 
     const product = props.product;
 
@@ -54,9 +55,11 @@ function PriceElement(props) {
 
 export default function CardProduct(props) {
     const [isWish, setIsWish] = useState(false);
+    const [visibleModal, setVisibleModal] = useState(false);
     const user = useContext(LoginContext);
     const accessToken = localStorage.getItem('accessToken');
     const product = props.product;
+    const subproducts = product.subproducts;
 
     const config = {
         headers: { authorization: `Bearer ${accessToken}` }
@@ -85,22 +88,39 @@ export default function CardProduct(props) {
         })
     }
 
-    useEffect(() => {
-        console.log("productData: ",product)
-        if (product) {
-          const user_id = user.id;
-          console.log("User: ", user)
-          console.log("User_id: ", user_id)
-          api.get(`userwishlist/${user_id}`, config).then((response) => {
-            const result = response.data.find(p => p.id === product.id);
-            if(result){
-              setIsWish(true);
-            }
-          });
+    function buyButton() {
+        //console.log(product);
+        if ((subproducts && subproducts.length > 0 && subproducts.find(subp => subp.stock_quantity > 0)) || product.stock_quantity > 0) {
+            return (
+                <div id="botao-comprar" onClick={(e) => setVisibleModal(true)}>
+                    <span >COMPRAR</span>
+                </div>
+            )
+        } else {
+            return (
+                <div id="unavailable-label">
+                    <span>INDISPONÍVEL</span>
+                </div>
+            )
         }
-      }, [product])
+    }
 
-    console.log("Product Card Props: ", props)
+    useEffect(() => {
+        //console.log("productData: ", product)
+        if (product) {
+            const user_id = user.id;
+            //console.log("User: ", user)
+            //console.log("User_id: ", user_id)
+            api.get(`userwishlist/${user_id}`, config).then((response) => {
+                const result = response.data.find(p => p.id === product.id);
+                if (result) {
+                    setIsWish(true);
+                }
+            });
+        }
+    }, [product])
+
+    //console.log("Product Card Props: ", props)
     return (
         <div className="Card" key={`product-${product.id}`}>
             <Link to={`/product/${product.id}`} className="image-text-container">
@@ -119,9 +139,9 @@ export default function CardProduct(props) {
 
             <PriceElement product={product} />
 
-            <Link id="botao-comprar" to="/cart">
-                <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
-            </Link>
+            {product && buyButton()}
+
+            <ProductModal product={product} visible={visibleModal} onCancel={() => setVisibleModal(false)} />
 
         </div>
     )

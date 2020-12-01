@@ -5,6 +5,8 @@ import { BsTrash } from 'react-icons/bs';
 import { FaPlusCircle } from 'react-icons/fa';
 import { SettingOutlined } from '@ant-design/icons';
 import {FiEdit2} from 'react-icons/fi';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from '../../../services/api';
 
@@ -36,7 +38,17 @@ export default function List2({ newCategory }) {
     }
 
     api.post('newSubcategory', sendData, config).then(() => {
-      alert('Subcategoria criada com sucesso!')
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Subcategoria criada com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       setUpdate(!update)
     })
 
@@ -46,7 +58,17 @@ export default function List2({ newCategory }) {
   function handleClickButton(e, sub_id) {
 
     api.delete(`/subcategory/${sub_id}`, config).then(() => {
-      alert('Subcategoria deletada com sucesso!')
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Subcategoria deletada com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       setUpdate(!update)
     })
   }
@@ -67,12 +89,32 @@ export default function List2({ newCategory }) {
     if (vazio.length === 0) {
       console.log(vazio.length, catId)
       api.delete(`/category/${catId}`, config).then(() => {
-        alert('Categoria deletada com sucesso!')
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Categoria deletada com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
         setUpdate(!update)
       })
     }
     else {
-      alert('Categoria deve estar vazia antes de ser deletada.')
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Categoria deve estar vazia antes de ser deletada.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 

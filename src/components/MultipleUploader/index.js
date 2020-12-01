@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import api from "../../services/api";
 import PublishIcon from "@material-ui/icons/Publish";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import "./styles.css";
 
@@ -72,14 +74,44 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
 
             try {
                 const response = await api.post("images", data, config)
-                alert(`Upload com sucesso!`, response);
+                notification.open({
+                    message: 'Sucesso!',
+                    description:
+                      'Upload com sucesso.',
+                    className: 'ant-notification',
+                    top: '100px',
+                    icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                    style: {
+                      width: 600,
+                    },
+                  }, response);
             } catch (err) {
                 console.error(err);
                 console.error(err.response);
-                alert("Upload falho");
+                notification.open({
+                    message: 'Erro!',
+                    description:
+                      'Upload falho.',
+                    className: 'ant-notification',
+                    top: '100px',
+                    icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                    style: {
+                      width: 600,
+                    },
+                  });
             }
         } else {
-            alert("Upload falho, nenhuma imagem foi selecionada!");
+            notification.open({
+                message: 'Erro!',
+                description:
+                  'Upload falho, nenhuma imagem foi selecionada.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                style: {
+                  width: 600,
+                },
+              });;
         }
     }
 

@@ -4,6 +4,9 @@ import ImageLoader from "react-loading-image";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import loading from "../../images/Loading.gif";
 import api from '../../services/api';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 
 function CarouselImages(props) {
   const [newPosition, setNewPosition] = useState();
@@ -25,13 +28,33 @@ function CarouselImages(props) {
 
       const response = await api.delete('/Carousel/' + props.image.id, config);
 
-      alert(`Imagem deletada com sucesso!`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Imagem deletada com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       props.setUpdate(!props.update);
 
 
     } catch (err) {
       console.error(err);
-      alert('Erro ao deletar imagem!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao deletar imagem.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 

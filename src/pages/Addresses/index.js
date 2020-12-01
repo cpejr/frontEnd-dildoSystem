@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
 import api from '../../services/api';
 import { callPaymentAPI, getShippingOptions } from './shippingAndPaymentAPIs';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import './styles.css';
 
@@ -66,7 +68,17 @@ function Addresses() {
     if (selected >= 0) {
       goToCheckout(addressList[selected])
     } else {
-      alert('Selecione um dos seus endereços cadastrados!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Selecione um dos seus endereços cadastrados.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -90,14 +102,34 @@ function Addresses() {
       try {
         await api.post(`/address`, newAddress, config);
       } catch (error) {
-        alert("Ocorreu um erro no cadastro desse endereço!");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Ocorreu um erro no cadastro desse endereço.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
         return;
       }
 
       goToCheckout(newAddress);
 
     } else {
-      alert("Preencha todos os campos para enviar um novo endereço!")
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Preencha todos os campos para enviar um novo endereço.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
   return (
