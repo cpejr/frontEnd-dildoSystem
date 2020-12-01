@@ -29,11 +29,17 @@ export default function PendingOrders(props) {
   function handleSubmit(e){
     e.preventDefault()
     const url = `order/${"abcd"}?order_id=${search}`
-    api.get(url, config).then((response) => {
-      console.log("resposta",response.data)
-      setOrders([response.data])
+    try{
+      api.get(url, config).then((response) => {
+        console.log("resposta",response.data)
+        setOrders([response.data])
+      }
+      )
     }
-    )
+    catch (err){
+      console.error(err);
+      alert('Erro ao buscar o filtro!');
+    }
   }
 
   return (
@@ -53,9 +59,9 @@ export default function PendingOrders(props) {
         <button type="submit" className="pending-orders-button">Buscar</button>
         </form>
         <div className="ultimos-pedidos">
-          {orders.map((pedido, index) => (
-            <Pedido key={`pedido-${index}`} pedido={pedido} search={search} />
-          ))}
+          {/* {orders.map((pedido, index) => ( */}
+            <Pedido  orders={orders} />
+          {/* ))} */}
         </div>
       </div>
     </div>
