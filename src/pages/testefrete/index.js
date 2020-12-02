@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './styles.css'
 
-function Testefrete({products}) {
+function Testefrete({ products }) {
     const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
@@ -72,9 +72,14 @@ function Testefrete({products}) {
 
         <div className="frete-wrapper">
             <form onSubmit={handleSubmit}>
-                <label>Entrega:                </label>
-                <input type="text" value={cep} onChange={(e) => setCEP(e.target.value)} placeholder="CEP" />
-                <button type="submit" value="Enviar" >Enviar</button>
+                <div className='setCep d-flex'>
+                    <label>Entrega:</label>
+                    <div className='inputCep d-flex'>
+                        <input type="text" value={cep} onChange={(e) => setCEP(e.target.value)} placeholder="CEP" />
+                        <button type="submit" value="Enviar" >Enviar</button>
+                    </div>
+
+                </div>
             </form>
             <span>{`Preço do frete: `}</span>
             <div className="dropdown-cart-ship">

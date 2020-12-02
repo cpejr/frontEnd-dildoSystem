@@ -6,7 +6,7 @@
 }
 
 .frete-wrapper label, .frete-wrapper input{
-    margin-right: 10%;
+    margin-right: 5%;
 }
 
 .frete-wrapper input{
@@ -21,4 +21,23 @@
     background: black;
     color: white;
     border: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .frete-wrapper{
+        flex-direction: column;
+        
+    }
+    .frete-wrapper input{
+        width: 75%;
+        height: 100%;
+        margin-right: 0;
+    }
+    .frete-wrapper label {
+        margin-right: 2px;
+    }
+    .setCep {
+        flex-direction: column;
+        margin-bottom: 4%;
+    }
 }

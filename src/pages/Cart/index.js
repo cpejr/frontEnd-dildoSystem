@@ -13,6 +13,7 @@ import Frete from '../testefrete'
 function Cart() {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [newProducts, setNewProducts] = useState([])
 
   useEffect(() => {
     let cart = [];
@@ -20,17 +21,24 @@ function Cart() {
       cart = JSON.parse(localStorage.getItem('cart'));
     }
     setProducts(cart);
-  }, [])
+  }, []);
+
+  function addNewProducts(products) {
+    for (var i = 0; i < newProducts.length; i++) {
+      if (products.productId === newProducts[i].productId) {
+        newProducts.splice(i, 1);
+      }
+    }
+    setNewProducts(newProducts => [...newProducts, products])
+  }
 
   useEffect(() => {
-    products.forEach(p => {
-      console.log("Estou no produto: ", p)
-      let newTotalPrice = totalPrice;
-      let newPrice = newTotalPrice += (p.product.client_price * p.quantity)
-      console.log("newPrice: ", newPrice)
-      setTotalPrice(newPrice)
-    });
-  }, [products]);
+    let price = 0;
+    newProducts.forEach(p => {
+      price += (p.productPrice * p.product_quantity);
+    })
+    setTotalPrice(price);
+  }, [newProducts])
 
   return (
     <div>
@@ -39,30 +47,29 @@ function Cart() {
         <div className="cart-content">
           <h2>
             Carrinho
-            <button>
-              <FiX />
-            </button>
           </h2>
-          <p className="deliver-date">Entrega de x/xx/xxxx à x/xx/xxxx</p>
           <div className="cart-items">
-            {products.map((product) => (
-              // console.log("Produto: ", product);
-              <CartCard //key={product.product.id} 
-                        name={product.product.name} 
-                        description={product.product.description} 
-                        productId={product.product.id} 
-                        product={product} 
-                        image_id={product.product.image_id} />
-            ))}
+            {products ? products.map((product) => (
+              console.log("Produtoooooo: ", product)
+              // <CartCard //key={product.product.id} 
+              //   name={product.product.name}
+              //   description={product.product.description}
+              //   productId={product.product.id}
+              //   product={product}
+              //   image_id={product.product.image_id}
+              //   onChangePrice={addNewProducts} />
+            )): <div></div>}
           </div>
           <div className='total-price'>
-            <h3>Valor Total: R${totalPrice}</h3>
+            <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>
           </div>
           <div className="borderEmpty"></div>
           <Frete products={products} />
           <div className="button-area">
-            <button className="cart-primary-button">COMPRAR</button>
-            <Link to="/dashboard">
+            <Link to="/addresses">
+              <button className="cart-primary-button">COMPRAR</button>
+            </Link>
+            <Link to="/">
               <button className="cart-secondary-button">
                 CONTINUAR COMPRANDO
               </button>

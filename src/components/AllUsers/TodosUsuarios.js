@@ -41,7 +41,6 @@ export default function UsuariosPendentes(props) {
     }
 
     const handleClickDrop = (e) => {
-        console.log(e.target.value)
         setStatus(e.target.value)
     }
 
@@ -53,7 +52,6 @@ export default function UsuariosPendentes(props) {
             const response = await api.put(`user/${props.todosUsuarios.id}`, data, config)
             alert(`Alteração concluída!`, response);
         } catch (err) {
-            console.log(JSON.stringify(err));
             console.error(err.response);
             alert("Update error");
         }

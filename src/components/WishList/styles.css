@@ -89,6 +89,8 @@
     color: #707070;
     text-decoration: line-through;
     margin-bottom: 0;
+    display: flex;
+    justify-content: end;
 }
 
 .wish-data strong{

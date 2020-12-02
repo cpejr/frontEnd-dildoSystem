@@ -87,12 +87,6 @@
     background-color: rgb(230, 230, 230);
     border: 1px solid #0f8b0f;
 }
-.cart-card{
-    display: flex;
-    padding: 0 5%;
-    margin-bottom: 20px;
-    flex-direction: row;
-}
 .cart-img {
     width: 25%;
     margin-right: 10px;
@@ -139,6 +133,7 @@
 .description p{
     color: #7A7A7A;
     font-size: 12px;
+    display: block;
 }
 .full-price p {
     color: #727070;
@@ -207,9 +202,6 @@
     .cart-img {
         width: 100%;
     }
-    .delete-price{
-        bottom: 0;
-    }
     .cardText{
         margin-top: 20px;
     }
@@ -225,5 +217,8 @@
         height: auto;
         font-size: 12px;
         margin: 6px -6px;
+    }
+    .total-price h3{
+        font-size: 22px;
     }
 }
