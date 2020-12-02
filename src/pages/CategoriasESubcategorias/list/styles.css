@@ -80,3 +80,27 @@
   font-size: 20px;
   color: red;
 }
+
+.form-popover-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-popover-wrapper .form-popover-wrapper-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.form-popover-wrapper .form-popover-wrapper-buttons .button-popover-form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.form-popover-wrapper .form-popover-wrapper-buttons .button-popover-form-confirm {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background: rgb(218, 166, 33) !important;
+  border-color: rgb(218, 166, 33) !important;
+}

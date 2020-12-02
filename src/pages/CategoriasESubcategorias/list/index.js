@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+
 import { Collapse } from 'antd';
+import { Popover, Button, Input } from 'antd';
 
 import { BsTrash } from 'react-icons/bs';
 import { FaPlusCircle } from 'react-icons/fa';
 import { SettingOutlined } from '@ant-design/icons';
-import {FiEdit2} from 'react-icons/fi';
+import { FiEdit2 } from 'react-icons/fi';
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -17,11 +19,14 @@ export default function List2({ newCategory }) {
   const [update, setUpdate] = useState(0);
   const [lista, setLista] = useState([]);
   const [submitData, setSubmitData] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [categorySelection, setCategorySelection] = useState('');
+  const [submitDataPopOver, setSubmitDataPopOver] = useState('');
 
   const { Panel } = Collapse;
 
   useEffect(() => {
-    console.log('renderizei dnv')
+    // console.log('renderizei dnv')
     api.get('/categories').then((response) => {
       // console.log('resposta da chamada',response)
       setLista(response.data)
@@ -87,7 +92,7 @@ export default function List2({ newCategory }) {
 
   function handleClickCategoryTButton(vazio, catId) {
     if (vazio.length === 0) {
-      console.log(vazio.length, catId)
+      // console.log(vazio.length, catId)
       api.delete(`/category/${catId}`, config).then(() => {
         notification.open({
           message: 'Sucesso!',
@@ -118,25 +123,115 @@ export default function List2({ newCategory }) {
     }
   }
 
-  function handleClickCategoryEditButton(catId){
-    console.log(catId)
+  function handleClickCategoryEditButton(catId) {
+    // console.log(catId)
+    setCategorySelection(catId)
+    // if(catId && !visible)
+    //   setVisible(!visible)
+  }
+
+  function handleVisibleChange(catId) {
+
+    setVisible(!visible)
+  }
+
+  function handleSubmitEdit(e, submitData, catId) {
+    e.preventDefault();
+    // console.log('vamos submeter', submitData, catId)
+    const dado = {
+      name: submitData
+    }
+    try {
+      api.put(`/category/${catId}`, dado, config).then(() => {
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Categoria atualizada.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+        setUpdate(!update)
+      }
+      )}
+    catch (err) {
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Ocorreu um erro na atualização da categoria.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
+      return;
+    }
+  }
+
+
+  function renderPopOverContent(catId) {
+    return (
+      <div onClick={(e) => e.stopPropagation()}>
+        <form onSubmit={(e) => { handleSubmitEdit(e, submitDataPopOver, catId) }}>
+          <div className="form-popover-wrapper" onClick={(e) => e.stopPropagation()}>
+            <Input
+              // type='text'
+              onChange={(e) => { e.stopPropagation(); setSubmitDataPopOver(e.target.value) }}
+              placeholder={'Novo Nome'}
+              onPressEnter={(e) => handleSubmitEdit(e, e.target.value, catId)}
+            >
+            </Input>
+            <div className="form-popover-wrapper-buttons">
+              <Button
+                className="button-popover-form-confirm"
+                type="primary"
+                onClick={(e) => { e.stopPropagation(); handleSubmitEdit(e, submitDataPopOver, catId) }}
+                size="small"
+                >
+                Confirmar
+            </Button>
+              <Button
+                className="button-popover-form"
+                onClick={(e) => { e.stopPropagation(); handleVisibleChange() }}
+                size="small"
+                >
+                Cancelar
+          </Button>
+            </div>
+          </div>
+        </form>
+      </div>
+    )
   }
 
   function genExtra(subcategories, catId) {
     return (
       <div>
-        <FiEdit2 
-        onClick={e => {
-          e.stopPropagation();
-          handleClickCategoryEditButton(catId)
-        }}
-        />
+        <Popover
+          content={() => renderPopOverContent(catId)}
+          title="Insira o nome abaixo"
+          trigger="click"
+          visible={visible && (categorySelection === catId)}
+          onVisibleChange={() => handleVisibleChange()}
+        >
+          <FiEdit2
+            onClick={e => {
+              e.stopPropagation();
+              handleClickCategoryEditButton(catId)
+            }}
+          />
+        </Popover>
 
         <BsTrash
           onClick={event => {
             // If you don't want click extra trigger collapse, you can prevent this:
             event.stopPropagation();
-            handleClickCategoryTButton(catId)
+            handleClickCategoryTButton(subcategories, catId)
           }}
           className="trash-icon-cat"
         />
@@ -161,6 +256,7 @@ export default function List2({ newCategory }) {
             onClick={(e) => handleClickButton(e, sub.id)}>
             < BsTrash />
           </button>
+          
         </div>
       </div>
     )
@@ -185,7 +281,7 @@ export default function List2({ newCategory }) {
                   </form>
                   < FaPlusCircle />
                   (adicionar subcategoria)
-            </span>
+                </span>
               </div>
             </Panel>
           )
