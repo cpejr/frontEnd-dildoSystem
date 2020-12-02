@@ -28,7 +28,7 @@ export default function Instafeed() {
 
     return (
         <div className="all-instafeed">
-        <Feed userName="ianwx" className="instafeed" classNameLoading="Loading" limit="6"/>
+        <Feed userName="casulus.sex" className="instafeed" classNameLoading="Loading" limit="20"/>
         </div>
     )
 }

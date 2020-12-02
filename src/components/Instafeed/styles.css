@@ -1,13 +1,48 @@
+.all-instafeed {
+    margin-bottom: 1%;
+}
+
 .instafeed {
     padding: 1% 1%;
-    width: 100%;
+    max-width: 60vw;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  font-size: 100px;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.5s;
+  position: relative;
+ 
 }
-.instafeed a {
-    display: inline-block;
-    margin: 1% 1%;
-    width: 20%;
-    line-height: 0;
+
+@media (max-width: 450px) {
+    .instafeed {
+        margin-left: 15vw;
+    }
 }
+
+.instafeed::-webkit-scrollbar {
+    width: 10px;
+    height: 12px;
+    color: #daa621;
+    background-color: #daa621;
+  }
+
+.instafeed::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+
+.instafeed::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
 img {
     height: 200px;
@@ -15,4 +50,19 @@ img {
     margin-bottom: 1vh;
     margin-right: 1vw;
     margin-left: 1vw;
+    
+}
+
+img:before {
+    height: 200px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-right: 1vw;
+    margin-left: 1vw;
+ 
+}
+
+img:hover {
+    color: black;
+    opacity: 0.7;
 }
