@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from '../../../components/FormatDate/index'
 import "./styles.css";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -70,7 +71,7 @@ function Pedido2(props) {
           </div>
           <div className="orders-item">
             <strong>Data:</strong>
-            <p>{props.pedido.created_at}</p>
+            <p>{formatDate(props.pedido.created_at)}</p>
           </div>
           <div className="orders-item">
             <strong>Valor:</strong>

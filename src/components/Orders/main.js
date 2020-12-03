@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import OrderArray from "./order.js";
+import { formatDate } from '../FormatDate/index'
 import api from '../../services/api';
 function Main(props) {
   const [newStatus, setnewStatus] = useState();
@@ -78,7 +79,7 @@ function Main(props) {
           </div>
           <div className="order-item">
             <strong>Data de compra:</strong>
-            <p>{props.pedido.created_at}</p>
+            <p>{formatDate(props.pedido.created_at)}</p>
           </div>
           <div className="order-item">
             <strong>Rua:</strong>

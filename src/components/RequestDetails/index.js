@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./styles.css";
+import { formatDate } from '../FormatDate/index'
 import api from "../../services/api";
 import { LoginContext } from "../../Contexts/LoginContext";
 
@@ -107,7 +108,7 @@ export default function RequestDetails(props) {
           <h5>Informações do Pedido</h5>
           <div className="rd-info-list">
             <strong>Data do Pedido:</strong>
-            <p>{date}</p>
+            <p>{formatDate(date)}</p>
           </div>
           <div className="rd-info-list">
             <strong>Forma de Pagamento:</strong>

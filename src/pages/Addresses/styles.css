@@ -2,20 +2,19 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  width: 100%;
 }
 
 .addresses-content {
   display: flex;
-  /* width: 100%;  */
+  width: 100%; 
   flex-direction: column;
   max-width: 1400px;
   margin: 20px;
 }
-
-.addresses-content .addresses {
-  display: flex;
+.addresses,
+.ant-radio-group {
   width: 100%;
-  flex-wrap: wrap;
 }
 
 .address-box {
@@ -61,6 +60,17 @@
   font-weight: bold;
 }
 
+.new-address select {
+  width: 30%;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  padding: 8px 4px;
+  -webkit-transition: all .3s cubic-bezier(.645,.045,.355,1);
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+}
+
 .addresses-content button {
   margin-left: auto;
   margin-top: 20px;
@@ -74,3 +84,69 @@
   color: white;
 }
 
+ .ant-radio-wrapper {
+  display: flex;
+}
+/*
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-inner:hover {
+  border-color: var(--mainColor);
+}
+.ant-radio-inner::after {
+  background-color: var(--mainColor);
+}*/
+.select-new-address {
+  display: flex;
+  align-items: center;
+  color: var(--mainColor);
+  cursor: pointer;
+}
+.select-new-address p{
+  margin: 0;
+  font-size: 18px;
+  width: 100%;
+} 
+
+.ant-radio-checked .ant-radio-inner{
+  border-color:var(--mainColor) !important;
+}
+
+.ant-radio-checked .ant-radio-inner:after{
+  background-color:var(--mainColor) !important;
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: var(--mainColor) !important;
+}
+
+.ant-radio-checked .ant-radio-inner:focus{
+  border-color: var(--mainColor) !important;
+}
+.new-address input:focus,
+.new-address input:hover{
+  border-color: #d9d9d9;
+}
+.ant-modal-header{
+  background-color: var(--mainColor);
+}
+.ant-modal-title,
+.ant-modal-close-x {
+  color: white;
+}
+.ant-btn-primary {
+  border-color: var(--mainColor);
+  background: var(--mainColor);
+}
+.ant-btn:hover{
+  color: white;
+  background-color: var(--mainColor);
+  border-color: var(--mainColor);
+}
+.ant-btn-primary:hover{
+  background-color: white;
+  color: var(--mainColor);
+  border-color: var(--mainColor)
+}
+.ant-radio-wrapper {
+  white-space: normal;
+}

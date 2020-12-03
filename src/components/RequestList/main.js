@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from '../../components/FormatDate/index'
 import "./styles.css";
 
 function RequestBody(props) {
@@ -41,7 +42,8 @@ function MainRequest(props) {
         <div className="request-column-2-data">
         <div className="request-data22">
             <div className="request-deadline">
-              {`Previsão de entrega:${String(props.order.deadline)}`}
+            <p>{`Data da compra:${formatDate(props.order.created_at)}`}</p>
+            <p>{`Previsão de entrega:${String(props.order.deadline)}`}</p>
             </div>
             <div className="request-delivery">{`Frete: R$${Number(
                 props.order.track_price
