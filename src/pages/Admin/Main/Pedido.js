@@ -82,19 +82,37 @@ function Pedido2(props) {
     },
   ];
 
-  props.orders.map((order, i) => (
-    data.push({
-      key: `${i+1}`,
-      id: order.id,
-      name: order.user.name,
-      email: order.user.email,
-      usertype: order.user.type,
-      date: formatDate(order.created_at),
-      value: `R$${order.totalPrice}`,
-      tags: [`${order.order_status}`],
-      action: order
-    })
-  ))
+  props.orders.map((order, i) => {
+    switch(order.order_status){
+      case "paid":
+        order.order_status = "pago"
+        break;
+      case "pending":
+        order.order_status = "pendente"
+        break;
+      case "delivered":
+        order.order_status = "entregue"
+        break;
+      case "mailed":
+        order.order_status = "enviado"
+        break;
+      default:
+    }
+    return(
+      data.push({
+        key: `${i+1}`,
+        id: order.id,
+        name: order.user.name,
+        email: order.user.email,
+        usertype: order.user.type,
+        date: order.created_at,
+        value: `R$${order.totalPrice}`,
+        tags: [`${order.order_status}`],
+        action: order
+      })
+    )
+  }
+  )
 
   return (
     <div>

@@ -23,6 +23,10 @@
     border: none;
 }
 
+.option-error {
+    display: none;
+}
+
 @media only screen and (max-width: 600px) {
     .frete-wrapper{
         flex-direction: column;
