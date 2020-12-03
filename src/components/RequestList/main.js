@@ -47,7 +47,7 @@ function MainRequest(props) {
         <div className="request-data22">
             <div className="request-deadline">
             <p>{`Data da compra:${formatDate(props.order.created_at)}`}</p>
-            <p>{`Previsão de entrega:${String(props.order.deadline)}`}</p>
+            <p>{`Previsão de entrega: ${props.order.delivery_time == 1 ? String(props.order.delivery_time) + "dia útil" : String(props.order.delivery_time) + "dias úteis"}`}</p>
             </div>
             <div className="request-delivery">{`Frete: R$${Number(
                 props.order.track_price
