@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { notification } from 'antd';
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from "../../services/api";
 import Pedido from "../../pages/Admin/Main/Pedido";
@@ -38,7 +40,17 @@ export default function PendingOrders(props) {
     }
     catch (err){
       console.error(err);
-      alert('Erro ao buscar o filtro!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao buscar o filtro.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
