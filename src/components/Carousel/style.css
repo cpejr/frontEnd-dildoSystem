@@ -125,7 +125,7 @@ font-size: 2vh;
   
   .divider-banner-sup   .text-banner-image {
     position: relative;
-    padding-top: 260px;
+    padding-top: 90%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -138,6 +138,10 @@ font-size: 2vh;
       height: 100%;
       object-fit: cover;
   }
+
+  .EditBanner-Container .input-group {
+    margin-top: 10px;
+  }
   
   @media (max-width: 685px) {
     .divider-banner-sup .col-images {
@@ -147,5 +151,40 @@ font-size: 2vh;
     .divider-banner-sup .ant-row-images {
       flex-flow: column !important;
     }
+
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 55% !important;
+    }
     
   }
+
+  @media (max-width: 1150px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 100%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 135%;
+    }
+  }
+
+  @media (max-width: 735px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 165%;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 70% !important;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 85% !important;
+    }
+  }
+
