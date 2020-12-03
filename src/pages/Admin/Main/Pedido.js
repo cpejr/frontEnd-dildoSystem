@@ -89,7 +89,7 @@ function Pedido2(props) {
       name: order.user.name,
       email: order.user.email,
       usertype: order.user.type,
-      date: order.created_at,
+      date: formatDate(order.created_at),
       value: `R$${order.totalPrice}`,
       tags: [`${order.order_status}`],
       action: order
