@@ -105,7 +105,7 @@ function Carousel(props) {
         });
         setNewImage(undefined);
       } catch (err) {
-        console.log(JSON.stringify(err));
+
         console.error(err.response);
         notification.open({
           message: 'Erro!',
@@ -217,7 +217,6 @@ function Carousel(props) {
         },
       }, response);
     } catch (err) {
-      console.log(JSON.stringify(err));
       console.error(err.response);
       notification.open({
         message: 'Erro!',

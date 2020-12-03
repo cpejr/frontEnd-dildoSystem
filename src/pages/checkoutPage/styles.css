@@ -46,9 +46,9 @@
   font-size: 2.75rem;
 }
 .checkout-wrapper h3,
-p,
-span,
-h6 {
+.checkout-wrapper p,
+.checkout-wrapper span,
+.checkout-wrapper h6 {
   display: flex;
   justify-content: center;
 }

@@ -43,7 +43,6 @@ export default function UsuariosPendentes(props) {
     }
 
     const handleClickDrop = (e) => {
-        console.log(e.target.value)
         setStatus(e.target.value)
     }
 
@@ -65,7 +64,6 @@ export default function UsuariosPendentes(props) {
                 },
               });
         } catch (err) {
-            console.log(JSON.stringify(err));
             console.error(err.response);
             notification.open({
                 message: 'Erro!',

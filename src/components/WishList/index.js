@@ -55,8 +55,8 @@ export default function WishList(props) {
               <div className="wish-card-text">
                 <h4>{products.name}</h4>
                 <div>
-                  <p>R$ {products.client_price}</p>
-                  <strong>R$ {products.client_sale_price}</strong>
+                  <p>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_price)}</p>
+                  <strong>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_sale_price)}</strong>
                 </div>
                 <div className="wish-text"></div>
               </div>

@@ -15,7 +15,7 @@ const fetchUsers = async () => {
       authorization: "Bearer " + localStorage.accessToken,
     },
   });
-  console.log("User data: ", data);
+  
   return { data };
 };
 

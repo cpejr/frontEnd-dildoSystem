@@ -69,8 +69,10 @@ export default function Header() {
     if (localStorage.getItem('cart')) {
       newCart = JSON.parse(localStorage.getItem('cart'));
     }
-    for (var i = 0; i < newCart.length; i++) {
-      products_quantity += newCart[i].quantity
+    if(newCart){
+      for (var i = 0; i < newCart.length; i++) {
+        products_quantity += newCart[i].quantity
+      }
     }
     setCartQuantity(products_quantity)
   })
