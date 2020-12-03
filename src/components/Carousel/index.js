@@ -43,6 +43,16 @@ function Carousel(props) {
     }
   }
 
+  function handleLinkChange(id, link) {
+    let newarray = [...images];
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].id === id) {
+        newarray[i].link = link;
+        setImages(newarray)
+      }
+    }
+  }
+
   function handlePositionChangeBanner(id, pos) {
     let newarray = [...bannerImages];
     for (var i = 0; i < bannerImages.length; i++) {
@@ -112,6 +122,7 @@ function Carousel(props) {
     }
 
     try {
+      
       const response = await api.put("Carousel", { info: images },
         {
           headers: {
@@ -208,6 +219,7 @@ function Carousel(props) {
               Update={update}
               setUpdate={setUpdate}
               handlePositionChange={handlePositionChange}
+              handleLinkChange={handleLinkChange}
             />
           ))}
 

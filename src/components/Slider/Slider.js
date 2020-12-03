@@ -29,11 +29,13 @@ export default function ControlledCarousel() {
         {images.map((image, index) => {
           return (
             <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={`https://docs.google.com/uc?id=${image.image_id}`}
-                alt={image}
-              />
+              <a href={image.link}>
+                <img
+                  className="d-block w-100"
+                  src={`https://docs.google.com/uc?id=${image.image_id}`}
+                  alt={image}
+                />
+              </a>
             </Carousel.Item>
           );
         })}

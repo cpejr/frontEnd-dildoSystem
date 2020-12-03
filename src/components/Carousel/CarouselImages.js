@@ -10,11 +10,16 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 function CarouselImages(props) {
   const [newPosition, setNewPosition] = useState();
+  const [newLink, setNewLink] = useState();
 
-  useEffect(()=>{
-    if(!isNaN(props.image.position))
-    setNewPosition(props.image.position)
-  },[props.image.position]);
+  useEffect(() => {
+    if (!isNaN(props.image.position))
+      setNewPosition(props.image.position)
+  }, [props.image.position]);
+
+  useEffect(() => {
+    setNewLink(props.image.link)
+  }, [props.image.link]);
 
   const accessToken = localStorage.getItem('accessToken')
 
@@ -78,8 +83,30 @@ function CarouselImages(props) {
           <input
             type="text"
             value={newPosition}
-            onChange={(e) => {setNewPosition(e.target.value)
-              props.handlePositionChange(props.image.id, e.target.value)          
+            onChange={(e) => {
+              setNewPosition(e.target.value)
+              props.handlePositionChange(props.image.id, e.target.value)
+            }}
+            className="form-control"
+            id="validationDefaultUsername"
+            aria-describedby="inputGroupPrepend2"
+            required
+          />
+        </div>
+      </div>
+      <div className="position-container">
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroupPrepend2">
+              Link
+            </span>
+          </div>
+          <input
+            type="text"
+            value={newLink}
+            onChange={(e) => {
+              setNewLink(e.target.value)
+              props.handleLinkChange(props.image.id, e.target.value)
             }}
             className="form-control"
             id="validationDefaultUsername"
