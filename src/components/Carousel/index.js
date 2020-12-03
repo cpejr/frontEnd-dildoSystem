@@ -182,7 +182,17 @@ function Carousel(props) {
       } catch (err) {
         console.log(JSON.stringify(err));
         console.error(err.response);
-        alert("Erro ao registar imagem!");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Erro ao registrar imagem.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
       }
     }
 
@@ -195,11 +205,31 @@ function Carousel(props) {
           },
         });
       setUpdate(!update);
-      alert(`Atualizado com sucesso!!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Atualizado com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Erro ao editar posições!");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao editar posições.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
