@@ -13,7 +13,7 @@ function Main(props) {
   const accessToken = localStorage.getItem('accessToken')
 
   const config = {
-      headers: { 'authorization': `Bearer ${accessToken}` },
+    headers: { 'authorization': `Bearer ${accessToken}` },
   }
   async function handleSubmit(e) {
 
@@ -31,11 +31,13 @@ function Main(props) {
       case "Pedido Entregue":
         engstatus = "delivered";
         break;
+      case "Pedido Cancelado":
+        engstatus = "cancelled";
     }
 
-    console.log({order_status:engstatus,track_number:newTrackNumber});
+    console.log({ order_status: engstatus, track_number: newTrackNumber });
     try {
-      const response = await api.put(`order/${props.pedido.id}`,{order_status:engstatus,track_number:newTrackNumber},  config);
+      const response = await api.put(`order/${props.pedido.id}`, { order_status: engstatus, track_number: newTrackNumber }, config);
       console.log(config);
       notification.open({
         message: 'Sucesso!',
@@ -80,7 +82,10 @@ function Main(props) {
     case "delivered":
       status = "Pedido Entregue";
       break;
-    default :
+    case "cancelled":
+      status = "Pedido Cancelado";
+      break;
+    default:
       break;
   }
   return (
@@ -174,6 +179,7 @@ function Main(props) {
               <option>Pedido Pago</option>
               <option>Pedido Enviado</option>
               <option>Pedido Entregue</option>
+              <option>Pedido Cancelado</option>
             </select>
           </label>
           <label className="order-label">

@@ -50,7 +50,7 @@ function Pedido2(props) {
         <>
           {tags.map(tag => {
             let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
+            if (tag === 'cancelado') {
               color = 'volcano';
             }
             return (
@@ -71,19 +71,19 @@ function Pedido2(props) {
           {/* {console.log('esse eh o text.id', text.action)} */}
           <Link to={
             {
-              pathname: `admin/pendingorder/${text.action.id}`,
+              pathname: `/admin/pendingorder/${text.action.id}`,
               myCustomProps: text.action
             }
           }>
             <CreateIcon size={20} color="#15425" />
-        </Link>
+          </Link>
         </Space>
       ),
     },
   ];
 
   props.orders.map((order, i) => {
-    switch(order.order_status){
+    switch (order.order_status) {
       case "paid":
         order.order_status = "pago"
         break;
@@ -96,11 +96,13 @@ function Pedido2(props) {
       case "mailed":
         order.order_status = "enviado"
         break;
+      case "cancelled":
+        order.order_status = "cancelado"
       default:
     }
-    return(
+    return (
       data.push({
-        key: `${i+1}`,
+        key: `${i + 1}`,
         id: order.id,
         name: order.user.name,
         email: order.user.email,
@@ -117,7 +119,7 @@ function Pedido2(props) {
   return (
     <div>
       <Table columns={columns} dataSource={data} />
-      
+
     </div>
   );
 }
