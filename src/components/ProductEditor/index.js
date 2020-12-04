@@ -96,6 +96,7 @@ export default function ProductEditor(props) {
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [subcategories_ids, setSubcategoriesIds] = useState([]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
@@ -125,6 +126,7 @@ export default function ProductEditor(props) {
   //   history.goBack();
   //   setOpen(false);
   // };
+  
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -153,9 +155,11 @@ export default function ProductEditor(props) {
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
+      setSubcategoriesIds(newCat.subcategories_ids)
     } else {
       setCategoryId(0);
       setSubcategories("");
+      setSubcategoriesIds([]);
     }
   }
 
@@ -273,6 +277,8 @@ export default function ProductEditor(props) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
 
+    let categorizeData = {subcategories_ids : [subcategories_ids]}
+
     addToData("name", name);
     addToData("description", description);
     addToData("client_price", client_price);
@@ -327,6 +333,28 @@ export default function ProductEditor(props) {
         },
       });
     }
+    try {
+      await api.put(
+        `categorize/${props.match.params.id}`,
+        categorizeData,
+        config
+      )
+    } catch (err) {
+      console.log(JSON.stringify(err));
+      console.error(err.response);
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do produto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
+    }
+    console.log('subcategories', subcategories_ids)
   }
 
   function handleImage(img) {
@@ -903,7 +931,7 @@ export default function ProductEditor(props) {
                                 >
                                   Subcategoria:
                                 </label>
-                                <select
+                                {/* <select
                                   value={subcategory_id}
                                   onChange={(e) =>
                                     setSubcategory(e.target.value)
@@ -921,6 +949,18 @@ export default function ProductEditor(props) {
                                         {subcat.name}
                                       </option>
                                     );
+                                  })}
+                                </select> */}
+                                <select
+                                onChange={(e) => setSubcategoriesIds(e.target.value)}
+                                value = {subcategories_ids} 
+                                  >
+                                  {subcategories.map((subcat)=>{
+                                    return(
+                                      <option value={subcat.id} key={subcat.id}> 
+                                        {subcat.name}
+                                      </option>
+                                    )
                                   })}
                                 </select>
                               </div>
