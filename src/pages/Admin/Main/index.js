@@ -16,17 +16,18 @@ function Main(props) {
   const [pendingorders, setPendingOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [dashboard, setDashboard] = useState(true);
   const [farol, setFarol] = useState(true);
+
+  const [page, setPage] = useState(1);
 
   const data = [];
 
   useEffect(() => {
     api.get("orders?byStatus=pending", {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      })
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      },
+    })
       .then((response) => {
         setPendingOrders(response.data);
         console.log('Pending Orders', response.data)
@@ -35,10 +36,10 @@ function Main(props) {
 
   useEffect(() => {
     api.get("orders", {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      })
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      },
+    })
       .then((response) => {
         setOrders(response.data);
         console.log('Orders', response.data);
@@ -47,10 +48,10 @@ function Main(props) {
 
   useEffect(() => {
     api.get("lowStock", {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      })
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      },
+    })
       .then((response) => {
         setProducts(response.data.products);
       });
@@ -58,14 +59,32 @@ function Main(props) {
 
   useEffect(() => {
     api.get("users?user_status=pending", {
-        headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        },
-      })
+      headers: {
+        authorization: "Bearer " + localStorage.accessToken,
+      },
+    })
       .then((response) => {
         setUsers(response.data);
       });
   }, []);
+
+  function loadFollowingPage() {
+    const url = `orders?byStatus=pending&page=${page + 1}`
+    const accessToken = localStorage.accessToken;
+    const config = {
+      headers: {
+        authorization: "Bearer " + accessToken,
+      }
+    }
+
+    if (accessToken) {
+      api.get(url, config).then((response) => {
+        setOrders([...orders, ...response.data]);
+        if (response.data && response.data.length > 0) setPage(page + 1);
+        console.log(response.data);
+      });
+    }
+  }
 
   const columns = [
     {
@@ -130,7 +149,7 @@ function Main(props) {
     },
   ];
 
-  orders.map( (order, i) => (
+  orders.map((order, i) => (
     data.push({
       key: `${i}+1`,
       id: order.id,
@@ -139,7 +158,7 @@ function Main(props) {
       usertype: order.user.type,
       date: order.created_at,
       value: order.totalPrice,
-      tags: [ `${order.order_status}` ]
+      tags: [`${order.order_status}`]
     })
   ))
 
@@ -148,32 +167,32 @@ function Main(props) {
     <div className="main-container">
       <h4 className="titulo">Dashboard</h4>
       <div className="farol">
-        <Link className="link-size" to ={`${props.match.path}/pendingorders`}>
-        <div className="pendentes" key={orders.id}>
-          <h4>Pedidos pendentes:</h4>
-          <h3>{pendingorders.length}</h3>
-        </div>
+        <Link className="link-size" to={`${props.match.path}/pendingorders`}>
+          <div className="pendentes" key={orders.id}>
+            <h4>Pedidos pendentes:</h4>
+            <h3>{pendingorders.length}</h3>
+          </div>
         </Link>
-        <Link to= {
+        <Link to={
           `${props.match.path}/lowStock`
         }>
-        <div className="acabando">
-          <h4>Produtos com pouco estoque:</h4>
-          <h3>{products.length}</h3>
-        </div>
+          <div className="acabando">
+            <h4>Produtos com pouco estoque:</h4>
+            <h3>{products.length}</h3>
+          </div>
         </Link>
         <Link className="link-size" to={`${props.match.path}/pendingusers`}>
-        <div className="aguardando-aprovacao">
-          <h4>Usuários aguardando aprovação</h4>
-          <h3>{users.length}</h3>
-        </div>
+          <div className="aguardando-aprovacao">
+            <h4>Usuários aguardando aprovação</h4>
+            <h3>{users.length}</h3>
+          </div>
         </Link>
       </div>
 
       <div className="pedidos-pendentes">
-        <h4 className="titulo">Últimos Pedidos</h4>     
+        <h4 className="titulo">Últimos Pedidos</h4>
         <div className="ultimos-pedidos">
-          <Pedido  dashboard={dashboard} orders={orders}/>
+          <Pedido orders={orders} onChange={loadFollowingPage} />
         </div>
       </div>
     </div>

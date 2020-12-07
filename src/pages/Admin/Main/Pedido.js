@@ -118,7 +118,7 @@ function Pedido2(props) {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} onChange={props.onChange} />
 
     </div>
   );
