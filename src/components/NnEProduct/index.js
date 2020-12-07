@@ -19,11 +19,11 @@ export default function NnEProduct({ witchOne }) {
   const [client_sale_price, setClientSalePrice] = useState();
   const [wholesaler_price, setWholesalerPrice] = useState();
   const [wholesaler_sale_price, setWholesalerSalePrice] = useState();
-  const [on_sale_client, setOnsaleClient] = useState(true);
-  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
-  const [release, setRelease] = useState(true);
-  const [best_seller, setBest_Seller] = useState(true);
-  const [visible, setVisible] = useState(true);
+  const [on_sale_client, setOnsaleClient] = useState(false);
+  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(false);
+  const [release, setRelease] = useState(false);
+  const [best_seller, setBest_Seller] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [stock_quantity, setQuantity] = useState();
   const [min_stock, setMinimum] = useState();
   const [weight, setWeight] = useState();
