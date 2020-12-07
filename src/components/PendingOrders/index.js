@@ -11,6 +11,8 @@ export default function PendingOrders(props) {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
 
+  const [page, setPage] = useState(1);
+
   const accessToken = localStorage.getItem("accessToken");
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
@@ -28,17 +30,30 @@ export default function PendingOrders(props) {
     }
   }, []);
 
-  function handleSubmit(e){
+  function loadFollowingPage() {
+    const url = `orders?byStatus=pending&page=${page + 1}`
+
+    if (accessToken) {
+      api.get(url, config).then((response) => {
+        setOrders([...orders, ...response.data]);
+        setPage(page + 1);
+        console.log(response.data);
+      });
+    }
+  }
+
+  function handleSubmit(e) {
     e.preventDefault()
     const url = `order/${"abcd"}?order_id=${search}`
-    try{
+    try {
       api.get(url, config).then((response) => {
-        console.log("resposta",response.data)
-        setOrders([response.data])
+        console.log("resposta", response.data);
+        setOrders([response.data]);
+        setPage(1);
       }
       )
     }
-    catch (err){
+    catch (err) {
       console.error(err);
       notification.open({
         message: 'Erro!',
@@ -57,22 +72,22 @@ export default function PendingOrders(props) {
   return (
     <div className="main-container">
       <h4>Pedidos Pendentes</h4>
-      
+
       <div className="pedidos-pendentes">
         <form className="pending-orders-form" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          className="input-search-pending-orders"
-          name="searchTerm"
-          placeholder="Insira o ID do pedido"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button type="submit" className="pending-orders-button">Buscar</button>
+          <input
+            type="search"
+            className="input-search-pending-orders"
+            name="searchTerm"
+            placeholder="Insira o ID do pedido"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="submit" className="pending-orders-button">Buscar</button>
         </form>
         <div className="ultimos-pedidos">
           {/* {orders.map((pedido, index) => ( */}
-            <Pedido  orders={orders} />
+          <Pedido orders={orders} onChange={(pagination) => loadFollowingPage()} />
           {/* ))} */}
         </div>
       </div>
