@@ -97,6 +97,7 @@ export default function ProductEditor(props) {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [subcategories_ids, setSubcategoriesIds] = useState([]);
+  const [deletesubcategories, setDeleteSubcategories] = useState([]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
@@ -159,7 +160,7 @@ export default function ProductEditor(props) {
     } else {
       setCategoryId(0);
       setSubcategories("");
-      setSubcategoriesIds([]);
+      setSubcategoriesIds("");
     }
   }
 
@@ -355,6 +356,10 @@ export default function ProductEditor(props) {
       });
     }
     console.log('subcategories', subcategories_ids)
+  }
+
+  function handleDeleteSubcategory(){
+    api.delete(`uncategorize/${props.match.params.id}/${deletesubcategories}`, config)
   }
 
   function handleImage(img) {
@@ -955,6 +960,7 @@ export default function ProductEditor(props) {
                                 onChange={(e) => setSubcategoriesIds(e.target.value)}
                                 value = {subcategories_ids} 
                                   >
+                                  
                                   {subcategories.map((subcat)=>{
                                     return(
                                       <option value={subcat.id} key={subcat.id}> 
@@ -963,6 +969,33 @@ export default function ProductEditor(props) {
                                     )
                                   })}
                                 </select>
+
+                                <div className="categoriesSelection">
+                                  <label>
+                                  Deletar subcategoria
+                                </label>
+                                <select
+                                onChange={(e) => setDeleteSubcategories(e.target.value)}
+                                value = {deletesubcategories} 
+                                  >
+                                      {
+                                    subcategories.map((subcat)=>{
+                                    return(
+                                      <option value={subcat.id} key={subcat.id}> 
+                                        {subcat.name}
+                                      </option>
+                                    )
+                                  })}
+                                    )
+                                  
+                                
+                                    
+                                </select>
+                                <div className="edit-button">
+                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button>
+                                </div>
+                                </div>
+                                
                               </div>
                             </div>
                           </div>
