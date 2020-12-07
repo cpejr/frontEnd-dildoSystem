@@ -16,7 +16,6 @@ function Main(props) {
   const [pendingorders, setPendingOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [dashboard, setDashboard] = useState(true);
   const [farol, setFarol] = useState(true);
 
   const [page, setPage] = useState(1);
@@ -81,7 +80,7 @@ function Main(props) {
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
-        setPage(page + 1);
+        if (response.data && response.data.length > 0) setPage(page + 1);
         console.log(response.data);
       });
     }
@@ -193,7 +192,7 @@ function Main(props) {
       <div className="pedidos-pendentes">
         <h4 className="titulo">Últimos Pedidos</h4>
         <div className="ultimos-pedidos">
-          <Pedido dashboard={dashboard} orders={orders} onChange={loadFollowingPage} />
+          <Pedido orders={orders} onChange={loadFollowingPage} />
         </div>
       </div>
     </div>

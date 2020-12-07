@@ -36,7 +36,7 @@ export default function PendingOrders(props) {
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
-        setPage(page + 1);
+        if (response.data && response.data.length > 0) setPage(page + 1);
         console.log(response.data);
       });
     }
