@@ -10,8 +10,6 @@ import "./styles.css"
 import { Button } from "@material-ui/core";
 import cart from "../../services/cart"
 
-import Frete from "../../pages/testefrete/index.js"
-
 function PriceElement(props) {
 
     const product = props.product.product;

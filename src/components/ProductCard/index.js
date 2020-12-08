@@ -92,12 +92,11 @@ export default withRouter(function ProductCard(props) {
             loadFollowingPage();
         }
     }, [requiring])
+    
 
-
-
-    useEffect(() => {
-        console.log('novo array de products', products);
-    }, [products])
+    // useEffect(() => {
+    //     console.log('novo array de products', products);
+    // }, [products])
 
     async function loadFollowingPage() {
         const currentPos = window.pageYOffset;
