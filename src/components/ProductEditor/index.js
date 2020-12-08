@@ -350,7 +350,7 @@ export default function ProductEditor(props) {
             width: 600,
           },
         });
-        history.push("/admin");
+        history.push("/admin/editproduct");
       })
       .catch((err) => {
         JSON.stringify(err.response);
