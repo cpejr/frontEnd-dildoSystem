@@ -42,7 +42,7 @@ function Main(props) {
     })
       .then((response) => {
         setOrders(response.data);
-        console.log('Orders', response.data);
+        console.log(response.data);
       });
   }, []);
 

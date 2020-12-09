@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { FiFilter } from 'react-icons/fi';
 
 import Header from '../../components/Header';

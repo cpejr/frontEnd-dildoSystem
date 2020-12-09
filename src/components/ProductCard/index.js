@@ -55,7 +55,7 @@ export default withRouter(function ProductCard(props) {
 
         if (props.releaseOnly) url += '&release=true';
         if (props.best_sellerOnly) url += '&best_seller=true';
-        console.log('url when loading products', url);
+        //console.log('url when loading products', url);
 
         if (accessToken) {
             api.get(url, config).then(response => {
@@ -137,7 +137,7 @@ export default withRouter(function ProductCard(props) {
         <div className={`products-container-wrapper ${props.className}`}>
             <div className="products-container">
                 {products.map(product => (
-                    <CardProduct product={product} />
+                    <CardProduct product={product}/>
                     // <div className="Card" key={`product-${product.id}`}>
                     //     <Link to={`/product/${product.id}`} className="image-text-container">
                     //         <ImageLoader

@@ -129,7 +129,7 @@ export default function CarouselProducts() {
                         <Carousel.Item>
                             <div className="number">
                                 {elements.map((product, index) => {
-                                    return (<CardProduct product={product} />)
+                                    return (<CardProduct product={product}/>)
                                 })}
                             </div>
                         </Carousel.Item>

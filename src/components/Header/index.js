@@ -82,7 +82,7 @@ export default function Header() {
       if (headerRef.current && categories) {
         //console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
-        console.log(width);
+        //console.log(width);
         setCategoryWidth(width);
       }
     }
