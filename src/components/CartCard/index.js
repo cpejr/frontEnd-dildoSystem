@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 import "./styles.css"
 import { Button } from "@material-ui/core";
 import cart from "../../services/cart"
+import { useCart } from '../../Contexts/CartContext';
 
 import Frete from "../../pages/testefrete/index.js"
 
 function PriceElement(props) {
-
-    const product = props.product.product;
+    const product = props.product;
     const { product_quantity } = props;
 
     if (product.wholesaler_price) {
@@ -58,9 +58,11 @@ function PriceElement(props) {
 function CartCard(props) {
     const [productQuantity, setProductQuantity] = useState(props.product.quantity);
     const [isVisible, setIsVisible] = useState(true);
-    const { product } = props.product;
+    const { product } = props;
     const { quantity } = props.product;
     const { onChangePrice } = props;
+    const { onDeleteProduct } = props;
+    const { deleteItem } = useCart();
 
     const setNewPrice = () => {
         let product_price;
@@ -89,7 +91,7 @@ function CartCard(props) {
         setProductQuantity(productQuantity + 1)
         let cart = JSON.parse(localStorage.cart);
         for (var i = 0; i < cart.length; i++) {
-            if (productId === cart[i].product.id) {  //look for match with name
+            if (productId === cart[i].product_id) {  //look for match with name
                 cart[i].quantity += 1;  //add two
                 break;  //exit loop since you found the person
             }
@@ -102,7 +104,7 @@ function CartCard(props) {
             setProductQuantity(productQuantity - 1)
             let cart = JSON.parse(localStorage.cart);
             for (var i = 0; i < cart.length; i++) {
-                if (productId === cart[i].product.id) {  //look for match with name
+                if (productId === cart[i].product_id) {  //look for match with name
                     cart[i].quantity -= 1;  //add two
                     break;  //exit loop since you found the person
                 }
@@ -153,7 +155,7 @@ function CartCard(props) {
                         </div>
                         <div className="delete-price">
                             <div>
-                                <MdDeleteForever className="delete" size={30} onClick={(e) => { cart.deleteItem(props.productId); setIsVisible(false) }} />
+                                <MdDeleteForever className="delete" size={30} onClick={(e) => { deleteItem(props.productId); setIsVisible(false); onDeleteProduct({ productId: product.id }); }} />
                             </div>
 
                             <PriceElement product={props.product} product_quantity={productQuantity} />

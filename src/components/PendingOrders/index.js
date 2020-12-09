@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { notification } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { Input } from 'antd'
 
 import api from "../../services/api";
 import Pedido from "../../pages/Admin/Main/Pedido";
@@ -75,7 +76,7 @@ export default function PendingOrders(props) {
 
       <div className="pedidos-pendentes">
         <form className="pending-orders-form" onSubmit={handleSubmit}>
-          <input
+          <Input
             type="search"
             className="input-search-pending-orders"
             name="searchTerm"

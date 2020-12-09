@@ -162,7 +162,7 @@ function Addresses() {
       <Header />
       <div className="main-addresses-wrapper">
         <div className="addresses-content">
-          <h2>Para qual endereço você gostaria de enviar a sua compra, {loginContext.name}?</h2>
+          <h2>Selecione um endereço, {loginContext.name}?</h2>
           <div className="addresses">
             <Radio.Group onChange={onChange} value={value}>
               {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} index={index} address={address} selected={index === selected} key={`address-${index}`} />)}
@@ -248,7 +248,6 @@ function Addresses() {
 }
 
 function Address({ onClick, address, selected, index }) {
-  console.log("Address: ", address)
   return (
     <div>
       <Radio value={index} ><p>{`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}</p></Radio>

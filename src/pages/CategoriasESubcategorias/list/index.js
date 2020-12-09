@@ -254,7 +254,7 @@ export default function List2({ newCategory }) {
           <button
             className="trash-button-sub"
             onClick={(e) => handleClickButton(e, sub.id)}>
-            < BsTrash />
+            < BsTrash size={20} />
           </button>
           
         </div>
@@ -277,9 +277,9 @@ export default function List2({ newCategory }) {
                 <span className="list-cat-add-sub" >
 
                   <form onSubmit={(e) => handleClickAddSub(e, submitData, cat.id)}>
-                    <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
+                    <Input type='text' onChange={(e) => setSubmitData(e.target.value)} ></Input>
                   </form>
-                  < FaPlusCircle />
+                  < FaPlusCircle size={20} />
                   (adicionar subcategoria)
                 </span>
               </div>

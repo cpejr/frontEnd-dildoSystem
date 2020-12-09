@@ -4,6 +4,7 @@ import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 
 import { PriceElement } from './ProductCard';
 import cart from '../../services/cart';
+import { useCart } from '../../Contexts/CartContext';
 
 import './styles.css';
 
@@ -15,6 +16,7 @@ export default function ProductModal({ product, visible, onCancel }) {
   const childrenRef = React.createRef();
   const [modalWidth, setModalWidth] = useState(0);
   const [firstTime, setFirstTime] = useState(true);
+  const { addItem } = useCart();
 
   useEffect(() => {
     if (!product.subproducts || product.subproducts.length === 0) {
@@ -84,7 +86,7 @@ export default function ProductModal({ product, visible, onCancel }) {
           </div>
           <p>Preço unitário:</p>
           <PriceElement product={product} /><br />
-          <button className="buy-button" onClick={() => { cart.addItem(product, quantity); onCancel(); }}>COMPRAR</button>
+          <button className="buy-button" onClick={() => { addItem(product, quantity); onCancel(); }}>COMPRAR</button>
 
         </div>
       </div>

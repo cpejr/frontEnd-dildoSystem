@@ -11,6 +11,7 @@ import { LoginContext } from '../../Contexts/LoginContext';
 import Header from '../../components/Header';
 import api from '../../services/api';
 import cart from '../../services/cart';
+import { useCart } from '../../Contexts/CartContext';
 
 //this.props.match.params.id
 
@@ -34,6 +35,7 @@ function ProductPage(props) {
   const [isWish, setIsWish] = useState(false);
 
   const accessToken = localStorage.getItem('accessToken');
+  const { addItem } = useCart();
   //const accessToken = localStorage.getItem(user.accessToken);
 
   let config = accessToken ? { headers: { authorization: `Bearer ${accessToken}` } } : {};
@@ -361,7 +363,7 @@ function ProductPage(props) {
                   </div>
                 </div>
                 {(relevantStock > 0
-                  ? (<button className="buy-button" onClick={() => {  cart.addItem(productData, quantity,  productData.subproducts.length > 0 && productData.subproducts[selectedSubpIndex].id); history.push('/cart') }}>COMPRAR</button>)
+                  ? (<button className="buy-button" onClick={() => {  addItem(productData, quantity,  productData.subproducts.length > 0 && productData.subproducts[selectedSubpIndex].id); history.push('/cart') }}>COMPRAR</button>)
                   : (<div className="unavailable">Produto indisponível</div>)
                 )}
 
