@@ -5,6 +5,8 @@ import ProductCard from '../../components/ProductCard';
 import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';
 import Footer from '../../components/Footer';
+import FeaturedImages from '../../components/DashboardNewImages';
+import Instafeed from '../../components/Instafeed';
 
 import './styles.css';
 
@@ -32,12 +34,21 @@ function Dashboard(props) {
                 <div className="release-container">
                     <CarouselProducts />
                 </div>
+                <div className="images-container">
+                    <FeaturedImages />
+                </div>
                 <h2>MAIS VENDIDOS</h2>
                 <div className="best_seller-container">
                     <ProductCard best_sellerOnly />
                 </div>
             </div>
             <div>
+                <div className="insta-div">
+                    <br></br>
+                    <h3><img src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50"/>    Confira nosso Instagram:</h3>
+                <Instafeed />
+                </div>
+                <br></br>
                 <Footer />
             </div>
         </div>

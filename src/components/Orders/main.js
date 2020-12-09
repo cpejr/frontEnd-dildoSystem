@@ -3,6 +3,9 @@ import "./styles.css";
 import OrderArray from "./order.js";
 import { formatDate } from '../FormatDate/index'
 import api from '../../services/api';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 function Main(props) {
   const [newStatus, setnewStatus] = useState();
   const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number);
@@ -10,7 +13,7 @@ function Main(props) {
   const accessToken = localStorage.getItem('accessToken')
 
   const config = {
-      headers: { 'authorization': `Bearer ${accessToken}` },
+    headers: { 'authorization': `Bearer ${accessToken}` },
   }
   async function handleSubmit(e) {
 
@@ -28,18 +31,40 @@ function Main(props) {
       case "Pedido Entregue":
         engstatus = "delivered";
         break;
+      case "Pedido Cancelado":
+        engstatus = "cancelled";
     }
 
-    console.log({order_status:engstatus,track_number:newTrackNumber});
+    console.log({ order_status: engstatus, track_number: newTrackNumber });
     try {
-      const response = await api.put(`order/${props.pedido.id}`,{order_status:engstatus,track_number:newTrackNumber},  config);
+      const response = await api.put(`order/${props.pedido.id}`, { order_status: engstatus, track_number: newTrackNumber }, config);
       console.log(config);
-      alert(`Pedido Atualizado!`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Pedido atualizado.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
 
     } catch (err) {
       console.log(config);
       console.error(err);
-      alert('Erro ao atualizar pedido!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao atualizar pedido.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -57,7 +82,10 @@ function Main(props) {
     case "delivered":
       status = "Pedido Entregue";
       break;
-    default :
+    case "cancelled":
+      status = "Pedido Cancelado";
+      break;
+    default:
       break;
   }
   return (
@@ -151,6 +179,7 @@ function Main(props) {
               <option>Pedido Pago</option>
               <option>Pedido Enviado</option>
               <option>Pedido Entregue</option>
+              <option>Pedido Cancelado</option>
             </select>
           </label>
           <label className="order-label">

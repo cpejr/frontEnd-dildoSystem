@@ -9,6 +9,8 @@ import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
 import api from '../../services/api';
 import { callPaymentAPI, getShippingOptions } from './shippingAndPaymentAPIs';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import './styles.css';
 
@@ -90,7 +92,17 @@ function Addresses() {
     if (selected >= 0) {
       goToCheckout(addressList[selected])
     } else {
-      alert('Selecione um dos seus endereços cadastrados!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Selecione um dos seus endereços cadastrados.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -114,14 +126,34 @@ function Addresses() {
       try {
         await api.post(`/address`, newAddress, config);
       } catch (error) {
-        alert("Ocorreu um erro no cadastro desse endereço!");
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Ocorreu um erro no cadastro desse endereço.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
         return;
       }
 
       goToCheckout(newAddress);
 
     } else {
-      alert("Preencha todos os campos para enviar um novo endereço!")
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Preencha todos os campos para enviar um novo endereço.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
   return (
@@ -130,7 +162,7 @@ function Addresses() {
       <Header />
       <div className="main-addresses-wrapper">
         <div className="addresses-content">
-          <h2>Para qual endereço você gostaria de enviar a sua compra, {loginContext.name}?</h2>
+          <h2>Selecione um endereço, {loginContext.name}?</h2>
           <div className="addresses">
             <Radio.Group onChange={onChange} value={value}>
               {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} index={index} address={address} selected={index === selected} key={`address-${index}`} />)}
@@ -216,7 +248,6 @@ function Addresses() {
 }
 
 function Address({ onClick, address, selected, index }) {
-  console.log("Address: ", address)
   return (
     <div>
       <Radio value={index} ><p>{`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}</p></Radio>

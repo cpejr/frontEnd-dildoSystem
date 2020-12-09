@@ -1,14 +1,39 @@
 import React, { useState } from 'react';
 
+import { notification } from 'antd';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+
 import './styles.css'
 
-function Testefrete({ products }) {
+function Testefrete() {
     const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
 
     let produtos = []
 
+    const products = [
+        {
+            product: 
+            {
+                weight: 1.2,
+                height: 15,
+                width: 20,
+                length: 30,
+                quantity: 50
+            }
+        },
+        {
+            product: 
+            {
+                weight: 300,
+                height: 15,
+                width: 15,
+                length: 15,
+                quantity: 10
+            }
+        }
+    ]
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -66,6 +91,25 @@ function Testefrete({ products }) {
         setValue(e.target.value)
     }
 
+    function handleFreteError(envio) {
+
+        if(((envio.ServiceDescription === "SEDEX") && envio.Error))
+        {
+            console.log(envio.ServiceDescription )
+            notification.open({
+            message: 'Erro',
+            description:
+              envio.Msg,
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          })
+        }
+    }
+
 
 
     return (
@@ -75,7 +119,12 @@ function Testefrete({ products }) {
                 <div className='setCep d-flex'>
                     <label>Entrega:</label>
                     <div className='inputCep d-flex'>
-                        <input type="text" value={cep} onChange={(e) => setCEP(e.target.value)} placeholder="CEP" />
+                        <input 
+                            type="text" 
+                            value={cep} 
+                            onChange={(e) => setCEP(e.target.value)} 
+                            placeholder="CEP" 
+                        />
                         <button type="submit" value="Enviar" >Enviar</button>
                     </div>
 
@@ -85,11 +134,11 @@ function Testefrete({ products }) {
             <div className="dropdown-cart-ship">
                 <select value={value} onChange={handleClickDrop}>
                     {
-                        shipping.map(envio => (
+                        shipping.map((envio, i )=> (
                             envio.Error ?
-                                ''
+                        <option key={i} className="option-error">{handleFreteError(envio)}Nenhum{console.log('rederizou mais de uma', i)}</option>
                                 :
-                                <option key={envio.ShippingPrice} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
+                                <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
                                     {envio.ServiceDescription} - R$ {envio.ShippingPrice}
                                 </option>
                         ))

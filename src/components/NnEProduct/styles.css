@@ -3,7 +3,8 @@
     background-color: #f8f8f4;
   }
 
-  .product-title-page { 
+  .product-title-page-create { 
+    width: 80%;
     color: #707070;
     display: flex;
     flex-direction: column;
@@ -13,8 +14,9 @@
     display: flex;
     justify-content: center;
   }
-  .form-wrapper {
+  .form-wrapper-create {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     padding: 2%;
@@ -170,7 +172,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: floralwhite;
     margin-top: 0;
   }
   .edit-button button{

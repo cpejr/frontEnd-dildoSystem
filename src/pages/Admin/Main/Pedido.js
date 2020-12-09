@@ -4,97 +4,122 @@ import { formatDate } from '../../../components/FormatDate/index'
 import "./styles.css";
 import CreateIcon from "@material-ui/icons/Create";
 
-function Pedido2(props) {
-  const [url, seturl] = useState();
-  function createStatusBox(status) {
-    switch (status.toLowerCase()) {
-      case "delivered": {
-        return (
-          <div className="status-box" style={{ backgroundColor: "#00CC00" }}>
-            {" "}
-            ENTREGUE{" "}
-          </div>
-        );
-      }
+import { Table, Tag, Space } from 'antd';
+import 'antd/dist/antd.css';
 
-      case "paid": {
-        return (
-          <div className="status-box" style={{ backgroundColor: "#FF8000" }}>
-            {" "}
-            PAGO{" "}
-          </div>
-        );
-      }
-      case "mailed": {
-        return (
-          <div className="status-box" style={{ backgroundColor: "#CCCC00" }}>
-            {" "}
-            POSTADO{" "}
-          </div>
-        );
-      }
-      case "pending": {
-        return (
-          <div className="status-box" style={{ backgroundColor: "#BF3838" }}>
-            {" "}
-            PENDENTE{" "}
-          </div>
-        );
-      }
+function Pedido2(props) {
+  const data = [];
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Nome',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Tipo de usário',
+      dataIndex: 'usertype',
+      key: 'usertype',
+    },
+    {
+      title: 'Data',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
+      title: 'Valor',
+      dataIndex: 'value',
+      key: 'value',
+    },
+    {
+      title: 'Status',
+      key: 'tags',
+      dataIndex: 'tags',
+      render: tags => (
+        <>
+          {tags.map(tag => {
+            let color = tag.length > 5 ? 'geekblue' : 'green';
+            if (tag === 'cancelado') {
+              color = 'volcano';
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Space size="middle">
+          <a>Editar</a>
+          {/* {console.log('esse eh o text.id', text.action)} */}
+          <Link to={
+            {
+              pathname: `/admin/pendingorder/${text.action.id}`,
+              myCustomProps: text.action
+            }
+          }>
+            <CreateIcon size={20} color="#15425" />
+          </Link>
+        </Space>
+      ),
+    },
+  ];
+
+  props.orders.map((order, i) => {
+    switch (order.order_status) {
+      case "paid":
+        order.order_status = "pago"
+        break;
+      case "pending":
+        order.order_status = "pendente"
+        break;
+      case "delivered":
+        order.order_status = "entregue"
+        break;
+      case "mailed":
+        order.order_status = "enviado"
+        break;
+      case "cancelled":
+        order.order_status = "cancelado"
       default:
     }
+    return (
+      data.push({
+        key: `${i + 1}`,
+        id: order.id,
+        name: order.user.name,
+        email: order.user.email,
+        usertype: order.user.type,
+        date: order.created_at,
+        value: `R$${order.totalPrice}`,
+        tags: [`${order.order_status}`],
+        action: order
+      })
+    )
   }
-  useEffect(() => {
-  console.log(props);
-  if (props.dashboard) {
-    seturl( `admin/pendingorder/${props.pedido.id}`);
-  } else{
-    seturl(`pendingorder/${props.pedido.id}`);
-  }
-}, []);
-  return (
-    <div className="orders-content">
-      <h6>Dados do Pedido ID:{props.pedido.id}</h6>
-      <div className="orders-data">
-        <div className="orders-info">
-          <div className="orders-item">
-            <strong>Nome:</strong>
-            <p>{props.pedido.user.name}</p>
-          </div>
-          <div className="orders-item">
-            <strong>E-mail</strong>
-            <p>{props.pedido.user.email}</p>
-          </div>
-          <div className="orders-item">
-            <strong>Tipo de Usuario:</strong>
-            <p>{props.pedido.user.type}</p>
-          </div>
-          <div className="orders-item">
-            <strong>Data:</strong>
-            <p>{formatDate(props.pedido.created_at)}</p>
-          </div>
-          <div className="orders-item">
-            <strong>Valor:</strong>
-            <p>{`R$${Number(props.pedido.totalPrice).toFixed(2)}`}</p>
-          </div>
-          <div className="orders-item">
-            <strong>Status:</strong>
-            <p>{createStatusBox(props.pedido.order_status)}</p>
-          </div>
-          <div className="orders-item-edit">
-            <strong>Editar:</strong>
+  )
 
-            <Link to={
-    { 
-        pathname: url,
-        myCustomProps: props.pedido
-    }
-}>
-              <CreateIcon size={20} color="#15425" />
-            </Link>
-          </div>
-        </div>
-      </div>
+  return (
+    <div>
+      <Table columns={columns} dataSource={data} onChange={props.onChange} />
+
     </div>
   );
 }

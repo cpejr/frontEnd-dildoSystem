@@ -14,9 +14,18 @@
     transition: opacity .15s ease;
 }
 .carousel-control{
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #daa621;
     border-radius: 5px;
 }
+
+.carousel-control img{
+    width: 1.5vw;
+    height: 7vh;
+} 
 .carousel-control-prev {
     position: absolute;
     top: 0;

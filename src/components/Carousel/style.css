@@ -17,7 +17,7 @@
     width: 25vh;
     margin-bottom: 1rem!important;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -57,7 +57,7 @@ font-size: 2vh;
 }
 
 .enviar-button-carousel .edit-delete {
-    min-width: 80px;
+    width: 22%;
     background-color: #bc4b4b;
 }
 
@@ -73,3 +73,118 @@ font-size: 2vh;
     max-width: 300px;
     width: 80%;
 }
+
+.banner-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.EditBanner-Container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .enviar-button-carousel .edit-delete-banner {
+    width: 65%;
+    background-color: #bc4b4b;
+}
+
+.banner-container .divider-banner-sup {
+    display: flex;
+}
+
+.banner-container .divider-banner-inf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3%;
+}
+
+.divider-banner-sup .ant-row-images {
+    width: 100%;
+}
+
+.divider-banner-sup .col-images {
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  
+  
+  .divider-banner-sup   .textbanner {
+    position: relative;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  
+  .divider-banner-sup   .textbanner a{
+    display: block;
+      width: 100%;
+      height: 100%;
+  }
+  
+  .divider-banner-sup   .text-banner-image {
+    position: relative;
+    padding-top: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .divider-banner-sup   .text-banner-image img{
+    position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+
+  .EditBanner-Container .input-group {
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 685px) {
+    .divider-banner-sup .col-images {
+      flex: none !important;
+      max-width: none !important;
+    }
+    .divider-banner-sup .ant-row-images {
+      flex-flow: column !important;
+    }
+
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 55% !important;
+    }
+    
+  }
+
+  @media (max-width: 1150px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 100%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 135%;
+    }
+  }
+
+  @media (max-width: 735px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 165%;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 70% !important;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .divider-banner-sup   .text-banner-image {
+      padding-top: 85% !important;
+    }
+  }
+

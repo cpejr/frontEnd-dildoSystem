@@ -1,10 +1,15 @@
 .input-search-pending-orders {
-  padding-left: 50px;
   border-radius: 8px;
   width: 80%;
   height: 36px;
   border: 1px solid grey;
   margin-right: 15px;
+}
+
+.input-search-pending-orders:focus,
+.input-search-pending-orders:hover{
+  border: 1px solid grey;
+  box-shadow: none;
 }
 
 .titulo-pedidos-pendentes {

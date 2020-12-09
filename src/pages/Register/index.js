@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { TextField, MenuItem, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from '../../services/api';
 
@@ -142,13 +144,33 @@ function Register() {
             try {
                 const response = await api.post('/user', data);
 
-                alert(`Cadastro realizado com sucesso!`);
+                notification.open({
+                    message: 'Sucesso!',
+                    description:
+                      'Cadastro realizado com sucesso.',
+                    className: 'ant-notification',
+                    top: '100px',
+                    icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                    style: {
+                      width: 600,
+                    },
+                  });
 
                 history.push('/login');
 
             } catch (err) {
                 console.error(err);
-                alert('Erro ao cadastrar usuario!');
+                notification.open({
+                    message: 'Erro!',
+                    description:
+                      'Erro ao cadastrar usuário.',
+                    className: 'ant-notification',
+                    top: '100px',
+                    icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                    style: {
+                      width: 600,
+                    },
+                  });
             }
         }
 

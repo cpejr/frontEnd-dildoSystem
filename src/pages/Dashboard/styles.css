@@ -19,6 +19,7 @@
     width: 100%;
     flex-direction: column;
     max-width: 1400px;
+    justify-content: center;
 }
 
 .dashboard-content h2 {
@@ -48,4 +49,53 @@
     background-color: white;
     border-radius: 2vh;
     margin-bottom: 3vh;
+}
+.insta-div {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 90vw;
+    background-color: white;
+    border-radius: 2vh;
+}
+
+.images-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (max-width: 1400px) {
+    .images-container {
+        max-width: 1300px;
+    } 
+}
+
+@media (max-width: 1200px) {
+    .images-container {
+        max-width: 1140px;
+    } 
+}
+
+@media (max-width: 992px) {
+    .images-container {
+        max-width: 960px;
+    } 
+}
+
+@media (max-width: 768px) {
+.images-container {
+    max-width: 720px;
+}
+}
+
+@media (max-width: 576px) {
+    .images-container {
+        max-width: 540px; 
+    }
 }

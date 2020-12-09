@@ -25,9 +25,9 @@ function SearchContextProvider(props) {
   //Organiza informação quando pesquisa é feita
   function handleSearch(searchConfig) {
 
-    const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId} = searchConfig;
+    const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId } = searchConfig;
 
-    let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId};
+    let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId };
 
     if (search) {
       newFilters.search = search;
@@ -83,8 +83,8 @@ function SearchContextProvider(props) {
       if (search) query += `search=${search}&`;
       if (minPrice) query += `min_price=${minPrice}&`;
       if (maxPrice) query += `max_price=${maxPrice}&`;
-      if (orderBy) query += `order_by=${orderBy}&`;
-      if (orderAscending) query += `order_ascending=${orderAscending}&`;
+      if (orderBy) query += `order_by=${orderBy}&order_ascending=${orderAscending}&`;
+      //if (orderAscending) query += ``;
       if (categoryId) query += `category_id=${categoryId}&`;
       if (subcategoryId) query += `subcategory_id=${subcategoryId}&`;
 
@@ -116,7 +116,7 @@ function SearchContextProvider(props) {
   })
 
   return (
-    <SearchContext.Provider value={{ handleSearch, rawSearch }}>
+    <SearchContext.Provider value={{ handleSearch, rawSearch, categoryId, subcategoryId }}>
       {props.children}
     </SearchContext.Provider>
   )

@@ -14,6 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from "react-router-dom";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 const styles = (theme) => ({
   root: {
@@ -155,7 +157,17 @@ const handleXopen = () => {
     } catch (err) {
       setError(err.response.data.message);
       console.error(err);
-      alert("Senha incorreta");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Senha incorreta.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
 
     if (data) {
@@ -166,7 +178,17 @@ const handleXopen = () => {
               authorization: "Bearer " + localStorage.accessToken,
             }
           })
-          alert(`Edição concluída`, response);
+          notification.open({
+            message: 'Sucesso!',
+            description:
+              'Edição concluída.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          }, response);
       } catch (err) {
         console.log(JSON.stringify(err));
         console.error(err.response);
@@ -208,11 +230,31 @@ const handleXopen = () => {
             authorization: "Bearer " + localStorage.accessToken,
           }
         })
-        alert(`Edição concluída`, response);
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Edição concluída.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição não pôde ser realizada");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição não pôde ser realizada.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   
   }
@@ -225,7 +267,17 @@ const handleXopen = () => {
     } ).then((response) => {
       console.log(response);
     })
-    alert("Usuário deletado com sucesso!");
+    notification.open({
+      message: 'Sucesso!',
+      description:
+        'Usuário deletado com sucesso.',
+      className: 'ant-notification',
+      top: '100px',
+      icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+      style: {
+        width: 600,
+      },
+    });
     history.push("/login");
   }
    

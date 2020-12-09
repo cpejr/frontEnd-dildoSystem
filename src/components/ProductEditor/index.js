@@ -8,6 +8,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from "../../services/api";
 import "./styles.css";
@@ -84,7 +86,8 @@ export default function ProductEditor(props) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [subcategory_id, setSubcategory] = useState(0);
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
@@ -94,6 +97,7 @@ export default function ProductEditor(props) {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [images, setImages] = useState([]);
+  const [img_url, setImgURL] = useState();
 
   // const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
@@ -147,7 +151,7 @@ export default function ProductEditor(props) {
   function handleCategorySelection(event) {
     const newCat = categories.find((cat) => cat.id === event.target.value);
     if (newCat) {
-      setCategoryId(Number(newCat.id));
+      setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
     } else {
       setCategoryId(0);
@@ -177,12 +181,12 @@ export default function ProductEditor(props) {
         checkedC: Boolean(product.on_sale_wholesaler),
         checkedD: Boolean(product.release),
         checkedA: Boolean(product.visible),
-        checkedE: Boolean(product.best_seller)
+        checkedE: Boolean(product.best_seller),
       });
       setQuantity(product.stock_quantity);
       setMinimum(product.min_stock);
       setSubcategory(product.subcategory_id);
-      setImage(product.image_id)
+      setImageID(product.image_id);
       setWeight(product.weight);
       setLength(product.length);
       setWidth(product.width);
@@ -208,11 +212,11 @@ export default function ProductEditor(props) {
           checkedC: Boolean(response.data.on_sale_wholesaler),
           checkedD: Boolean(response.data.release),
           checkedA: Boolean(response.data.visible),
-          checkedE: Boolean(response.data.best_seller)
+          checkedE: Boolean(response.data.best_seller),
         });
         setQuantity(response.data.stock_quantity);
         setMinimum(response.data.min_stock);
-        setImage(response.data.image_id);
+        setImageID(response.data.image_id);
         setSubcategory(response.data.subcategory_id);
         setWeight(response.data.weight);
         setLength(response.data.length);
@@ -237,7 +241,6 @@ export default function ProductEditor(props) {
       setEditar(true);
     }
   }, []);
-
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -281,14 +284,16 @@ export default function ProductEditor(props) {
     addToData("visible", visible);
     addToData("on_sale_client", on_sale_client);
     addToData("on_sale_wholesaler", on_sale_wholesaler);
-    addToData('best_seller', best_seller);
-    addToData('release', release);
-    addToData("imageFile", image_id);
+    addToData("best_seller", best_seller);
+    addToData("release", release);
+    addToData("imageFile", image);
     addToData("subcategory_id", subcategory_id);
     addToData("weight", weight);
     addToData("height", height);
     addToData("width", width);
     addToData("length", length);
+
+    console.log("Esta é a url da imagem", img_url);
 
     try {
       const response = await api.put(
@@ -296,33 +301,95 @@ export default function ProductEditor(props) {
         data,
         config
       );
-      alert(`Edição concluída!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Edição do produto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição impedida");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do produto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img);
+    setImgURL(img_url);
     setImage(img);
   }
 
   function handleDeleteProduct() {
-    api.delete(`product/${props.match.params.id}`, config).then((response) => {
-      alert("Produto deletado com sucesso!");
-      history.push("/admin");
-    }).catch((err) => {
-      console.error(err);
-      alert("Falha em deletar o produto!");
-    });
-  };
+    api
+      .delete(`product/${props.match.params.id}`, config)
+      .then((response) => {
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Produto deletado com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+        history.push("/admin");
+      })
+      .catch((err) => {
+        JSON.stringify(err.response);
+        console.error(err);
+        console.error(err.response);
+        if (err.response.data.code === 527) {
+          notification.open({
+            message: 'Erro!',
+            description:
+              'Produto não pode ser deletado pois está incluído em um pedido.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          });
+        }
+        else {
+          notification.open({
+            message: 'Erro!',
+            description:
+              'Falha em deletar o produto.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            style: {
+              width: 600,
+            },
+          });
+        }
+      });
+  }
 
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
     // console.log(image_id);
-    console.log("ID da imagem:", image)
+    console.log("ID da imagem:", image);
 
     api.delete(`image/${image}`, config).then((response) => {
       console.log(response);
@@ -333,15 +400,15 @@ export default function ProductEditor(props) {
   return (
     <div>
       <div className="new-product-all">
-        <form onSubmit={handleSubmit}>
-          <div className="product-title-page">
-            <h4>Editar Produto</h4>
-            <Tabs
-              defaultActiveKey="product"
-              transition={false}
-              id="noanim-tab-example"
-            >
-              <Tab eventKey="product" title="Produto">
+        <div className="product-title-page">
+          <h4>Editar Produto</h4>
+          <Tabs
+            defaultActiveKey="product"
+            transition={false}
+            id="noanim-tab-example"
+          >
+            <Tab eventKey="product" title="Produto">
+              <form onSubmit={handleSubmit}>
                 <div className="form-wrapper">
                   <div className="divisor-teste">
                     <div className="left-form">
@@ -482,7 +549,12 @@ export default function ProductEditor(props) {
                             loading={() => (
                               <img src={loading} alt="Loading..." />
                             )}
-                            error={() => <div>Error</div>}
+                            error={() => (
+                              <div>
+                                O arquivo abaixo será adicionado como imagem
+                                principal.
+                              </div>
+                            )}
                           />
                         )}
                         <br></br>
@@ -493,6 +565,7 @@ export default function ProductEditor(props) {
                           <ImageUpload
                             onChange={handleImage}
                             fileName={"imageFile"}
+                            url={img_url}
                           />
                         </div>
 
@@ -500,22 +573,28 @@ export default function ProductEditor(props) {
                           Secudárias
                         </label>
                         <div className="pres-imgs">
-                          {images.map((image, index) => (
-                            image.subproduct_id === null &&
-                            <div className="secimage-comp-loader-sub">
-                                <DeleteForeverIcon className="edit-delete-secimage"
-                                type="button"
-                                onClick={() => handleDeleteSecImage(image.id)} />
-                              <ImageLoader
-                                className="secimage-loader-sub"
-                                src={`https://docs.google.com/uc?id=${image.id}`}
-                                loading={() => (
-                                  <img src={loading} alt="Loading..." />
-                                )}
-                                error={() => <div>Error</div>}
-                              />
-                            </div> 
-                                ))}
+                          {images.map(
+                            (image, index) =>
+                              image.subproduct_id === null && (
+                                <div className="secimage-comp-loader-sub">
+                                  <DeleteForeverIcon
+                                    className="edit-delete-secimage"
+                                    type="button"
+                                    onClick={() =>
+                                      handleDeleteSecImage(image.id)
+                                    }
+                                  />
+                                  <ImageLoader
+                                    className="secimage-loader-sub"
+                                    src={`https://docs.google.com/uc?id=${image.id}`}
+                                    loading={() => (
+                                      <img src={loading} alt="Loading..." />
+                                    )}
+                                    error={() => <div>Error</div>}
+                                  />
+                                </div>
+                              )
+                          )}
                         </div>
                         <MultipleUploader
                           canSubmit={true}
@@ -866,29 +945,29 @@ export default function ProductEditor(props) {
                       </button>
                     </div>
                   ) : (
-                      <div className="product-button">
-                        <button type="submit">ENVIAR ALTERAÇÕES</button>
-                      </div>
-                    )}
-                </div>
-              </Tab>
-              <Tab eventKey="subproduct" title="Subprodutos">
-                {subproducts ? (
-                  <div className="sub-form">
-                    <SubproductsCreate />
-                    {subproducts.map((subproduto, index) => (
-                      <Subedit subproduto={subproduto} />
-                    ))}
-                  </div>
-                ) : (
-                    <div className="sub-form">
-                      <SubproductsCreate />
+                    <div className="product-button">
+                      <button type="submit">ENVIAR ALTERAÇÕES</button>
                     </div>
                   )}
-              </Tab>
-            </Tabs>
-          </div>
-        </form>
+                </div>
+              </form>
+            </Tab>
+            <Tab eventKey="subproduct" title="Subprodutos">
+              {subproducts ? (
+                <div className="sub-form">
+                  <SubproductsCreate />
+                  {subproducts.map((subproduto, index) => (
+                    <Subedit subproduto={subproduto} />
+                  ))}
+                </div>
+              ) : (
+                <div className="sub-form">
+                  <SubproductsCreate />
+                </div>
+              )}
+            </Tab>
+          </Tabs>
+        </div>
       </div>
     </div>
   );

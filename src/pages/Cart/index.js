@@ -9,19 +9,36 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
 import Frete from '../testefrete'
+import { useCart } from '../../Contexts/CartContext';
+import api from '../../services/api'
 
 function Cart() {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [newProducts, setNewProducts] = useState([])
+  const [localCart, setLocalCart] = useState();
+  const [hasCart, setHasCart] = useState(false);
+  // const { cart } = useCart();
 
   useEffect(() => {
-    let cart = [];
-    if (localStorage.getItem('cart')) {
-      cart = JSON.parse(localStorage.getItem('cart'));
+    setLocalCart(JSON.parse(localStorage.getItem('cart')))
+    setHasCart(true);
+  }, [])
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    const config = {
+      headers: { 'authorization': `Bearer ${accessToken}` },
     }
-    setProducts(cart);
-  }, []);
+
+    if (accessToken) {
+      api.post("cart", localCart, config).then(res => {
+        console.log("Carrinho do back: ", res.data);
+        setProducts(res.data);
+      })
+    }
+  }, [hasCart]);
 
   function addNewProducts(products) {
     for (var i = 0; i < newProducts.length; i++) {
@@ -32,11 +49,23 @@ function Cart() {
     setNewProducts(newProducts => [...newProducts, products])
   }
 
+  function deleteProduct(product) {
+    console.log("Delete product: ", product)
+    for (var i = 0; i < newProducts.length; i++) {
+      if (product.productId === newProducts[i].productId) {
+        newProducts.splice(i, 1);
+      }
+    }
+    setNewProducts(newProducts => [...newProducts])
+  }
+
   useEffect(() => {
+    console.log("Entreiiiiii")
     let price = 0;
     newProducts.forEach(p => {
       price += (p.productPrice * p.product_quantity);
     })
+    console.log("Price: ", price)
     setTotalPrice(price);
   }, [newProducts])
 
@@ -50,15 +79,16 @@ function Cart() {
           </h2>
           <div className="cart-items">
             {products ? products.map((product) => (
-              console.log("Produtoooooo: ", product)
-              // <CartCard //key={product.product.id} 
-              //   name={product.product.name}
-              //   description={product.product.description}
-              //   productId={product.product.id}
-              //   product={product}
-              //   image_id={product.product.image_id}
-              //   onChangePrice={addNewProducts} />
-            )): <div></div>}
+              // console.log("Produtooooo: ", product)
+              <CartCard key={product.id}
+                name={product.name}
+                description={product.description}
+                productId={product.id}
+                product={product}
+                image_id={product.image_id}
+                onChangePrice={addNewProducts}
+                onDeleteProduct={deleteProduct} />
+            )) : <div></div>}
           </div>
           <div className='total-price'>
             <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>

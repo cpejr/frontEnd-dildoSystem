@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { FaPlusCircle } from 'react-icons/fa';
 import './styles.css'
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import api from '../../services/api';
 import Lista from './list/index.js';
@@ -35,7 +37,17 @@ export default function CatNSubCat() {
       // setUpdate(!update)
 
       api.post('newCategory', sendData, config).then(() => {
-        alert('Categoria criada com sucesso!')
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Categoria criada com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
         setNewCategory(!newCategory)
       })
     }
@@ -43,8 +55,8 @@ export default function CatNSubCat() {
     return (
       <div>
         <button className="add-cat" onClick={() => handleClickButton()}>
-          <FaPlusCircle />
-          <span className="add-cat-descrip">Adiconar Categorias</span>
+          <FaPlusCircle size={20} />
+          <span className="add-cat-descrip">Adicionar Categorias</span>
         </button>
         {
           inputShow ?

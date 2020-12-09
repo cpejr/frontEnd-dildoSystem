@@ -4,14 +4,22 @@ import ImageLoader from "react-loading-image";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import loading from "../../images/Loading.gif";
 import api from '../../services/api';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 
 function CarouselImages(props) {
   const [newPosition, setNewPosition] = useState();
+  const [newLink, setNewLink] = useState();
 
-  useEffect(()=>{
-    if(!isNaN(props.image.position))
-    setNewPosition(props.image.position)
-  },[props.image.position]);
+  useEffect(() => {
+    if (!isNaN(props.image.position))
+      setNewPosition(props.image.position)
+  }, [props.image.position]);
+
+  useEffect(() => {
+    setNewLink(props.image.link)
+  }, [props.image.link]);
 
   const accessToken = localStorage.getItem('accessToken')
 
@@ -25,13 +33,33 @@ function CarouselImages(props) {
 
       const response = await api.delete('/Carousel/' + props.image.id, config);
 
-      alert(`Imagem deletada com sucesso!`);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Imagem deletada com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
       props.setUpdate(!props.update);
 
 
     } catch (err) {
       console.error(err);
-      alert('Erro ao deletar imagem!');
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Erro ao deletar imagem.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
@@ -55,8 +83,30 @@ function CarouselImages(props) {
           <input
             type="text"
             value={newPosition}
-            onChange={(e) => {setNewPosition(e.target.value)
-              props.handlePositionChange(props.image.id, e.target.value)          
+            onChange={(e) => {
+              setNewPosition(e.target.value)
+              props.handlePositionChange(props.image.id, e.target.value)
+            }}
+            className="form-control"
+            id="validationDefaultUsername"
+            aria-describedby="inputGroupPrepend2"
+            required
+          />
+        </div>
+      </div>
+      <div className="position-container">
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroupPrepend2">
+              Link
+            </span>
+          </div>
+          <input
+            type="text"
+            value={newLink}
+            onChange={(e) => {
+              setNewLink(e.target.value)
+              props.handleLinkChange(props.image.id, e.target.value)
             }}
             className="form-control"
             id="validationDefaultUsername"

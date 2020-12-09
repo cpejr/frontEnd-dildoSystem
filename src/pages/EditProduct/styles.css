@@ -52,6 +52,11 @@
 .input-search {
   margin-right: 2vh;
 }
+.search-edit-form input:hover,
+.search-edit-form input:focus{
+  border: 1px solid gray;
+  box-shadow: none;
+}
 @media (max-width: 800px) {
 .search-edit-form {
   display: flex;

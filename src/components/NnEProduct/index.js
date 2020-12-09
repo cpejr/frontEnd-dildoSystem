@@ -8,6 +8,8 @@ import SimpleInput from "./SimpleInput";
 import SimpleSwitch from "./SimpleSwitch";
 import ImageUpload from '../../components/ImageUpload';
 import MultipleUploader from '../../components/MultipleUploader';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function NnEProduct({ witchOne }) {
 
@@ -25,7 +27,8 @@ export default function NnEProduct({ witchOne }) {
   const [stock_quantity, setQuantity] = useState();
   const [min_stock, setMinimum] = useState();
   const [weight, setWeight] = useState();
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [images, setImages] = useState(null)
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategoryId] = useState(0);
@@ -34,6 +37,7 @@ export default function NnEProduct({ witchOne }) {
   const [length, setLength] = useState();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [img_url, setImgURL] = useState();
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -116,7 +120,7 @@ export default function NnEProduct({ witchOne }) {
     addToData('on_sale_wholesaler', on_sale_wholesaler);
     addToData('best_seller', best_seller);
     addToData('release', release);
-    addToData('imageFile', image_id);
+    addToData('imageFile', image);
     if (images) {
       images.forEach(image => {
         addToData('imageFiles', image);
@@ -135,15 +139,52 @@ export default function NnEProduct({ witchOne }) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       })
-      alert(`Registro concluído!`, response);
-      history.push('/admin');
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'O registro do produto foi concluído com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#108ee9' }} />,
+          style: {
+            width: 600,
+          },
+        });
     } catch (err) {
-      console.err(JSON.stringify(err));
-      alert("Falha no registro!");
+      console.log(JSON.stringify(err));
+      console.error(err.response);
+      if (!image) {
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Imagem requerida.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+      }
+      else {   
+        notification.open({
+          message: 'Erro!',
+          description:
+            'Falha no registro do produto.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          style: {
+            width: 600,
+          },
+        });
+      }
     }
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -156,10 +197,10 @@ export default function NnEProduct({ witchOne }) {
       <div className="new-product-all">
 
         <form onSubmit={handleSubmit}>
-          <div className="product-title-page">
+          <div className="product-title-page-create">
             <h3>Novo Produto</h3>
 
-            <div className="form-wrapper">
+            <div className="form-wrapper-create">
               <div className="divisor-teste">
                 <div className="left-form">
                   <div className="general-form">
@@ -214,7 +255,7 @@ export default function NnEProduct({ witchOne }) {
                   </label>
                     <div className="input-group mb-3">
 
-                      <ImageUpload onChange={handleImage} fileName={'imageFile'} />
+                      <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url}/>
 
                     </div>
 

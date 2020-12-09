@@ -1,107 +1,143 @@
-import React from 'react';
-import { GoVerified, GoMegaphone } from 'react-icons/go';
-import { RiMoneyDollarCircleLine } from 'react-icons/ri';
-import { FaShippingFast } from 'react-icons/fa';
+import React from "react";
+import { GoVerified, GoMegaphone } from "react-icons/go";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { FaShippingFast } from "react-icons/fa";
+import Inst1 from "../../images/inst1.jpg";
+import Inst2 from "../../images/inst2.jpg";
+import Inst3 from "../../images/inst3.jpg";
+import Inst4 from "../../images/inst4.jpg";
+import Inst5 from "../../images/inst5.jpg";
 
-import './styles.css';
+import "./styles.css";
 
-import Header from '../../components/Header';
-import Footer from '../../components/Footer'
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 function About() {
-    return (
-        <>
-            <Header />
-            <div className="about-content">
-                <h2>Quem Somos</h2>
-                <div className="about-institutional">
-                    <div className="about-container">
-                        <h3>Quem Somos</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        lorem eros, finibus quis nulla in, dapibus tincidunt tellus.
-                        Nam efficitur enim leo. Fusce eu velit vitae nunc tristique fermentum.
-                        Aenean dapibus massa velit. Etiam et tempus tortor, et posuere mauris.
-                        Aliquam mattis placerat nisi. Quisque ut leo turpis.</p>
-                    </div>
-                    <div className="about-container">
-                        <h3>Missão</h3>
-                        <p className="right">Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur. Sed posuere luctus nunc
-                        et dignissim. Duis id lectus scelerisque, laoreet nibh vel, euismod
-                        neque. Aenean a tellus quam. Aliquam dictum lorem in leo euismod sodales.</p>
-                    </div>
-                </div>
-                <div className="about-institutional">
-                    <div className="about-container">
-                        <h3>Visão</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        lorem eros, finibus quis nulla in, dapibus tincidunt tellus.
-                        Nam efficitur enim leo. Fusce eu velit vitae nunc tristique fermentum.
-                        Aenean dapibus massa velit. Etiam et tempus tortor, et posuere mauris.
-                    Aliquam mattis placerat nisi. Quisque ut leo turpis.</p>
-                    </div>
-                    <div className="about-container">
-                        <h3>Valores</h3>
-                        <p className="right">Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur. Sed posuere luctus nunc
-                        et dignissim. Duis id lectus scelerisque, laoreet nibh vel, euismod
-                        neque. Aenean a tellus quam. Aliquam dictum lorem in leo euismod sodales.</p>
-                    </div>
-                </div>
-                <div className="about-benefits">
-                    <div className="about-benefits-item">
-                        <div className="about-benefits-title">
-                            <GoVerified size={50} />
-                        </div>
-                        <p>Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur.</p>
-                    </div>
-                    <div className="about-benefits-item">
-                        <div className="about-benefits-title">
-                            <RiMoneyDollarCircleLine size={50} />
-                        </div>
-                        <p>Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur.</p>
-                    </div>
-                    <div className="about-benefits-item">
-                        <div className="about-benefits-title">
-                            <GoMegaphone size={50} />
-                        </div>
-                        <p>Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur.</p>
-                    </div>
-                    <div className="about-benefits-item">
-                        <div className="about-benefits-title">
-                            <FaShippingFast size={50} />
-                        </div>
-                        <p>Cras elementum felis ac facilisis lacinia. Morbi tristique at eros et
-                        tempus. Proin non ultricies tortor. Nullam tempus bibendum fermentum.
-                        Integer viverra quam quis commodo efficitur.</p>
-                    </div>
-
-                </div>
-                <div className="about-institutional">
-                    <div className="about-container">
-                        <h3>Informações: </h3>
-                        <p>Razão Social: Casulus</p>
-                        <p>CNPJ: 31.834.765/0001-50</p>
-                        <p>Rua Teste de Rua - Pampulha</p>
-                        <p>Minas Gerais - MG - CEP 00215-021</p>
-                        <p>Horário de atendimento:</p>
-                        <p>De Segunda a Sexta das 08:00 as 17:30hrs</p>
-                    </div>
-                    <div className="about-container">
-                    </div>
-                </div>
+  return (
+    <>
+      <Header />
+      <div className="about-content">
+        <h2>Institucional</h2>
+        <div className="about-institutional">
+          <div className="about-container">
+            <div className="justified-about-container">
+              <div className="inst-image">
+                <img src={Inst1} alt="institucional1"></img>
+              </div>
+              <div className="about-paragraph">
+                <h3>Quem Somos</h3>
+                <p>
+                        A Casulus é uma empresa que surgiu da necessidade de atender
+                  pessoas, em especial mulheres, que não se identificavam com os
+                  “tradicionais sexshops”. A ideia foi revolucionar o mercado
+                  erótico e desconstruir estereótipos em relação ao sexo e à
+                  sexualidade.
+                </p>
+              </div>
             </div>
-            <Footer />
-        </>
-    );
-};
+            <p>
+                    A loja conta hoje com espaço físico, uma boutique que foi
+              planejada para trazer conforto e modernidade aos clientes, e
+              também estar presente no meio digital, tanto no site como nas
+              principais redes sociais.
+            </p>
+          </div>
+        </div>
+
+        <div className="about-institutional">
+          <div className="about-container">
+            <div className="justified-about-container">
+              <div className="inst-image">
+                <img src={Inst5} alt="institucional1"></img>
+              </div>
+              <div className="about-paragraph">
+                <h3>Missão</h3>
+                <p>
+                        Ser uma empresa que entende e atende as necessidades de nossos
+                  clientes, com um atendimento diferenciado e humanizado,
+                  oferecendo confiança e qualidade, a preço justo.
+                </p>
+                <h3>Visão</h3>
+                <p>
+                        Ajudar a descontruir mitos e tabus em relação ao sexo e a
+                  sexualidade, e falar de maneira mais descontraída sobre
+                  produtos eróticos.
+                </p>
+                <h3>Valores</h3>
+                <p> Foco no cliente, integridade e credibilidade.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-institutional">
+          <div className="about-container">
+            <div className="justified-about-container">
+              <div className="inst-image">
+                <img src={Inst2} alt="institucional1"></img>
+              </div>
+              <div className="about-paragraph">
+                <h3>Oferecemos aos clientes</h3>
+                <p>
+                        Experiência de compra personalizada, em um ambiente que traz
+                  conforto e aconchego. Além disso, trabalhamos com preços
+                  justos e com várias formas de pagamento (depósito/
+                  transferência bancária, boleto, cartão de débito e
+                  crédito, e parcelamentos). A empresa conta também com
+                  novidades frequentes e lançamentos exclusivos em todas as
+                  categorias de produtos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-institutional">
+          <div className="about-container">
+            <div className="justified-about-container">
+              <div className="inst-image">
+                <img src={Inst3} alt="institucional1"></img>
+              </div>
+              <div className="about-paragraph">
+                <h3>Nossos produtos</h3>
+                <p>
+                        Trabalhamos com as melhores marcas do segmento erótico,
+                  nacionais e importadas, de todas as categorias, inclusive moda
+                  sensual. Para oferecer qualidade e inovação aos nossos
+                  clientes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-institutional">
+          <div className="about-container">
+            <div className="justified-about-container">
+              <div className="inst-image">
+                <img src={Inst4} alt="institucional1"></img>
+              </div>
+              <div className="about-paragraph">
+                <h3>Entregas</h3>
+                <p>
+                        Experiência de compra personalizada, em um ambiente que traz
+                  conforto e aconchego. Além disso, trabalhamos com preços
+                  justos e com várias formas de pagamento (depósito/
+                  transferência bancária, boleto, cartão de débito frequentes e
+                  crédito, e parcelamentos). A empresa conta também com
+                  novidades frequentes e lançamentos exclusivos em todas as
+                  categorias de produtos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <Footer />
+    </>
+  );
+}
 
 export default About;

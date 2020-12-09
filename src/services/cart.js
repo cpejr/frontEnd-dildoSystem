@@ -1,3 +1,7 @@
+import React from 'react';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 let cart = {
     addItem(product, product_quantity, subproduct_id) {
 
@@ -5,6 +9,17 @@ let cart = {
         let products = [];
         if (localStorage.getItem('cart')) {
             products = JSON.parse(localStorage.getItem('cart'));
+            notification.open({
+                message: 'Sucesso!',
+                description:
+                    'O produto foi adicionado ao carrinho.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                style: {
+                    width: 600,
+                },
+            });
         }
         for (var i = 0; i < products.length; i++) {
             if (product.id === products[i].product_id && subproduct_id && subproduct_id === products[i].subproduct_id) {
@@ -32,6 +47,9 @@ let cart = {
         let storageProducts = JSON.parse(localStorage.getItem('cart'));
         let products = storageProducts.filter(product => product.product_id !== productId);
         localStorage.setItem('cart', JSON.stringify(products));
+    },
+    clear() {
+        localStorage.removeItem('cart');
     }
 };
 export default cart;

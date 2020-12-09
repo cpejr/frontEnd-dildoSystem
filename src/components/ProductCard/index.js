@@ -38,29 +38,6 @@ export default withRouter(function ProductCard(props) {
     }
 
     useEffect(() => {
-        if (!props.releaseOnly && !props.best_sellerOnly) {
-            window.addEventListener('scroll', handleScroll, { passive: true });
-        }
-
-
-        return (() => {
-            if (!props.releaseOnly && !props.best_sellerOnly) {
-                window.removeEventListener('scroll', handleScroll);
-            }
-        });
-    }, []);
-
-    useEffect(() => {
-        if (!requiring) {
-            alreadyRequiring.current = false;
-        }
-
-        if (alreadyRequiring.current && requiring) {
-            loadFollowingPage();
-        }
-    }, [requiring])
-
-    useEffect(() => {
 
         const accessToken = localStorage.getItem('accessToken')
 
@@ -94,6 +71,31 @@ export default withRouter(function ProductCard(props) {
     }, [props.location.search])
 
     useEffect(() => {
+        if (!props.releaseOnly && !props.best_sellerOnly) {
+            window.addEventListener('scroll', handleScroll, { passive: true });
+        }
+
+
+        return (() => {
+            if (!props.releaseOnly && !props.best_sellerOnly) {
+                window.removeEventListener('scroll', handleScroll);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!requiring) {
+            alreadyRequiring.current = false;
+        }
+
+        if (alreadyRequiring.current && requiring) {
+            loadFollowingPage();
+        }
+    }, [requiring])
+
+
+
+    useEffect(() => {
         console.log('novo array de products', products);
     }, [products])
 
@@ -123,11 +125,13 @@ export default withRouter(function ProductCard(props) {
         } else {
             nextPage = await api.get(url);
         }
-
-        setProducts(products.concat(nextPage.data));
-        setPage(page + 1);
+        if (nextPage.data.length > 0) {
+            setProducts(products.concat(nextPage.data));
+            setPage(page + 1);
+            console.log("next Page is", nextPage);
+            window.scrollTo(0, currentPos);
+        }
         setRequiring(false);
-        window.scrollTo(0, currentPos);
     }
 
     return (

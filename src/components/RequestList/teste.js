@@ -41,7 +41,7 @@ function MainRequest(props) {
         <div className="request-column-2">
         <div className="request-data22">
             <div className="request-deadline">
-              {`Previsão de entrega:${String(props.order.deadline)}`}
+              {`Previsão de entrega:${props.order.delivery_time == 1 ? String(props.order.delivery_time) + "dia útil" : String(props.order.delivery_time) + "dias úteis"}`}
               
             </div>
           </div>

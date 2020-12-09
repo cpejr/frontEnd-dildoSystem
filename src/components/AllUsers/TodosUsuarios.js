@@ -7,6 +7,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import { withStyles } from '@material-ui/core/styles';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 
 const DialogContent = withStyles((theme) => ({
@@ -50,10 +52,30 @@ export default function UsuariosPendentes(props) {
 
         try {
             const response = await api.put(`user/${props.todosUsuarios.id}`, data, config)
-            alert(`Alteração concluída!`, response);
+            notification.open({
+                message: 'Sucesso!',
+                description:
+                  'Alteração concluída.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                style: {
+                  width: 600,
+                },
+              });
         } catch (err) {
             console.error(err.response);
-            alert("Update error");
+            notification.open({
+                message: 'Erro!',
+                description:
+                  'Erro na atualização.',
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                style: {
+                  width: 600,
+                },
+              });
         }
     }
 

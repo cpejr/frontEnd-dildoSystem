@@ -143,6 +143,17 @@
     font-family: 'Roboto';
 }
 
+.order-product-image{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: auto;
+}
+
+.order-product-image img{
+    width: 150px;
+}
+
 @media(max-width: 1075px){
     .request-row{
         flex-direction: column;

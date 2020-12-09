@@ -9,6 +9,8 @@ import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 import MultipleUploader from "../../components/MultipleUploader";
 import { useParams } from "react-router-dom";
+import { notification } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function SubproductsEdit({ subproduto }) {
   const [name, setName] = useState("");
@@ -16,10 +18,12 @@ export default function SubproductsEdit({ subproduto }) {
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
-  const [image_id, setImage] = useState();
+  const [image_id, setImageID] = useState();
+  const [image, setImage] = useState();
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
   const { id } = useParams();
+  const [img_url, setImgURL] = useState();
   
   const [editar, setEditar] = useState("editar");
 
@@ -55,14 +59,15 @@ export default function SubproductsEdit({ subproduto }) {
     api.delete(`subproducts/${subproduto.id}`, config).then((response) => {
       console.log(response);
     });
+    window.location.reload();
   };
 
-  async function handleSubmit(e) {
+  async function handleSubSubmit(e) {
     e.preventDefault();
 
-    let data = {};
+    let data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data = { ...data, [key]: value };
+      if (value !== undefined && value !== "") data.append(key, value);
     }
 
     addToData("name", name);
@@ -83,15 +88,37 @@ export default function SubproductsEdit({ subproduto }) {
         }
       );
       console.log("teste date:", data);
-      alert(`Edição concluída!`, response);
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Edição de subproduto concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
-      alert("Edição impedida");
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do subproduto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
     }
   }
 
   function handleImage(img) {
+    let img_url = URL.createObjectURL(img); 
+    setImgURL(img_url);
     setImage(img);
   }
 
@@ -108,7 +135,7 @@ export default function SubproductsEdit({ subproduto }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubSubmit}>
       <div className="subproduct-form">
         <p className="subproduct-form-title">Nome do subproduto</p>
         <input
@@ -181,7 +208,7 @@ export default function SubproductsEdit({ subproduto }) {
             Principal
           </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={"imageFile"} />
+            <ImageUpload onChange={handleImage} fileName={"imageFile"} url={img_url} />
           </div>
           <label className="images-label" htmlFor="secondary">
             Secudárias

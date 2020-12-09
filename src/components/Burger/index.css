@@ -1,10 +1,11 @@
 .menuBurger {
-  position: absolute;
+  /* position: absolute; */
   z-index: 1000;
   cursor: pointer;
-  right: 10px;
-  top: 10px;
+  /* right: 10px;
+  top: 10px; */
   display: none;
+  margin-right: 10px;
 }
 
 .menuBurger div {
