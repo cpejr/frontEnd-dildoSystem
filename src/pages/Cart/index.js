@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
 import Frete from '../testefrete'
-import { useCart } from '../../Contexts/CartContext';
+import { useCart, CartContext } from '../../Contexts/CartContext';
 import api from '../../services/api'
 
 function Cart() {
@@ -20,25 +20,28 @@ function Cart() {
   const [hasCart, setHasCart] = useState(false);
   // const { cart } = useCart();
 
+  const cartContext = useContext(CartContext);
+  console.log('cart context', cartContext);
+
   useEffect(() => {
     setLocalCart(JSON.parse(localStorage.getItem('cart')))
     setHasCart(true);
   }, [])
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem('accessToken');
 
-    const config = {
-      headers: { 'authorization': `Bearer ${accessToken}` },
-    }
+  //   const config = {
+  //     headers: { 'authorization': `Bearer ${accessToken}` },
+  //   }
 
-    if (accessToken) {
-      api.post("cart", localCart, config).then(res => {
-        console.log("Carrinho do back: ", res.data);
-        setProducts(res.data);
-      })
-    }
-  }, [hasCart]);
+  //   if (accessToken) {
+  //     api.post("cart", localCart, config).then(res => {
+  //       console.log("Carrinho do back: ", res.data);
+  //       setProducts(res.data);
+  //     })
+  //   }
+  // }, [hasCart]);
 
   function addNewProducts(products) {
     for (var i = 0; i < newProducts.length; i++) {
@@ -78,7 +81,7 @@ function Cart() {
             Carrinho
           </h2>
           <div className="cart-items">
-            {products ? products.map((product) => (
+            {cartContext.cart ? cartContext.cart.map((product) => (
               // console.log("Produtooooo: ", product)
               <CartCard key={product.id}
                 name={product.name}

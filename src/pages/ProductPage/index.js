@@ -363,7 +363,7 @@ function ProductPage(props) {
                   </div>
                 </div>
                 {(relevantStock > 0
-                  ? (<button className="buy-button" onClick={() => {  addItem(productData, quantity,  productData.subproducts.length > 0 && productData.subproducts[selectedSubpIndex].id); history.push('/cart') }}>COMPRAR</button>)
+                  ? (<button className="buy-button" onClick={() => { addItem(productData.id, quantity, productData.subproducts.length > 0 && productData.subproducts[selectedSubpIndex].id); history.push('/cart') }}>COMPRAR</button>)
                   : (<div className="unavailable">Produto indisponível</div>)
                 )}
 
