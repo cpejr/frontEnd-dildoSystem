@@ -72,7 +72,6 @@ const IOSSwitch = withStyles((theme) => ({
 });
 
 export default function ProductEditor(props) {
-  // console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -147,7 +146,7 @@ export default function ProductEditor(props) {
   useEffect(() => {
     api.get("categories").then((response) => {
       setCategories(response.data);
-      console.log(response.data);
+      
     });
   }, []);
 
@@ -165,7 +164,6 @@ export default function ProductEditor(props) {
   }
 
   useEffect(() => {
-    // console.log(props);
     const url = `product/${props.match.params.id}`;
 
     if (props.location.state) {
@@ -198,7 +196,6 @@ export default function ProductEditor(props) {
       setHeight(product.height);
       setSubproducts(product.subproducts);
 
-      console.log("used props product");
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setName(response.data.name);
@@ -229,7 +226,6 @@ export default function ProductEditor(props) {
         setWidth(response.data.width);
         setSubproducts(response.data.subproducts);
       });
-      console.log("called api");
     }
   }, []);
 
@@ -238,8 +234,6 @@ export default function ProductEditor(props) {
       setImages(response.data);
     });
   }, [updated]);
-
-  console.log("teste das imagens", images);
 
   useEffect(() => {
     if (props.wichOne === "editar") {
@@ -300,7 +294,6 @@ export default function ProductEditor(props) {
     addToData("width", width);
     addToData("length", length);
 
-    console.log("Esta é a url da imagem", img_url);
 
     try {
       const response = await api.put(
@@ -355,7 +348,7 @@ export default function ProductEditor(props) {
         },
       });
     }
-    console.log('subcategories', subcategories_ids)
+    
   }
 
   function handleDeleteSubcategory(){
@@ -421,11 +414,10 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-    // console.log(image_id);
-    console.log("ID da imagem:", image);
+  
+   
 
     api.delete(`image/${image}`, config).then((response) => {
-      console.log(response);
     });
     setUpdated(!updated);
   };

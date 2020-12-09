@@ -41,7 +41,7 @@ function ProductPage(props) {
   async function getProductData(productId, setStockFunction, accessToken) {
     const url = `product/${productId}`;
     const result = await api.get(url, config);
-    console.log("result do get product: ", result);
+    
 
     if (result.data.subproducts.length > 0) {
       setStockFunction(result.data.subproducts[0].stock_quantity);
@@ -75,7 +75,7 @@ function ProductPage(props) {
     if (param_ids.length > 0) {
       param_ids = param_ids.join("-*-");
       subSecondary_response = await api.get(`/images/${param_ids}`)
-      console.log("Imagens subSecundarias: ", subSecondary_response.data);
+     
     }
 
     const subSecondary = subSecondary_response.data;
@@ -106,7 +106,7 @@ function ProductPage(props) {
   useEffect(() => {
     async function effectExecutable() {
       const partialData = await getProductData(props.match.params.id, setRelevantStock, accessToken);
-      console.log("partialData: ", partialData);
+      
 
       setProductData(partialData);
 
@@ -152,7 +152,7 @@ function ProductPage(props) {
     //     } else {
     //       setRelevantStock(response.data.stock_quantity);
     //     }
-    //     console.log(response.data)
+    //    
     //   });
     // } else {
     //   api.get(url).then(async (response) => {
@@ -187,7 +187,7 @@ function ProductPage(props) {
     //     } else {
     //       setRelevantStock(response.data.stock_quantity);
     //     }
-    //     console.log(response.data)
+    //     
     //   });
     // }
   }, []);
@@ -240,7 +240,7 @@ function ProductPage(props) {
       product_id
     }
     api.post(`userwishlist/${user_id}`, data, config).then((response) => {
-      console.log(response)
+     
       setIsWish(true);
     })
   }
@@ -251,25 +251,22 @@ function ProductPage(props) {
       data: { user_id: user_id, product_id }
     };
     api.delete('userwishlist', config_2).then((response) => {
-      console.log(response)
+     
       setIsWish(false);
     })
   }
 
 
   useEffect(() => {
-    console.log("productData: ", productData)
+    
     if (productData) {
       const user_id = user.id;
-      console.log("User: ", user)
-      console.log("User_id: ", user_id)
       api.get(`userwishlist/${user_id}`, config).then((response) => {
         const result = response.data.find(product => product.id === productData.id);
         if (result) {
           setIsWish(true);
         }
       });
-      console.log("Product Data: ", productData)
     }
   }, [productData])
 

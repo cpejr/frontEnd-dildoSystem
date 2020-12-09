@@ -50,7 +50,7 @@ function Testefrete() {
             )
         ))
 
-        // console.log('dimensoes dos produtos: ', produtos)
+   
 
         const freteData = {
 
@@ -77,8 +77,6 @@ function Testefrete() {
         const response = fetch(proxyUrl + targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
-                // console.log(data)
-                // console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
             .catch(err => console.error(err));
@@ -87,7 +85,6 @@ function Testefrete() {
     }
 
     const handleClickDrop = (e) => {
-        console.log(e.target.value)
         setValue(e.target.value)
     }
 
@@ -95,7 +92,6 @@ function Testefrete() {
 
         if(((envio.ServiceDescription === "SEDEX") && envio.Error))
         {
-            console.log(envio.ServiceDescription )
             notification.open({
             message: 'Erro',
             description:

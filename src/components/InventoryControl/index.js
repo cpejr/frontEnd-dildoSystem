@@ -28,9 +28,6 @@ export default function InventoryControl() {
             newFormattedSearch = search.replace(/ /g, '%');
             newFormattedSearch = newFormattedSearch.normalize('NFD');
         }
-
-        console.log(newFormattedSearch);
-
         setFormattedSearch(newFormattedSearch);
     }
 

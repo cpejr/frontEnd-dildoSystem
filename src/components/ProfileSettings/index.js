@@ -265,7 +265,6 @@ const handleXopen = () => {
         authorization: "Bearer " + localStorage.accessToken,
       }
     } ).then((response) => {
-      console.log(response);
     })
     notification.open({
       message: 'Sucesso!',

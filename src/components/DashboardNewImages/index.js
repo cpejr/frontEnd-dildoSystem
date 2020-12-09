@@ -16,7 +16,6 @@ export default function FeaturedImages() {
 
   useEffect(() => {
     api.get('/banner').then(response => {
-      console.log(response)
       setImages([...response.data])
     })
   }, [])

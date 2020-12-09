@@ -32,15 +32,12 @@ export default function InventoryCard(props) {
     useEffect(() => {
         let newQueries = '';
 
-        console.log(props)
-
         if (props.search) newQueries += `&search=${props.search}`;
         if (props.categoryId) newQueries += `&category_id=${props.categoryId}`;
 
         setQueries(newQueries);
 
         const url = `products?page=${page}${newQueries}`;
-        console.log(url);
 
         const accessToken = localStorage.getItem('accessToken')
 
@@ -51,12 +48,10 @@ export default function InventoryCard(props) {
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
             });
         }
 

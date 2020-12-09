@@ -68,11 +68,8 @@ function Addresses() {
 
   async function goToCheckout(address) {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    console.log(cart);
-    console.log(address);
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
     shippingOptions = shippingOptions.ShippingSevicesArray;
-    console.log(shippingOptions);
 
     const ongoingOrder = {
       address_id: address.id,
@@ -109,7 +106,6 @@ function Addresses() {
   async function handleSubmitNewAddress(e) {
     e.preventDefault();
 
-    console.log(newAddress)
 
     if (newAddress.street
       && newAddress.number
@@ -248,7 +244,7 @@ function Addresses() {
 }
 
 function Address({ onClick, address, selected, index }) {
-  console.log("Address: ", address)
+  
   return (
     <div>
       <Radio value={index} ><p>{`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}</p></Radio>

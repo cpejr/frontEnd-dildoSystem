@@ -32,11 +32,11 @@ export async function getShippingOptions(products, cepDestino, userType) {
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
-    console.log(requestOptions)
+    
 
 
     const formattedResponse = await response.json();
-    console.log(formattedResponse);
+    
     return formattedResponse;
 
   } catch (error) {
@@ -57,7 +57,6 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
       Weight: p.product.weight * 1000
     }
   });
-  //console.log(items);
 
   const shippingServices = [];
   shippingOptions.forEach(sh => { //MONTA ARRAY DE FORMAS DE ENVIO NO FORMATO DESEJADO
@@ -69,12 +68,12 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
         Carrier: null
       })
   });
-  console.log(shippingServices + "esse eh o shipping services");
-  //console.log(buyer)
+ 
+  
   let user;
   try {
     user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
-    console.log(user);
+    
     user = user.data;
   } catch (error) {
     console.error(error);
@@ -85,7 +84,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   try {
     orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
     orderID = orderID.data;
-    console.log(orderID);
+   
   } catch (error) {
     console.error(error);
     return (error);
@@ -136,7 +135,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Settings": null
   }
 
-  console.log(requestBody);
+
 
   const requestOptions = {
     method: 'POST',
