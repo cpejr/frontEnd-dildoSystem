@@ -4,7 +4,6 @@ import "./styles.css";
 import api from "../../services/api";
 import ImageUpload from "../../components/ImageUpload";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import PublishIcon from "@material-ui/icons/Publish";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 import MultipleUploader from "../../components/MultipleUploader";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import api from "../../services/api";
@@ -27,7 +27,7 @@ export default function NnEProduct({ witchOne }) {
   const [stock_quantity, setQuantity] = useState();
   const [min_stock, setMinimum] = useState();
   const [weight, setWeight] = useState();
-  const [image_id, setImageID] = useState();
+  // const [image_id, setImageID] = useState();
   const [image, setImage] = useState();
   const [images, setImages] = useState(null)
   const [subcategory_id, setSubcategory] = useState(0);
@@ -48,7 +48,7 @@ export default function NnEProduct({ witchOne }) {
   });
   const [editar, setEditar] = useState();
 
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     api.get('categories').then(response => {
@@ -133,7 +133,7 @@ export default function NnEProduct({ witchOne }) {
     addToData('length', length);
 
     try {
-      const response = await api.post("newProduct", data, {
+      await api.post("newProduct", data, {
         headers: {
           "Content-Type": "application/json",
           authorization: "Bearer " + localStorage.accessToken,
@@ -191,7 +191,7 @@ export default function NnEProduct({ witchOne }) {
   function handleImages(images) {
     setImages(images)
   }
-
+  
   return (
     <div>
       <div className="new-product-all">

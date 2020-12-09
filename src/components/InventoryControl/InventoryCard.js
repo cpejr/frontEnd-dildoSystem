@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import ImageLoader from 'react-loading-image';
 import { Button } from "@material-ui/core";
-import CreateIcon from '@material-ui/icons/Create';
 import '../ProductEditor';
 import api from '../../services/api';
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
@@ -143,7 +141,7 @@ export default function InventoryCard(props) {
         addToData("length", product.length);
 
         try {
-            const response = await api.put(
+            await api.put(
                 `updateProduct/${product.id}`,
                 data,
                 config

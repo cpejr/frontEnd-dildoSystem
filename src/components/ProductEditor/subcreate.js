@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import "./styles.css";
 import api from '../../services/api';
 import ImageUpload from '../../components/ImageUpload';
-import PublishIcon from "@material-ui/icons/Publish";
 import { useParams } from "react-router-dom";
-import MultipleUploader from "../MultipleUploader";
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -25,7 +23,7 @@ export default function SubproductsCreate(props) {
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
 
-  const accessToken = localStorage.getItem("accessToken");
+  // const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (props.wichOne === "editar") {

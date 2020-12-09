@@ -263,6 +263,7 @@ export default function ProductEditor(props) {
         break;
       case "checkedD":
         setRelease(!release);
+        break;
       case "checkedE":
         setBest_Seller(!best_seller);
         break;

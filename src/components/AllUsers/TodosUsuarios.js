@@ -51,7 +51,7 @@ export default function UsuariosPendentes(props) {
         let data = { user_status: status };
 
         try {
-            const response = await api.put(`user/${props.todosUsuarios.id}`, data, config)
+            await api.put(`user/${props.todosUsuarios.id}`, data, config)
             notification.open({
                 message: 'Sucesso!',
                 description:

@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import ImageLoader from 'react-loading-image';
-import CreateIcon from '@material-ui/icons/Create';
 import '../ProductEditor';
 import api from '../../services/api';
-import { FaPlusCircle, FaMinusCircle, FaHeart } from 'react-icons/fa';
 
 import './styles.css'
-import loading from '../../images/Loading.gif';
 
 import Inventory from "./InventoryCard"
 

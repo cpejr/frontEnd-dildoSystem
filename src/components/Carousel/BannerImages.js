@@ -25,7 +25,7 @@ function BannerImages(props) {
 
   async function handleDelete(e) {
     try {
-      const response = await api.delete('/banner/' + props.image.id, config);
+      await api.delete('/banner/' + props.image.id, config);
 
       notification.open({
         message: 'Sucesso!',

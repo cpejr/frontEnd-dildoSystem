@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { FiHeart } from 'react-icons/fi';
-import ImageLoader from 'react-loading-image';
-import { FaHeart } from 'react-icons/fa';
-
+import { withRouter } from 'react-router-dom';
 import api from '../../services/api';
-import cart from "../../services/cart"
 import CardProduct from './ProductCard';
 
 import { LoginContext } from '../../Contexts/LoginContext';
 import './styles.css'
-import loading from '../../images/Loading.gif';
 
 export default withRouter(function ProductCard(props) {
 
@@ -22,11 +16,11 @@ export default withRouter(function ProductCard(props) {
     const alreadyRequiring = useRef(false);
     const user = useContext(LoginContext);
 
-    const accessToken = localStorage.getItem('accessToken');
+    //const accessToken = localStorage.getItem('accessToken');
 
-    const config = {
-        headers: { authorization: `Bearer ${accessToken}` }
-    }
+    // const config = {
+    //     headers: { authorization: `Bearer ${accessToken}` }
+    // }
 
     function handleScroll() {
         const shouldUpdate = window.pageYOffset > (document.documentElement.scrollHeight - 1300)

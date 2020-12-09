@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTableSearch } from "./useTableSearch";
 import { Input } from "antd";
 
