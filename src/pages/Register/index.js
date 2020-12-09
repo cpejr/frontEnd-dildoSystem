@@ -142,7 +142,7 @@ function Register() {
             };
             
             try {
-                const response = await api.post('/user', data);
+                await api.post('/user', data);
 
                 notification.open({
                     message: 'Sucesso!',
