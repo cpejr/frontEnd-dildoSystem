@@ -145,7 +145,7 @@ export default function NnEProduct({ witchOne }) {
             'O registro do produto foi concluído com sucesso.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#108ee9' }} />,
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
           style: {
             width: 600,
           },
