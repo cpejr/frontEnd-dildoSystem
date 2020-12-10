@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Radio } from 'antd';
 import { AiOutlinePlus } from 'react-icons/ai'
-import { Modal, Button, Input, Select } from 'antd';
+import { Modal, Button, Input, Select, Spin } from 'antd';
 
 import Header from '../../components/Header';
 import { LoginContext } from '../../Contexts/LoginContext';
@@ -26,6 +26,8 @@ function Addresses() {
   const [selected, setSelected] = useState(-1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [value, setValue] = useState();
+
+  const [spinning, setSpinning] = useState(false);
 
   const onChange = e => {
     setValue(e.target.value);
@@ -72,6 +74,7 @@ function Addresses() {
     /* const cart = JSON.parse(localStorage.getItem('cart')); */
     console.log(cart);
     console.log(address);
+    setSpinning(true);
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
     shippingOptions = shippingOptions.ShippingSevicesArray;
     console.log(shippingOptions);
@@ -88,7 +91,21 @@ function Addresses() {
     };
     localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
 
-    callPaymentAPI(cart, address, shippingOptions, loginContext);
+    await callPaymentAPI(cart, address, shippingOptions, loginContext);
+    setSpinning(false);
+    setTimeout(() => {
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Houve um erro ao tentar criar o seu pedido.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      })
+    }, 1000)
   }
 
   async function handleSubmitExistingAddress() {
@@ -163,58 +180,59 @@ function Addresses() {
 
     <div>
       <Header />
-      <div className="main-addresses-wrapper">
-        <div className="addresses-content">
-          <h2>Selecione um endereço, {loginContext.name}?</h2>
-          <div className="addresses">
-            <Radio.Group onChange={onChange} value={value}>
-              {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} index={index} address={address} selected={index === selected} key={`address-${index}`} />)}
-            </Radio.Group>
-          </div>
-          <div className='select-new-address' onClick={showModal}>
-            <AiOutlinePlus size={20} />
-            <p>Novo Endereço</p>
-          </div>
-          <button onClick={handleSubmitExistingAddress}>Continuar com o endereço selecionado</button>
-          <Modal
-            title="Cadastrar novo endereço"
-            visible={isModalVisible}
-            onOk={handleSubmitNewAddress}
-            onCancel={handleCancel}
-            okText="Salvar"
-            cancelText="Cancelar"
-          >
-            <div className="new-address">
-              <form onSubmit={handleSubmitNewAddress}>
-                <label htmlFor="street">Rua ou Avenida</label>
-                <Input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })} />
-
-                <label htmlFor="number">Número</label>
-                <Input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, number: e.target.value })} />
-
-                <label htmlFor="complement">Complemento</label>
-                <Input type="text" name="complement" value={newAddress.complement} onChange={(e) => setNewAddress({ ...newAddress, complement: e.target.value })} />
-
-                <label htmlFor="neighborhood">Bairro</label>
-                <Input type="text" name="neighborhood" value={newAddress.neighborhood} onChange={(e) => setNewAddress({ ...newAddress, neighborhood: e.target.value })} />
-
-                <label htmlFor="state">Estado</label>
-                <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })} defaultValue="">
-                  <option value="" disabled>Estado</option>
-                  {states.map(state => <option value={state}>{state}</option>)}
-                </select>
-
-                <label htmlFor="city">Cidade</label>
-                <Input type="text" name="city" value={newAddress.city} onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })} />
-
-                <label htmlFor="zipcode">CEP</label>
-                <Input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
-
-                {/* <button type="submit">Continuar com o novo endereço</button> */}
-              </form>
+      <Spin size="large" spinning={spinning}>
+        <div className="main-addresses-wrapper">
+          <div className="addresses-content">
+            <h2>Selecione um endereço, {loginContext.name}?</h2>
+            <div className="addresses">
+              <Radio.Group onChange={onChange} value={value}>
+                {addressList.map((address, index) => <Address onClick={() => { setSelected(index) }} index={index} address={address} selected={index === selected} key={`address-${index}`} />)}
+              </Radio.Group>
             </div>
-          </Modal>
-          {/* <div className="new-address">
+            <div className='select-new-address' onClick={showModal}>
+              <AiOutlinePlus size={20} />
+              <p>Novo Endereço</p>
+            </div>
+            <button onClick={handleSubmitExistingAddress}>Continuar com o endereço selecionado</button>
+            <Modal
+              title="Cadastrar novo endereço"
+              visible={isModalVisible}
+              onOk={handleSubmitNewAddress}
+              onCancel={handleCancel}
+              okText="Salvar"
+              cancelText="Cancelar"
+            >
+              <div className="new-address">
+                <form onSubmit={handleSubmitNewAddress}>
+                  <label htmlFor="street">Rua ou Avenida</label>
+                  <Input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })} />
+
+                  <label htmlFor="number">Número</label>
+                  <Input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, number: e.target.value })} />
+
+                  <label htmlFor="complement">Complemento</label>
+                  <Input type="text" name="complement" value={newAddress.complement} onChange={(e) => setNewAddress({ ...newAddress, complement: e.target.value })} />
+
+                  <label htmlFor="neighborhood">Bairro</label>
+                  <Input type="text" name="neighborhood" value={newAddress.neighborhood} onChange={(e) => setNewAddress({ ...newAddress, neighborhood: e.target.value })} />
+
+                  <label htmlFor="state">Estado</label>
+                  <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })} defaultValue="">
+                    <option value="" disabled>Estado</option>
+                    {states.map(state => <option value={state}>{state}</option>)}
+                  </select>
+
+                  <label htmlFor="city">Cidade</label>
+                  <Input type="text" name="city" value={newAddress.city} onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })} />
+
+                  <label htmlFor="zipcode">CEP</label>
+                  <Input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
+
+                  {/* <button type="submit">Continuar com o novo endereço</button> */}
+                </form>
+              </div>
+            </Modal>
+            {/* <div className="new-address">
             <h3>Se preferir, cadastre um novo endereço</h3>
             <form onSubmit={handleSubmitNewAddress}>
               <label htmlFor="street">Rua ou Avenida</label>
@@ -244,8 +262,9 @@ function Addresses() {
               <button type="submit">Continuar com o novo endereço</button>
             </form>
           </div> */}
+          </div>
         </div>
-      </div>
+      </Spin>
     </div>
   );
 }
