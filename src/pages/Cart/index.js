@@ -15,52 +15,10 @@ import api from '../../services/api'
 function Cart() {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  /* const [localCart, setLocalCart] = useState();
-  const [hasCart, setHasCart] = useState(false); */
-  const { cart, /* changeQuantity, deleteItem, clear */ } = useCart();
 
-  /* const [newProducts, setNewProducts] = useState(cart || []) */
-  //const cartContext = useContext(CartContext);
-  //console.log('cart context', cartContext);
+  const { cart } = useCart();
 
-  // useEffect(() => {
-  //   setLocalCart(JSON.parse(localStorage.getItem('cart')))
-  //   setHasCart(true);
-  // }, [])
 
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem('accessToken');
-
-  //   const config = {
-  //     headers: { 'authorization': `Bearer ${accessToken}` },
-  //   }
-
-  //   if (accessToken) {
-  //     api.post("cart", localCart, config).then(res => {
-  //       console.log("Carrinho do back: ", res.data);
-  //       setProducts(res.data);
-  //     })
-  //   }
-  // }, [hasCart]);
-
-  // function addNewProducts(products) {
-  //   for (var i = 0; i < newProducts.length; i++) {
-  //     if (products.productId === newProducts[i].productId) {
-  //       newProducts.splice(i, 1);
-  //     }
-  //   }
-  //   setNewProducts(newProducts => [...newProducts, products])
-  // }
-
-  // function deleteProduct(product) {
-  //   console.log("Delete product: ", product)
-  //   for (var i = 0; i < newProducts.length; i++) {
-  //     if (product.productId === newProducts[i].productId) {
-  //       newProducts.splice(i, 1);
-  //     }
-  //   }
-  //   setNewProducts(newProducts => [...newProducts])
-  // }
 
   const getRealPrice = (product) => {
     let product_price;
@@ -81,14 +39,12 @@ function Cart() {
   }
 
   useEffect(() => {
-    console.log("Entreiiiiii")
     let price = 0;
     if (cart) {
       cart.forEach(p => {
         price += (getRealPrice(p) * p.quantity);
       })
     }
-    console.log("Price: ", price)
     setTotalPrice(price);
   }, [cart])
 
@@ -102,15 +58,13 @@ function Cart() {
           </h2>
           <div className="cart-items">
             {cart ? cart.map((product) => (
-              // console.log("Produtooooo: ", product)
               <CartCard key={product.id}
                 name={product.name}
                 description={product.description}
                 productId={product.id}
                 product={product}
                 image_id={product.image_id}
-                /* onChangePrice={addNewProducts}
-                onDeleteProduct={deleteProduct}  */ />
+              />
             )) : <div></div>}
           </div>
           <div className='total-price'>

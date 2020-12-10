@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import "./styles.css"
 import { Button } from "@material-ui/core";
-import cart from "../../services/cart"
 import { useCart } from '../../Contexts/CartContext';
 
 import Frete from "../../pages/testefrete/index.js"
@@ -105,21 +104,8 @@ function CartCard(props) {
     }
 
     function removeOne() {
-        /* if (productQuantity > 0) {
-            setProductQuantity(productQuantity - 1)
-            let cart = JSON.parse(localStorage.cart);
-            for (var i = 0; i < cart.length; i++) {
-                if (props.product.id === cart[i].product_id) {  //look for match with name
-                    cart[i].quantity -= 1;  //add two
-                    break;  //exit loop since you found the person
-                }
-            }
-            localStorage.setItem("cart", JSON.stringify(cart));
-        } */
-        /* if (props.product.quantity - 1) { */
         const subpId = props.product.subproduct ? props.product.subproduct.id : undefined;
         changeQuantity(props.product.id, subpId, props.product.quantity - 1);
-        /*  } */
     }
 
     return (
