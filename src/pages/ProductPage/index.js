@@ -336,6 +336,7 @@ function ProductPage(props) {
                         ? productData.subproducts.map((subp, index) => {
                           return (
                             <img
+                              alt="subproduct"
                               src={`https://docs.google.com/uc?id=${subp.image_id} `}
                               key={`option-${index + 1}`}
                               data={index}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./styles.css";
-import PublishIcon from "@material-ui/icons/Publish";
 
 export default function ImageUpload({
   className,
@@ -30,7 +29,7 @@ export default function ImageUpload({
 
   function RenderPhotos(url)  {
     if (url) {
-        return <div> <br></br> A imagem abaixo será a nova imagem principal: <img className="loader-img" src={url} key={url}/></div>
+        return <div> <br></br> A imagem abaixo será a nova imagem principal: <img alt="loader" className="loader-img" src={url} key={url}/></div>
     }
 };
 

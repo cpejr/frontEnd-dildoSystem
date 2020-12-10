@@ -57,7 +57,7 @@ export default function CarouselProducts() {
             let auxArray = [];
             const quotient = Math.floor(prod.length / numberElements);
             const remainder = prod.length % numberElements;
-            console.log(quotient, " ", remainder);
+            //console.log(quotient, " ", remainder);
 
             for (let i = 0; i < quotient; i++) {
                 
@@ -70,12 +70,12 @@ export default function CarouselProducts() {
 
             let lastElements = [];
             for (let i = 0; i < remainder; i++) {
-                console.log("segundo");
+                //console.log("segundo");
                 lastElements.push(prod[quotient * numberElements + i])
             }
             if (lastElements.length > 0)
                 auxArray.push(lastElements);
-            console.log(auxArray);
+            //console.log(auxArray);
             setProducts(auxArray);
 
 
@@ -94,10 +94,10 @@ export default function CarouselProducts() {
          remainder = initProducts.length % numberElements;
     
 
-        console.log(quotient, " ", remainder);
+        //console.log(quotient, " ", remainder);
 
         for (let i = 0; i < quotient; i++) {
-            console.log("FirstElements");
+            //console.log("FirstElements");
             let elements = [];
             for (let j = 0; j < numberElements; j++) {
                 elements.push(initProducts[i * numberElements + j])
@@ -107,12 +107,12 @@ export default function CarouselProducts() {
 
         let lastElements = [];
         for (let i = 0; i < remainder; i++) {
-            console.log("LastElements");
+            //console.log("LastElements");
             lastElements.push(initProducts[quotient * numberElements + i])
         }
         if (lastElements.length > 0)
             auxArray.push(lastElements);
-        console.log(auxArray);
+        //console.log(auxArray);
         setProducts(auxArray);
     }
 
@@ -124,12 +124,12 @@ export default function CarouselProducts() {
         <div className="Carousel">
             <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="carousel-control" ><GrFormNext size={33}/></span>} prevIcon={<span aria-hidden="true" className="carousel-control" ><GrFormPrevious size={33}/></span>}>
                 {products.map((elements, index) => {
-                    console.log(products);
+                    //console.log(products);
                     return (
                         <Carousel.Item>
                             <div className="number">
                                 {elements.map((product, index) => {
-                                    return (<CardProduct product={product} />)
+                                    return (<CardProduct product={product}/>)
                                 })}
                             </div>
                         </Carousel.Item>

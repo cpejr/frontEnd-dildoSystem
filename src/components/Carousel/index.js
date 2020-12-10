@@ -97,7 +97,7 @@ function Carousel(props) {
     if (newImage) {
 
       try {
-        const response = await api.post("newCarousel", data, {
+        await api.post("newCarousel", data, {
           headers: {
             "Content-Type": "application/json",
             authorization: "Bearer " + localStorage.accessToken,
@@ -123,7 +123,7 @@ function Carousel(props) {
 
     try {
       
-      const response = await api.put("Carousel", { info: images },
+      await api.put("Carousel", { info: images },
         {
           headers: {
             "Content-Type": "application/json",
@@ -172,7 +172,7 @@ function Carousel(props) {
     if (bannerNewImage) {
 
       try {
-        const response = await api.post("newBanner", data, {
+        await api.post("newBanner", data, {
           headers: {
             "Content-Type": "application/json",
             authorization: "Bearer " + localStorage.accessToken,

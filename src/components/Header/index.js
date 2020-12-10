@@ -80,9 +80,9 @@ export default function Header() {
   useEffect(() => {
     function handleCategoriesSize() {
       if (headerRef.current && categories) {
-        console.log(headerRef)
+        //console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
-        console.log(width);
+        //console.log(width);
         setCategoryWidth(width);
       }
     }
@@ -119,7 +119,7 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <FaShoppingCart />
-              <span class='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
+              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
             </Link>
 
             {loginContext.loggedIn ? (

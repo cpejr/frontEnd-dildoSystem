@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import ImageLoader from 'react-loading-image';
-import CreateIcon from '@material-ui/icons/Create';
 import '../ProductEditor';
 import api from '../../services/api';
-import { FaPlusCircle, FaMinusCircle, FaHeart } from 'react-icons/fa';
 
 import './styles.css'
-import loading from '../../images/Loading.gif';
 
 import Inventory from "./InventoryCard"
 
@@ -16,18 +11,18 @@ export default function InventoryCard(props) {
     const [page, setPage] = useState(1);
     const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
-    const [quantity, setQuantity] = useState(1);
-    const [relevantStock, setRelevantStock] = useState();
-    const accessToken = localStorage.getItem('accessToken');
+    //const [quantity, setQuantity] = useState(1);
+    //const [relevantStock, setRelevantStock] = useState();
+    //const accessToken = localStorage.getItem('accessToken');
 
-    function incrementQuantity() {
-        setQuantity(quantity + 1);
-    }
+    // function incrementQuantity() {
+    //     setQuantity(quantity + 1);
+    // }
 
-    function decrementQuantity() {
-        if (quantity > 1)
-            setQuantity(quantity - 1);
-    }
+    // function decrementQuantity() {
+    //     if (quantity > 1)
+    //         setQuantity(quantity - 1);
+    // }
 
     useEffect(() => {
         let newQueries = '';

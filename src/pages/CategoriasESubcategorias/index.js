@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { FaPlusCircle } from 'react-icons/fa';
 import './styles.css'
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import api from '../../services/api';
 import Lista from './list/index.js';

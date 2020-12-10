@@ -31,7 +31,7 @@ function CarouselImages(props) {
 
     try {
 
-      const response = await api.delete('/Carousel/' + props.image.id, config);
+      await api.delete('/Carousel/' + props.image.id, config);
 
       notification.open({
         message: 'Sucesso!',

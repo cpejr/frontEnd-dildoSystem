@@ -12,7 +12,7 @@ import SearchContextProvider from './Contexts/SearchContext';
 import User from './pages/User';
 import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
-import Testefrete from './pages/testefrete';
+import Testefrete from './pages/Frete';
 import Addresses from './pages/Addresses';
 import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'
@@ -35,7 +35,7 @@ function Routes() {
                         <Route path='/cart' exact component={Cart} />
                         <Route path='/user' component={User} />
                         <Route path='/product/:id' component={ProductPage} />
-                        <Route path='/testefrete' component={Testefrete} />
+                        <Route path='/Frete' component={Testefrete} />
                         <Route path='/addresses' component={Addresses} />
                         <Route path='/about' component={About} />
                         <Route path='/conditions' component={TermsandConditions} />

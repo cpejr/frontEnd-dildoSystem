@@ -9,8 +9,9 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
 import Frete from '../testefrete'
+import cart from "../../services/cart"
 
-function Cart() {
+function Cart(props) {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [newProducts, setNewProducts] = useState([])

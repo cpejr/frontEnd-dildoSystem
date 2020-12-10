@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { FiFilter, FiHeart } from 'react-icons/fi';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { FiHeart } from 'react-icons/fi';
 import ImageLoader from 'react-loading-image';
 import { FaHeart } from 'react-icons/fa';
 
@@ -9,7 +9,6 @@ import './styles.css'
 import loading from '../../images/Loading.gif';
 
 import api from '../../services/api';
-import cart from "../../services/cart"
 import ProductModal from './ProductModal';
 
 export function PriceElement(props) {
