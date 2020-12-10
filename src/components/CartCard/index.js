@@ -62,7 +62,8 @@ function CartCard(props) {
     const { quantity } = props.product;
     const { onChangePrice } = props;
     const { onDeleteProduct } = props;
-    const { deleteItem } = useCart();
+    const { deleteItem, changeQuantity } = useCart();
+    const [relevantStock] = useState(props.product.subproduct ? props.product.subproduct.stock_quantity : props.product.stock_quantity);
 
     const setNewPrice = () => {
         let product_price;
@@ -84,33 +85,41 @@ function CartCard(props) {
 
     useEffect(() => {
         const price = setNewPrice();
-        onChangePrice({ productId: product.id, productPrice: price, product_quantity: productQuantity});
-    },[productQuantity]);
+        //onChangePrice({ productId: product.id, productPrice: price, product_quantity: productQuantity });
+    }, []);
 
-    function sumQuantity(productId) {
-        setProductQuantity(productQuantity + 1)
+    function addOne() {
+        /* setProductQuantity(productQuantity + 1)
         let cart = JSON.parse(localStorage.cart);
         for (var i = 0; i < cart.length; i++) {
-            if (productId === cart[i].product_id) {  //look for match with name
+            if (props.product.id === cart[i].product_id) {  //look for match with name
                 cart[i].quantity += 1;  //add two
                 break;  //exit loop since you found the person
             }
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart)); */
+        if (props.product.quantity + 1 <= relevantStock) {
+            const subpId = props.product.subproduct ? props.product.subproduct.id : undefined;
+            changeQuantity(props.product.id, subpId, props.product.quantity + 1);
+        }
     }
 
-    function lessQuantity(productId) {
-        if (productQuantity > 0) {
+    function removeOne() {
+        /* if (productQuantity > 0) {
             setProductQuantity(productQuantity - 1)
             let cart = JSON.parse(localStorage.cart);
             for (var i = 0; i < cart.length; i++) {
-                if (productId === cart[i].product_id) {  //look for match with name
+                if (props.product.id === cart[i].product_id) {  //look for match with name
                     cart[i].quantity -= 1;  //add two
                     break;  //exit loop since you found the person
                 }
             }
             localStorage.setItem("cart", JSON.stringify(cart));
-        }
+        } */
+        /* if (props.product.quantity - 1) { */
+        const subpId = props.product.subproduct ? props.product.subproduct.id : undefined;
+        changeQuantity(props.product.id, subpId, props.product.quantity - 1);
+        /*  } */
     }
 
     return (
@@ -147,18 +156,18 @@ function CartCard(props) {
                                 </select>
                             </div> */}
                                 <div className="itemQuantity">
-                                    <Button onClick={() => { lessQuantity(props.productId) }} ><RemoveCircleIcon className="less" size={25} /></Button>
-                                    <p>{productQuantity}</p>
-                                    <Button onClick={() => { sumQuantity(props.productId) }} ><AddCircleIcon size={25} /></Button>
+                                    <Button onClick={() => { removeOne() }} ><RemoveCircleIcon className="less" size={25} /></Button>
+                                    <p>{props.product.quantity}</p>
+                                    <Button onClick={() => { addOne() }} ><AddCircleIcon size={25} /></Button>
                                 </div>
                             </div>
                         </div>
                         <div className="delete-price">
                             <div>
-                                <MdDeleteForever className="delete" size={30} onClick={(e) => { deleteItem(props.productId); setIsVisible(false); onDeleteProduct({ productId: product.id }); }} />
+                                <MdDeleteForever className="delete" size={30} onClick={(e) => { deleteItem(props.productId, props.product.subproduct ? props.product.subproduct.id : undefined); /* setIsVisible(false); onDeleteProduct({ productId: product.id }); */ }} />
                             </div>
 
-                            <PriceElement product={props.product} product_quantity={productQuantity} />
+                            <PriceElement product={props.product} product_quantity={props.product.quantity} />
                         </div>
 
                     </div>

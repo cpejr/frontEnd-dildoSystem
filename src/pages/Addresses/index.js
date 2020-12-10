@@ -13,6 +13,7 @@ import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 import './styles.css';
+import { CartContext } from '../../Contexts/CartContext';
 
 const { Option } = Select;
 
@@ -28,7 +29,7 @@ function Addresses() {
 
   const onChange = e => {
     setValue(e.target.value);
-    setSelected(value)
+    setSelected(e.target.value)
   };
 
   const showModal = () => {
@@ -46,6 +47,7 @@ function Addresses() {
   const [newAddress, setNewAddress] = useState({});
 
   const loginContext = useContext(LoginContext);
+  const { cart } = useContext(CartContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -67,7 +69,7 @@ function Addresses() {
   }
 
   async function goToCheckout(address) {
-    const cart = JSON.parse(localStorage.getItem('cart'));
+    /* const cart = JSON.parse(localStorage.getItem('cart')); */
     console.log(cart);
     console.log(address);
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
@@ -78,8 +80,9 @@ function Addresses() {
       address_id: address.id,
       products: cart.map(item => {
         return {
-          product_id: item.product.id,
-          product_quantity: item.quantity
+          product_id: item.id,
+          product_quantity: item.quantity,
+          subproduct_id: item.subproduct_id,
         }
       })
     };

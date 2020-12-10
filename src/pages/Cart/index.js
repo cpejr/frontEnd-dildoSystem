@@ -9,24 +9,24 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
 import Frete from '../testefrete'
-import { useCart, CartContext } from '../../Contexts/CartContext';
+import { useCart } from '../../Contexts/CartContext';
 import api from '../../services/api'
 
 function Cart() {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [newProducts, setNewProducts] = useState([])
-  const [localCart, setLocalCart] = useState();
-  const [hasCart, setHasCart] = useState(false);
-  // const { cart } = useCart();
+  /* const [localCart, setLocalCart] = useState();
+  const [hasCart, setHasCart] = useState(false); */
+  const { cart, /* changeQuantity, deleteItem, clear */ } = useCart();
 
-  const cartContext = useContext(CartContext);
-  console.log('cart context', cartContext);
+  /* const [newProducts, setNewProducts] = useState(cart || []) */
+  //const cartContext = useContext(CartContext);
+  //console.log('cart context', cartContext);
 
-  useEffect(() => {
-    setLocalCart(JSON.parse(localStorage.getItem('cart')))
-    setHasCart(true);
-  }, [])
+  // useEffect(() => {
+  //   setLocalCart(JSON.parse(localStorage.getItem('cart')))
+  //   setHasCart(true);
+  // }, [])
 
   // useEffect(() => {
   //   const accessToken = localStorage.getItem('accessToken');
@@ -43,34 +43,54 @@ function Cart() {
   //   }
   // }, [hasCart]);
 
-  function addNewProducts(products) {
-    for (var i = 0; i < newProducts.length; i++) {
-      if (products.productId === newProducts[i].productId) {
-        newProducts.splice(i, 1);
-      }
-    }
-    setNewProducts(newProducts => [...newProducts, products])
-  }
+  // function addNewProducts(products) {
+  //   for (var i = 0; i < newProducts.length; i++) {
+  //     if (products.productId === newProducts[i].productId) {
+  //       newProducts.splice(i, 1);
+  //     }
+  //   }
+  //   setNewProducts(newProducts => [...newProducts, products])
+  // }
 
-  function deleteProduct(product) {
-    console.log("Delete product: ", product)
-    for (var i = 0; i < newProducts.length; i++) {
-      if (product.productId === newProducts[i].productId) {
-        newProducts.splice(i, 1);
+  // function deleteProduct(product) {
+  //   console.log("Delete product: ", product)
+  //   for (var i = 0; i < newProducts.length; i++) {
+  //     if (product.productId === newProducts[i].productId) {
+  //       newProducts.splice(i, 1);
+  //     }
+  //   }
+  //   setNewProducts(newProducts => [...newProducts])
+  // }
+
+  const getRealPrice = (product) => {
+    let product_price;
+    if (product.wholesaler_price) {
+      if (product.on_sale_wholesaler) {
+        product_price = (product.wholesaler_sale_price).toFixed(2)
+      } else {
+        product_price = (product.wholesaler_price).toFixed(2)
+      }
+    } else {
+      if (product.on_sale_client) {
+        product_price = (product.client_sale_price).toFixed(2)
+      } else {
+        product_price = (product.client_price).toFixed(2)
       }
     }
-    setNewProducts(newProducts => [...newProducts])
+    return product_price;
   }
 
   useEffect(() => {
     console.log("Entreiiiiii")
     let price = 0;
-    newProducts.forEach(p => {
-      price += (p.productPrice * p.product_quantity);
-    })
+    if (cart) {
+      cart.forEach(p => {
+        price += (getRealPrice(p) * p.quantity);
+      })
+    }
     console.log("Price: ", price)
     setTotalPrice(price);
-  }, [newProducts])
+  }, [cart])
 
   return (
     <div>
@@ -81,7 +101,7 @@ function Cart() {
             Carrinho
           </h2>
           <div className="cart-items">
-            {cartContext.cart ? cartContext.cart.map((product) => (
+            {cart ? cart.map((product) => (
               // console.log("Produtooooo: ", product)
               <CartCard key={product.id}
                 name={product.name}
@@ -89,8 +109,8 @@ function Cart() {
                 productId={product.id}
                 product={product}
                 image_id={product.image_id}
-                onChangePrice={addNewProducts}
-                onDeleteProduct={deleteProduct} />
+                /* onChangePrice={addNewProducts}
+                onDeleteProduct={deleteProduct}  */ />
             )) : <div></div>}
           </div>
           <div className='total-price'>
