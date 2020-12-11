@@ -13,7 +13,6 @@ function Orders(props) {
     headers: { authorization: `Bearer ${accessToken}` },
   };
   useEffect(() => {
-    console.log(props)
     if (props.location.myCustomProps !== undefined) {
       setOrder([props.location.myCustomProps]);
     } else if (props.match.params.id !== undefined) {
@@ -23,7 +22,6 @@ function Orders(props) {
       if (accessToken) {
         api.get(url, config).then((response) => {
           setOrder(response.data);
-          console.log(response.data);
         });
       }
     }

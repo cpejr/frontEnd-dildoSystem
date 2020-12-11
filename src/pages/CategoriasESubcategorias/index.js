@@ -29,7 +29,6 @@ export default function CatNSubCat() {
 
     function handleClickAddSub(e, data) {
       e.preventDefault();
-      console.log('esse eh o data dentro do handle: ', data)
   
       const sendData = {
         name: data

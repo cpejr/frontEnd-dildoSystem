@@ -48,7 +48,6 @@ export default function RequestsList() {
     api.get(url, config)
     .then((response)=> {
       setOrder(response.data);
-      console.log("orders", response.data);
     })
    } , [user]);
 

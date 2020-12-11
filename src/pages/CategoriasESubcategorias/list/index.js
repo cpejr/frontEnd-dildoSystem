@@ -26,16 +26,16 @@ export default function List2({ newCategory }) {
   const { Panel } = Collapse;
 
   useEffect(() => {
-    // console.log('renderizei dnv')
+    
     api.get('/categories').then((response) => {
-      // console.log('resposta da chamada',response)
+      
       setLista(response.data)
     })
   }, [update, newCategory])
 
   function handleClickAddSub(e, data, catId) {
     e.preventDefault();
-    // console.log('esse eh o data dentro do handle: ', data)
+    
 
     const sendData = {
       name: data,
@@ -92,7 +92,7 @@ export default function List2({ newCategory }) {
 
   function handleClickCategoryTButton(vazio, catId) {
     if (vazio.length === 0) {
-      // console.log(vazio.length, catId)
+      
       api.delete(`/category/${catId}`, config).then(() => {
         notification.open({
           message: 'Sucesso!',
@@ -124,7 +124,7 @@ export default function List2({ newCategory }) {
   }
 
   function handleClickCategoryEditButton(catId) {
-    // console.log(catId)
+   
     setCategorySelection(catId)
     // if(catId && !visible)
     //   setVisible(!visible)
@@ -137,7 +137,6 @@ export default function List2({ newCategory }) {
 
   function handleSubmitEdit(e, submitData, catId) {
     e.preventDefault();
-    // console.log('vamos submeter', submitData, catId)
     const dado = {
       name: submitData
     }

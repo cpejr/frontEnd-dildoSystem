@@ -50,16 +50,7 @@ function Cart(props) {
             Carrinho
           </h2>
           <div className="cart-items">
-            {products ? products.map((product) => (
-              console.log("Produtoooooo: ", product)
-              // <CartCard //key={product.product.id} 
-              //   name={product.product.name}
-              //   description={product.product.description}
-              //   productId={product.product.id}
-              //   product={product}
-              //   image_id={product.product.image_id}
-              //   onChangePrice={addNewProducts} />
-            )): <div></div>}
+            
           </div>
           <div className='total-price'>
             <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>

@@ -27,7 +27,6 @@ export default withRouter(function ProductCard(props) {
         if (shouldUpdate && !requiring.current) {
             alreadyRequiring.current = true;
             setRequiring(true);
-            console.log(requiring);
         }
     }
 
@@ -49,17 +48,17 @@ export default withRouter(function ProductCard(props) {
 
         if (props.releaseOnly) url += '&release=true';
         if (props.best_sellerOnly) url += '&best_seller=true';
-        //console.log('url when loading products', url);
+        
 
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
+                
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
+                
             });
         }
     }, [props.location.search])
@@ -92,6 +91,11 @@ export default withRouter(function ProductCard(props) {
     //     console.log('novo array de products', products);
     // }, [products])
 
+
+    useEffect(() => {
+        
+    }, [products])
+
     async function loadFollowingPage() {
         const currentPos = window.pageYOffset;
 
@@ -103,7 +107,7 @@ export default withRouter(function ProductCard(props) {
 
         if (props.featuredOnly) url += '&featured=true';
 
-        console.log(url);
+       
 
         let nextPage;
 
@@ -121,7 +125,6 @@ export default withRouter(function ProductCard(props) {
         if (nextPage.data.length > 0) {
             setProducts(products.concat(nextPage.data));
             setPage(page + 1);
-            console.log("next Page is", nextPage);
             window.scrollTo(0, currentPos);
         }
         setRequiring(false);

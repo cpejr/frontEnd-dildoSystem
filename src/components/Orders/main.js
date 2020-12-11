@@ -38,10 +38,8 @@ function Main(props) {
         break;
     }
 
-    console.log({ order_status: engstatus, track_number: newTrackNumber });
     try {
-      await api.put(`order/${props.pedido.id}`, { order_status: engstatus, track_number: newTrackNumber }, config);
-      console.log(config);
+      const response = await api.put(`order/${props.pedido.id}`, { order_status: engstatus, track_number: newTrackNumber }, config);
       notification.open({
         message: 'Sucesso!',
         description:
@@ -55,7 +53,6 @@ function Main(props) {
       });
 
     } catch (err) {
-      console.log(config);
       console.error(err);
       notification.open({
         message: 'Erro!',
