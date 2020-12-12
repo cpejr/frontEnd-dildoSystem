@@ -11,12 +11,36 @@ export default function Footer() {
   return (
     <div className="Footer">
       <div className="FooterWrapper">
-      <div id="LogoFooter">
-        <img className="logos" src={Logos} alt="logos" />
-      </div>
       <div className="TextoFooter">
         <div className="textos-footer">
         <div id="texto-institucional">
+         <h3>Info</h3>
+         <Link to="/about" className="term-link">
+          Moda sensual
+        </Link>
+        <Link to="/conditions" className="term-link">
+          Para elas
+        </Link>
+        <Link to="/about" className="term-link">
+          Para eles
+        </Link>
+        <Link to="/about" className="term-link">
+          Saindo da rotina
+        </Link>
+        <Link to="/about" className="term-link">
+          Sexo anal
+        </Link>
+        <Link to="/about" className="term-link">
+          Higiene e banho
+        </Link>
+        <Link to="/about" className="term-link">
+          Acessórios BDSM
+        </Link>
+        <Link to="/about" className="term-link">
+          Especiais
+        </Link>
+        </div>
+        <div id="texto-ajuda">
          <h3>Institucional</h3>
          <Link to="/about" className="term-link">
           Quem Somos
@@ -31,37 +55,25 @@ export default function Footer() {
           Seja um(a) revendedor(a)
         </Link>
         </div>
-        <div id="texto-ajuda">
-         <h3>Ajuda</h3>
-         <Link to="/about" className="term-link">
-          Fale conosco
+        <div id="ContatoFooter">
+        <h3>Contato</h3>
+        <Link to="/about" className="term-link">
+          Email
+        </Link>
+        <Link to="/conditions" className="term-link">
+          Whatsapp
+        </Link>
+        <Link to="/about" className="term-link">
+          Instagram
         </Link>
         <Link to="/about" className="term-link">
           Perguntas frequentes
         </Link>
-        </div>
-        </div>
-        <div className="icons">
-            <a className="footer-buttons">
-            <WhatsAppIcon />
-            </a>
-            <a className="footer-buttons">
-            <FacebookIcon />
-            </a>
-            <a className="footer-buttons" href="https://www.instagram.com/casulus.sex" color="primary">
-            <InstagramIcon />
-            </a>
-            <a className="footer-buttons">
-            <TwitterIcon />
-            </a>
+      </div>
         </div>
       </div>
-      <div id="ContatoFooter">
-        <span>
-          Contato: <br /> <br />
-          sklep@uikit.com <br />
-          Hotline: +46 131 138 138
-        </span>
+      <div id="LogoFooter">
+        <img className="logos" src={Logos} alt="logos" />
       </div>
     </div>
     </div>

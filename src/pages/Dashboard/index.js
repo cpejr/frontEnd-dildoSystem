@@ -49,8 +49,10 @@ function Dashboard(props) {
                 <Instafeed />
                 </div>
                 <br></br>
-                <Footer />
             </div>
+            <div className="insta-footer">
+                <Footer />
+                </div>
         </div>
     );
 };
