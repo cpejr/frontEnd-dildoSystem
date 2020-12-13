@@ -8,8 +8,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
-import { notification } from 'antd';
+import { notification } from "antd";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { Tag, Tooltip } from "antd";
 
 import api from "../../services/api";
 import "./styles.css";
@@ -72,6 +73,7 @@ const IOSSwitch = withStyles((theme) => ({
 });
 
 export default function ProductEditor(props) {
+  const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -104,6 +106,8 @@ export default function ProductEditor(props) {
   const [subproducts, setSubproducts] = useState([]);
   const [updated, setUpdated] = useState(false);
 
+  const [tags, setTags] = useState();
+
   // const [open, setOpen] = useState(true);
   // // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   // const [fullWidth, setFullWidth] = useState();
@@ -126,7 +130,6 @@ export default function ProductEditor(props) {
   //   history.goBack();
   //   setOpen(false);
   // };
-  
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -135,6 +138,7 @@ export default function ProductEditor(props) {
     checkedD: true,
     checkedE: true,
   });
+
   const [editar, setEditar] = useState("editar");
 
   const accessToken = localStorage.getItem("accessToken");
@@ -155,7 +159,7 @@ export default function ProductEditor(props) {
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
-      setSubcategoriesIds(newCat.subcategories_ids)
+      setSubcategoriesIds(newCat.subcategories_ids);
     } else {
       setCategoryId(0);
       setSubcategories("");
@@ -168,6 +172,7 @@ export default function ProductEditor(props) {
 
     if (props.location.state) {
       const product = props.location.state;
+      setProducts(product.subcategories);
       setName(product.name);
       setDescription(product.description);
       setClientPrice(product.client_price);
@@ -198,6 +203,7 @@ export default function ProductEditor(props) {
 
     } else if (accessToken) {
       api.get(url, config).then((response) => {
+        setProducts(response.data.subcategories);
         setName(response.data.name);
         setDescription(response.data.description);
         setClientPrice(response.data.client_price);
@@ -273,7 +279,7 @@ export default function ProductEditor(props) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
 
-    let categorizeData = {subcategories_ids : [subcategories_ids]}
+    let categorizeData = { subcategories_ids: [subcategories_ids] };
 
     addToData("name", name);
     addToData("description", description);
@@ -302,27 +308,28 @@ export default function ProductEditor(props) {
         data,
         config
       );
-      notification.open({
-        message: 'Sucesso!',
-        description:
-          'Edição do produto concluída.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
-        style: {
-          width: 600,
+      notification.open(
+        {
+          message: "Sucesso!",
+          description: "Edição do produto concluída.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
+          style: {
+            width: 600,
+          },
         },
-      }, response);
+        response
+      );
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
       notification.open({
-        message: 'Erro!',
-        description:
-          'Edição do produto impedida.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        message: "Erro!",
+        description: "Edição do produto impedida.",
+        className: "ant-notification",
+        top: "100px",
+        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
         style: {
           width: 600,
         },
@@ -333,27 +340,22 @@ export default function ProductEditor(props) {
         `categorize/${props.match.params.id}`,
         categorizeData,
         config
-      )
+      );
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
       notification.open({
-        message: 'Erro!',
-        description:
-          'Edição do produto impedida.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        message: "Erro!",
+        description: "Edição do produto impedida.",
+        className: "ant-notification",
+        top: "100px",
+        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
         style: {
           width: 600,
         },
       });
     }
-    
-  }
-
-  function handleDeleteSubcategory(){
-    api.delete(`uncategorize/${props.match.params.id}/${deletesubcategories}`, config)
+    console.log("subcategories", subcategories_ids);
   }
 
   function handleImage(img) {
@@ -362,17 +364,23 @@ export default function ProductEditor(props) {
     setImage(img);
   }
 
+  function handleCloseTag(subcategory_id) {
+    api.delete(
+      `uncategorize/${props.match.params.id}/${subcategory_id}`,
+      config
+    );
+  }
+
   function handleDeleteProduct() {
     api
       .delete(`product/${props.match.params.id}`, config)
       .then((response) => {
         notification.open({
-          message: 'Sucesso!',
-          description:
-            'Produto deletado com sucesso.',
-          className: 'ant-notification',
-          top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          message: "Sucesso!",
+          description: "Produto deletado com sucesso.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
           style: {
             width: 600,
           },
@@ -385,25 +393,23 @@ export default function ProductEditor(props) {
         console.error(err.response);
         if (err.response.data.code === 527) {
           notification.open({
-            message: 'Erro!',
+            message: "Erro!",
             description:
-              'Produto não pode ser deletado pois está incluído em um pedido.',
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+              "Produto não pode ser deletado pois está incluído em um pedido.",
+            className: "ant-notification",
+            top: "100px",
+            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
             style: {
               width: 600,
             },
           });
-        }
-        else {
+        } else {
           notification.open({
-            message: 'Erro!',
-            description:
-              'Falha em deletar o produto.',
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            message: "Erro!",
+            description: "Falha em deletar o produto.",
+            className: "ant-notification",
+            top: "100px",
+            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
             style: {
               width: 600,
             },
@@ -950,24 +956,24 @@ export default function ProductEditor(props) {
                                   })}
                                 </select> */}
                                 <select
-                                onChange={(e) => setSubcategoriesIds(e.target.value)}
-                                value = {subcategories_ids} 
-                                  >
-                                  
-                                  {subcategories.map((subcat)=>{
-                                    return(
-                                      <option value={subcat.id} key={subcat.id}> 
+                                  onChange={(e) =>
+                                    setSubcategoriesIds(e.target.value)
+                                  }
+                                  value={subcategories_ids}
+                                >
+                                  {subcategories.map((subcat) => {
+                                    return (
+                                      <option value={subcat.id} key={subcat.id}>
                                         {subcat.name}
                                       </option>
-                                    )
+                                    );
                                   })}
                                 </select>
 
                                 <div className="categoriesSelection">
-                                  <label>
-                                  Deletar subcategoria
-                                </label>
-                                <select
+                                  <label>Deletar subcategoria</label>
+
+                                  {/* <select
                                 onChange={(e) => setDeleteSubcategories(e.target.value)}
                                 value = {deletesubcategories} 
                                   >
@@ -985,10 +991,25 @@ export default function ProductEditor(props) {
                                     
                                 </select>
                                 <div className="edit-button">
-                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button>
+                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button> */}
+                                  {/* </div> */}
                                 </div>
+                                <div>
+
+                                  {products.map((subcat, index) => {
+                                    return (
+                                      <Tag
+                                        className="edit-tag"
+                                        value={subcat.subcategory_id}
+                                        closable={index >= 0}
+                                        key={subcat.subcategory_id}
+                                        onClose={()=>handleCloseTag(subcat.subcategory_id)}
+                                      >
+                                        {subcat.subcategory_name}
+                                      </Tag>
+                                    );
+                                  })}
                                 </div>
-                                
                               </div>
                             </div>
                           </div>
