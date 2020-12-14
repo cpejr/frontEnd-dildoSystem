@@ -63,9 +63,9 @@ export default function Footer() {
         <Link to="/conditions" className="term-link">
           Whatsapp
         </Link>
-        <Link to="/about" className="term-link">
+        <a href="https://instagram.com/casulus.sex" className="term-link">
           Instagram
-        </Link>
+        </a>
         <Link to="/about" className="term-link">
           Perguntas frequentes
         </Link>
