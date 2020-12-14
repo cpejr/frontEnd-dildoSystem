@@ -15,25 +15,25 @@ export default function Footer() {
         <div className="textos-footer">
         <div id="texto-institucional">
          <h3>Info</h3>
-         <Link to="/about" className="term-link">
+         <Link to="/search?category_id=693b6b10-2a64-11eb-93d6-615250937529" className="term-link">
           Moda sensual
         </Link>
-        <Link to="/conditions" className="term-link">
+        <Link to="/search?category_id=c6169700-22e0-11eb-8d75-214996dae135" className="term-link">
           Para elas
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/search?category_id=cc5ae620-22e0-11eb-8d75-214996dae135" className="term-link">
           Para eles
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/search?category_id=d206ece0-22e0-11eb-8d75-214996dae135" className="term-link">
           Saindo da rotina
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/search?category_id=d82a6d90-22e0-11eb-8d75-214996dae135" className="term-link">
           Sexo anal
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/search?category_id=dda48ee0-22e0-11eb-8d75-214996dae135" className="term-link">
           Higiene e banho
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/search?category_id=e5bcdab0-22e0-11eb-8d75-214996dae135" className="term-link">
           Acessórios BDSM
         </Link>
         <Link to="/about" className="term-link">
