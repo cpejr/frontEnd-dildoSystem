@@ -8,7 +8,7 @@ import "../../global.css";
 import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
-import Frete from '../testefrete'
+import Frete from '../Frete'
 import cart from "../../services/cart"
 
 function Cart(props) {

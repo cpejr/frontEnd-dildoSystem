@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
-import { FaShoppingCart, FaUserAlt } from 'react-icons/fa'
+import { FaShoppingCart, FaUserAlt, FaRegUser } from 'react-icons/fa'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { IoMdHeartEmpty } from 'react-icons/io';
+import { FiSearch } from 'react-icons/fi';
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
 import Logo from '../../images/CASULUS01LOGODESIGN.svg';
@@ -69,7 +72,7 @@ export default function Header() {
     if (localStorage.getItem('cart')) {
       newCart = JSON.parse(localStorage.getItem('cart'));
     }
-    if(newCart){
+    if (newCart) {
       for (var i = 0; i < newCart.length; i++) {
         products_quantity += newCart[i].quantity
       }
@@ -102,11 +105,41 @@ export default function Header() {
         <div className="header-content">
           <Link to="/">
             <img className="logoCasulusDashboard" src={Logo} alt="logo" />
-            <img className="logoNameCasulusDashboard" src={LogoName} alt="logo name" />
+            {/* <img className="logoNameCasulusDashboard" src={LogoName} alt="logo name" /> */}
           </Link>
 
+          <div className="header-categories">
+            <ul >
+
+              {
+                categories.map(cat => (
+                  <li  key={cat.id}>
+                    <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
+                    {/* <div className="dropdown" key={cat.id} >
+                      <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
+                      <div className="dropdown-content">
+                        <div className="emptyHeaderDiv"></div>
+                        <div className="dropdownLinks">
+                          {
+                            cat.subcategories.map(subcat => (
+                              <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
+                                {subcat.name}
+                              </button>
+                            ))}
+                        </div>
+
+                      </div>
+                    </div> */}
+                  </li>
+                )
+                )
+              }
+
+            </ul>
+          </div>
+
           <div className="userInfoSearch">
-            <form className="form-group has-search" onSubmit={handleSubmit}>
+            {/* <form className="form-group has-search" onSubmit={handleSubmit}>
               <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
               <input
                 type="text"
@@ -115,26 +148,31 @@ export default function Header() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-            </form>
-
-            <Link to="/cart" className="icon-link">
-              <FaShoppingCart />
-              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
-            </Link>
+            </form> */}
+            <FiSearch className="fa fa-search form-control-feedback searchIcon" size={30}/>
 
             {loginContext.loggedIn ? (
               <Link
                 to={loginContext.type === "admin" ? "/admin" : "/user"}
                 className="icon-link user-info"
               >
-                <FaUserAlt />
-                <p>{loginContext.name}</p>
+                <FaRegUser size={30}/>
+                {/* <p>{loginContext.name}</p> */}
               </Link>
             ) : (
                 <Link to="/login">
                   <button className="loginBtn">Login / Cadastrar</button>
                 </Link>
               )}
+
+            < IoMdHeartEmpty size={34}/>
+
+            <Link to="/cart" className="icon-link">
+              <HiOutlineShoppingBag size={32}/>
+              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
+            </Link>
+
+            
           </div>
         </div>
       </div>

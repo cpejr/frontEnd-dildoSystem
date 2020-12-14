@@ -7,7 +7,7 @@
 
 #Header .headerSuperior {
   width: 100%;
-  background-color: #daa621;
+  background: #F9CE56 0% 0% no-repeat padding-box;
   display: flex;
   justify-content: center;
   height: 70px;
@@ -30,13 +30,15 @@
 
 .icon-link {
   color: black;
+  display: flex;
+  align-items: center;
 }
 
 .icon-link > svg:first-child,
 .icon-link-responsive > svg:first-child {
-  margin: 0 15px;
-  width: 25px;
-  height: 25px;
+  margin: 0 8px;
+  /* width: 25px;
+  height: 25px; */
 }
 
 .user-info {
@@ -49,12 +51,13 @@
 }
 
 #Header .headerInferior {
-  background-color: #ddbd69;
+  display: none;
+  /* background-color: #ddbd69;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* min-height: 60px; */
-  height: 75px;
+  /* min-height: 60px;
+  height: 75px; */
 }
 
 #Header .headerInferior .header-content {
@@ -116,10 +119,41 @@
   color: #616161;
 }
 
+.header-categories {
+  display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.header-categories ul{
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.header-categories ul li {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.header-categories li:not(:first-child):before {
+  content: " | ";
+}
+
 .dropdown {
-  position: relative;
-  display: inline-block;
-  overflow-wrap: normal;
+  /* position: relative; */
+  /* display: inline-block; */
+  /* overflow-wrap: normal; */
+
+  max-width: none;
+  width: 100%;
 }
 
 .dropbtn {
@@ -129,6 +163,8 @@
   font-size: 1em;
   border: none;
   cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .dropdown .dropbtn svg {
