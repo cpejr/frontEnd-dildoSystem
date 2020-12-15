@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -15,59 +15,38 @@ import api from '../../services/api'
 function Cart() {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [newProducts, setNewProducts] = useState([])
-  const [localCart, setLocalCart] = useState();
-  const [hasCart, setHasCart] = useState(false);
-  // const { cart } = useCart();
 
-  useEffect(() => {
-    setLocalCart(JSON.parse(localStorage.getItem('cart')))
-    setHasCart(true);
-  }, [])
+  const { cart } = useCart();
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
 
-    const config = {
-      headers: { 'authorization': `Bearer ${accessToken}` },
+
+  const getRealPrice = (product) => {
+    let product_price;
+    if (product.wholesaler_price) {
+      if (product.on_sale_wholesaler) {
+        product_price = (product.wholesaler_sale_price).toFixed(2)
+      } else {
+        product_price = (product.wholesaler_price).toFixed(2)
+      }
+    } else {
+      if (product.on_sale_client) {
+        product_price = (product.client_sale_price).toFixed(2)
+      } else {
+        product_price = (product.client_price).toFixed(2)
+      }
     }
+    return product_price;
+  }
 
-    if (accessToken) {
-      api.post("cart", localCart, config).then(res => {
-        console.log("Carrinho do back: ", res.data);
-        setProducts(res.data);
+  useEffect(() => {
+    let price = 0;
+    if (cart) {
+      cart.forEach(p => {
+        price += (getRealPrice(p) * p.quantity);
       })
     }
-  }, [hasCart]);
-
-  function addNewProducts(products) {
-    for (var i = 0; i < newProducts.length; i++) {
-      if (products.productId === newProducts[i].productId) {
-        newProducts.splice(i, 1);
-      }
-    }
-    setNewProducts(newProducts => [...newProducts, products])
-  }
-
-  function deleteProduct(product) {
-    console.log("Delete product: ", product)
-    for (var i = 0; i < newProducts.length; i++) {
-      if (product.productId === newProducts[i].productId) {
-        newProducts.splice(i, 1);
-      }
-    }
-    setNewProducts(newProducts => [...newProducts])
-  }
-
-  useEffect(() => {
-    console.log("Entreiiiiii")
-    let price = 0;
-    newProducts.forEach(p => {
-      price += (p.productPrice * p.product_quantity);
-    })
-    console.log("Price: ", price)
     setTotalPrice(price);
-  }, [newProducts])
+  }, [cart])
 
   return (
     <div>
@@ -78,16 +57,14 @@ function Cart() {
             Carrinho
           </h2>
           <div className="cart-items">
-            {products ? products.map((product) => (
-              // console.log("Produtooooo: ", product)
+            {cart ? cart.map((product) => (
               <CartCard key={product.id}
                 name={product.name}
                 description={product.description}
                 productId={product.id}
                 product={product}
                 image_id={product.image_id}
-                onChangePrice={addNewProducts}
-                onDeleteProduct={deleteProduct} />
+              />
             )) : <div></div>}
           </div>
           <div className='total-price'>

@@ -86,7 +86,7 @@ export default function ProductModal({ product, visible, onCancel }) {
           </div>
           <p>Preço unitário:</p>
           <PriceElement product={product} /><br />
-          <button className="buy-button" onClick={() => { addItem(product, quantity); onCancel(); }}>COMPRAR</button>
+          <button className="buy-button" onClick={() => { addItem(product.id, quantity, (product.subproducts && product.subproducts.length > 0) ? product.subproducts[selectedSubpIndex].id : undefined); onCancel(); }}>COMPRAR</button>
 
         </div>
       </div>
