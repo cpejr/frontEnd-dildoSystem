@@ -4,7 +4,6 @@ import { FiFilter } from 'react-icons/fi';
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import Filters from './Filters';
-import Filters2 from './Filters2';
 import { SearchContext } from '../../Contexts/SearchContext';
 
 function Search(props) {
@@ -20,7 +19,7 @@ function Search(props) {
       </div>
       <div className="searchpage-content">
 
-        <Filters2 visible={filtersVisible} setVisible={setFiltersVisible} />
+        <Filters visible={filtersVisible} setVisible={setFiltersVisible} />
 
         <div className="results">
           <div className="search-title">
