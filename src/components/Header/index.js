@@ -12,6 +12,7 @@ import api from "../../services/api";
 import Burger from "../../components/Burger";
 import { LoginContext } from "../../Contexts/LoginContext";
 import { SearchContext } from "../../Contexts/SearchContext";
+import { CartContext } from '../../Contexts/CartContext';
 
 import "./styles.css";
 import { createRef } from 'react';
@@ -27,6 +28,7 @@ export default function Header() {
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
 
   const headerRef = createRef();
 
@@ -62,7 +64,7 @@ export default function Header() {
       setCategories(response.data);
     })
   }, [])
-  useEffect(() => {
+  /* useEffect(() => {
     let products_quantity = 0;
     let newCart = [];
     if (localStorage.getItem('cart')) {
@@ -74,7 +76,7 @@ export default function Header() {
       }
     }
     setCartQuantity(products_quantity)
-  })
+  }) */
 
   useEffect(() => {
     function handleCategoriesSize() {
@@ -116,7 +118,9 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <FaShoppingCart />
-              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
+
+              <span class='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity} </span>
+
             </Link>
 
             {loginContext.loggedIn ? (
@@ -146,7 +150,7 @@ export default function Header() {
             {
               categories.map(cat => (
                 <div className="dropdown" key={cat.id} style={{ maxWidth: categoryWidth, flex: 1 }}>
-                  <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
+                  <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} {/* <KeyboardArrowDownIcon /> */} </button>
                   <div className="dropdown-content">
                     <div className="emptyHeaderDiv"></div>
                     <div className="dropdownLinks">
