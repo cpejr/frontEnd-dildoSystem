@@ -75,11 +75,13 @@ function Cart(props) {
             <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>
           </div>
           <div className="borderEmpty"></div>
-          <Frete products={products} />
+          <div className='container frete'>
+            <Frete products={products} />
+          </div>
           <div className="button-area">
-            <Link to="/addresses">
+            {cart && cart.length > 0 && (<Link to="/addresses">
               <button className="cart-primary-button">COMPRAR</button>
-            </Link>
+            </Link>)}
             <Link to="/">
               <button className="cart-secondary-button">
                 CONTINUAR COMPRANDO
