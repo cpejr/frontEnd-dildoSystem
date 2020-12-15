@@ -3,7 +3,7 @@
   /*align-items: center;*/
   width: 90%;
   flex-direction: row;
-  max-width: 1400px;
+  /* max-width: 1400px; */
 }
 
 .search-title {
@@ -21,8 +21,11 @@
 }
 
 .filters-container {
+  display: flex;
+  flex-direction: column;
   width: 270px;
-  height: 573px;
+  height: min(573px, 75vh);
+  box-sizing: border-box;
   border-radius: 0 66px 66px 0;
 
   margin-top: 50px;
@@ -35,19 +38,24 @@
 .filters-container form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  /*  height: 100%; */
+  flex: auto;
   padding: 20px;
 }
 
 .filters-container form strong {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .filters-container form button {
   border: 0;
   border-radius: 10px;
   margin-top: 30px;
+  margin-bottom: 30px;
   height: 40px;
 
   background-color: black;
@@ -57,27 +65,39 @@
   font-size: 18px;
 }
 
+.filters-container form > div {
+  display: flex;
+  flex-direction: column;
+}
+
 .filters-container form input,
 select {
   background-color: rgba(0, 0, 0, 0);
   border-radius: 5px;
+  height: 30px;
+  width: 80%;
   border: 1px solid black;
 }
 
 .price-range {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   display: flex;
   align-items: center;
 }
 
-.price-range input {
+.filters-container form .price-range input {
   width: 70px;
-  height: 20px;
-  margin: 0 5px;
+  height: 30px;
+  margin: 0;
+  margin-right: 10px;
   color: black;
+  text-align: center;
 }
 
-.price-range input:placeholder {
+.filters-container form .block-2 {
+  margin-top: auto;
+}
+.price-range input::placeholder {
   color: black;
 }
 
@@ -88,6 +108,12 @@ select {
 .close-icon-container {
   visibility: hidden;
   display: none;
+}
+
+@media (min-width: 890px) {
+  .results {
+    margin-left: 275px;
+  }
 }
 
 @media (max-width: 890px) {
@@ -108,6 +134,10 @@ select {
 
     transition: all 0.5s ease;
   }
+
+  /*  .filters-container form {
+    height: auto;
+  } */
 
   .filters-container.visible {
     /* border-radius: 0; */
@@ -133,4 +163,17 @@ select {
   .close-icon {
     cursor: pointer;
   }
+}
+
+/* TIRA SETINHAS DO INPUT DE NÚMERO */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

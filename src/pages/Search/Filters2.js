@@ -97,26 +97,30 @@ function Filters(props) {
       </div>
 
       <form onSubmit={e => handleSubmit(e)}>
+        <div>
+          <strong>Ordernar por</strong>
+          <select name="order-by" id="order-by" value={order_by} onChange={e => setOrder_by(e.target.value)}>
+            <option default value="default"> </option>
+            <option value="price-ascending">Preço: do mais baixo para o mais alto</option>
+            <option value="price-descending">Preço: do mais alto para o mais baixo</option>
+          </select>
 
-
-
-
-        <strong>Ordernar por</strong>
-        <select name="order-by" id="order-by" value={order_by} onChange={e => setOrder_by(e.target.value)}>
-          <option default value="default"> </option>
-          <option value="price-ascending">Preço: do mais baixo para o mais alto</option>
-          <option value="price-descending">Preço: do mais alto para o mais baixo</option>
-        </select>
-
-        <strong>Termo de pesquisa</strong>
-        <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
-
-        <div className='price-range'>
-          {/* De */}
-          <input type="number" name="min-price" id="min-price" value={min_price} placeholder="MIN" onChange={e => setMin_Price(e.target.value)} step="0.01" />
-          {/* até */}
-          <input type="number" name="max-price" id="max-price" value={max_price} placeholder="MAX" onChange={e => setMax_Price(e.target.value)} step="0.01" />
+          <strong>Termo de pesquisa</strong>
+          <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
+
+        <div className="block-2">
+          <strong>Preço</strong>
+          <div className='price-range'>
+            {/* De */}
+            <input type="number" name="min-price" id="min-price" value={min_price} placeholder="MIN" onChange={e => setMin_Price(e.target.value)} step="0.01" />
+            {/* até */}
+            <input type="number" name="max-price" id="max-price" value={max_price} placeholder="MAX" onChange={e => setMax_Price(e.target.value)} step="0.01" />
+          </div>
+          <button type="submit">Aplicar filtros</button>
+
+        </div>
+
 
         {/*  <strong>Categoria</strong>
         <select name="category" id="category" value={categoryId} onChange={e => handleCategorySelection(e)}>
@@ -133,7 +137,7 @@ function Filters(props) {
           })}
         </select> */}
 
-        <button type="submit">Aplicar filtros</button>
+        {/* <button type="submit">Aplicar filtros</button> */}
 
       </form>
     </div>
