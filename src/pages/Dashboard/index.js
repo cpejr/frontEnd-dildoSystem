@@ -45,12 +45,14 @@ function Dashboard(props) {
             <div>
                 <div className="insta-div">
                     <br></br>
-                    <h3><img src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50"/>    Confira nosso Instagram:</h3>
+                    <h3><img alt="instagram-icon" src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50"/>    Confira nosso Instagram:</h3>
                 <Instafeed />
                 </div>
                 <br></br>
-                <Footer />
             </div>
+            <div className="insta-footer">
+                <Footer />
+                </div>
         </div>
     );
 };

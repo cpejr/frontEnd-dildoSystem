@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { FiHeart } from 'react-icons/fi';
-import ImageLoader from 'react-loading-image';
-import { FaHeart } from 'react-icons/fa';
-
+import { withRouter } from 'react-router-dom';
 import api from '../../services/api';
-import cart from "../../services/cart"
 import CardProduct from './ProductCard';
 
 import { LoginContext } from '../../Contexts/LoginContext';
 import './styles.css'
-import loading from '../../images/Loading.gif';
 
 export default withRouter(function ProductCard(props) {
 
@@ -22,18 +16,17 @@ export default withRouter(function ProductCard(props) {
     const alreadyRequiring = useRef(false);
     const user = useContext(LoginContext);
 
-    const accessToken = localStorage.getItem('accessToken');
+    //const accessToken = localStorage.getItem('accessToken');
 
-    const config = {
-        headers: { authorization: `Bearer ${accessToken}` }
-    }
+    // const config = {
+    //     headers: { authorization: `Bearer ${accessToken}` }
+    // }
 
     function handleScroll() {
         const shouldUpdate = window.pageYOffset > (document.documentElement.scrollHeight - 1300)
         if (shouldUpdate && !requiring.current) {
             alreadyRequiring.current = true;
             setRequiring(true);
-            console.log(requiring);
         }
     }
 
@@ -55,17 +48,17 @@ export default withRouter(function ProductCard(props) {
 
         if (props.releaseOnly) url += '&release=true';
         if (props.best_sellerOnly) url += '&best_seller=true';
-        console.log('url when loading products', url);
+        
 
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
+                
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
-                console.log(response.data)
+                
             });
         }
     }, [props.location.search])
@@ -92,11 +85,15 @@ export default withRouter(function ProductCard(props) {
             loadFollowingPage();
         }
     }, [requiring])
+    
 
+    // useEffect(() => {
+    //     console.log('novo array de products', products);
+    // }, [products])
 
 
     useEffect(() => {
-        console.log('novo array de products', products);
+        
     }, [products])
 
     async function loadFollowingPage() {
@@ -110,7 +107,7 @@ export default withRouter(function ProductCard(props) {
 
         if (props.featuredOnly) url += '&featured=true';
 
-        console.log(url);
+       
 
         let nextPage;
 
@@ -128,7 +125,6 @@ export default withRouter(function ProductCard(props) {
         if (nextPage.data.length > 0) {
             setProducts(products.concat(nextPage.data));
             setPage(page + 1);
-            console.log("next Page is", nextPage);
             window.scrollTo(0, currentPos);
         }
         setRequiring(false);
@@ -138,7 +134,7 @@ export default withRouter(function ProductCard(props) {
         <div className={`products-container-wrapper ${props.className}`}>
             <div className="products-container">
                 {products.map(product => (
-                    <CardProduct product={product} />
+                    <CardProduct product={product}/>
                     // <div className="Card" key={`product-${product.id}`}>
                     //     <Link to={`/product/${product.id}`} className="image-text-container">
                     //         <ImageLoader

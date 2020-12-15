@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import api from "../../services/api";
@@ -19,15 +19,15 @@ export default function NnEProduct({ witchOne }) {
   const [client_sale_price, setClientSalePrice] = useState();
   const [wholesaler_price, setWholesalerPrice] = useState();
   const [wholesaler_sale_price, setWholesalerSalePrice] = useState();
-  const [on_sale_client, setOnsaleClient] = useState(true);
-  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(true);
-  const [release, setRelease] = useState(true);
-  const [best_seller, setBest_Seller] = useState(true);
-  const [visible, setVisible] = useState(true);
+  const [on_sale_client, setOnsaleClient] = useState(false);
+  const [on_sale_wholesaler, setOnsaleWholesaler] = useState(false);
+  const [release, setRelease] = useState(false);
+  const [best_seller, setBest_Seller] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [stock_quantity, setQuantity] = useState();
   const [min_stock, setMinimum] = useState();
   const [weight, setWeight] = useState();
-  const [image_id, setImageID] = useState();
+  // const [image_id, setImageID] = useState();
   const [image, setImage] = useState();
   const [images, setImages] = useState(null)
   const [subcategory_id, setSubcategory] = useState(0);
@@ -48,7 +48,7 @@ export default function NnEProduct({ witchOne }) {
   });
   const [editar, setEditar] = useState();
 
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     api.get('categories').then(response => {
@@ -133,7 +133,7 @@ export default function NnEProduct({ witchOne }) {
     addToData('length', length);
 
     try {
-      const response = await api.post("newProduct", data, {
+      await api.post("newProduct", data, {
         headers: {
           "Content-Type": "application/json",
           authorization: "Bearer " + localStorage.accessToken,
@@ -145,7 +145,7 @@ export default function NnEProduct({ witchOne }) {
             'O registro do produto foi concluído com sucesso.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#108ee9' }} />,
+          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
           style: {
             width: 600,
           },
@@ -191,7 +191,7 @@ export default function NnEProduct({ witchOne }) {
   function handleImages(images) {
     setImages(images)
   }
-
+  
   return (
     <div>
       <div className="new-product-all">

@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import api from '../../services/api';
 
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode , ExitToApp } from '@material-ui/icons';

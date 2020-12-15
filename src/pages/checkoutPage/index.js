@@ -52,7 +52,6 @@ export default function CheckoutPage(props) {
                         authorization: `Bearer ${loginContext.accessToken}`
                     }
                 }
-                //console.log(options);
                 const response = await api.post(`newOrder`, order, options);
                 return response.data;
             } catch (error) {
@@ -79,10 +78,8 @@ export default function CheckoutPage(props) {
 
         async function createAndRender() {
             const mock = await getMockOrder();
-            console.log('mock is ', mock)
             if (!mock || mock instanceof Error) {
                 const order = await getExistingOrder();
-                console.log((order))
                 if (!order || order instanceof Error) {
                     history.push('/notFound')
                 }

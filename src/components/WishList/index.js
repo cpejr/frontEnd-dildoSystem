@@ -21,7 +21,6 @@ export default function WishList(props) {
 
   useEffect(() => {
       api.get(`userwishlist/${userInfo.id}`, config).then(response => {        
-        // console.log(` essa eh a response${response.data}`)
         setList(response.data)
       })
   }, [userInfo, list])
@@ -33,7 +32,6 @@ export default function WishList(props) {
         data: { user_id: userInfo.id ,product_id  }
       };
     api.delete('userwishlist', config).then(response => {
-      // console.log(response.data);
     })
   }
 

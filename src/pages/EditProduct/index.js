@@ -31,8 +31,6 @@ export default function EditProduct() {
             newFormattedSearch = newFormattedSearch.normalize('NFD');
         }
 
-        console.log(newFormattedSearch);
-
         setFormattedSearch(newFormattedSearch);
     }
 

@@ -62,7 +62,6 @@ export default function Header() {
     };
     api.get("categories", config).then((response) => {
       setCategories(response.data);
-      // console.log(response.data)
     })
   }, [])
   /* useEffect(() => {
@@ -82,9 +81,7 @@ export default function Header() {
   useEffect(() => {
     function handleCategoriesSize() {
       if (headerRef.current && categories) {
-        console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
-        console.log(width);
         setCategoryWidth(width);
       }
     }
@@ -121,7 +118,9 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <FaShoppingCart />
+
               <span class='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity} </span>
+
             </Link>
 
             {loginContext.loggedIn ? (

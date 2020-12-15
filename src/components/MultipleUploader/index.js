@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import api from "../../services/api";
-import PublishIcon from "@material-ui/icons/Publish";
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -20,8 +19,6 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
     function changeHandler(evt) {
 
         let img_urls = Array.from(evt.target.files).map((file) =>  URL.createObjectURL(file) );
-
-        console.log(img_urls);
         
         Array.from(evt.target.files).map(
                     (file) => URL.revokeObjectURL(file)

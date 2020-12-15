@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { formatDate } from '../../../components/FormatDate/index'
 import "./styles.css";
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -68,7 +67,6 @@ function Pedido2(props) {
       render: (text, record) => (
         <Space size="middle">
           <a>Editar</a>
-          {/* {console.log('esse eh o text.id', text.action)} */}
           <Link to={
             {
               pathname: `/admin/pendingorder/${text.action.id}`,

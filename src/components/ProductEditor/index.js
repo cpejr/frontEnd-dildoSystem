@@ -72,7 +72,6 @@ const IOSSwitch = withStyles((theme) => ({
 });
 
 export default function ProductEditor(props) {
-  // console.log(props);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -96,6 +95,8 @@ export default function ProductEditor(props) {
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [subcategories_ids, setSubcategoriesIds] = useState([]);
+  const [deletesubcategories, setDeleteSubcategories] = useState([]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
@@ -125,6 +126,7 @@ export default function ProductEditor(props) {
   //   history.goBack();
   //   setOpen(false);
   // };
+  
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -144,7 +146,7 @@ export default function ProductEditor(props) {
   useEffect(() => {
     api.get("categories").then((response) => {
       setCategories(response.data);
-      console.log(response.data);
+      
     });
   }, []);
 
@@ -153,14 +155,15 @@ export default function ProductEditor(props) {
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
+      setSubcategoriesIds(newCat.subcategories_ids)
     } else {
       setCategoryId(0);
       setSubcategories("");
+      setSubcategoriesIds("");
     }
   }
 
   useEffect(() => {
-    // console.log(props);
     const url = `product/${props.match.params.id}`;
 
     if (props.location.state) {
@@ -193,7 +196,6 @@ export default function ProductEditor(props) {
       setHeight(product.height);
       setSubproducts(product.subproducts);
 
-      console.log("used props product");
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setName(response.data.name);
@@ -224,7 +226,6 @@ export default function ProductEditor(props) {
         setWidth(response.data.width);
         setSubproducts(response.data.subproducts);
       });
-      console.log("called api");
     }
   }, []);
 
@@ -233,8 +234,6 @@ export default function ProductEditor(props) {
       setImages(response.data);
     });
   }, [updated]);
-
-  console.log("teste das imagens", images);
 
   useEffect(() => {
     if (props.wichOne === "editar") {
@@ -258,6 +257,7 @@ export default function ProductEditor(props) {
         break;
       case "checkedD":
         setRelease(!release);
+        break;
       case "checkedE":
         setBest_Seller(!best_seller);
         break;
@@ -272,6 +272,8 @@ export default function ProductEditor(props) {
     function addToData(key, value) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
+
+    let categorizeData = {subcategories_ids : [subcategories_ids]}
 
     addToData("name", name);
     addToData("description", description);
@@ -293,7 +295,6 @@ export default function ProductEditor(props) {
     addToData("width", width);
     addToData("length", length);
 
-    console.log("Esta é a url da imagem", img_url);
 
     try {
       const response = await api.put(
@@ -327,6 +328,32 @@ export default function ProductEditor(props) {
         },
       });
     }
+    try {
+      await api.put(
+        `categorize/${props.match.params.id}`,
+        categorizeData,
+        config
+      )
+    } catch (err) {
+      console.log(JSON.stringify(err));
+      console.error(err.response);
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Edição do produto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        style: {
+          width: 600,
+        },
+      });
+    }
+    
+  }
+
+  function handleDeleteSubcategory(){
+    api.delete(`uncategorize/${props.match.params.id}/${deletesubcategories}`, config)
   }
 
   function handleImage(img) {
@@ -350,7 +377,7 @@ export default function ProductEditor(props) {
             width: 600,
           },
         });
-        history.push("/admin");
+        history.push("/admin/editproduct");
       })
       .catch((err) => {
         JSON.stringify(err.response);
@@ -388,11 +415,10 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-    // console.log(image_id);
-    console.log("ID da imagem:", image);
+  
+   
 
     api.delete(`image/${image}`, config).then((response) => {
-      console.log(response);
     });
     setUpdated(!updated);
   };
@@ -903,7 +929,7 @@ export default function ProductEditor(props) {
                                 >
                                   Subcategoria:
                                 </label>
-                                <select
+                                {/* <select
                                   value={subcategory_id}
                                   onChange={(e) =>
                                     setSubcategory(e.target.value)
@@ -922,7 +948,47 @@ export default function ProductEditor(props) {
                                       </option>
                                     );
                                   })}
+                                </select> */}
+                                <select
+                                onChange={(e) => setSubcategoriesIds(e.target.value)}
+                                value = {subcategories_ids} 
+                                  >
+                                  
+                                  {subcategories.map((subcat)=>{
+                                    return(
+                                      <option value={subcat.id} key={subcat.id}> 
+                                        {subcat.name}
+                                      </option>
+                                    )
+                                  })}
                                 </select>
+
+                                <div className="categoriesSelection">
+                                  <label>
+                                  Deletar subcategoria
+                                </label>
+                                <select
+                                onChange={(e) => setDeleteSubcategories(e.target.value)}
+                                value = {deletesubcategories} 
+                                  >
+                                      {
+                                    subcategories.map((subcat)=>{
+                                    return(
+                                      <option value={subcat.id} key={subcat.id}> 
+                                        {subcat.name}
+                                      </option>
+                                    )
+                                  })}
+                                    )
+                                  
+                                
+                                    
+                                </select>
+                                <div className="edit-button">
+                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button>
+                                </div>
+                                </div>
+                                
                               </div>
                             </div>
                           </div>

@@ -4,7 +4,6 @@ import "./styles.css";
 import api from "../../services/api";
 import ImageUpload from "../../components/ImageUpload";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import PublishIcon from "@material-ui/icons/Publish";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
 import MultipleUploader from "../../components/MultipleUploader";
@@ -57,7 +56,6 @@ export default function SubproductsEdit({ subproduto }) {
 
   const handleDeleteSubproduct = () => {
     api.delete(`subproducts/${subproduto.id}`, config).then((response) => {
-      console.log(response);
     });
     window.location.reload();
   };
@@ -87,7 +85,6 @@ export default function SubproductsEdit({ subproduto }) {
           },
         }
       );
-      console.log("teste date:", data);
       notification.open({
         message: 'Sucesso!',
         description:
@@ -125,11 +122,10 @@ export default function SubproductsEdit({ subproduto }) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-    // console.log(image_id);
-    console.log("ID da imagem:", image)
+ 
+    
 
     api.delete(`image/${image}`, config).then((response) => {
-      console.log(response);
     });
     setUpdated(!updated);
   };

@@ -9,10 +9,12 @@ import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
 import Frete from '../testefrete'
+
 import { useCart } from '../../Contexts/CartContext';
 import api from '../../services/api'
 
-function Cart() {
+
+function Cart(props) {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -57,6 +59,7 @@ function Cart() {
             Carrinho
           </h2>
           <div className="cart-items">
+
             {cart ? cart.map((product) => (
               <CartCard key={product.id}
                 name={product.name}
@@ -66,6 +69,7 @@ function Cart() {
                 image_id={product.image_id}
               />
             )) : <div></div>}
+
           </div>
           <div className='total-price'>
             <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>

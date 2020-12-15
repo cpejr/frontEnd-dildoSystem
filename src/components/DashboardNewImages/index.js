@@ -8,15 +8,14 @@ import './styles.css'
 export default function FeaturedImages() {
   const [images, setImages] = useState([]);
 
-  const accessToken = localStorage.getItem('accessToken')
+  //const accessToken = localStorage.getItem('accessToken')
 
-  const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` },
-  }
+  // const config = {
+  //   headers: { 'authorization': `Bearer ${accessToken}` },
+  // }
 
   useEffect(() => {
     api.get('/banner').then(response => {
-      console.log(response)
       setImages([...response.data])
     })
   }, [])
@@ -31,7 +30,7 @@ export default function FeaturedImages() {
               <div className="textbanner">
                 <a href={img.link}>
                   <div className="text-banner-image">
-                    <img src={`https://docs.google.com/uc?id=${img.image_id}`} ></img>
+                    <img alt="dashboard-images" src={`https://docs.google.com/uc?id=${img.image_id}`} ></img>
                   </div>
                 </a>
               </div>

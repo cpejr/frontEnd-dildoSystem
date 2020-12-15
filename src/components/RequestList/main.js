@@ -11,7 +11,7 @@ function RequestBody(props) {
         >
           
         <div className="order-product-image">
-          <img src={`https://docs.google.com/uc?id=${product.image_id}`}></img>
+          <img alt="request-images" src={`https://docs.google.com/uc?id=${product.image_id}`}></img>
         </div>
         
           <strong className="request-name">{product.name}</strong>

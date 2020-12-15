@@ -33,12 +33,13 @@ function Main(props) {
         break;
       case "Pedido Cancelado":
         engstatus = "cancelled";
+        break;
+      default:
+        break;
     }
 
-    console.log({ order_status: engstatus, track_number: newTrackNumber });
     try {
       const response = await api.put(`order/${props.pedido.id}`, { order_status: engstatus, track_number: newTrackNumber }, config);
-      console.log(config);
       notification.open({
         message: 'Sucesso!',
         description:
@@ -52,7 +53,6 @@ function Main(props) {
       });
 
     } catch (err) {
-      console.log(config);
       console.error(err);
       notification.open({
         message: 'Erro!',

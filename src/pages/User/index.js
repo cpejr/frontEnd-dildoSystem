@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import "./styles.css";
 import UserSidebar from "../../components/UserSidebar";
 import { Route, useHistory } from "react-router-dom";

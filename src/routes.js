@@ -13,7 +13,7 @@ import CartContextProvider from './Contexts/CartContext'
 import User from './pages/User';
 import ForgottenPassword from './pages/ForgottenPassword';
 import ProductPage from './pages/ProductPage';
-import Testefrete from './pages/testefrete';
+import Testefrete from './pages/Frete';
 import Addresses from './pages/Addresses';
 import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'

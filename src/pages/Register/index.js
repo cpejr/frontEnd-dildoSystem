@@ -75,7 +75,6 @@ function Register() {
             return false;
 
         if (cpf.trim().length < 1) {
-            console.log(cpf)
             setCpfError('Esse campo não pode estar vazio')
             return false;
         }
@@ -142,7 +141,7 @@ function Register() {
             };
             
             try {
-                const response = await api.post('/user', data);
+                await api.post('/user', data);
 
                 notification.open({
                     message: 'Sucesso!',

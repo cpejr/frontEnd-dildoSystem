@@ -36,7 +36,6 @@ export default function ProductModal({ product, visible, onCancel }) {
   function setModalSize() {
     const newWidth = childrenRef.current.scrollWidth;
     setModalWidth(newWidth);
-    console.log("newWidth is", childrenRef.current.scrollWidth);
   }
 
   function selectSubproduct(event) {

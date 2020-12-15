@@ -28,7 +28,6 @@ function Filters(props) {
     api.get('categories').then(response => {
       setCategories(response.data);
 
-      //console.log(response.data);
     })
   }, []);
 
@@ -41,7 +40,7 @@ function Filters(props) {
     search = search.replace(/%/g, ' ');
     console.log(search);
     search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
-    console.log(search);
+    
     if (search.category_id) {
       setCategoryId(search.category_id);
       if (categories.length > 0) {
@@ -56,7 +55,6 @@ function Filters(props) {
         setSubcategories(correspondingCat.subcategories)
         setSubcategory_id(search.subcategory_id)
       }
-      console.log(search.subcategory_id)
     }
   }, [categories, location.search])
 

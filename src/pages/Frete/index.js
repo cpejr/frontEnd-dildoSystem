@@ -41,7 +41,7 @@ function Testefrete() {
         products.map(p => (
             produtos.push(
                 {
-                    Weight: p.product.weight,
+                    Weight: (p.product.weight/1000),
                     Height: p.product.height,
                     Width: p.product.width,
                     Length: p.product.length,
@@ -50,7 +50,7 @@ function Testefrete() {
             )
         ))
 
-        // console.log('dimensoes dos produtos: ', produtos)
+         console.log('dimensoes dos produtos: ', produtos)
 
         const freteData = {
 

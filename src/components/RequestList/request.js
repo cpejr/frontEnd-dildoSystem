@@ -11,7 +11,6 @@
 //       })
 //       .then((response) => {
 //         setOrders(response.data);
-//         console.log('orders', response.data)
 //       });
 //   }, []);
 
