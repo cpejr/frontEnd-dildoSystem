@@ -6,6 +6,8 @@ import useStateWithPromise from "./useStateWithPromise";
 
 import api from "../services/api";
 
+import { useCart } from './CartContext';
+
 const LoginContext = React.createContext({});
 
 function LoginContextProvider(props) {
@@ -17,13 +19,15 @@ function LoginContextProvider(props) {
   const [email, setEmail] = useStateWithPromise("");
   const [phonenumber, setPhonenumber] = useStateWithPromise(0);
 
+  const { clear } = useCart();
+
   const history = useHistory();
   const [changed, setChanged] = useState(false);
   const [location] = useState(history.location)
 
   useEffect(() => {
     if (changed) {
-      history.push(location.pathname+location.search);
+      history.push(location.pathname + location.search);
       setChanged(false);
     }
   }, [changed]);
@@ -38,7 +42,7 @@ function LoginContextProvider(props) {
         const resp = await api.get("verify", config);
 
         if (resp.data.verified) {
-          const userType = (resp.data.user.type === "wholesaler" && resp.data.user.user_status !== "approved") ? "retailer" : resp.data.user.type;   
+          const userType = (resp.data.user.type === "wholesaler" && resp.data.user.user_status !== "approved") ? "retailer" : resp.data.user.type;
           await Promise.all([
             setUsername(resp.data.user.name),
             setUserId(resp.data.user.id),
@@ -69,6 +73,7 @@ function LoginContextProvider(props) {
   function handleLogout() {
     setLoggedIn(false);
     setAccessToken('');
+    clear();
     localStorage.removeItem("accessToken");
     api.defaults.headers.authorization = undefined;
     history.push("/login");
@@ -79,7 +84,7 @@ function LoginContextProvider(props) {
     name: username,
     id: userId,
     type: userType,
-    accessToken: accessToken, 
+    accessToken: accessToken,
     email: email,
     phone: phonenumber,
 
