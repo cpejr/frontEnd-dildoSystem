@@ -11,6 +11,7 @@ import Loading from '../../images/Loading.gif';
 import api from '../../services/api';
 import cart from '../../services/cart';
 import { LoginContext } from '../../Contexts/LoginContext';
+import { CartContext } from '../../Contexts/CartContext';
 
 import './styles.css'
 
@@ -20,6 +21,8 @@ export default function CheckoutPage(props) {
     const history = useHistory();
 
     const loginContext = useContext(LoginContext);
+    const cartContext = useContext(CartContext);
+    const clearCart = cartContext.clear;
 
     const [order, setOrder] = useState();
 
@@ -93,7 +96,7 @@ export default function CheckoutPage(props) {
             const order = await createOrder(newOrder);
             setOrder(order);
             localStorage.removeItem("ongoingOrder");
-            cart.clear();
+            clearCart();
         }
 
 

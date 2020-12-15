@@ -1,13 +1,14 @@
 import api from '../../services/api';
 
 export async function getShippingOptions(products, cepDestino, userType) {
+  console.log(products);
   const totalPrice = getTotalPrice(products, userType);
   const formattedProducts = products.map(p => {
     return {
-      Weight: p.product.weight,
-      Height: p.product.height,
-      Width: p.product.width,
-      Length: p.product.length,
+      Weight: p.weight / 1000.0, // JÁ ESTÁ DIVIDIDO POR 100 PARA FICAR EM QUILOGRAMAS
+      Height: p.height,
+      Width: p.width,
+      Length: p.length,
       Quantity: p.quantity
     }
   });
@@ -48,13 +49,13 @@ export async function getShippingOptions(products, cepDestino, userType) {
 export async function callPaymentAPI(products, address, shippingOptions, buyer) {
   const items = products.map(p => { //MONTA ARRAY DE PRODUTOS NO FORMATO DESEJADO
     return {
-      Name: p.product.name,
-      Description: p.product.description,
-      UnitPrice: getProductPrice(p.product) * 100,
+      Name: p.name,
+      Description: p.description,
+      UnitPrice: getProductPrice(p) * 100,
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
-      Weight: p.product.weight * 1000
+      Weight: p.weight /* * 1000 */
     }
   });
 
@@ -161,7 +162,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 function getTotalPrice(products, userType) {
   let totalPrice = 0;
   products.forEach(p => {
-    totalPrice += getProductPrice(p.product, userType) * p.quantity;
+    totalPrice += getProductPrice(p, userType) * p.quantity;
   })
   return totalPrice;
 }

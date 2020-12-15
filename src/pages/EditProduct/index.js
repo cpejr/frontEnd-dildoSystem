@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Button, Input } from 'antd';
 
 import Products from '../../components/Products';
 import api from '../../services/api';
@@ -36,7 +37,7 @@ export default function EditProduct() {
     return (
         <div className="admin-product-selector">
             <form className="search-edit-form" onSubmit={handleSubmit}>
-                <input type="text" className ="input-search" name="searchTerm" placeholder="Pesquise o produto a editar" value={search} onChange={e => setSearch(e.target.value)} />
+                <Input type="text" className ="input-search" name="searchTerm" placeholder="Buscar produto..." value={search} onChange={e => setSearch(e.target.value)} />
 
                 <div className="category-and-button">
                     <select className="select-category" name="category" value={categoryId} onChange={e => setCategoryId(e.target.value)}>
@@ -46,7 +47,7 @@ export default function EditProduct() {
                             )}
                     </select>
 
-                    <button type="submit">Buscar</button>
+                    <Button type="submit">Buscar</Button>
                 </div>
 
             </form>

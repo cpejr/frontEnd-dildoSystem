@@ -165,7 +165,7 @@ function Main(props) {
 
   return (
     <div className="main-container">
-      <h4 className="titulo">Dashboard</h4>
+      <h4 className="titulo">Painel do administrador</h4>
       <div className="farol">
         <Link className="link-size" to={`${props.match.path}/pendingorders`}>
           <div className="pendentes" key={orders.id}>

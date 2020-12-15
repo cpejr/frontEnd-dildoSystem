@@ -118,6 +118,7 @@
   color: white;
   background-color: #14bc48;
   border-radius: 20px;
+  border: none;
 }
 
 .product-modal-wrapper {

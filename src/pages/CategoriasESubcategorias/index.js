@@ -54,8 +54,8 @@ export default function CatNSubCat() {
     return (
       <div>
         <button className="add-cat" onClick={() => handleClickButton()}>
-          <FaPlusCircle />
-          <span className="add-cat-descrip">Adiconar Categorias</span>
+          <FaPlusCircle size={20} />
+          <span className="add-cat-descrip">Adicionar Categorias</span>
         </button>
         {
           inputShow ?

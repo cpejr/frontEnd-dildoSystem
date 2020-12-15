@@ -37,6 +37,8 @@ function Filters(props) {
 
   useEffect(() => {
     let search = location.search.substring(1);
+    search = search.replace(/%/g, ' ');
+    console.log(search);
     search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
     
     if (search.category_id) {
