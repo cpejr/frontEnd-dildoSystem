@@ -18,6 +18,7 @@ import api from "../../services/api";
 import Burger from "../../components/Burger";
 import { LoginContext } from "../../Contexts/LoginContext";
 import { SearchContext } from "../../Contexts/SearchContext";
+import { CartContext } from '../../Contexts/CartContext';
 
 import "./styles.css";
 import { createRef } from 'react';
@@ -35,6 +36,7 @@ export default function Header() {
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
+  const cartContext = useContext(CartContext);
 
   const headerRef = createRef();
 
@@ -68,10 +70,9 @@ export default function Header() {
     };
     api.get("categories", config).then((response) => {
       setCategories(response.data);
-      // console.log(response.data)
     })
   }, [])
-  useEffect(() => {
+  /* useEffect(() => {
     let products_quantity = 0;
     let newCart = [];
     if (localStorage.getItem('cart')) {
@@ -83,14 +84,12 @@ export default function Header() {
       }
     }
     setCartQuantity(products_quantity)
-  })
+  }) */
 
   useEffect(() => {
     function handleCategoriesSize() {
       if (headerRef.current && categories) {
-        //console.log(headerRef)
         const width = headerRef.current.scrollWidth / categories.length;
-        //console.log(width);
         setCategoryWidth(width);
       }
     }
@@ -157,6 +156,13 @@ export default function Header() {
 
           <div className="userInfoSearch">
             <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
+
+            <Link to="/cart" className="icon-link">
+              <FaShoppingCart />
+
+              <span class='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity} </span>
+
+            </Link>
 
             {loginContext.loggedIn ? (
               <Link

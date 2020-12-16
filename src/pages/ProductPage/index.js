@@ -11,6 +11,7 @@ import { LoginContext } from '../../Contexts/LoginContext';
 import Header from '../../components/Header';
 import api from '../../services/api';
 import cart from '../../services/cart';
+import { useCart } from '../../Contexts/CartContext';
 
 //this.props.match.params.id
 
@@ -34,6 +35,7 @@ function ProductPage(props) {
   const [isWish, setIsWish] = useState(false);
 
   const accessToken = localStorage.getItem('accessToken');
+  const { addItem } = useCart();
   //const accessToken = localStorage.getItem(user.accessToken);
 
   let config = accessToken ? { headers: { authorization: `Bearer ${accessToken}` } } : {};
@@ -41,7 +43,7 @@ function ProductPage(props) {
   async function getProductData(productId, setStockFunction, accessToken) {
     const url = `product/${productId}`;
     const result = await api.get(url, config);
-    console.log("result do get product: ", result);
+    
 
     if (result.data.subproducts.length > 0) {
       setStockFunction(result.data.subproducts[0].stock_quantity);
@@ -75,7 +77,7 @@ function ProductPage(props) {
     if (param_ids.length > 0) {
       param_ids = param_ids.join("-*-");
       subSecondary_response = await api.get(`/images/${param_ids}`)
-      console.log("Imagens subSecundarias: ", subSecondary_response.data);
+     
     }
 
     const subSecondary = subSecondary_response.data;
@@ -106,7 +108,7 @@ function ProductPage(props) {
   useEffect(() => {
     async function effectExecutable() {
       const partialData = await getProductData(props.match.params.id, setRelevantStock, accessToken);
-      console.log("partialData: ", partialData);
+      
 
       setProductData(partialData);
 
@@ -152,7 +154,7 @@ function ProductPage(props) {
     //     } else {
     //       setRelevantStock(response.data.stock_quantity);
     //     }
-    //     console.log(response.data)
+    //    
     //   });
     // } else {
     //   api.get(url).then(async (response) => {
@@ -187,7 +189,7 @@ function ProductPage(props) {
     //     } else {
     //       setRelevantStock(response.data.stock_quantity);
     //     }
-    //     console.log(response.data)
+    //     
     //   });
     // }
   }, []);
@@ -240,7 +242,7 @@ function ProductPage(props) {
       product_id
     }
     api.post(`userwishlist/${user_id}`, data, config).then((response) => {
-      console.log(response)
+     
       setIsWish(true);
     })
   }
@@ -251,25 +253,22 @@ function ProductPage(props) {
       data: { user_id: user_id, product_id }
     };
     api.delete('userwishlist', config_2).then((response) => {
-      console.log(response)
+     
       setIsWish(false);
     })
   }
 
 
   useEffect(() => {
-    console.log("productData: ", productData)
+    
     if (productData) {
       const user_id = user.id;
-      console.log("User: ", user)
-      console.log("User_id: ", user_id)
       api.get(`userwishlist/${user_id}`, config).then((response) => {
         const result = response.data.find(product => product.id === productData.id);
         if (result) {
           setIsWish(true);
         }
       });
-      console.log("Product Data: ", productData)
     }
   }, [productData])
 
@@ -362,12 +361,9 @@ function ProductPage(props) {
                   </div>
                 </div>
                 {(relevantStock > 0
-                  ? (<button className="buy-button" onClick={() => {  cart.addItem(productData, quantity,  productData.subproducts.length > 0 && productData.subproducts[selectedSubpIndex].id); history.push('/cart') }}>COMPRAR</button>)
+                  ? (<button className="buy-button" onClick={() => { addItem(productData.id, quantity, (productData.subproducts && productData.subproducts.length > 0) ? productData.subproducts[selectedSubpIndex].id : undefined); history.push('/cart') }}>COMPRAR</button>)
                   : (<div className="unavailable">Produto indisponível</div>)
                 )}
-
-
-
               </div>
             </div>
           </div>

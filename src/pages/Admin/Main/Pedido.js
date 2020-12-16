@@ -67,7 +67,6 @@ function Pedido2(props) {
       render: (text, record) => (
         <Space size="middle">
           <a>Editar</a>
-          {/* {console.log('esse eh o text.id', text.action)} */}
           <Link to={
             {
               pathname: `/admin/pendingorder/${text.action.id}`,

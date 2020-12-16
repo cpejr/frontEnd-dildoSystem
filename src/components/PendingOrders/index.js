@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { notification } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { Input } from 'antd'
 
 import api from "../../services/api";
 import Pedido from "../../pages/Admin/Main/Pedido";
@@ -19,13 +20,13 @@ export default function PendingOrders(props) {
   };
 
   useEffect(() => {
-    //console.log(props.match.params.id);
+   
     const url = `orders?byStatus=pending`;
 
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders(response.data);
-        console.log(response.data);
+        
       });
     }
   }, []);
@@ -37,7 +38,7 @@ export default function PendingOrders(props) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-        console.log(response.data);
+        
       });
     }
   }
@@ -47,7 +48,6 @@ export default function PendingOrders(props) {
     const url = `order/${"abcd"}?order_id=${search}`
     try {
       api.get(url, config).then((response) => {
-        console.log("resposta", response.data);
         setOrders([response.data]);
         setPage(1);
       }
@@ -75,7 +75,7 @@ export default function PendingOrders(props) {
 
       <div className="pedidos-pendentes">
         <form className="pending-orders-form" onSubmit={handleSubmit}>
-          <input
+          <Input
             type="search"
             className="input-search-pending-orders"
             name="searchTerm"

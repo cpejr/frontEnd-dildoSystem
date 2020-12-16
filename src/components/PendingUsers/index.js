@@ -33,9 +33,7 @@ export default function PendingUsers() {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setusuariospendentes(response.data);
-        console.log(usuariospendentes);
       });
   }, [update]);
 

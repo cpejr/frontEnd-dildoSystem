@@ -16,6 +16,11 @@
   margin: 20px 0;
 }
 
+.farol h4,
+.farol h3{
+  color: white;
+}
+
 .farol div {
   display: flex;
   flex-direction: column;

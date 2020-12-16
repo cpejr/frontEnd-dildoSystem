@@ -23,7 +23,6 @@ function Login(props) {
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    console.log(`esse eh o userinfo: ${userInfo}`)
     if (changed) {
       if(props.location.search) {
         const params = props.location.search.substring(1);
@@ -38,8 +37,6 @@ function Login(props) {
 
   async function handleLogin(e) {
     e.preventDefault();
-
-    console.log(`esse eh o userinfo: ${userInfo}`)
 
     
     try {
@@ -73,7 +70,6 @@ function Login(props) {
         }).then((result) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
-            console.log("I was closed by the timer");
           }
         });
         user.type = "retailer";

@@ -2,10 +2,14 @@
     display: flex;
     justify-content: center;
     position: relative;
+    align-items: center;
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
     margin-top: 20px;
+    padding-top: 40px;
+    background-color: #f9ce56;
 }
 
 .footer-buttons {
@@ -15,7 +19,6 @@
 .TextoFooter {
   display: flex;
   flex-direction: column;
-
 }
 
 .textos-footer {
@@ -25,19 +28,22 @@ display: flex;
 #texto-institucional {
   display: flex; 
   flex-direction: column;
-  max-width: 300px;
+  width: 17vw;
+  margin-right: 2vw;
 }
 
 #texto-ajuda {
-  margin-left: 1vw;
   display: flex; 
   flex-direction: column;
+  width: 17vw;
+  margin-right: 2vw;
 }
 
 .term-link {
   margin-bottom: 2px;
   margin-top: 2px;
   color: black;
+  font-size: 2vh;
 }
   
 .logos {
@@ -49,9 +55,11 @@ display: flex;
 }
 
 #ContatoFooter {
-    padding-left: 30px;
-    font-weight: bolder;
-    padding-right: 30px;
+  display: flex; 
+  flex-direction: column;
+    font-weight: bolder;  
+    width: 17vw;
+    margin-right: 2vw;
 }
 .icons {
     display: flex;
@@ -62,6 +70,7 @@ display: flex;
 
 .FooterWrapper {
   display: flex;
+  justify-content: center;
   max-width: 1000px;
 }
 
@@ -93,5 +102,14 @@ display: flex;
       width: 100%;
       padding: 0;
     }
+    #LogoFooter {
+      margin-top: 2vh;
+    }
   }
   
+.FooterWrapper h3 {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+  width: 100%;
+}

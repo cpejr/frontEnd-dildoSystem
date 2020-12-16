@@ -19,8 +19,6 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
     function changeHandler(evt) {
 
         let img_urls = Array.from(evt.target.files).map((file) =>  URL.createObjectURL(file) );
-
-        console.log(img_urls);
         
         Array.from(evt.target.files).map(
                     (file) => URL.revokeObjectURL(file)

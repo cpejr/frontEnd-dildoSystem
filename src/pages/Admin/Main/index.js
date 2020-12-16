@@ -30,7 +30,7 @@ function Main(props) {
     })
       .then((response) => {
         setPendingOrders(response.data);
-        console.log('Pending Orders', response.data)
+        
       });
   }, []);
 
@@ -42,7 +42,7 @@ function Main(props) {
     })
       .then((response) => {
         setOrders(response.data);
-        console.log(response.data);
+      
       });
   }, []);
 
@@ -81,7 +81,7 @@ function Main(props) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-        console.log(response.data);
+       
       });
     }
   }
@@ -165,7 +165,7 @@ function Main(props) {
 
   return (
     <div className="main-container">
-      <h4 className="titulo">Dashboard</h4>
+      <h4 className="titulo">Painel do administrador</h4>
       <div className="farol">
         <Link className="link-size" to={`${props.match.path}/pendingorders`}>
           <div className="pendentes" key={orders.id}>

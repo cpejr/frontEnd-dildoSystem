@@ -3,7 +3,7 @@
   /*align-items: center;*/
   width: 90%;
   flex-direction: row;
-  max-width: 1400px;
+  /* max-width: 1400px; */
 }
 
 .search-title {
@@ -21,58 +21,84 @@
 }
 
 .filters-container {
-  width: 250px;
-  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  height: min(573px, 75vh);
+  box-sizing: border-box;
+  border-radius: 0 66px 66px 0;
 
   margin-top: 50px;
-  margin-right: 50px;
-  background-color: var(--background);
-
-  border-top: 3px solid var(--mainColor);
-  border-bottom: 3px solid var(--mainColor);
-
+  /* margin-right: 50px; */
+  background-color: var(--mainColor);
+  position: absolute;
+  left: 0;
 }
 
 .filters-container form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  /*  height: 100%; */
+  flex: auto;
   padding: 20px;
 }
 
 .filters-container form strong {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .filters-container form button {
   border: 0;
   border-radius: 10px;
   margin-top: 30px;
+  margin-bottom: 30px;
   height: 40px;
 
-  background-color: var(--mainColor);
-  color: white;
+  background-color: black;
+  color: var(--mainColor);
 
   font-weight: bold;
   font-size: 18px;
 }
 
-.filters-container form input,select {
-  background-color: rgba(0,0,0,0);
+.filters-container form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-container form input,
+select {
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 5px;
-  border: 1px solid gray;
+  height: 30px;
+  width: 80%;
+  border: 1px solid black;
 }
 
 .price-range {
+  /* margin-top: 30px; */
   display: flex;
   align-items: center;
 }
 
-.price-range input {
+.filters-container form .price-range input {
   width: 70px;
-  height: 20px;
-  margin: 0 5px;
+  height: 30px;
+  margin: 0;
+  margin-right: 10px;
+  color: black;
+  text-align: center;
+}
+
+.filters-container form .block-2 {
+  margin-top: auto;
+}
+.price-range input::placeholder {
+  color: black;
 }
 
 .product-container-wrapper.on-searchpage {
@@ -84,28 +110,36 @@
   display: none;
 }
 
+@media (min-width: 890px) {
+  .results {
+    margin-left: 275px;
+  }
+}
+
 @media (max-width: 890px) {
   .results,
   .product-container-wrapper {
     width: 100%;
   }
 
-  .searchpage-content {
+  /* .searchpage-content {
     position: relative;
-  }
+  } */
 
   .filters-container {
-
     position: absolute;
     left: -1000px;
-    top: 0px;
+    top: 100px;
     z-index: 10000;
 
     transition: all 0.5s ease;
   }
 
-  .filters-container.visible {
+  /*  .filters-container form {
+    height: auto;
+  } */
 
+  .filters-container.visible {
     /* border-radius: 0; */
     left: 0;
 
@@ -122,11 +156,24 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding-top: 20px;
-    padding-right: 20px;
+    padding-top: 40px;
+    padding-right: 40px;
   }
 
   .close-icon {
     cursor: pointer;
   }
+}
+
+/* TIRA SETINHAS DO INPUT DE NÚMERO */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

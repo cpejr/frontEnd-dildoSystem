@@ -1,13 +1,14 @@
 import api from '../../services/api';
 
 export async function getShippingOptions(products, cepDestino, userType) {
+  console.log(products);
   const totalPrice = getTotalPrice(products, userType);
   const formattedProducts = products.map(p => {
     return {
-      Weight: p.product.weight,
-      Height: p.product.height,
-      Width: p.product.width,
-      Length: p.product.length,
+      Weight: p.weight / 1000.0, // JÁ ESTÁ DIVIDIDO POR 100 PARA FICAR EM QUILOGRAMAS
+      Height: p.height,
+      Width: p.width,
+      Length: p.length,
       Quantity: p.quantity
     }
   });
@@ -32,11 +33,11 @@ export async function getShippingOptions(products, cepDestino, userType) {
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
-    console.log(requestOptions)
+    
 
 
     const formattedResponse = await response.json();
-    console.log(formattedResponse);
+    
     return formattedResponse;
 
   } catch (error) {
@@ -48,16 +49,15 @@ export async function getShippingOptions(products, cepDestino, userType) {
 export async function callPaymentAPI(products, address, shippingOptions, buyer) {
   const items = products.map(p => { //MONTA ARRAY DE PRODUTOS NO FORMATO DESEJADO
     return {
-      Name: p.product.name,
-      Description: p.product.description,
-      UnitPrice: getProductPrice(p.product) * 100,
+      Name: p.name,
+      Description: p.description,
+      UnitPrice: getProductPrice(p) * 100,
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
-      Weight: p.product.weight * 1000
+      Weight: p.weight /* * 1000 */
     }
   });
-  //console.log(items);
 
   const shippingServices = [];
   shippingOptions.forEach(sh => { //MONTA ARRAY DE FORMAS DE ENVIO NO FORMATO DESEJADO
@@ -69,12 +69,12 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
         Carrier: null
       })
   });
-  console.log(shippingServices + "esse eh o shipping services");
-  //console.log(buyer)
+ 
+  
   let user;
   try {
     user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
-    console.log(user);
+    
     user = user.data;
   } catch (error) {
     console.error(error);
@@ -85,7 +85,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   try {
     orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
     orderID = orderID.data;
-    console.log(orderID);
+   
   } catch (error) {
     console.error(error);
     return (error);
@@ -136,7 +136,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Settings": null
   }
 
-  console.log(requestBody);
+
 
   const requestOptions = {
     method: 'POST',
@@ -162,7 +162,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 function getTotalPrice(products, userType) {
   let totalPrice = 0;
   products.forEach(p => {
-    totalPrice += getProductPrice(p.product, userType) * p.quantity;
+    totalPrice += getProductPrice(p, userType) * p.quantity;
   })
   return totalPrice;
 }

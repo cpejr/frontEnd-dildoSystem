@@ -256,6 +256,10 @@
     flex-direction: column;
   }
 
+  .nav-tabs .nav-link{
+    color: var(--mainColor)
+  }
+
   @media screen and (max-width: 950px){
     .divisor-teste{
       flex-direction: column;
