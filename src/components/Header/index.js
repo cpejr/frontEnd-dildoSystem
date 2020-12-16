@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+
+
 import SearchIcon from '@material-ui/icons/Search';
 import { FaShoppingCart, FaUserAlt, FaRegUser } from 'react-icons/fa'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -18,6 +21,7 @@ import { SearchContext } from "../../Contexts/SearchContext";
 
 import "./styles.css";
 import { createRef } from 'react';
+import { CssBaseline } from '@material-ui/core';
 
 
 
@@ -27,6 +31,7 @@ export default function Header() {
   const [cartQuantity, setCartQuantity] = useState(0)
   const [categories, setCategories] = useState([]);
   const [categoryWidth, setCategoryWidth] = useState(0);
+  const [showSearch, setShowSearch] = useState(false);
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
@@ -109,54 +114,56 @@ export default function Header() {
           </Link>
 
           <div className="header-categories">
-            <ul >
+            <CSSTransition
+              in={showSearch === false}
+              unmountOnExit
+              timeout={500}
+              classNames="categories-header-trans"
+            >
 
-              {
-                categories.map(cat => (
-                  <li  key={cat.id}>
-                    <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
-                    {/* <div className="dropdown" key={cat.id} >
+              <ul >
+
+                {
+                  categories.map(cat => (
+                    <li key={cat.id}>
                       <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
-                      <div className="dropdown-content">
-                        <div className="emptyHeaderDiv"></div>
-                        <div className="dropdownLinks">
-                          {
-                            cat.subcategories.map(subcat => (
-                              <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
-                                {subcat.name}
-                              </button>
-                            ))}
-                        </div>
+                      {/* <div className="dropdown" key={cat.id} >
+                        <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
+                        <div className="dropdown-content">
+                          <div className="emptyHeaderDiv"></div>
+                          <div className="dropdownLinks">
+                            {
+                              cat.subcategories.map(subcat => (
+                                <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
+                                  {subcat.name}
+                                </button>
+                              ))}
+                          </div>
 
-                      </div>
-                    </div> */}
-                  </li>
-                )
-                )
-              }
+                        </div>""
+                        </div> */}
+                    </li>
+                  )
+                  )
+                }
 
-            </ul>
+              </ul>
+            </CSSTransition>
           </div>
 
+
+
+
+
           <div className="userInfoSearch">
-            {/* <form className="form-group has-search" onSubmit={handleSubmit}>
-              <SearchIcon className="fa fa-search form-control-feedback searchIcon" />
-              <input
-                type="text"
-                className="form-control searchInput"
-                placeholder="O que você está buscando?"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </form> */}
-            <FiSearch className="fa fa-search form-control-feedback searchIcon" size={30}/>
+            <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
 
             {loginContext.loggedIn ? (
               <Link
                 to={loginContext.type === "admin" ? "/admin" : "/user"}
                 className="icon-link user-info"
               >
-                <FaRegUser size={30}/>
+                <FaRegUser size={30} />
                 {/* <p>{loginContext.name}</p> */}
               </Link>
             ) : (
@@ -165,68 +172,25 @@ export default function Header() {
                 </Link>
               )}
 
-            < IoMdHeartEmpty size={34}/>
+            < IoMdHeartEmpty size={34} />
 
             <Link to="/cart" className="icon-link">
-              <HiOutlineShoppingBag size={32}/>
+              <HiOutlineShoppingBag size={32} />
               <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
             </Link>
 
-            
+
           </div>
         </div>
       </div>
 
-      <div className="headerInferior">
-        <div className="header-content">
-          <img className="headerImg" src={LogoName} alt="logo" />
-          <div className="links" ref={headerRef}>
-            <div className="emptyDiv"> </div>
-            <div className="empty" />
+      <SearchBar
+        showSearch={showSearch}
+        handleSubmit={handleSubmit}
+        search={search}
+        setSearch={setSearch}
+      />
 
-            {
-              categories.map(cat => (
-                <div className="dropdown" key={cat.id} style={{ maxWidth: categoryWidth, flex: 1 }}>
-                  <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} <KeyboardArrowDownIcon /> </button>
-                  <div className="dropdown-content">
-                    <div className="emptyHeaderDiv"></div>
-                    <div className="dropdownLinks">
-                      {
-                        cat.subcategories.map(subcat => (
-                          <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
-                            {subcat.name}
-                          </button>
-                        ))}
-                    </div>
-
-                  </div>
-                </div>
-              )
-              )
-            }
-
-          </div>
-        </div>
-
-        <div className="empty" />
-
-        {loginContext.loggedIn ? (
-          <Link
-            to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
-            className="icon-link user-info-responsive"
-          >
-            <FaUserAlt />
-          </Link>
-        ) : (
-            <Link to="/login" className="icon-link user-info-responsive">
-              <FaUserAlt />
-            </Link>
-          )}
-        <Link to="/cart" className="icon-link-responsive">
-          <FaShoppingCart />
-        </Link>
-        <Burger />
-      </div>
       <ResponsiveSearch
         className="responsive-search"
         search={search}
@@ -251,4 +215,30 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch }) {
       <button type="submit"><SearchIcon className="fa fa-search form-control-feedback searchIcon" /></button>
     </form>
   );
+}
+
+function SearchBar({ showSearch, handleSubmit, search, setSearch }) {
+  return (
+    <CSSTransition
+      in={showSearch}
+      unmountOnExit
+      timeout={500}
+      classNames="search-menu"
+    >
+      <div className="header-search">
+        <div className="productsSearchHeader">
+          <form className="form-group has-search" onSubmit={handleSubmit}>
+            <FiSearch className="serach-icon" size={36} />
+            <input
+              type="text"
+              className="form-control searchInput"
+              placeholder="Procurar"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </form>
+        </div>
+      </div>
+    </CSSTransition>
+  )
 }

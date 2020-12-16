@@ -50,6 +50,88 @@
   font-weight: bold;
 }
 
+#Header .header-search {
+  display: flex;
+  justify-content: center;
+  background: #F9CE56 0% 0% no-repeat padding-box;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+
+  transition: 0.2s;
+}
+
+/*animações do menu*/
+.search-menu-enter {
+  opacity: 0;
+}
+.search-menu-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.search-menu-exit {
+  opacity: 1;
+}
+.search-menu-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+/*--------------------------*/
+.categories-header-trans-enter {
+  opacity: 0;
+}
+.categories-header-trans-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.categories-header-trans-exit {
+  opacity: 1;
+}
+.categories-header-trans-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+/*----------------------------*/
+
+.header-search .productsSearchHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  width: 100%;
+  max-width: 860px;
+  
+  padding-top: 60px;
+  padding-bottom: 15px;
+}
+.header-search .productsSearchHeader form {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.header-search .productsSearchHeader input {
+  border: 1.8px solid #000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+
+  padding: 0;
+  margin-left: 10px;
+
+  background: #F9CE56 0% 0% no-repeat padding-box;
+  font-weight: bold;
+}
+
+.header-search .productsSearchHeader input::placeholder {
+  color: black;
+  font-weight: bold;
+  font-size: 22px;
+}
+
 #Header .headerInferior {
   display: none;
   /* background-color: #ddbd69;
@@ -69,6 +151,10 @@
 
   box-sizing: content-box;
   margin: 0 20px;
+}
+#Header .headerInferior .header-content a {
+  display: flex;
+  justify-content: start;
 }
 
 #Header .headerInferior a {
@@ -227,6 +313,15 @@
   opacity: 0;
   min-width: 120px;
   border: none;
+}
+
+.userInfoSearch .serach-icon {
+  cursor: pointer;
+
+  transition: color 0.3s
+}
+.userInfoSearch .serach-icon:hover {
+  color: #1890ff;
 }
 
 .icon-link-responsive {
