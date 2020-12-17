@@ -18,7 +18,7 @@
     align-items: center;
     width: 100%;
     flex-direction: column;
-    max-width: 1400px;
+    /* max-width: 1400px; */
     justify-content: center;
 }
 
@@ -64,8 +64,8 @@
 
 .images-container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    /* padding-right: 15px;
+    padding-left: 15px; */
     margin-right: auto;
     margin-left: auto;
 }

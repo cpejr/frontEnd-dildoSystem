@@ -26,7 +26,7 @@ export default function FeaturedImages() {
       <Row className="ant-row-images">
         {
           images.map(img => (
-            <Col span={8} className="col-images">
+            <Col span={12} className="col-images">
               <div className="textbanner">
                 <a href={img.link}>
                   <div className="text-banner-image">
