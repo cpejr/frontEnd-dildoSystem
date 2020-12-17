@@ -28,19 +28,20 @@
 
 .textos-footer {
   display: flex;
+  justify-content: space-between;
 }
 
 #texto-institucional {
   display: flex;
   flex-direction: column;
-  width: 17vw;
+  width: 20vw;
   margin-right: 2vw;
 }
 
 #texto-ajuda {
   display: flex;
   flex-direction: column;
-  width: 17vw;
+  width: 20vw;
   margin-right: 2vw;
 }
 
@@ -63,7 +64,7 @@
   display: flex;
   flex-direction: column;
   font-weight: bolder;
-  width: 17vw;
+  width: 20vw;
   margin-right: 2vw;
 }
 .icons {
@@ -93,12 +94,21 @@
     flex-direction: column;
   }
   #texto-ajuda {
-    margin-top: 1vh;
+    width: 25vw;
+    margin-top: 2vh;
+  }
+  #texto-institucional {
+    width: 25vw;
+    margin-top: 2vh;
+  }
+  #ContatoFooter {
+    width: 25vw;
+    margin-top: 2vh;
   }
   div.FooterWrapper {
     flex-direction: column;
     align-items: center;
-    padding: 50px;
+    padding: 20px;
   }
   div.icons {
     width: 75%;
