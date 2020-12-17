@@ -8,8 +8,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import ImageLoader from "react-loading-image";
 import loading from "../../images/Loading.gif";
-import { notification } from 'antd';
+import { notification } from "antd";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { Tag, Tooltip } from "antd";
 
 import api from "../../services/api";
 import "./styles.css";
@@ -72,6 +73,7 @@ const IOSSwitch = withStyles((theme) => ({
 });
 
 export default function ProductEditor(props) {
+  const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState(0);
@@ -95,8 +97,7 @@ export default function ProductEditor(props) {
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [subcategories_ids, setSubcategoriesIds] = useState([]);
-  const [deletesubcategories, setDeleteSubcategories] = useState([]);
+  const [subcategories_ids, setSubcategoriesIds] = useState([0]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
@@ -126,7 +127,6 @@ export default function ProductEditor(props) {
   //   history.goBack();
   //   setOpen(false);
   // };
-  
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -135,6 +135,7 @@ export default function ProductEditor(props) {
     checkedD: true,
     checkedE: true,
   });
+
   const [editar, setEditar] = useState("editar");
 
   const accessToken = localStorage.getItem("accessToken");
@@ -146,7 +147,6 @@ export default function ProductEditor(props) {
   useEffect(() => {
     api.get("categories").then((response) => {
       setCategories(response.data);
-      
     });
   }, []);
 
@@ -155,7 +155,7 @@ export default function ProductEditor(props) {
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
-      setSubcategoriesIds(newCat.subcategories_ids)
+      setSubcategoriesIds(newCat.subcategories_ids);
     } else {
       setCategoryId(0);
       setSubcategories("");
@@ -168,6 +168,7 @@ export default function ProductEditor(props) {
 
     if (props.location.state) {
       const product = props.location.state;
+      setProducts(product.subcategories);
       setName(product.name);
       setDescription(product.description);
       setClientPrice(product.client_price);
@@ -195,9 +196,9 @@ export default function ProductEditor(props) {
       setWidth(product.width);
       setHeight(product.height);
       setSubproducts(product.subproducts);
-
     } else if (accessToken) {
       api.get(url, config).then((response) => {
+        setProducts(response.data.subcategories);
         setName(response.data.name);
         setDescription(response.data.description);
         setClientPrice(response.data.client_price);
@@ -273,7 +274,7 @@ export default function ProductEditor(props) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
 
-    let categorizeData = {subcategories_ids : [subcategories_ids]}
+    // let categorizeData = { subcategories_ids: [subcategories_ids] };
 
     addToData("name", name);
     addToData("description", description);
@@ -295,65 +296,60 @@ export default function ProductEditor(props) {
     addToData("width", width);
     addToData("length", length);
 
-
     try {
       const response = await api.put(
         `updateProduct/${props.match.params.id}`,
         data,
         config
       );
-      notification.open({
-        message: 'Sucesso!',
-        description:
-          'Edição do produto concluída.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
-        style: {
-          width: 600,
+      notification.open(
+        {
+          message: "Sucesso!",
+          description: "Edição do produto concluída.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
+          style: {
+            width: 600,
+          },
         },
-      }, response);
+        response
+      );
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
       notification.open({
-        message: 'Erro!',
-        description:
-          'Edição do produto impedida.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        message: "Erro!",
+        description: "Edição do produto impedida.",
+        className: "ant-notification",
+        top: "100px",
+        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
         style: {
           width: 600,
         },
       });
     }
-    try {
-      await api.put(
-        `categorize/${props.match.params.id}`,
-        categorizeData,
-        config
-      )
-    } catch (err) {
-      console.log(JSON.stringify(err));
-      console.error(err.response);
-      notification.open({
-        message: 'Erro!',
-        description:
-          'Edição do produto impedida.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
-        style: {
-          width: 600,
-        },
-      });
-    }
-    
-  }
-
-  function handleDeleteSubcategory(){
-    api.delete(`uncategorize/${props.match.params.id}/${deletesubcategories}`, config)
+    // try {
+    //   await api.put(
+    //     `categorize/${props.match.params.id}`,
+    //     categorizeData,
+    //     config
+    //   );
+    // } catch (err) {
+    //   console.log(JSON.stringify(err));
+    //   console.error(err.response);
+    //   notification.open({
+    //     message: "Erro!",
+    //     description: "Edição do produto impedida.",
+    //     className: "ant-notification",
+    //     top: "100px",
+    //     icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+    //     style: {
+    //       width: 600,
+    //     },
+    //   });
+    // }
+    console.log("subcategories", subcategories_ids);
   }
 
   function handleImage(img) {
@@ -362,17 +358,23 @@ export default function ProductEditor(props) {
     setImage(img);
   }
 
+  function handleCloseTag(subcategory_id) {
+    api.delete(
+      `uncategorize/${props.match.params.id}/${subcategory_id}`,
+      config
+    );
+  }
+
   function handleDeleteProduct() {
     api
       .delete(`product/${props.match.params.id}`, config)
       .then((response) => {
         notification.open({
-          message: 'Sucesso!',
-          description:
-            'Produto deletado com sucesso.',
-          className: 'ant-notification',
-          top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          message: "Sucesso!",
+          description: "Produto deletado com sucesso.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
           style: {
             width: 600,
           },
@@ -385,25 +387,23 @@ export default function ProductEditor(props) {
         console.error(err.response);
         if (err.response.data.code === 527) {
           notification.open({
-            message: 'Erro!',
+            message: "Erro!",
             description:
-              'Produto não pode ser deletado pois está incluído em um pedido.',
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+              "Produto não pode ser deletado pois está incluído em um pedido.",
+            className: "ant-notification",
+            top: "100px",
+            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
             style: {
               width: 600,
             },
           });
-        }
-        else {
+        } else {
           notification.open({
-            message: 'Erro!',
-            description:
-              'Falha em deletar o produto.',
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+            message: "Erro!",
+            description: "Falha em deletar o produto.",
+            className: "ant-notification",
+            top: "100px",
+            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
             style: {
               width: 600,
             },
@@ -415,13 +415,25 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-  
-   
-
-    api.delete(`image/${image}`, config).then((response) => {
-    });
+    api.delete(`image/${image}`, config).then((response) => {});
     setUpdated(!updated);
   };
+  useEffect(() => {
+    if (subcategories_ids) {
+      let categorizeData = { subcategories_ids: [subcategories_ids] };
+      console.log("categorize", categorizeData);
+      api
+        .put(`categorize/${props.match.params.id}`, categorizeData, config)
+        .then((response) => {
+          console.log(response.data);
+        });
+      api.get(`product/${props.match.params.id}`, config).then((response) => {
+        setProducts(response.data.subcategories);
+        console.log(response.data);
+      });
+      console.log("Entrou");
+    }
+  }, [subcategories_ids]);
 
   return (
     <div>
@@ -929,66 +941,44 @@ export default function ProductEditor(props) {
                                 >
                                   Subcategoria:
                                 </label>
-                                {/* <select
-                                  value={subcategory_id}
-                                  onChange={(e) =>
-                                    setSubcategory(e.target.value)
-                                  }
+                                <select
+                                  onChange={(e) => {
+                                    setSubcategoriesIds(e.target.value);
+                                  }}
+                                  value={subcategories_ids}
                                 >
                                   <option value="0" disabled>
                                     Selecionar
                                   </option>
                                   {subcategories.map((subcat) => {
                                     return (
-                                      <option
-                                        value={subcat.id}
-                                        key={`subcat-${subcat.id}`}
-                                      >
+                                      <option value={subcat.id} key={subcat.id}>
                                         {subcat.name}
                                       </option>
                                     );
                                   })}
-                                </select> */}
-                                <select
-                                onChange={(e) => setSubcategoriesIds(e.target.value)}
-                                value = {subcategories_ids} 
-                                  >
-                                  
-                                  {subcategories.map((subcat)=>{
-                                    return(
-                                      <option value={subcat.id} key={subcat.id}> 
-                                        {subcat.name}
-                                      </option>
-                                    )
-                                  })}
                                 </select>
 
                                 <div className="categoriesSelection">
-                                  <label>
-                                  Deletar subcategoria
-                                </label>
-                                <select
-                                onChange={(e) => setDeleteSubcategories(e.target.value)}
-                                value = {deletesubcategories} 
-                                  >
-                                      {
-                                    subcategories.map((subcat)=>{
-                                    return(
-                                      <option value={subcat.id} key={subcat.id}> 
-                                        {subcat.name}
-                                      </option>
-                                    )
+                                  <label>Subcategorias</label>
+                                </div>
+                                <div>
+                                  {products.map((subcat, index) => {
+                                    return (
+                                      <Tag
+                                        className="edit-tag"
+                                        value={subcat.subcategory_id}
+                                        closable={index >= 0}
+                                        key={subcat.subcategory_id}
+                                        onClose={() =>
+                                          handleCloseTag(subcat.subcategory_id)
+                                        }
+                                      >
+                                        {subcat.subcategory_name}
+                                      </Tag>
+                                    );
                                   })}
-                                    )
-                                  
-                                
-                                    
-                                </select>
-                                <div className="edit-button">
-                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button>
                                 </div>
-                                </div>
-                                
                               </div>
                             </div>
                           </div>
