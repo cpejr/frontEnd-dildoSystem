@@ -17,7 +17,7 @@
 
 #Header .headerSuperior .header-content {
   width: 100%;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -131,6 +131,8 @@
   font-weight: bold;
   font-size: 22px;
 }
+
+
 
 #Header .headerInferior {
   display: none;
@@ -345,6 +347,9 @@
 .responsive-search {
   display: none;
 }
+.header-search-responsive {
+  display: none;
+}
 
 .loginBtn {
   height: 40px;
@@ -375,6 +380,8 @@
 .header-content .badge-warning[href] {
   background-color: #ddbd69;
 }
+
+
 
 @media (max-width: 1200px) {
   .dropbtn {
@@ -430,7 +437,7 @@
     display: none;
   }
   .logoCasulusDashboard {
-    display: none;
+    /* display: none; */
   }
   .headerImg {
     display: block;
@@ -475,6 +482,67 @@
   .icone {
     color: #000000;
   }
+
+  #Header .header-search-responsive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  
+    background: #F9CE56 0% 0% no-repeat padding-box;
+  }
+  .header-search-responsive .productsSearchHeader-responsive {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    max-width: 860px;
+    
+    padding-top: 35px;
+    padding-bottom: 15px;
+  }
+  .header-search-responsive .productsSearchHeader-responsive input {
+    border: 1.8px solid #000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  
+    padding: 0;
+    margin-left: 10px;
+  
+    background: #F9CE56 0% 0% no-repeat padding-box;
+    font-weight: bold;
+  }
+  .header-search-responsive .productsSearchHeader-responsive input::placeholder {
+    color: black;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  .header-search-responsive .responsive-menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 400px;
+    background: #F9CE56 0% 0% no-repeat padding-box;
+    position: absolute;
+    width: 100%;
+    z-index: 30;
+  
+    transition: 0.2s;
+  }
+
+  .responsive-menu ul {
+    padding: 0;
+  }
+
+  .responsive-menu ul li {
+    list-style-type: none;
+  }
+
   .responsive-search {
     display: flex;
     align-items: center;

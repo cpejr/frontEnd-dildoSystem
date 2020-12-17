@@ -8,10 +8,12 @@ import { FaShoppingCart, FaUserAlt, FaRegUser } from 'react-icons/fa'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi';
-import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { HiOutlineShoppingBag } from 'react-icons/hi';
+import { VscChromeClose } from 'react-icons/vsc';
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 import LogoName from '../../images/CASULUS01LOGONAME.svg';
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
+import Logo from '../../images/CASULUS01LOGODESIGN.png';
 
 import api from "../../services/api";
 
@@ -33,6 +35,7 @@ export default function Header() {
   const [categories, setCategories] = useState([]);
   const [categoryWidth, setCategoryWidth] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
+  const [showResMenu, setShowResMenu] = useState(false);
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
@@ -150,19 +153,22 @@ export default function Header() {
             </CSSTransition>
           </div>
 
-
-
-
-
           <div className="userInfoSearch">
-            <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
 
-            <Link to="/cart" className="icon-link">
-              <FaShoppingCart />
+            {
+              showSearch ?
+                <CSSTransition
+                  in={showSearch}
+                  unmountOnExit
+                  timeout={500}
+                  classNames="search-menu"
+                >
+                  <VscChromeClose className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
+                </CSSTransition>
+                :
+                <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
 
-              <span class='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity} </span>
-
-            </Link>
+            }
 
             {loginContext.loggedIn ? (
               <Link
@@ -202,24 +208,85 @@ export default function Header() {
         search={search}
         setSearch={setSearch}
         handleSubmit={handleSubmit}
+        showResMenu={showResMenu}
+        setShowResMenu={setShowResMenu}
+        showSearch={showSearch}
+        categories={categories}
+        handleCategory={handleCategory}
       />
     </div>
   );
 }
 
-function ResponsiveSearch({ className, handleSubmit, search, setSearch }) {
+function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories }) {
   return (
-    <form className={`form-group has-search ${className}`} onSubmit={handleSubmit}>
+    <div className="header-search-responsive">
+      <div className="responsive-logo">
+        <Link to="/">
+          <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+        </Link>
+      </div>
+      {
+        showResMenu ?
+          <CSSTransition
+            in={showResMenu}
+            unmountOnExit
+            timeout={500}
+            classNames="search-menu"
+          >
+            <VscChromeClose
+              className="serach-icon"
+              size={30}
+              onClick={() => setShowResMenu(!showResMenu)}
+            />
+          </CSSTransition>
+          :
+          <GiHamburgerMenu
+            className="serach-icon"
+            size={30}
+            onClick={() => setShowResMenu(!showResMenu)}
+          />
 
-      <input
-        type="text"
-        className="form-control searchInput"
-        placeholder="Buscar"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button type="submit"><SearchIcon className="fa fa-search form-control-feedback searchIcon" /></button>
-    </form>
+      }
+      <CSSTransition
+        in={showResMenu}
+        unmountOnExit
+        timeout={500}
+        classNames="categories-header-trans"
+      >
+        <div className="responsive-menu">
+
+          <ul >
+            {
+              categories.map(cat => (
+                <li key={cat.id}>
+                  <button
+                    className="dropbtn"
+                    onClick={() => handleCategory(cat.id)}>{cat.name}
+                  </button>
+                </li>
+              )
+              )
+            }
+
+          </ul>
+        </div>
+      </CSSTransition>
+
+
+      <div className="productsSearchHeader-responsive">
+        <form className="form-group has-search-responsive" onSubmit={handleSubmit}>
+          <FiSearch className="serach-icon" size={36} />
+          <input
+            type="text"
+            className="form-control searchInput"
+            placeholder="Procurar"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
+      </div>
+    </div>
   );
 }
 
