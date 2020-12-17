@@ -20,13 +20,13 @@ export default function PendingOrders(props) {
   };
 
   useEffect(() => {
-   
+
     const url = `orders?byStatus=pending`;
 
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders(response.data);
-        
+
       });
     }
   }, []);
@@ -38,7 +38,7 @@ export default function PendingOrders(props) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-        
+
       });
     }
   }
@@ -61,7 +61,7 @@ export default function PendingOrders(props) {
           'Erro ao buscar o filtro.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },

@@ -4,7 +4,7 @@ import CarouselImages from "./CarouselImages";
 import api from "../../services/api";
 import ImageUpload from "../../components/ImageUpload";
 import BannerImages from './BannerImages.js';
-import {Row, Col} from 'antd';
+import { Row, Col } from 'antd';
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -113,7 +113,7 @@ function Carousel(props) {
             'Erro ao registrar imagem.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -122,7 +122,7 @@ function Carousel(props) {
     }
 
     try {
-      
+
       await api.put("Carousel", { info: images },
         {
           headers: {
@@ -137,7 +137,7 @@ function Carousel(props) {
           'Atualizado com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -151,7 +151,7 @@ function Carousel(props) {
           'Erro ao editar posições.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -188,7 +188,7 @@ function Carousel(props) {
             'Erro ao registrar imagem.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -211,7 +211,7 @@ function Carousel(props) {
           'Atualizado com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -224,7 +224,7 @@ function Carousel(props) {
           'Erro ao editar posições.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -274,17 +274,17 @@ function Carousel(props) {
                 bannerImages.map((images, i) => (
                   <Col span={8} className="col-images">
                     <div className="textbanner">
-                        <div className="text-banner-image">
-                          {/* <img src={`https://docs.google.com/uc?id=${img.image_id}`} ></img> */}
-                          <BannerImages
-                            key={`image-${i}`}
-                            image={images}
-                            update={update}
-                            setUpdate={setUpdate}
-                            handlePositionChangeBanner={handlePositionChangeBanner}
-                            handleLinkChangeBanner={handleLinkChangeBanner}
-                          />
-                        </div>
+                      <div className="text-banner-image">
+                        {/* <img src={`https://docs.google.com/uc?id=${img.image_id}`} ></img> */}
+                        <BannerImages
+                          key={`image-${i}`}
+                          image={images}
+                          update={update}
+                          setUpdate={setUpdate}
+                          handlePositionChangeBanner={handlePositionChangeBanner}
+                          handleLinkChangeBanner={handleLinkChangeBanner}
+                        />
+                      </div>
                     </div>
                   </Col>
                 ))

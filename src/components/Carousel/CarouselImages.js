@@ -39,7 +39,7 @@ function CarouselImages(props) {
           'Imagem deletada com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -55,7 +55,7 @@ function CarouselImages(props) {
           'Erro ao deletar imagem.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },

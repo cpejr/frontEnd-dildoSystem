@@ -12,7 +12,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { VscChromeClose } from 'react-icons/vsc';
 import { GiHamburgerMenu } from 'react-icons/gi'
 
-import LogoName from '../../images/CASULUS01LOGONAME.svg';
+import LogoName from '../../images/CASULUS_TEXTO_PRETO.svg';
 import Logo from '../../images/CASULUS01LOGODESIGN.png';
 
 import api from "../../services/api";

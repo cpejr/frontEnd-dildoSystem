@@ -4,8 +4,8 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 
 import WhatsButton from '../../components/WhatsAppButton'
 
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
-import Text from '../../images/CASULUS01LOGONAME.svg';
+import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
+import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
 import Loading from '../../images/Loading.gif';
 
 import api from '../../services/api';

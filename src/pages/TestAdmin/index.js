@@ -22,8 +22,8 @@ import { useState, useEffect } from 'react';
 
 import { FaUserAlt } from 'react-icons/fa';
 
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
-import Text from '../../images/CASULUS01LOGONAME.svg';
+import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
+import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
 
 import './styles.css';
 import { LoginContext } from '../../Contexts/LoginContext';
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    backgroundColor: '#DAA621',
+    backgroundColor: '#F9CE56',
     boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
   },
   content: {

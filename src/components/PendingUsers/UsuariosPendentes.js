@@ -9,20 +9,20 @@ import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function UsuariosPendentes(props) {
-  
+
   const id = props.pendingusers.id;
 
   const accessToken = localStorage.getItem('accessToken')
 
   const config = {
-      headers: { 'authorization': `Bearer ${accessToken}` },
+    headers: { 'authorization': `Bearer ${accessToken}` },
   }
 
   async function handleAproved(e) {
 
     try {
-      
-      await api.put('/user/' + id,{ "user_status": 'approved' }, config);
+
+      await api.put('/user/' + id, { "user_status": 'approved' }, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -30,13 +30,13 @@ export default function UsuariosPendentes(props) {
           'Usuário aprovado com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
       });
       props.setUpdate(!props.update);
-  
+
 
     } catch (err) {
       console.error(err);
@@ -46,7 +46,7 @@ export default function UsuariosPendentes(props) {
           'Erro ao atualizar status do usuário.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -57,8 +57,8 @@ export default function UsuariosPendentes(props) {
   async function handleDenied(e) {
 
     try {
-      
-      await api.put('/user/' + id,{ "user_status": 'refused' }, config);
+
+      await api.put('/user/' + id, { "user_status": 'refused' }, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -66,7 +66,7 @@ export default function UsuariosPendentes(props) {
           'Usuário negado com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -81,7 +81,7 @@ export default function UsuariosPendentes(props) {
           'Erro ao atualizar status do usuário.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },

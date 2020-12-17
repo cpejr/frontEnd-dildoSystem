@@ -14,7 +14,7 @@ function Testefrete() {
 
     const products = [
         {
-            product: 
+            product:
             {
                 weight: 1.2,
                 height: 15,
@@ -24,7 +24,7 @@ function Testefrete() {
             }
         },
         {
-            product: 
+            product:
             {
                 weight: 300,
                 height: 15,
@@ -93,20 +93,19 @@ function Testefrete() {
 
     function handleFreteError(envio) {
 
-        if(((envio.ServiceDescription === "SEDEX") && envio.Error))
-        {
-            console.log(envio.ServiceDescription )
+        if (((envio.ServiceDescription === "SEDEX") && envio.Error)) {
+            console.log(envio.ServiceDescription)
             notification.open({
-            message: 'Erro',
-            description:
-              envio.Msg,
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
-            style: {
-              width: 600,
-            },
-          })
+                message: 'Erro',
+                description:
+                    envio.Msg,
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
+                style: {
+                    width: 600,
+                },
+            })
         }
     }
 
@@ -119,11 +118,11 @@ function Testefrete() {
                 <div className='setCep d-flex'>
                     <label>Entrega:</label>
                     <div className='inputCep d-flex'>
-                        <input 
-                            type="text" 
-                            value={cep} 
-                            onChange={(e) => setCEP(e.target.value)} 
-                            placeholder="CEP" 
+                        <input
+                            type="text"
+                            value={cep}
+                            onChange={(e) => setCEP(e.target.value)}
+                            placeholder="CEP"
                         />
                         <button type="submit" value="Enviar" >Enviar</button>
                     </div>
@@ -134,11 +133,11 @@ function Testefrete() {
             <div className="dropdown-cart-ship">
                 <select value={value} onChange={handleClickDrop}>
                     {
-                        shipping.map((envio, i )=> (
+                        shipping.map((envio, i) => (
                             envio.Error ?
-                        <option key={i} className="option-error">{handleFreteError(envio)}Nenhum{console.log('rederizou mais de uma', i)}</option>
+                                <option key={i} className="option-error">{handleFreteError(envio)}Nenhum{console.log('rederizou mais de uma', i)}</option>
                                 :
-                                <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
+                                <option key={i + 32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
                                     {envio.ServiceDescription} - R$ {envio.ShippingPrice}
                                 </option>
                         ))

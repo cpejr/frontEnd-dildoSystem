@@ -3,8 +3,8 @@ import { IconButton } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 
 import { PersonOutline } from '@material-ui/icons';
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
-import Text from '../../images/CASULUS01LOGONAME.svg';
+import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
+import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
 import SideBar from "../../components/AdminDashboard/SideBar";
 
 import './styles.css'
