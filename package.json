@@ -22,6 +22,7 @@
     "react-multi-carousel": "^2.5.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
+    "react-transition-group": "^4.4.1",
     "react-xml-parser": "^1.1.6",
     "sweetalert2": "^9.17.1",
     "xml2js": "^0.4.23"
