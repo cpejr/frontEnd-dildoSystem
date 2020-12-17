@@ -188,7 +188,7 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <HiOutlineShoppingBag size={32} />
-              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
+              <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
             </Link>
 
 
