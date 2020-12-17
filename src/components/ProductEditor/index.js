@@ -97,16 +97,13 @@ export default function ProductEditor(props) {
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [subcategories_ids, setSubcategoriesIds] = useState([]);
-  const [deletesubcategories, setDeleteSubcategories] = useState([]);
+  const [subcategories_ids, setSubcategoriesIds] = useState([0]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
   // const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
   const [updated, setUpdated] = useState(false);
-
-  const [tags, setTags] = useState();
 
   // const [open, setOpen] = useState(true);
   // // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -150,7 +147,6 @@ export default function ProductEditor(props) {
   useEffect(() => {
     api.get("categories").then((response) => {
       setCategories(response.data);
-      
     });
   }, []);
 
@@ -200,7 +196,6 @@ export default function ProductEditor(props) {
       setWidth(product.width);
       setHeight(product.height);
       setSubproducts(product.subproducts);
-
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setProducts(response.data.subcategories);
@@ -279,7 +274,7 @@ export default function ProductEditor(props) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
 
-    let categorizeData = { subcategories_ids: [subcategories_ids] };
+    // let categorizeData = { subcategories_ids: [subcategories_ids] };
 
     addToData("name", name);
     addToData("description", description);
@@ -300,7 +295,6 @@ export default function ProductEditor(props) {
     addToData("height", height);
     addToData("width", width);
     addToData("length", length);
-
 
     try {
       const response = await api.put(
@@ -335,26 +329,26 @@ export default function ProductEditor(props) {
         },
       });
     }
-    try {
-      await api.put(
-        `categorize/${props.match.params.id}`,
-        categorizeData,
-        config
-      );
-    } catch (err) {
-      console.log(JSON.stringify(err));
-      console.error(err.response);
-      notification.open({
-        message: "Erro!",
-        description: "Edição do produto impedida.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
-        style: {
-          width: 600,
-        },
-      });
-    }
+    // try {
+    //   await api.put(
+    //     `categorize/${props.match.params.id}`,
+    //     categorizeData,
+    //     config
+    //   );
+    // } catch (err) {
+    //   console.log(JSON.stringify(err));
+    //   console.error(err.response);
+    //   notification.open({
+    //     message: "Erro!",
+    //     description: "Edição do produto impedida.",
+    //     className: "ant-notification",
+    //     top: "100px",
+    //     icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+    //     style: {
+    //       width: 600,
+    //     },
+    //   });
+    // }
     console.log("subcategories", subcategories_ids);
   }
 
@@ -421,13 +415,25 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-  
-   
-
-    api.delete(`image/${image}`, config).then((response) => {
-    });
+    api.delete(`image/${image}`, config).then((response) => {});
     setUpdated(!updated);
   };
+  useEffect(() => {
+    if (subcategories_ids) {
+      let categorizeData = { subcategories_ids: [subcategories_ids] };
+      console.log("categorize", categorizeData);
+      api
+        .put(`categorize/${props.match.params.id}`, categorizeData, config)
+        .then((response) => {
+          console.log(response.data);
+        });
+      api.get(`product/${props.match.params.id}`, config).then((response) => {
+        setProducts(response.data.subcategories);
+        console.log(response.data);
+      });
+      console.log("Entrou");
+    }
+  }, [subcategories_ids]);
 
   return (
     <div>
@@ -935,32 +941,15 @@ export default function ProductEditor(props) {
                                 >
                                   Subcategoria:
                                 </label>
-                                {/* <select
-                                  value={subcategory_id}
-                                  onChange={(e) =>
-                                    setSubcategory(e.target.value)
-                                  }
+                                <select
+                                  onChange={(e) => {
+                                    setSubcategoriesIds(e.target.value);
+                                  }}
+                                  value={subcategories_ids}
                                 >
                                   <option value="0" disabled>
                                     Selecionar
                                   </option>
-                                  {subcategories.map((subcat) => {
-                                    return (
-                                      <option
-                                        value={subcat.id}
-                                        key={`subcat-${subcat.id}`}
-                                      >
-                                        {subcat.name}
-                                      </option>
-                                    );
-                                  })}
-                                </select> */}
-                                <select
-                                  onChange={(e) =>
-                                    setSubcategoriesIds(e.target.value)
-                                  }
-                                  value={subcategories_ids}
-                                >
                                   {subcategories.map((subcat) => {
                                     return (
                                       <option value={subcat.id} key={subcat.id}>
@@ -971,31 +960,9 @@ export default function ProductEditor(props) {
                                 </select>
 
                                 <div className="categoriesSelection">
-                                  <label>Deletar subcategoria</label>
-
-                                  {/* <select
-                                onChange={(e) => setDeleteSubcategories(e.target.value)}
-                                value = {deletesubcategories} 
-                                  >
-                                      {
-                                    subcategories.map((subcat)=>{
-                                    return(
-                                      <option value={subcat.id} key={subcat.id}> 
-                                        {subcat.name}
-                                      </option>
-                                    )
-                                  })}
-                                    )
-                                  
-                                
-                                    
-                                </select>
-                                <div className="edit-button">
-                                <button className="edit-erase" onClick={handleDeleteSubcategory}>Deletar subcategoria <DeleteForeverIcon /></button> */}
-                                  {/* </div> */}
+                                  <label>Subcategorias</label>
                                 </div>
                                 <div>
-
                                   {products.map((subcat, index) => {
                                     return (
                                       <Tag
@@ -1003,7 +970,9 @@ export default function ProductEditor(props) {
                                         value={subcat.subcategory_id}
                                         closable={index >= 0}
                                         key={subcat.subcategory_id}
-                                        onClose={()=>handleCloseTag(subcat.subcategory_id)}
+                                        onClose={() =>
+                                          handleCloseTag(subcat.subcategory_id)
+                                        }
                                       >
                                         {subcat.subcategory_name}
                                       </Tag>
