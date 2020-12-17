@@ -1,0 +1,235 @@
+.products-container-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .products-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Card {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    /* border-radius: 15px; */
+    width: 250px;
+    height: 350px;
+    margin: 20px 20px 30px 20px;
+    /* border: 1px solid black; Remover borda ao terminar */
+    transition: box-shadow 0.2s;
+  }
+  
+  /* .Card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  } */
+  
+  .Card img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .image-text-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 180px;
+    height: 180px;
+    position: relative;
+  }
+
+  .Card .product-image{
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      justify-content: center;
+  }
+  
+  #titulo-card {
+    margin-bottom: 0;
+    font-size: 1.8em;
+    line-height: 20px;
+    color: var(--text-color);
+    text-align: center;
+  }
+
+  .wish-heart{
+    padding-left: 10px;
+  }
+
+  .fiheart-product{
+    font-size: 35px;
+    margin-top: 10px;
+    margin-right: 10px;
+    color: var(--mainColor);
+    cursor: pointer;
+  }
+  
+  .price-container {
+    justify-content: center;
+    /* min-height: 62px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .preco-card {
+    color: var(--text-color);
+    font-size: 2.7vh;
+  }
+  .preco-card.cortado {
+    color: white;
+    font-size: 1.8vh;
+    margin-bottom: 0;
+    background-color: black;
+    border-radius: 20px;
+    padding: 3px 20px;
+  }
+  
+  .preco-promocao {
+    font-size: 2.7vh;
+    margin: 0;
+    color:var(--text-color);
+  }
+  
+  #botao-comprar {
+    display: flex;
+    justify-content: center;
+    background-color: var(--mainColor);
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    /* border-bottom-right-radius: 15px; */
+    /* border-bottom-left-radius: 15px; */
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+    position: absolute;
+    bottom: 0;
+    top: 100%;
+    transition: all .3s ease-in;
+  }
+
+  .product-image:hover > #botao-comprar{
+    top: 80%;
+  }
+
+  #unavailable-label {
+    display: flex;
+    justify-content: center;
+    background-color: var(--red-color);
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.7em;
+  }
+  
+  .loader-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 250px;
+    color: white;
+    background-color: #14bc48;
+    border-radius: 20px;
+    border: none;
+  }
+  
+  .product-modal-wrapper {
+    display: inline-flex;
+    width: auto;
+  }
+  
+  .product-modal-image {
+    height: 90%;
+    max-height: 200px;
+    margin: 20px;
+  }
+  .buying-configs {
+    margin: 20px;
+    width: 100%;
+  }
+  .product-modal-wrapper .buying-configs .subproduct-selection {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+  }
+  .product-modal-wrapper .buying-configs .subproduct-selection p {
+    margin-right: 25px;
+    margin-bottom: 0;
+  }
+  .product-modal-wrapper .buying-configs .subproduct-selection select {
+    min-height: 25px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .product-modal-wrapper .buying-configs .subproduct-selection select option {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .buying-configs .quantity-options {
+    display: flex;
+    align-items: center;
+    line-height: 1rem;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .buying-configs p {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  
+  .buying-configs .quantity-options .quantity-changer {
+    margin: 0 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .buying-configs .quantity-options .quantity-changer.locked {
+    color: grey;
+    cursor: default;
+  }
+  
+  @media (max-width: 550px) {
+    .products-container {
+      flex-direction: column;
+    }
+  
+    .Card img {
+      width: 35vw;
+      height: 35vw;
+    }
+    .product-modal-wrapper {
+      flex-direction: column;
+    }
+    .product-modal-image {
+      height: 200px;
+    }
+  }
+  
+  .number {
+    display: flex;
+    justify-content: space-around;
+  }
+  
