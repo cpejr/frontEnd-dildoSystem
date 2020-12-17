@@ -4,7 +4,7 @@
 
 .instafeed {
   padding: 1% 1%;
-  max-width: 60vw;
+  max-width: 54vw;
   display: flex;
   justify-content: space-between;
   overflow-x: auto;
@@ -44,7 +44,7 @@
 }
 
 .instafeed img {
-  height: 200px;
+  height: 300px;
   margin-top: 1vh;
   margin-bottom: 1vh;
   margin-right: 1vw;
@@ -52,7 +52,7 @@
 }
 
 .instafeed img:before {
-  height: 200px;
+  height: 300px;
   margin-top: 1vh;
   margin-bottom: 1vh;
   margin-right: 1vw;
@@ -62,4 +62,26 @@
 .instafeed img:hover {
   color: black;
   opacity: 0.7;
+}
+
+@media (max-width: 800px) {
+  .instafeed {
+    max-width: 80vw;
+  }
+  .instafeed img {
+    height: 200px;
+   
+  }
+  
+  .instafeed img:before {
+    height: 200px;
+    
+  }
+}
+
+@media (max-width: 500px) {
+  .instafeed {
+    max-width: 60vw;
+    margin-right: 20vw;
+  }
 }
