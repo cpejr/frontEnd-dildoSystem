@@ -5,52 +5,31 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import './styles.css'
 
-function Testefrete() {
+function Testefrete({products}) {
     const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
 
     let produtos = []
 
-    const products = [
-        {
-            product: 
-            {
-                weight: 1.2,
-                height: 15,
-                width: 20,
-                length: 30,
-                quantity: 50
-            }
-        },
-        {
-            product: 
-            {
-                weight: 300,
-                height: 15,
-                width: 15,
-                length: 15,
-                quantity: 10
-            }
-        }
-    ]
 
     async function handleSubmit(e) {
         e.preventDefault();
 
+        // console.log('tem algum produto aqui?',products);
+
         products.map(p => (
             produtos.push(
                 {
-                    Weight: p.product.weight,
-                    Height: p.product.height,
-                    Width: p.product.width,
-                    Length: p.product.length,
+                    Weight: (p.weight/1000),
+                    Height: p.height,
+                    Width: p.width,
+                    Length: p.length,
                     Quantity: p.quantity
                 }
             )
         ))
 
-        // console.log('dimensoes dos produtos: ', produtos)
 
         const freteData = {
 
@@ -77,7 +56,7 @@ function Testefrete() {
         const response = fetch(proxyUrl + targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
-                // console.log(data)
+                console.log('pegou data da frenet',data)
                 // console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
@@ -136,10 +115,10 @@ function Testefrete() {
                     {
                         shipping.map((envio, i )=> (
                             envio.Error ?
-                        <option key={i} className="option-error">{handleFreteError(envio)}Nenhum{console.log('rederizou mais de uma', i)}</option>
+                                <option key={i} className="option-error"> {handleFreteError(envio)} Nenhum</option>
                                 :
                                 <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
-                                    {envio.ServiceDescription} - R$ {envio.ShippingPrice}
+                                    {envio.ServiceDescription} - R$ {envio.ShippingPrice} - {envio.DeliveryTime} dias úteis.
                                 </option>
                         ))
                     }
