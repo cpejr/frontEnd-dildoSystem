@@ -7,7 +7,7 @@ import './styles.css'
 export default function WhatsButton() {
     return (
         <div>
-            <a className="whatsapp-button" href="https://web.whatsapp.com/send?phone=553188532806" >
+            <a className="whatsapp-button" href="https://web.whatsapp.com/send?phone=5564992336652" >
                 {/* <WhatsAppIcon /> */}
                 < RiWhatsappLine className="whats-icon"/>
             </a>
