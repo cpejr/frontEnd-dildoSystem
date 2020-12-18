@@ -14,8 +14,8 @@ export default function CarouselProducts() {
     const [numberElements, setNumberElements] = useState(() => {
         let aux
         aux = Math.floor(window.innerWidth / 300);
-        if (aux > 4)
-            aux = 4;
+        if (aux > 5)
+            aux = 5;
         if (aux > 0)
             return (aux);
     });
@@ -27,8 +27,8 @@ export default function CarouselProducts() {
 
             let aux
             aux = Math.floor(window.innerWidth / 300);
-            if (aux > 4)
-                aux = 4;
+            if (aux > 5)
+                aux = 5;
             if (aux > 0)
                 setNumberElements(aux);
         }
@@ -122,8 +122,10 @@ export default function CarouselProducts() {
 
 
     return (
-        <div className="Carousel">
+
+        <div className="Carousel-Products">
             <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="carousel-control" ><GrFormNext size={33} /></span>} prevIcon={<span aria-hidden="true" className="carousel-control" ><GrFormPrevious size={33} /></span>}>
+
                 {products.map((elements, index) => {
 
                     return (
