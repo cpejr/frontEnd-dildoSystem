@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
@@ -21,6 +21,7 @@ import Burger from "../../components/Burger";
 import { LoginContext } from "../../Contexts/LoginContext";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { CartContext } from '../../Contexts/CartContext';
+import AddedProductPopover from './AddedProductPopover';
 
 import "./styles.css";
 import { createRef } from 'react';
@@ -44,6 +45,7 @@ export default function Header() {
   const cartContext = useContext(CartContext);
 
   const headerRef = createRef();
+  const bagRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -230,10 +232,13 @@ export default function Header() {
 
 
 
-            <Link to="/cart" className="icon-link">
+            <Link to="/cart" className="icon-link" ref={bagRef}>
+
               <HiOutlineShoppingBag size={32} />
               <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
             </Link>
+            {console.log('bagRef', bagRef)}
+            <AddedProductPopover target={bagRef} />
 
 
           </div>
