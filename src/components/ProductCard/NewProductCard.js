@@ -95,13 +95,14 @@ export default function NewProductCard(props) {
                     <span >COLOCAR NO CARRINHO</span>
                 </div>
             )
-        } else {
-            return (
-                <div id="unavailable-label">
-                    <span>INDISPONÍVEL</span>
-                </div>
-            )
         }
+        // } else {
+        //     return (
+        //         <div id="unavailable-label">
+        //             <span>INDISPONÍVEL</span>
+        //         </div>
+        //     )
+        // }
     }
 
     useEffect(() => {
@@ -116,6 +117,56 @@ export default function NewProductCard(props) {
         }
     }, [product])
 
+    function DiscountElement(props) {
+
+        const product = props.product;
+
+        if ((subproducts && subproducts.length > 0 && subproducts.find(subp => subp.stock_quantity > 0)) || product.stock_quantity > 0) {
+            if (product.wholesaler_price) {
+                if (product.on_sale_wholesaler) {
+                    return (
+                        <div className="price-container">
+                            <p className="preco-card discount">{`${Math.round(Number(((props.product.wholesaler_price - props.product.wholesaler_sale_price) / (props.product.wholesaler_price)) * 100))}% DESCONTO`}</p>
+
+                            {/* <p className="preco-promocao">
+                            {`R$ ${Number(props.product.wholesaler_sale_price).toFixed(2)}`}
+                        </p> */}
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className="price-container">
+                            {/* <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span> */}
+                        </div>)
+
+                }
+            } else {
+                if (product.on_sale_client) {
+                    return (
+                        <div className="price-container">
+                            <p className="preco-card discount">{`${Math.round(Number(((props.product.client_price - props.product.client_sale_price) / (props.product.client_price)) * 100).toFixed(2))}% DESCONTO`}</p>
+
+                            {/* <p className="preco-promocao">
+                            {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
+                        </p> */}
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div></div>
+                        // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
+                    )
+                }
+            }
+        } else {
+            return (
+                <div className="unavailable-label">
+                    <p className="unavailable-product">INDISPONÍVEL</p>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className="Card" key={`product-${product.id}`}>
             <div className='wish-heart'>
@@ -124,14 +175,14 @@ export default function NewProductCard(props) {
             </div>
             <div className='product-image'>
                 <Link to={`/product/${product.id}`} className="image-text-container">
-                <ImageLoader
-                    src={`https://docs.google.com/uc?id=${product.image_id}`}
-                    loading={() => <img src={loading} alt="Loading..." />}
-                    error={() => <div>Error</div>} />
-            </Link>
-            {product && buyButton()}
+                    <ImageLoader
+                        src={`https://docs.google.com/uc?id=${product.image_id}`}
+                        loading={() => <img src={loading} alt="Loading..." />}
+                        error={() => <div>Error</div>} />
+                </Link>
+                {product && buyButton()}
             </div>
-            
+
 
             <DiscountElement product={product} />
             <p id="titulo-card">
@@ -145,44 +196,3 @@ export default function NewProductCard(props) {
     )
 }
 
-function DiscountElement(props) {
-
-    const product = props.product;
-
-    if (product.wholesaler_price) {
-        if (product.on_sale_wholesaler) {
-            return (
-                <div className="price-container">
-                    <p className="preco-card cortado">{`${Number(((props.product.wholesaler_price - props.product.wholesaler_sale_price) / (props.product.wholesaler_price)) * 100).toFixed(2)}% DESCONTO`}</p>
-
-                    {/* <p className="preco-promocao">
-                        {`R$ ${Number(props.product.wholesaler_sale_price).toFixed(2)}`}
-                    </p> */}
-                </div>
-            )
-        } else {
-            return (
-                <div className="price-container">
-                    {/* <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span> */}
-                </div>)
-
-        }
-    } else {
-        if (product.on_sale_client) {
-            return (
-                <div className="price-container">
-                    <p className="preco-card cortado">{`R$ ${Number(((props.product.client_price - props.product.client_sale_price) / (props.product.client_price)) * 100).toFixed(2)}`}</p>
-
-                    {/* <p className="preco-promocao">
-                        {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
-                    </p> */}
-                </div>
-            )
-        } else {
-            return (
-                <div></div>
-                // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
-            )
-        }
-    }
-}
