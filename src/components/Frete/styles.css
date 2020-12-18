@@ -1,0 +1,55 @@
+.frete-wrapper{
+    display: flex;
+    justify-content:  space-around;
+    align-items: center;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+
+.frete-wrapper label, .frete-wrapper input{
+    margin-right: 5%;
+}
+
+.frete-wrapper input{
+    border: 2px solid black;
+}
+
+.frete-wrapper label{
+    margin-top: 3px;
+}
+
+.frete-wrapper button {
+    background: black;
+    color: white;
+    border: none;
+}
+
+.option-error {
+    display: none;
+}
+
+.frete-wrapper select {
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+    .frete-wrapper{
+        flex-direction: column;
+        
+    }
+    .frete-wrapper input{
+        width: 75%;
+        height: 100%;
+        margin-right: 0;
+    }
+    .frete-wrapper label {
+        margin-right: 2px;
+    }
+    .setCep {
+        flex-direction: column;
+        margin-bottom: 4%;
+    }
+}
