@@ -17,7 +17,10 @@ function CartContextProvider({ children }) {
 
     const [update, setUpdate] = useState(false);
 
+    const [lastAddedProduct, setLastAddedProduct] = useState();
+
     const productsChanged = useRef(true);
+    const fromModal = useRef(false);
 
 
 
@@ -85,7 +88,15 @@ function CartContextProvider({ children }) {
 
     }, [minCart, update]);
 
-    function addItem(product_id, product_quantity, subproduct_id) {
+    useEffect(() => {
+        if (lastAddedProduct) {
+            setTimeout(() => {
+                setLastAddedProduct();
+            }, 7000)
+        }
+    }, [lastAddedProduct]);
+
+    function addItem(product_id, product_quantity, subproduct_id, cameFromModal = false) {
         let id_found = false;
         let products = [];
         productsChanged.current = true;
@@ -124,6 +135,14 @@ function CartContextProvider({ children }) {
             setMinCart(products);
             setUpdate(!update);
         }
+        if (cameFromModal) {
+            const lastProd = { product_id: product_id, product_quantity: product_quantity }
+            if (subproduct_id) {
+                lastProd.subproduct_id = subproduct_id;
+            }
+            setLastAddedProduct(lastProd);
+            console.log(lastProd);
+        }
     }
 
     function deleteItem(product_id, subproduct_id) {
@@ -158,7 +177,7 @@ function CartContextProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart: localCart, addItem, deleteItem, clear, totalQuantity, changeQuantity }}>
+        <CartContext.Provider value={{ cart: localCart, addItem, deleteItem, clear, totalQuantity, changeQuantity, lastAddedProduct }}>
             {children}
         </CartContext.Provider>
     );
