@@ -55,27 +55,27 @@ export default function UsuariosPendentes(props) {
             notification.open({
                 message: 'Sucesso!',
                 description:
-                  'Alteração concluída.',
+                    'Alteração concluída.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });
+            });
         } catch (err) {
             console.error(err.response);
             notification.open({
                 message: 'Erro!',
                 description:
-                  'Erro na atualização.',
+                    'Erro na atualização.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });
+            });
         }
     }
 

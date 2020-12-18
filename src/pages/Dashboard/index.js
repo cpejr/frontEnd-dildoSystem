@@ -5,6 +5,7 @@ import ProductCard from '../../components/ProductCard';
 import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';
 import Footer from '../../components/Footer';
+import CarouselFooter from '../../components/CarouselFooter';
 import FeaturedImages from '../../components/DashboardNewImages';
 import Instafeed from '../../components/Instafeed';
 
@@ -29,15 +30,16 @@ function Dashboard(props) {
 
                 {/* <HomeNavbar /> */}
                 <ControlledCarousel />
-
-                <h2>LANÇAMENTOS</h2>
-                <div className="release-container">
-                    <CarouselProducts />
-                </div>
+                <CarouselFooter/>
                 <div className="images-container">
                     <FeaturedImages />
                 </div>
-                <h2>MAIS VENDIDOS</h2>
+                <h2>Lançamentos</h2>
+                <div className="release-container">
+                    <CarouselProducts />
+                </div>
+
+                <h2>Mais Vendidos</h2>
                 <div className="best_seller-container">
                     <ProductCard best_sellerOnly />
                 </div>

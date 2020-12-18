@@ -139,21 +139,21 @@ function Register() {
                 // number,
                 // complement,
             };
-            
+
             try {
                 await api.post('/user', data);
 
                 notification.open({
                     message: 'Sucesso!',
                     description:
-                      'Cadastro realizado com sucesso.',
+                        'Cadastro realizado com sucesso.',
                     className: 'ant-notification',
                     top: '100px',
-                    icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                    icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
                     style: {
-                      width: 600,
+                        width: 600,
                     },
-                  });
+                });
 
                 history.push('/login');
 
@@ -162,34 +162,34 @@ function Register() {
                 notification.open({
                     message: 'Erro!',
                     description:
-                      'Erro ao cadastrar usuário.',
+                        'Erro ao cadastrar usuário.',
                     className: 'ant-notification',
                     top: '100px',
-                    icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                    icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
                     style: {
-                      width: 600,
+                        width: 600,
                     },
-                  });
+                });
             }
         }
 
     }
 
     function telefone(telefone) {
-        telefone = telefone.replace(/\D/g, "")                 
-        telefone = telefone.replace(/^(\d\d)(\d)/g, "($1) $2") 
-        telefone = telefone.replace(/(\d{5})(\d)/, "$1-$2")    
+        telefone = telefone.replace(/\D/g, "")
+        telefone = telefone.replace(/^(\d\d)(\d)/g, "($1) $2")
+        telefone = telefone.replace(/(\d{5})(\d)/, "$1-$2")
         setPhonenumber(telefone);
     }
 
     function cpfMask(cpf_cnpj) {
-        cpf_cnpj = cpf_cnpj.replace(/\D/g, "")                 
-        cpf_cnpj = cpf_cnpj.replace(/^(\d\d\d)(\d)/g, "$1.$2") 
+        cpf_cnpj = cpf_cnpj.replace(/\D/g, "")
+        cpf_cnpj = cpf_cnpj.replace(/^(\d\d\d)(\d)/g, "$1.$2")
         cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1.$2")
-        cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1-$2")    
+        cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1-$2")
         if (cpf_cnpj.length > 13) {
-            cpf_cnpj = cpf_cnpj.replace(/\D/g, "")                 
-            cpf_cnpj = cpf_cnpj.replace(/^(\d\d)(\d)/g, "$1.$2") 
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, "")
+            cpf_cnpj = cpf_cnpj.replace(/^(\d\d)(\d)/g, "$1.$2")
             cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1.$2")
             cpf_cnpj = cpf_cnpj.replace(/(\d{3})(\d)/, "$1/$2")
             cpf_cnpj = cpf_cnpj.replace(/(\d{4})(\d)/, "$1-$2")

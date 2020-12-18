@@ -23,7 +23,7 @@ export default function SubproductsEdit({ subproduto }) {
   const [images, setImages] = useState([]);
   const { id } = useParams();
   const [img_url, setImgURL] = useState();
-  
+
   const [editar, setEditar] = useState("editar");
 
   const accessToken = localStorage.getItem("accessToken");
@@ -91,7 +91,7 @@ export default function SubproductsEdit({ subproduto }) {
           'Edição de subproduto concluída.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -105,7 +105,7 @@ export default function SubproductsEdit({ subproduto }) {
           'Edição do subproduto impedida.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -114,7 +114,7 @@ export default function SubproductsEdit({ subproduto }) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img); 
+    let img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
@@ -122,8 +122,8 @@ export default function SubproductsEdit({ subproduto }) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
- 
-    
+
+
 
     api.delete(`image/${image}`, config).then((response) => {
     });
@@ -210,35 +210,35 @@ export default function SubproductsEdit({ subproduto }) {
             Secudárias
           </label>
           <div className="pres-sub-imgs">
-                          {images.map((image, index) => (
-                            <div className="secimage-comp-loader-sub">
-                                <DeleteForeverIcon className="edit-delete-secimage"
-                                type="button"
-                                onClick={() => handleDeleteSecImage(image.id)} />
-                              <ImageLoader
-                                className="secimage-loader-sub"
-                                src={`https://docs.google.com/uc?id=${image.id}`}
-                                loading={() => (
-                                  <img src={loading} alt="Loading..." />
-                                )}
-                                error={() => <div>Error</div>}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <MultipleUploader
-                          canSubmit={true}
-                          canDelete={true}
-                          subproductId={subproduto.id}
-                          productId={id}
-                        />
-                         <div className="input-group mb-3">
-                          <label
-                            className="file-label"
-                            for="inputGroupFile01"
-                            htmlFor="fileName"
-                          ></label>
-                        </div>
+            {images.map((image, index) => (
+              <div className="secimage-comp-loader-sub">
+                <DeleteForeverIcon className="edit-delete-secimage"
+                  type="button"
+                  onClick={() => handleDeleteSecImage(image.id)} />
+                <ImageLoader
+                  className="secimage-loader-sub"
+                  src={`https://docs.google.com/uc?id=${image.id}`}
+                  loading={() => (
+                    <img src={loading} alt="Loading..." />
+                  )}
+                  error={() => <div>Error</div>}
+                />
+              </div>
+            ))}
+          </div>
+          <MultipleUploader
+            canSubmit={true}
+            canDelete={true}
+            subproductId={subproduto.id}
+            productId={id}
+          />
+          <div className="input-group mb-3">
+            <label
+              className="file-label"
+              for="inputGroupFile01"
+              htmlFor="fileName"
+            ></label>
+          </div>
           <span className="images-label">Formatos aceitos: JPG, PNG</span>
         </div>
         <div className="sub-buttons">

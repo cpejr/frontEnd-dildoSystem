@@ -101,7 +101,7 @@ function Addresses() {
           'Houve um erro ao tentar criar o seu pedido.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -119,7 +119,7 @@ function Addresses() {
           'Selecione um dos seus endereços cadastrados.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -152,7 +152,7 @@ function Addresses() {
             'Ocorreu um erro no cadastro desse endereço.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -169,7 +169,7 @@ function Addresses() {
           'Preencha todos os campos para enviar um novo endereço.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },

@@ -139,17 +139,17 @@ export default function NnEProduct({ witchOne }) {
           authorization: "Bearer " + localStorage.accessToken,
         }
       })
-        notification.open({
-          message: 'Sucesso!',
-          description:
-            'O registro do produto foi concluído com sucesso.',
-          className: 'ant-notification',
-          top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
-          style: {
-            width: 600,
-          },
-        });
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'O registro do produto foi concluído com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+        style: {
+          width: 600,
+        },
+      });
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
@@ -160,20 +160,20 @@ export default function NnEProduct({ witchOne }) {
             'Imagem requerida.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         });
       }
-      else {   
+      else {
         notification.open({
           message: 'Erro!',
           description:
             'Falha no registro do produto.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -183,7 +183,7 @@ export default function NnEProduct({ witchOne }) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img); 
+    let img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
@@ -191,7 +191,7 @@ export default function NnEProduct({ witchOne }) {
   function handleImages(images) {
     setImages(images)
   }
-  
+
   return (
     <div>
       <div className="new-product-all">
@@ -255,7 +255,7 @@ export default function NnEProduct({ witchOne }) {
                   </label>
                     <div className="input-group mb-3">
 
-                      <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url}/>
+                      <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url} />
 
                     </div>
 

@@ -14,7 +14,7 @@ export default function CatNSubCat() {
   function ButtonAddCat() {
     const [inputShow, setInputShow] = useState(false);
     const [submitData, setSubmitData] = useState('');
-    
+
 
     const config = {
       headers: {
@@ -29,7 +29,7 @@ export default function CatNSubCat() {
 
     function handleClickAddSub(e, data) {
       e.preventDefault();
-  
+
       const sendData = {
         name: data
       }
@@ -42,7 +42,7 @@ export default function CatNSubCat() {
             'Categoria criada com sucesso.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -88,7 +88,7 @@ export default function CatNSubCat() {
         < ButtonAddCat />
 
       </div>
-      <Lista newCategory={newCategory}/>
+      <Lista newCategory={newCategory} />
     </div>
   )
 }

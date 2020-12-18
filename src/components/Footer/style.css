@@ -1,15 +1,15 @@
 .Footer {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin-top: 20px;
-    padding-top: 40px;
-    background-color: #f9ce56;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 40px;
+  background-color: #f9ce56;
 }
 
 .Footer img {
@@ -27,20 +27,21 @@
 }
 
 .textos-footer {
-display: flex;
+  display: flex;
+  justify-content: space-between;
 }
 
 #texto-institucional {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  width: 17vw;
+  width: 20vw;
   margin-right: 2vw;
 }
 
 #texto-ajuda {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  width: 17vw;
+  width: 20vw;
   margin-right: 2vw;
 }
 
@@ -50,9 +51,9 @@ display: flex;
   color: black;
   font-size: 2vh;
 }
-  
+
 .logos {
-    height: 20vh;
+  height: 20vh;
 }
 
 #LogoFooter {
@@ -60,17 +61,16 @@ display: flex;
 }
 
 #ContatoFooter {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-    font-weight: bolder;  
-    width: 17vw;
-    margin-right: 2vw;
+  font-weight: bolder;
+  width: 20vw;
+  margin-right: 2vw;
 }
 .icons {
-    display: flex;
-    justify-content: space-between;
-    width: 30%;
-    
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
 }
 
 .FooterWrapper {
@@ -81,38 +81,47 @@ display: flex;
 }
 
 @media screen and (min-width: 801px) {
-    div.Footer {
-        font-size: 16px;
-    }
+  div.Footer {
+    font-size: 16px;
+  }
 }
 @media screen and (max-width: 800px) {
-    div.Footer {
-      flex-direction: column;
-      align-items: center;
-    }
-    .textos-footer {
-      flex-direction: column;
-    }
-    #texto-ajuda {
-      margin-top: 1vh;
-    }
-    div.FooterWrapper {
-      flex-direction: column;
-      align-items: center;
-      padding: 50px;
-    }
-    div.icons {
-      width: 75%;
-    }
-    #ContatoFooter {
-      width: 100%;
-      padding: 0;
-    }
-    #LogoFooter {
-      margin-top: 2vh;
-    }
+  div.Footer {
+    flex-direction: column;
+    align-items: center;
   }
-  
+  .textos-footer {
+    flex-direction: column;
+  }
+  #texto-ajuda {
+    width: 25vw;
+    margin-top: 2vh;
+  }
+  #texto-institucional {
+    width: 25vw;
+    margin-top: 2vh;
+  }
+  #ContatoFooter {
+    width: 25vw;
+    margin-top: 2vh;
+  }
+  div.FooterWrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  div.icons {
+    width: 75%;
+  }
+  #ContatoFooter {
+    width: 100%;
+    padding: 0;
+  }
+  #LogoFooter {
+    margin-top: 2vh;
+  }
+}
+
 .FooterWrapper h3 {
   border-bottom-style: solid;
   border-bottom-width: 2px;

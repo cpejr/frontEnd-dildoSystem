@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import { IoMdKey } from "react-icons/io";
 import api from "../../services/api";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import useStateWithPromise from "../../Contexts/useStateWithPromise";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -48,7 +48,7 @@ const DialogContent = withStyles((theme) => ({
   root: {
     padding: 0,
     marginLeft: 0,
-   
+
   },
 }))(MuiDialogContent);
 
@@ -57,7 +57,7 @@ const DialogActions = withStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }))(MuiDialogActions);
-  
+
 export default function ProfileSettings() {
 
   const [name, setName] = React.useState("");
@@ -67,7 +67,7 @@ export default function ProfileSettings() {
   const [cpf, setCpf] = React.useState(0);
   const [zipcode, setZipcode] = React.useState(0);
   const [phonenumber, setPhonenumber] = React.useState(0);
-  const [state, setState] = React.useState(""); 
+  const [state, setState] = React.useState("");
   const [city, setCity] = React.useState("");
   const [neighborhood, setNeighborhood] = React.useState("");
   const [street, setStreet] = React.useState("");
@@ -81,17 +81,17 @@ export default function ProfileSettings() {
   const [mopen, setMopen] = React.useState(false);
   const [xopen, setXopen] = React.useState(false);
 
-const handleOpen = () => {
-  setMopen(true);
-}
+  const handleOpen = () => {
+    setMopen(true);
+  }
 
-const history = useHistory();
-const [changed, setChanged] = React.useState(false);
-const location = history.location;
+  const history = useHistory();
+  const [changed, setChanged] = React.useState(false);
+  const location = history.location;
 
-const handleXopen = () => {
-  setXopen(true);
-}
+  const handleXopen = () => {
+    setXopen(true);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -104,11 +104,11 @@ const handleXopen = () => {
 
   useEffect(() => {
     if (changed) {
-      history.push(location.pathname+location.search);
+      history.push(location.pathname + location.search);
       setChanged(false);
     }
   }, [changed]);
-  
+
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
     if (newToken) {
@@ -134,7 +134,7 @@ const handleXopen = () => {
             setComplement(resp.data.user.complement),
             setPassword(resp.data.user.password)
           ]);
-        } 
+        }
       }
       grabData();
     }
@@ -142,7 +142,7 @@ const handleXopen = () => {
 
   async function handlePasswordSubmit(e) {
     e.preventDefault();
-    
+
     let data;
 
     try {
@@ -163,7 +163,7 @@ const handleXopen = () => {
           'Senha incorreta.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -171,24 +171,24 @@ const handleXopen = () => {
     }
 
     if (data) {
-      
+
       try {
         const response = await api.put(`user/${userId}`, data, {
-            headers: {
-              authorization: "Bearer " + localStorage.accessToken,
-            }
-          })
-          notification.open({
-            message: 'Sucesso!',
-            description:
-              'Edição concluída.',
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
-            style: {
-              width: 600,
-            },
-          }, response);
+          headers: {
+            authorization: "Bearer " + localStorage.accessToken,
+          }
+        })
+        notification.open({
+          message: 'Sucesso!',
+          description:
+            'Edição concluída.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+          style: {
+            width: 600,
+          },
+        }, response);
       } catch (err) {
         console.log(JSON.stringify(err));
         console.error(err.response);
@@ -200,14 +200,14 @@ const handleXopen = () => {
     setPasswd("");
 
   }
- 
+
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
     let data = {};
     function addToData(key, value) {
       if (value !== undefined && value !== '') {
-        data = {...data, [key]: value};
+        data = { ...data, [key]: value };
       }
     }
 
@@ -223,24 +223,24 @@ const handleXopen = () => {
     addToData('street', street);
     addToData('number', number);
     addToData('complement', complement);
-    
+
     try {
       const response = await api.put(`user/${userId}`, data, {
-          headers: {
-            authorization: "Bearer " + localStorage.accessToken,
-          }
-        })
-        notification.open({
-          message: 'Sucesso!',
-          description:
-            'Edição concluída.',
-          className: 'ant-notification',
-          top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
-          style: {
-            width: 600,
-          },
-        }, response);
+        headers: {
+          authorization: "Bearer " + localStorage.accessToken,
+        }
+      })
+      notification.open({
+        message: 'Sucesso!',
+        description:
+          'Edição concluída.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+        style: {
+          width: 600,
+        },
+      }, response);
     } catch (err) {
       console.log(JSON.stringify(err));
       console.error(err.response);
@@ -250,13 +250,13 @@ const handleXopen = () => {
           'Edição não pôde ser realizada.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
       });
     }
-  
+
   }
 
   const handleDeleteUser = () => {
@@ -264,7 +264,7 @@ const handleXopen = () => {
       headers: {
         authorization: "Bearer " + localStorage.accessToken,
       }
-    } ).then((response) => {
+    }).then((response) => {
     })
     notification.open({
       message: 'Sucesso!',
@@ -272,15 +272,15 @@ const handleXopen = () => {
         'Usuário deletado com sucesso.',
       className: 'ant-notification',
       top: '100px',
-      icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+      icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
       style: {
         width: 600,
       },
     });
     history.push("/login");
   }
-   
-  
+
+
   return (
     <div className="settings-container">
       <h4>Meus Dados</h4>
@@ -306,115 +306,127 @@ const handleXopen = () => {
           </div>
         </div>
         <div className="settings-button-edit-area">
-        <button className="settings-button" onClick={handleOpen}>
-              <IoMdKey className="settings-key" size={20} />
+          <button className="settings-button" onClick={handleOpen}>
+            <IoMdKey className="settings-key" size={20} />
               Alterar Senha
             </button>
-            <Dialog open={mopen} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <form className="passEdit" onSubmit={handlePasswordSubmit}> 
-        <DialogTitle id="form-dialog-title">Alterar senha</DialogTitle>
-        <DialogContent> 
-          <div className="settings-info-item-form">
-              <strong>Digite a senha atual:</strong>
-              <br></br>
-              <input
+          <Dialog open={mopen} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <form className="passEdit" onSubmit={handlePasswordSubmit}>
+              <DialogTitle id="form-dialog-title">Alterar senha</DialogTitle>
+              <DialogContent>
+                <div className="settings-info-item-form">
+                  <strong>Digite a senha atual:</strong>
+                  <br></br>
+                  <input
                     type="password"
-                    value={passwd}                
+                    value={passwd}
                     onChange={(e) => setPasswd(e.target.value)}
                   />
-            </div>
-            <div className="settings-info-item-form">
-              <strong>Digite a senha nova:</strong>
-              <br></br>
-              <input
+                </div>
+                <div className="settings-info-item-form">
+                  <strong>Digite a senha nova:</strong>
+                  <br></br>
+                  <input
                     type="password"
-                    value={password}                
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-            </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancelar
           </Button>
-          <Button type="submit" autoFocus onClick={handleClose} color="primary">
-            Confirmar
+                <Button type="submit" autoFocus onClick={handleClose} color="primary">
+                  Confirmar
           </Button>
-        </DialogActions>
-        </form>
-      </Dialog>
+              </DialogActions>
+            </form>
+          </Dialog>
           <button onClick={handleClickOpen} className="settings-button-edit">Editar Informações</button>
-          <Dialog  
-          fullWidth={fullWidth}
-          maxWidth={maxWidth}
-         onClose={handleClose} 
-         aria-labelledby="customized-dialog-title" 
-         open={open}>
-           <form className="userEdit-form" onSubmit={handleSubmit}> 
-        <DialogContent dividers className="contentDialog">
-        <div className="settings-container">
-      <div className="settings-content">
-      <h4>Atualizar dados</h4>
-        <div className="settings-data-form">
-          <div className="settings-info-form">
-            <div className="settings-info-item-form">
-              <strong>Nome</strong>
-              <input
-                    value={name}                
-                    onChange={(e) => setName(e.target.value)}
-                  />
-            </div>
-            <div className="settings-info-item-form">
-              <strong>E-mail</strong>
-              <input
-                    value={email}                
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-            </div>
-            <div className="settings-info-item-form">
-              <strong>CPF</strong>
-              <input
-                    value={cpf}                
-                    onChange={(e) => setCpf(e.target.value)}
-                  />
-            </div>
-            <div className="settings-info-item-form">
-              <strong>Número de Telefone</strong>
-              <input
-                    value={phonenumber}                
-                    onChange={(e) => setPhonenumber(e.target.value)}
-                  />
-            </div>
-          </div>
-          <div className="settings-button-area">
-          </div>
-        </div>
-        <div className="settings-button-edit-area">
-        </div>
-      </div>
-    </div>
-        </DialogContent>
-        <DialogActions classname="dialogac">
-          <Button type="submit" autoFocus onClick={handleClose} color="primary">
-            Salvar alterações
+          <Dialog
+            fullWidth={fullWidth}
+            maxWidth={maxWidth}
+            onClose={handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={open}>
+            <form className="userEdit-form" onSubmit={handleSubmit}>
+              <DialogContent dividers className="contentDialog">
+                <div className="settings-container">
+                  <div className="settings-content">
+                    <h4>Atualizar dados</h4>
+                    <div className="settings-data-form">
+                      <div className="settings-info-form">
+                        <div className="settings-info-item-form">
+                          <strong>Nome</strong>
+                          <input
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
+                          />
+                        </div>
+                        <div className="settings-info-item-form">
+                          <strong>E-mail</strong>
+                          <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
+                          />
+                        </div>
+                        <div className="settings-info-item-form">
+                          <strong>CPF</strong>
+                          <input
+                            value={cpf}
+                            onChange={(e) => setCpf(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
+                          />
+                        </div>
+                        <div className="settings-info-item-form">
+                          <strong>Número de Telefone</strong>
+                          <input
+                            value={phonenumber}
+                            onChange={(e) => setPhonenumber(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
+                          />
+                        </div>
+                      </div>
+                      <div className="settings-button-area">
+                      </div>
+                    </div>
+                    <div className="settings-button-edit-area">
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+              <DialogActions classname="dialogac">
+                <Button type="submit" autoFocus onClick={handleClose} color="primary">
+                  Salvar alterações
           </Button>
-        </DialogActions>
-        </form>
-      </Dialog>
-      <button type="button" className="settings-button-delete" onClick={handleXopen}>
-       Excluir minha conta
+              </DialogActions>
+            </form>
+          </Dialog>
+          <button type="button" className="settings-button-delete" onClick={handleXopen}>
+            Excluir minha conta
       </button>
-      <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogContent>
-        <h5 className="modal-delete-title">Você tem certeza?</h5>
-        <div className="account-delete">
-          <DialogActions>
-        <Button className="yes-button" onClick={(e) => handleDeleteUser()}>Sim</Button>
-        <Button className="no-button" onClick={handleClose}>Não</Button>
-        </DialogActions>
-        </div>
-        </DialogContent>
-      </Dialog>
+          <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogContent>
+              <h5 className="modal-delete-title">Você tem certeza?</h5>
+              <div className="account-delete">
+                <DialogActions>
+                  <Button className="yes-button" onClick={(e) => handleDeleteUser()}>Sim</Button>
+                  <Button className="no-button" onClick={handleClose}>Não</Button>
+                </DialogActions>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>

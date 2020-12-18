@@ -15,15 +15,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp } from '@material-ui/icons';
+import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp, PersonAdd } from '@material-ui/icons';
+import { FaUserClock } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
 import { useState, useEffect } from 'react';
 
 import { FaUserAlt } from 'react-icons/fa';
 
-import Logo from '../../images/CASULUS01LOGODESIGN.svg';
-import Text from '../../images/CASULUS01LOGONAME.svg';
+import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
+import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
 
 import './styles.css';
 import { LoginContext } from '../../Contexts/LoginContext';
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    backgroundColor: '#DAA621',
+    backgroundColor: '#F9CE56',
     boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
   },
   content: {
@@ -204,7 +205,7 @@ export default function AdminDashboard2(props) {
 
             <Divider />
 
-            <ListItem button component={Link} to="/admin/categorias" onClick={props.handleDrawerClose}>
+            <ListItem button component={Link} to="/admin/categories" onClick={props.handleDrawerClose}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
               <ListItemText>Editar Categorias</ListItemText>
             </ListItem>
@@ -219,7 +220,7 @@ export default function AdminDashboard2(props) {
             <Divider />
 
             <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
-              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemIcon><FaUserClock size="20" /></ListItemIcon>
               <ListItemText>Usuários Pendentes</ListItemText>
             </ListItem>
 

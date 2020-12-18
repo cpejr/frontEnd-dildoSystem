@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import api from '../../services/api';
-import CardProduct from './ProductCard';
+// import CardProduct from './ProductCard';
+import NewProductCard from './NewProductCard';
 
 import { LoginContext } from '../../Contexts/LoginContext';
 import './styles.css'
@@ -134,7 +135,8 @@ export default withRouter(function ProductCard(props) {
         <div className={`products-container-wrapper ${props.className}`}>
             <div className="products-container">
                 {products.map(product => (
-                    <CardProduct product={product}/>
+                    // <CardProduct product={product}/>
+                    <NewProductCard product={product}/>
                     // <div className="Card" key={`product-${product.id}`}>
                     //     <Link to={`/product/${product.id}`} className="image-text-container">
                     //         <ImageLoader

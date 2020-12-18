@@ -97,7 +97,7 @@ function CartContextProvider({ children }) {
                     'O produto foi adicionado ao carrinho.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
                 style: {
                     width: 600,
                 },

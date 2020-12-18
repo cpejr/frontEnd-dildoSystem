@@ -26,16 +26,16 @@ export default function List2({ newCategory }) {
   const { Panel } = Collapse;
 
   useEffect(() => {
-    
+
     api.get('/categories').then((response) => {
-      
+
       setLista(response.data)
     })
   }, [update, newCategory])
 
   function handleClickAddSub(e, data, catId) {
     e.preventDefault();
-    
+
 
     const sendData = {
       name: data,
@@ -49,7 +49,7 @@ export default function List2({ newCategory }) {
           'Subcategoria criada com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -69,7 +69,7 @@ export default function List2({ newCategory }) {
           'Subcategoria deletada com sucesso.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -92,7 +92,7 @@ export default function List2({ newCategory }) {
 
   function handleClickCategoryTButton(vazio, catId) {
     if (vazio.length === 0) {
-      
+
       api.delete(`/category/${catId}`, config).then(() => {
         notification.open({
           message: 'Sucesso!',
@@ -100,7 +100,7 @@ export default function List2({ newCategory }) {
             'Categoria deletada com sucesso.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -115,7 +115,7 @@ export default function List2({ newCategory }) {
           'Categoria deve estar vazia antes de ser deletada.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -124,7 +124,7 @@ export default function List2({ newCategory }) {
   }
 
   function handleClickCategoryEditButton(catId) {
-   
+
     setCategorySelection(catId)
     // if(catId && !visible)
     //   setVisible(!visible)
@@ -148,14 +148,15 @@ export default function List2({ newCategory }) {
             'Categoria atualizada.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         });
         setUpdate(!update)
       }
-      )}
+      )
+    }
     catch (err) {
       notification.open({
         message: 'Erro!',
@@ -163,7 +164,7 @@ export default function List2({ newCategory }) {
           'Ocorreu um erro na atualização da categoria.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -191,14 +192,14 @@ export default function List2({ newCategory }) {
                 type="primary"
                 onClick={(e) => { e.stopPropagation(); handleSubmitEdit(e, submitDataPopOver, catId) }}
                 size="small"
-                >
+              >
                 Confirmar
             </Button>
               <Button
                 className="button-popover-form"
                 onClick={(e) => { e.stopPropagation(); handleVisibleChange() }}
                 size="small"
-                >
+              >
                 Cancelar
           </Button>
             </div>
@@ -255,7 +256,7 @@ export default function List2({ newCategory }) {
             onClick={(e) => handleClickButton(e, sub.id)}>
             < BsTrash size={20} />
           </button>
-          
+
         </div>
       </div>
     )
