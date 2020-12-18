@@ -50,7 +50,7 @@ function Admin(props) {
                 />
                 
                 <Route
-                  path={`${props.match.path}/categorias`}
+                  path={`${props.match.path}/categories`}
                   component={CategorieEditor}
                 />
 
