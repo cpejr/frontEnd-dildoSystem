@@ -5,7 +5,8 @@ import "./CarouselStyle.css";
 import NewProductCard from '../ProductCard/NewProductCard';
 import api from "../../services/api";
 
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import nextIcon from "../../images/nextIcon.png";
+import prevIcon from "../../images/prevIcon.png";
 
 export default function CarouselProducts() {
     const [index, setIndex] = useState(0);
@@ -46,9 +47,13 @@ export default function CarouselProducts() {
 
     const accessToken = localStorage.getItem("accessToken");
 
-    const config = {
-        headers: { authorization: `Bearer ${accessToken}` },
-    };
+  
+    let config 
+    if (accessToken) {
+         config = {
+            headers: { authorization: `Bearer ${accessToken}` },
+        };
+    }
 
     useEffect(() => {
         api.get("products/?release=true", config).then((response) => {
@@ -124,7 +129,7 @@ export default function CarouselProducts() {
     return (
 
         <div className="Carousel-Products">
-            <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="carousel-control" ><GrFormNext size={33} /></span>} prevIcon={<span aria-hidden="true" className="carousel-control" ><GrFormPrevious size={33} /></span>}>
+            <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="" > <img src={nextIcon}/></span>} prevIcon={<span aria-hidden="true" className="" ><img src={prevIcon}/></span>}>
 
                 {products.map((elements, index) => {
 

@@ -103,3 +103,11 @@
     font-weight: bold;
     margin-top: 10vh;
 }
+
+.butterfly{
+    background-image: url("../../images/background.png");
+    width: 100%;
+    background-size: cover;
+    background-repeat-x: no-repeat;
+    z-index: -1;
+}
