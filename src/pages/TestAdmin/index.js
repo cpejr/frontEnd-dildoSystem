@@ -15,7 +15,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp } from '@material-ui/icons';
+import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp, PersonAdd } from '@material-ui/icons';
+import { FaUserClock } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
 import { useState, useEffect } from 'react';
@@ -219,7 +220,7 @@ export default function AdminDashboard2(props) {
             <Divider />
 
             <ListItem button component={Link} to="/admin/pendingusers" onClick={props.handleDrawerClose}>
-              <ListItemIcon><Group /></ListItemIcon>
+              <ListItemIcon><FaUserClock size="20" /></ListItemIcon>
               <ListItemText>Usuários Pendentes</ListItemText>
             </ListItem>
 
