@@ -12,7 +12,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { VscChromeClose } from 'react-icons/vsc';
 import { GiHamburgerMenu } from 'react-icons/gi'
 
-import LogoName from '../../images/CASULUS01LOGONAME.svg';
+import LogoName from '../../images/CASULUS_TEXTO_PRETO.svg';
 import Logo from '../../images/CASULUS01LOGODESIGN.png';
 
 import api from "../../services/api";
@@ -188,7 +188,7 @@ export default function Header() {
 
             <Link to="/cart" className="icon-link">
               <HiOutlineShoppingBag size={32} />
-              <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span>
+              <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
             </Link>
 
 

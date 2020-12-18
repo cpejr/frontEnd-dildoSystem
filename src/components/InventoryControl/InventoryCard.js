@@ -18,11 +18,11 @@ export default function InventoryCard(props) {
     const [scrollPosition, setSrollPosition] = useState(0);
     const [quantity, setQuantity] = useState(product.stock_quantity);
     const [minimum, setMinimum] = useState(product.min_stock);
-    
+
     const accessToken = localStorage.getItem("accessToken");
     const config = {
         headers: { authorization: `Bearer ${accessToken}` },
-      };
+    };
 
     function incrementQuantity() {
         setQuantity(quantity + 1);
@@ -144,28 +144,28 @@ export default function InventoryCard(props) {
             notification.open({
                 message: 'Sucesso!',
                 description:
-                  'Edição concluída.',
+                    'Edição concluída.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });
+            });
         } catch (err) {
             console.log(JSON.stringify(err));
             console.err(err.response);
             notification.open({
                 message: 'Erro!',
                 description:
-                  'Edição impedida.',
+                    'Edição impedida.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });
+            });
         }
     }
 

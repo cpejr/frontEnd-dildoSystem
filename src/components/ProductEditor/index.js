@@ -308,7 +308,7 @@ export default function ProductEditor(props) {
           description: "Edição do produto concluída.",
           className: "ant-notification",
           top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
+          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
           style: {
             width: 600,
           },
@@ -323,7 +323,7 @@ export default function ProductEditor(props) {
         description: "Edição do produto impedida.",
         className: "ant-notification",
         top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
         style: {
           width: 600,
         },
@@ -343,7 +343,7 @@ export default function ProductEditor(props) {
     //     description: "Edição do produto impedida.",
     //     className: "ant-notification",
     //     top: "100px",
-    //     icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+    //     icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
     //     style: {
     //       width: 600,
     //     },
@@ -374,7 +374,7 @@ export default function ProductEditor(props) {
           description: "Produto deletado com sucesso.",
           className: "ant-notification",
           top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#DAA621" }} />,
+          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
           style: {
             width: 600,
           },
@@ -392,7 +392,7 @@ export default function ProductEditor(props) {
               "Produto não pode ser deletado pois está incluído em um pedido.",
             className: "ant-notification",
             top: "100px",
-            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+            icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
             style: {
               width: 600,
             },
@@ -403,7 +403,7 @@ export default function ProductEditor(props) {
             description: "Falha em deletar o produto.",
             className: "ant-notification",
             top: "100px",
-            icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+            icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
             style: {
               width: 600,
             },
@@ -415,7 +415,7 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-    api.delete(`image/${image}`, config).then((response) => {});
+    api.delete(`image/${image}`, config).then((response) => { });
     setUpdated(!updated);
   };
   useEffect(() => {
@@ -1001,10 +1001,10 @@ export default function ProductEditor(props) {
                       </button>
                     </div>
                   ) : (
-                    <div className="product-button">
-                      <button type="submit">ENVIAR ALTERAÇÕES</button>
-                    </div>
-                  )}
+                      <div className="product-button">
+                        <button type="submit">ENVIAR ALTERAÇÕES</button>
+                      </div>
+                    )}
                 </div>
               </form>
             </Tab>
@@ -1017,10 +1017,10 @@ export default function ProductEditor(props) {
                   ))}
                 </div>
               ) : (
-                <div className="sub-form">
-                  <SubproductsCreate />
-                </div>
-              )}
+                  <div className="sub-form">
+                    <SubproductsCreate />
+                  </div>
+                )}
             </Tab>
           </Tabs>
         </div>

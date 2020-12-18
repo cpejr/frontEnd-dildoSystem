@@ -14,20 +14,20 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
 
     const config = {
         headers: { authorization: `Bearer ${accessToken}` },
-      };
+    };
 
     function changeHandler(evt) {
 
-        let img_urls = Array.from(evt.target.files).map((file) =>  URL.createObjectURL(file) );
-        
+        let img_urls = Array.from(evt.target.files).map((file) => URL.createObjectURL(file));
+
         Array.from(evt.target.files).map(
-                    (file) => URL.revokeObjectURL(file)
-                );
+            (file) => URL.revokeObjectURL(file)
+        );
 
         let files = evt.target.files;
 
         files = [...files];
-       
+
         let images = [];
         let imagesNames = [];
 
@@ -41,14 +41,15 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
         setImages(images);
         //setImagesNames(imagesNames);
         if (onChange) onChange(images);
-    
+
     };
 
-    function RenderPhotos(source)  {
+    function RenderPhotos(source) {
         if (img_urls) {
-        return source.map((photo, index) => {
-            return <img className="loader-img" src={photo} key={photo} alt={`img_${index}`}/>
-        }) }
+            return source.map((photo, index) => {
+                return <img className="loader-img" src={photo} key={photo} alt={`img_${index}`} />
+            })
+        }
     };
 
     async function handleSubmit(e) {
@@ -66,7 +67,7 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
             })
             addToData('product_id', productId);
             if (subproductId) {
-            addToData('subproduct_id', subproductId)
+                addToData('subproduct_id', subproductId)
             }
 
             try {
@@ -74,48 +75,48 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
                 notification.open({
                     message: 'Sucesso!',
                     description:
-                      'Upload com sucesso.',
+                        'Upload com sucesso.',
                     className: 'ant-notification',
                     top: '100px',
-                    icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+                    icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
                     style: {
-                      width: 600,
+                        width: 600,
                     },
-                  }, response);
+                }, response);
             } catch (err) {
                 console.error(err);
                 console.error(err.response);
                 notification.open({
                     message: 'Erro!',
                     description:
-                      'Upload falho.',
+                        'Upload falho.',
                     className: 'ant-notification',
                     top: '100px',
-                    icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                    icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
                     style: {
-                      width: 600,
+                        width: 600,
                     },
-                  });
+                });
             }
         } else {
             notification.open({
                 message: 'Erro!',
                 description:
-                  'Upload falho, nenhuma imagem foi selecionada.',
+                    'Upload falho, nenhuma imagem foi selecionada.',
                 className: 'ant-notification',
                 top: '100px',
-                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
                 style: {
-                  width: 600,
+                    width: 600,
                 },
-              });;
+            });;
         }
     }
 
     return (
         <div>
-        <div className="input-group-prepend" >
-                <div className="custom-file">     
+            <div className="input-group-prepend" >
+                <div className="custom-file">
                     <input
                         type="file"
                         id="files"
@@ -128,13 +129,13 @@ export default function MultipleUploader({ onChange, canSubmit, productId, subpr
                         Selecione os arquivos
                     </label>
                 </div>
-        </div> 
-        <div className="sec-images">
-                       {RenderPhotos(img_urls)}
-                      </div>
-        {canSubmit && canSubmit === true ?
-            <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar secundárias</button> : <div></div>
-        }
-        </div> 
+            </div>
+            <div className="sec-images">
+                {RenderPhotos(img_urls)}
+            </div>
+            {canSubmit && canSubmit === true ?
+                <button className="send-button" type="submit" onClick={(e) => { handleSubmit(e) }}>Enviar secundárias</button> : <div></div>
+            }
+        </div>
     );
 };

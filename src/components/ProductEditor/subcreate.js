@@ -55,14 +55,14 @@ export default function SubproductsCreate(props) {
           "Content-Type": "application/json",
           authorization: "Bearer " + localStorage.accessToken,
         }
-      }) 
+      })
       notification.open({
         message: 'Sucesso!',
         description:
           'Registro de subproduto concluída.',
         className: 'ant-notification',
         top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#DAA621' }} />,
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -79,7 +79,7 @@ export default function SubproductsCreate(props) {
             'Imagem requerida.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -92,7 +92,7 @@ export default function SubproductsCreate(props) {
             'Registro de subproduto impedida.',
           className: 'ant-notification',
           top: '100px',
-          icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -102,7 +102,7 @@ export default function SubproductsCreate(props) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img); 
+    let img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }

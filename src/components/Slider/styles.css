@@ -1,18 +1,20 @@
 .w-100{
+  max-height: 75vh;
 height: auto;
-margin-top: 3vh;
+
 }
 
 .Carousel{
-    width: 1200px;
+    width: 100%;
     display: flex;
     align-items: center;
-    max-width: 90vw;
+    
 }
 
 .carousel{
-    width: 1200px;
     max-width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 650px) {
@@ -23,3 +25,74 @@ margin-top: 3vh;
         width: 100%;
     }
 }
+
+.CarouselImages{
+  max-height: 75vh;
+display: flex;
+justify-content: space-around;
+
+}
+
+.CarouselImages a {
+    width: 300vw!important;
+ 
+}
+
+
+.nextimage {
+    position: relative;
+    max-width: 300px;
+    opacity: 50%;
+    overflow: hidden;
+  }
+  .nextimage img {
+
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: 55vw;
+    
+     -webkit-transform: translate(2%,0%);
+        -ms-transform: translate(2%,0%);
+            transform: translate(2%,0%);   
+  }
+  
+  .nextimage img.portrait {
+    width: 100%;
+    height: auto;
+  }
+
+  .previmage {
+
+    position: relative;
+    max-width: 300px;
+    opacity: 50%;
+    overflow: hidden;
+  }
+  .previmage img {
+
+    height: 100%;
+    width: 55vw;
+  
+     -webkit-transform: translate(-78%,0%);
+        -ms-transform: translate(-78%,0%);
+            transform: translate(-78%,0%);   
+  }
+  
+  .previmage img.portrait {
+    height: auto;
+  }
+
+  .carousel-control-next{
+    margin: 5vw;
+  }
+  .carousel-control-prev{
+    margin: 5vw;
+  }
+
+  .carousel-control-next img{
+    height: 12vh;
+  }
+  .carousel-control-prev img{
+    height: 12vh;
+  }
