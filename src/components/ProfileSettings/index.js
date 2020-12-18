@@ -362,6 +362,9 @@ export default function ProfileSettings() {
                           <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
                           />
                         </div>
                         <div className="settings-info-item-form">
@@ -369,6 +372,9 @@ export default function ProfileSettings() {
                           <input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
                           />
                         </div>
                         <div className="settings-info-item-form">
@@ -376,6 +382,9 @@ export default function ProfileSettings() {
                           <input
                             value={cpf}
                             onChange={(e) => setCpf(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
                           />
                         </div>
                         <div className="settings-info-item-form">
@@ -383,6 +392,9 @@ export default function ProfileSettings() {
                           <input
                             value={phonenumber}
                             onChange={(e) => setPhonenumber(e.target.value)}
+                            className="form-control"
+                            id="validationDefaultUsername"
+                            aria-describedby="inputGroupPrepend2"
                           />
                         </div>
                       </div>

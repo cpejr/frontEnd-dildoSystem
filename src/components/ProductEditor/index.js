@@ -11,6 +11,8 @@ import loading from "../../images/Loading.gif";
 import { notification } from "antd";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { Tag, Tooltip } from "antd";
+import SimpleInput from "../NnEProduct/SimpleInput";
+import SimpleSwitch from "../NnEProduct/SimpleSwitch";
 
 import api from "../../services/api";
 import "./styles.css";
