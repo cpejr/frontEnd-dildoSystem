@@ -1,6 +1,7 @@
 .frete-wrapper{
     display: flex;
     justify-content:  space-around;
+    align-items: center;
     padding-bottom: 5%;
     padding-top: 5%;
 }
@@ -25,6 +26,13 @@
 
 .option-error {
     display: none;
+}
+
+.frete-wrapper select {
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    border: 1px solid black;
 }
 
 @media only screen and (max-width: 600px) {
