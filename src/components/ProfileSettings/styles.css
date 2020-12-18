@@ -163,6 +163,14 @@
     .settings-info-form {
         display: flex;
         flex-direction: column;
+        width: 100%;
+    }
+    .settings-data-form {
+        width: 100%;
+    }
+    .settings-content {
+        margin-right: 0;
+        width: 100%;
     }
     .settings-info-item-form strong{
         font-size: 1.5vh;
