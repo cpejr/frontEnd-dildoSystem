@@ -36,7 +36,7 @@
 
 .icon-link > svg:first-child,
 .icon-link-responsive > svg:first-child {
-  margin: 0 8px;
+  margin: 0 4px;
   /* width: 25px;
   height: 25px; */
 }
@@ -231,13 +231,18 @@
   content: " | ";
 }
 
-.dropdown {
-  /* position: relative; */
-  /* display: inline-block; */
-  /* overflow-wrap: normal; */
+/* .dropdown {
+  position: relative;
+  display: inline-block;
+  overflow-wrap: normal;
 
   max-width: none;
   width: 100%;
+} */
+
+.menu-dropdown {
+  /* position: relative !important;
+  z-index: 500; */
 }
 
 .dropbtn {
@@ -256,7 +261,7 @@
 }
 
 .dropdown-content {
-  display: none;
+  /* display: none; */
   position: absolute;
 
   min-width: 120px;
@@ -315,6 +320,7 @@
 
 .userInfoSearch .serach-icon {
   cursor: pointer;
+  margin: 0 4px;
 
   transition: color 0.3s;
 }
@@ -377,32 +383,71 @@
   background-color: #ddbd69;
 }
 
+.responsive-header-superior{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.responsive-header-superior .icons-responsive-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  height: 100%;
+  /* margin-left: 25%; */
+}
+
+.responsive-header-superior .burger-icon {
+  /* width: 100%; */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+
+
+@media (max-width: 1220px) {
+  .header-content {
+    flex-direction: column;
+    height: auto !important;
+    margin: 0 !important;
+  }
+  .headerSuperior {
+    padding-bottom: 2%;
+    height: auto !important;
+    margin-right: 0;
+    padding-right: 0 !important;
+  }
+}
+
 @media (max-width: 1200px) {
   .dropbtn {
     background-color: transparent;
     color: black;
     padding: 14px;
-    font-size: 14px;
+    font-size: 13px;
     border: none;
     cursor: pointer;
   }
 }
+
 @media (max-width: 1050px) {
   .dropbtn {
     background-color: transparent;
     color: black;
     padding: 10px;
-    font-size: 14px;
+    font-size: 13px;
     border: none;
     cursor: pointer;
   }
 }
-@media (max-width: 950px) {
+@media (max-width: 975px) {
   .dropbtn {
     background-color: transparent;
     color: black;
     padding: 10px;
-    font-size: 13px;
+    font-size: 12px;
     border: none;
     cursor: pointer;
   }
@@ -522,8 +567,13 @@
   .header-search-responsive .responsive-menu {
     display: flex;
     justify-content: center;
+
+    margin-top: 385px;
+    background: #F9CE56 0% 0% no-repeat padding-box;
+
     margin-top: 400px;
     background: #f9ce56 0% 0% no-repeat padding-box;
+
     position: absolute;
     width: 100%;
     z-index: 30;
