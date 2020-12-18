@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 
-import { PriceElement } from './ProductCard';
+import { PriceElement } from './NewProductCard';
 import cart from '../../services/cart';
 import { useCart } from '../../Contexts/CartContext';
 
