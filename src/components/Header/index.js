@@ -184,7 +184,19 @@ export default function Header() {
                 </Link>
               )}
 
-            < IoMdHeartEmpty size={34} />
+            {loginContext.loggedIn ? (
+              <Link
+                to={"/user/wishlist"}
+                className="icon-link"
+              >
+                < IoMdHeartEmpty size={34} style={{ margin: 0 }} />
+                {/* <p>{loginContext.name}</p> */}
+              </Link>
+            ) : (
+                < IoMdHeartEmpty size={34} />
+              )}
+
+
 
             <Link to="/cart" className="icon-link">
               <HiOutlineShoppingBag size={32} />
