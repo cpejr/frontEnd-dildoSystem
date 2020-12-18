@@ -204,7 +204,7 @@ export default function AdminDashboard2(props) {
 
             <Divider />
 
-            <ListItem button component={Link} to="/admin/categorias" onClick={props.handleDrawerClose}>
+            <ListItem button component={Link} to="/admin/categories" onClick={props.handleDrawerClose}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
               <ListItemText>Editar Categorias</ListItemText>
             </ListItem>
