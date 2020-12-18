@@ -211,9 +211,9 @@ export default function Header() {
               )}
 
 
-            <Link to="/user/wishlist" className="icon-link">
+            {/* <Link to="/user/wishlist" className="icon-link">
               < IoMdHeartEmpty size={34} />
-            </Link>
+            </Link> */}
 
             {loginContext.loggedIn ? (
               <Link
