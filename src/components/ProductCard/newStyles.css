@@ -88,6 +88,13 @@
     font-size: 2.7vh;
     text-align: center;
   }
+  .preco-card.cortado {
+    color: darkred;
+    font-size: 2.3vh;
+    text-decoration: line-through;
+    margin-bottom: 0;
+  }
+  
   .preco-card.discount {
     color: white;
     font-size: 1.8vh;

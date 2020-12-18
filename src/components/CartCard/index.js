@@ -98,6 +98,9 @@ function CartCard(props) {
         if (props.product.quantity + 1 <= relevantStock) {
             const subpId = props.product.subproduct ? props.product.subproduct.id : undefined;
             changeQuantity(props.product.id, subpId, props.product.quantity + 1);
+        } else {
+            console.log("Entrei")
+            document.getElementsByClassName(`more-${props.productId}`)[0].style.color = " #d3cece"
         }
     }
 
@@ -140,9 +143,9 @@ function CartCard(props) {
                                 </select>
                             </div> */}
                                 <div className="itemQuantity">
-                                    <Button onClick={() => { removeOne() }} ><RemoveCircleIcon className="less" size={25} /></Button>
+                                    <Button onClick={() => { removeOne() }} ><RemoveCircleIcon className={`less-${props.productId}`} size={25} /></Button>
                                     <p>{props.product.quantity}</p>
-                                    <Button onClick={() => { addOne() }} ><AddCircleIcon size={25} /></Button>
+                                    <Button disabled={!(props.product.quantity + 1 <= relevantStock)} onClick={() => { addOne() }} ><AddCircleIcon className={`more-${props.productId}`} size={25} /></Button>
                                 </div>
                             </div>
                         </div>

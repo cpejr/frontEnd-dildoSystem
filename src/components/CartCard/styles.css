@@ -55,40 +55,6 @@
   align-items: center;
 }
 
-.cart-primary-button {
-  background-color: #14bc48;
-  border-radius: 8px;
-  border: 0 solid transparent;
-  width: 100%;
-  height: 35px;
-  color: white;
-  margin: 10px 10px;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
-}
-
-.cart-primary-button:hover {
-  background-color: #0f8b36;
-}
-.button-area a {
-  width: 50%;
-}
-.cart-secondary-button {
-  background-color: white;
-  border-radius: 8px;
-  border: 1px solid #14bc48;
-  width: 100%;
-  height: 35px;
-  color: #14bc48;
-  margin: 10px 10px;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
-}
-
-.cart-secondary-button:hover {
-  background-color: rgb(230, 230, 230);
-  border: 1px solid #0f8b0f;
-}
 .cart-card {
   display: flex;
   padding: 0 5%;
