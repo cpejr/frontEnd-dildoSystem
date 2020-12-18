@@ -18,6 +18,7 @@
     align-items: center;
     width: 100%;
     flex-direction: column;
+    /* max-width: 1400px; */
     justify-content: center;
 }
 
@@ -35,17 +36,13 @@
 
 .release-container{
     min-height: 425px;
-    max-width: 1200px;
-    width: 90vw;
+    width: 100%;
     background-color: white;
     border-radius: 2vh;
 }
 
 .best_seller-container{
     min-height: 425px;
-    max-width: 1200px;
-    width: 90vw;
-    background-color: white;
     border-radius: 2vh;
     margin-bottom: 3vh;
 }
@@ -63,8 +60,8 @@
 
 .images-container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    /* padding-right: 15px;
+    padding-left: 15px; */
     margin-right: auto;
     margin-left: auto;
 }
@@ -101,4 +98,16 @@
 
 .insta-footer {
     width: 100%;
+}
+.dashboard-content h2 {
+    font-weight: bold;
+    margin-top: 10vh;
+}
+
+.butterfly{
+    background-image: url("../../images/background.png");
+    width: 100%;
+    background-size: cover;
+    background-repeat-x: no-repeat;
+    z-index: -1;
 }

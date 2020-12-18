@@ -39,7 +39,7 @@
 }
 
 .wish-img {
-  width: 20%;
+  width: 30%;
   height: auto;
   background-color: #b8b8b6;
   margin-right: 10px;
@@ -112,7 +112,7 @@
 }
 @media (max-width: 800px) {
   .wish-img {
-    width: 30%;
+    width: 100%;
   }
 
   .wish-button {
@@ -123,6 +123,7 @@
   h4 {
     width: 100%;
     font-size: 1em;
+    margin-top: 2vh;
   }
   strong {
     font-size: 5px;

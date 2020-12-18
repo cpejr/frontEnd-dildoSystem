@@ -8,14 +8,13 @@ import "../../global.css";
 import Footer from "../../components/Footer";
 import CartCard from "../../components/CartCard"
 import Header from "../../components/Header";
-import Frete from '../testefrete'
+import Frete from '../../components/Frete'
 
 import { useCart } from '../../Contexts/CartContext';
 import api from '../../services/api'
 
 
 function Cart(props) {
-  const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { cart } = useCart();
@@ -76,7 +75,7 @@ function Cart(props) {
           </div>
           <div className="borderEmpty"></div>
           <div className='container frete'>
-            <Frete products={products} />
+            <Frete products={cart} />
           </div>
           <div className="button-area">
             {cart && cart.length > 0 && (<Link to="/addresses">
