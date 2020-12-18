@@ -26,6 +26,8 @@ import "./styles.css";
 import { createRef } from 'react';
 import { CssBaseline } from '@material-ui/core';
 
+import { Menu, Dropdown, Button, Space } from 'antd';
+
 
 
 export default function Header() {
@@ -126,12 +128,36 @@ export default function Header() {
               <ul >
 
                 {
-                  categories.map(cat => (
-                    <li key={cat.id}>
-                      <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
-                      {/* <div className="dropdown" key={cat.id} >
-                        <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button>
-                        <div className="dropdown-content">
+                  categories.map(function (cat) {
+                    const menu = (
+                      <Menu className="menu-dropdown">
+                        {cat.subcategories.map((subcat, i) => (
+                          <Menu.Item key={i}>
+                            <button key={subcat.id} href="#" onClick={() => handleSubcategory(subcat.id)}>
+                              {subcat.name}
+                            </button>
+                            {/* <a className="dropdown-content" target="_blank" rel="noopener noreferrer" href="#">
+                              1st menu item
+                            </a> */}
+                          </Menu.Item>
+                        ))}
+                      </Menu>
+                    )
+
+                    return (
+                      <li key={cat.id}>
+                        {/* <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} </button> */}
+                        <div className="dropdown" key={cat.id} >
+                          <Space direction="vertical">
+                            <Space wrap>
+                              <Dropdown overlay={menu} placement="bottomleft">
+                                <button className="dropbtn" onClick={() => handleCategory(cat.id)}>{cat.name} {console.log('menu', menu)} </button>
+                              </Dropdown>
+                            </Space>
+                          </Space>
+
+
+                          {/* <div className="dropdown-content">
                           <div className="emptyHeaderDiv"></div>
                           <div className="dropdownLinks">
                             {
@@ -142,13 +168,13 @@ export default function Header() {
                               ))}
                           </div>
 
-                        </div>""
                         </div> */}
-                    </li>
-                  )
+                        </div>
+                      </li>
+                    )
+                  }
                   )
                 }
-
               </ul>
             </CSSTransition>
           </div>
@@ -184,7 +210,9 @@ export default function Header() {
                 </Link>
               )}
 
-            < IoMdHeartEmpty size={34} />
+            <Link to="/user/wishlist" className="icon-link">
+              < IoMdHeartEmpty size={34} />
+            </Link>
 
             <Link to="/cart" className="icon-link">
               <HiOutlineShoppingBag size={32} />
@@ -213,41 +241,75 @@ export default function Header() {
         showSearch={showSearch}
         categories={categories}
         handleCategory={handleCategory}
+        cartQuantity={cartQuantity}
       />
     </div>
   );
 }
 
-function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories }) {
+function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories, cartQuantity }) {
+
+  const loginContext = useContext(LoginContext);
+
   return (
     <div className="header-search-responsive">
-      <div className="responsive-logo">
-        <Link to="/">
-          <img className="logoCasulusDashboard" src={Logo} alt="logo" />
-        </Link>
-      </div>
-      {
-        showResMenu ?
-          <CSSTransition
-            in={showResMenu}
-            unmountOnExit
-            timeout={500}
-            classNames="search-menu"
-          >
-            <VscChromeClose
-              className="serach-icon"
-              size={30}
-              onClick={() => setShowResMenu(!showResMenu)}
-            />
-          </CSSTransition>
-          :
-          <GiHamburgerMenu
-            className="serach-icon"
-            size={30}
-            onClick={() => setShowResMenu(!showResMenu)}
-          />
+      <div className="responsive-header-superior">
+        <div className="responsive-logo">
+          <Link to="/">
+            <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+          </Link>
+        </div>
+        <div className="icons-responsive-header">
+          {loginContext.loggedIn ? (
+            <Link
+              to={loginContext.type === "admin" ? "/admin" : "/user"}
+              className="icon-link user-info"
+            >
+              <FaRegUser size={30} />
+              {/* <p>{loginContext.name}</p> */}
+            </Link>
+          ) : (
+              <Link to="/login">
+                <button className="loginBtn">Login / Cadastrar</button>
+              </Link>
+            )}
 
-      }
+          <Link to="/user/wishlist" className="icon-link">
+            < IoMdHeartEmpty size={34} />
+          </Link>
+
+          <Link to="/cart" className="icon-link">
+            <HiOutlineShoppingBag size={32} />
+            {/* <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span> */}
+          </Link>
+
+        </div>
+        {
+          showResMenu ?
+            <CSSTransition
+              in={showResMenu}
+              unmountOnExit
+              timeout={500}
+              classNames="search-menu"
+            >
+              <div className="burger-icon">
+                <VscChromeClose
+                  className="burger-icon"
+                  size={35}
+                  onClick={() => setShowResMenu(!showResMenu)}
+                />
+              </div>
+            </CSSTransition>
+            :
+            <div className="burger-icon">
+              <GiHamburgerMenu
+                size={35}
+                onClick={() => setShowResMenu(!showResMenu)}
+              />
+            </div>
+
+        }
+      </div>
       <CSSTransition
         in={showResMenu}
         unmountOnExit
