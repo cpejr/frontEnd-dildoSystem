@@ -33,7 +33,7 @@ function Testefrete({products}) {
 
         const freteData = {
 
-            SellerCEP: "31150220",
+            SellerCEP: "75389334",
             RecipientCEP: cep,
             ShipmentInvoiceValue: 320.685,
             ShippingServiceCode: null,
@@ -114,11 +114,16 @@ function Testefrete({products}) {
                 <select value={value} onChange={handleClickDrop}>
                     {
                         shipping.map((envio, i )=> (
-                            envio.Error ?
+                            (envio.Error && envio.Carrier != 'Retirada na Loja') ?
                                 <option key={i} className="option-error"> {handleFreteError(envio)} Nenhum</option>
                                 :
                                 <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
-                                    {envio.ServiceDescription} - R$ {envio.ShippingPrice} - {envio.DeliveryTime} dias úteis.
+                                    {
+                                    envio.Carrier === 'Retirada na Loja' ?
+                                    `${envio.Carrier} - R$ 0,00 - 0 dias úteis.`
+                                    :
+                                    `${envio.ServiceDescription} - R$ ${envio.ShippingPrice} - ${envio.DeliveryTime} dias úteis.`
+                                    }
                                 </option>
                         ))
                     }

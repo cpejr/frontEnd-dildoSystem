@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Header from '../../components/Header/index';
+import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import CarouselProducts from '../../components/CarouselProducts/CarouselProducts';
 import ControlledCarousel from '../../components/Slider/Slider';

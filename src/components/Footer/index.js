@@ -57,9 +57,9 @@ export default function Footer() {
         </div>
         <div id="ContatoFooter">
         <h3>Contato</h3>
-        <Link to="/about" className="term-link">
-          Email
-        </Link>
+        <div className="term-link">
+          lojacasulus@gmail.com
+        </div>
         <Link to="/conditions" className="term-link">
           Whatsapp
         </Link>
