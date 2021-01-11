@@ -150,6 +150,29 @@
   transition: 0.2s;
 }
 
+
+.header-search .productsSearchHeader input {
+  border: 1.8px solid #000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+
+  padding: 0;
+  margin-left: 10px;
+
+  background: #f9ce56 0% 0% no-repeat padding-box;
+  font-weight: bold;
+}
+
+.header-search .productsSearchHeader input::placeholder {
+  color: black;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+
+
 .header-search-responsive {
   display: none;
 }
@@ -239,6 +262,12 @@ button.to-addresses {
 
 
 @media (max-width: 1370px) {
+  #NewHeader {
+    position: relative;
+  }
+  #fake-header {
+    display: none;
+  }
   .header-container {
     flex-direction: column;
     max-height: 200px !important;
