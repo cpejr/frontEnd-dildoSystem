@@ -28,20 +28,21 @@ function About() {
               <div className="about-paragraph">
                 <h3>Quem Somos</h3>
                 <p>
-                        A Casulus é uma empresa que surgiu da necessidade de atender
+                  A Casulus é uma empresa que surgiu da necessidade de atender
                   pessoas, em especial mulheres, que não se identificavam com os
                   “tradicionais sexshops”. A ideia foi revolucionar o mercado
                   erótico e desconstruir estereótipos em relação ao sexo e à
                   sexualidade.
                 </p>
+                <p>
+                  A loja conta hoje com espaço físico, uma boutique que foi
+                  planejada para trazer conforto e modernidade aos clientes, e
+                  também estar presente no meio digital, tanto no site como nas
+                  principais redes sociais.
+            </p>
               </div>
             </div>
-            <p>
-                    A loja conta hoje com espaço físico, uma boutique que foi
-              planejada para trazer conforto e modernidade aos clientes, e
-              também estar presente no meio digital, tanto no site como nas
-              principais redes sociais.
-            </p>
+
           </div>
         </div>
 
@@ -54,13 +55,13 @@ function About() {
               <div className="about-paragraph">
                 <h3>Missão</h3>
                 <p>
-                        Ser uma empresa que entende e atende as necessidades de nossos
+                  Ser uma empresa que entende e atende as necessidades de nossos
                   clientes, com um atendimento diferenciado e humanizado,
                   oferecendo confiança e qualidade, a preço justo.
                 </p>
                 <h3>Visão</h3>
                 <p>
-                        Ajudar a descontruir mitos e tabus em relação ao sexo e a
+                  Ajudar a descontruir mitos e tabus em relação ao sexo e a
                   sexualidade, e falar de maneira mais descontraída sobre
                   produtos eróticos.
                 </p>
@@ -80,7 +81,7 @@ function About() {
               <div className="about-paragraph">
                 <h3>Oferecemos aos clientes</h3>
                 <p>
-                        Experiência de compra personalizada, em um ambiente que traz
+                  Experiência de compra personalizada, em um ambiente que traz
                   conforto e aconchego. Além disso, trabalhamos com preços
                   justos e com várias formas de pagamento (depósito/
                   transferência bancária, boleto, cartão de débito e
@@ -102,7 +103,7 @@ function About() {
               <div className="about-paragraph">
                 <h3>Nossos produtos</h3>
                 <p>
-                        Trabalhamos com as melhores marcas do segmento erótico,
+                  Trabalhamos com as melhores marcas do segmento erótico,
                   nacionais e importadas, de todas as categorias, inclusive moda
                   sensual. Para oferecer qualidade e inovação aos nossos
                   clientes.
@@ -121,7 +122,7 @@ function About() {
               <div className="about-paragraph">
                 <h3>Entregas</h3>
                 <p>
-                        Experiência de compra personalizada, em um ambiente que traz
+                  Experiência de compra personalizada, em um ambiente que traz
                   conforto e aconchego. Além disso, trabalhamos com preços
                   justos e com várias formas de pagamento (depósito/
                   transferência bancária, boleto, cartão de débito frequentes e

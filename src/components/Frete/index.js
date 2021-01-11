@@ -33,7 +33,7 @@ function Testefrete({products}) {
 
         const freteData = {
 
-            SellerCEP: "31150220",
+            SellerCEP: "75389334",
             RecipientCEP: cep,
             ShipmentInvoiceValue: 320.685,
             ShippingServiceCode: null,

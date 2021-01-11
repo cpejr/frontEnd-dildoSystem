@@ -26,9 +26,11 @@ function Carousel(props) {
   useEffect(() => {
     api.get("Carousel", config).then((response) => {
       setImages(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID));
+      console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
     api.get('banner', config).then((response) => {
       setBannerImages(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID));
+      console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
 
   }, [update]);
@@ -55,7 +57,7 @@ function Carousel(props) {
 
   function handlePositionChangeBanner(id, pos) {
     let newarray = [...bannerImages];
-    for (var i = 0; i < bannerImages.length; i++) {
+    for (let i = 0; i < bannerImages.length; i++) {
       if (bannerImages[i].id === id) {
         newarray[i].position = parseInt(pos);
         setBannerImages(newarray)
@@ -64,10 +66,12 @@ function Carousel(props) {
   }
 
   function handleLinkChangeBanner(id, link) {
-    setLinkBanner(link)
+    // setLinkBanner(link)
+    let newarray = [...bannerImages];
     for (let j = 0; j < bannerImages.length; j++) {
       if (bannerImages[j].id === id) {
         bannerImages[j].link = link
+        setBannerImages(newarray)
       }
     }
   }
@@ -233,7 +237,7 @@ function Carousel(props) {
   }
 
   function callback(key) {
-    console.log(key);
+    // console.log(key);
   }
 
   return (
@@ -271,14 +275,14 @@ function Carousel(props) {
           <div className="divider-banner-sup">
             <Row className="ant-row-images">
               {
-                bannerImages.map((images, i) => (
+                bannerImages.map((image, i) => (
                   <Col span={8} className="col-images">
                     <div className="textbanner">
                       <div className="text-banner-image">
                         {/* <img src={`https://docs.google.com/uc?id=${img.image_id}`} ></img> */}
                         <BannerImages
                           key={`image-${i}`}
-                          image={images}
+                          image={image}
                           update={update}
                           setUpdate={setUpdate}
                           handlePositionChangeBanner={handlePositionChangeBanner}
@@ -291,6 +295,7 @@ function Carousel(props) {
               }
             </Row>
           </div>
+          <span>OBS: o campo de "link" não pode ficar vazio.</span>
           <div className="divider-banner-inf">
 
             <h4>Enviar Nova Imagem</h4>

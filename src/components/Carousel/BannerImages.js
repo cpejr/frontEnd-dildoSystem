@@ -14,8 +14,11 @@ function BannerImages(props) {
   useEffect(() => {
     if (!isNaN(props.image.position))
       setBannerNewPosition(props.image.position)
+  }, [props.image.position]);
+  
+  useEffect(() => {
     setLinkState(props.image.link)
-  }, [props.image.position, props.image.link]);
+  }, [props.image.link]);
 
   const accessToken = localStorage.getItem('accessToken')
 

@@ -7,7 +7,7 @@ import { useCart } from '../../Contexts/CartContext';
 import api from '../../services/api';
 
 function AddedProductPopover({ target }) {
-  const { lastAddedProduct, deleteItem } = useCart();
+  const { lastAddedProduct, setLastAddedProduct, deleteItem } = useCart();
 
   const [product, setProduct] = useState();
   const [show, setShow] = useState(false);
@@ -88,10 +88,10 @@ function AddedProductPopover({ target }) {
 
           <div className="buttons-line">
             <Link to='/cart'>
-              <button className="to-cart" onClick={() => setShow(false)}>Olhar carrinho</button>
+              <button className="to-cart" onClick={() => {setShow(false); setLastAddedProduct(undefined)}}>Olhar carrinho</button>
             </Link>
             <Link to='/addresses'>
-              <button className='to-addresses' onClick={() => setShow(false)}>Pagar</button>
+              <button className='to-addresses' onClick={() => {setShow(false); setLastAddedProduct(undefined)}}>Pagar</button>
             </Link>
           </div>
         </div>

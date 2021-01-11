@@ -1,65 +1,109 @@
-#Header {
-  position: relative;
+#NewHeader {
+  position: fixed;
   top: 0;
-  left: 0;
-  min-width: 100%;
+  width: 100%;
+}
+#header-wrapper {
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 500;
+}
+#fake-header {
+  height: 70px;
 }
 
-#Header .headerSuperior {
+#NewHeader .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-height: 70px;
   width: 100%;
   background: #f9ce56 0% 0% no-repeat padding-box;
+}
+
+
+
+.header-categories {
+  display: flex;
+  width: 55%;
+  height: 100%;
+}
+.header-categories ul,
+.header-categories div {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  height: 70px;
-  padding-right: 20px;
-  overflow-y: hidden;
 }
-
-#Header .headerSuperior .header-content {
-  width: 100%;
-  /* max-width: 1400px; */
+.header-categories ul button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 70px;
-  overflow-y: hidden;
+  background-color: #f9ce56;
 
-  box-sizing: content-box;
-  margin: 0 20px;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+
+  border: none;
+}
+.header-categories div:not(:first-child){
+  border-left: 1px solid;
+  border-radius: 0;
 }
 
+.logoCasulusDashboard {
+  border: none;
+  position: relative;
+  height: 100px;
+  border: none;
+  margin: 0;
+  z-index: 1;
+}
+
+
+
+.userInfoSearch {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+.userInfoSearch .serach-icon {
+  cursor: pointer;
+  margin: 0 4px;
+
+  transition: color 0.3s;
+}
+.userInfoSearch .serach-icon:hover {
+  color: #1890ff;
+}
 .icon-link {
   color: black;
   display: flex;
   align-items: center;
 }
-
 .icon-link > svg:first-child,
 .icon-link-responsive > svg:first-child {
   margin: 0 4px;
   /* width: 25px;
   height: 25px; */
 }
+.userInfoSearch span {
+  font-size: 12px;
+  color: #fff;
+  vertical-align: super;
+  margin-left: -20px;
 
-.user-info {
-  display: flex;
-  align-items: center;
-}
-.user-info p {
-  margin-bottom: 0;
-  font-weight: bold;
+  border: 2px solid white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
 
-#Header .header-search {
-  display: flex;
-  justify-content: center;
-  background: #f9ce56 0% 0% no-repeat padding-box;
-  position: absolute;
-  width: 100%;
-  z-index: 10;
 
-  transition: 0.2s;
-}
 
 /*animações do menu*/
 .search-menu-enter {
@@ -93,24 +137,19 @@
 }
 /*----------------------------*/
 
-.header-search .productsSearchHeader {
+
+
+#NewHeader .header-search {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-
+  background: #f9ce56 0% 0% no-repeat padding-box;
+  position: absolute;
   width: 100%;
-  max-width: 860px;
+  z-index: 10;
 
-  padding-top: 60px;
-  padding-bottom: 15px;
+  transition: 0.2s;
 }
-.header-search .productsSearchHeader form {
-  display: flex;
-  align-items: center;
 
-  width: 100%;
-}
 
 .header-search .productsSearchHeader input {
   border: 1.8px solid #000;
@@ -132,257 +171,11 @@
   font-size: 22px;
 }
 
-#Header .headerInferior {
-  display: none;
-  /* background-color: #ddbd69;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* min-height: 60px;
-  height: 75px; */
-}
 
-#Header .headerInferior .header-content {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 
-  box-sizing: content-box;
-  margin: 0 20px;
-}
-#Header .headerInferior .header-content a {
-  display: flex;
-  justify-content: start;
-}
-
-#Header .headerInferior a {
-  color: #000000;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-#Header .headerInferior .links {
-  margin: 0px;
-  width: 100%;
-}
-#Header .headerInferior .links.active {
-  right: 0;
-}
-
-#Header .headerInferior .links.active a {
-  opacity: 1;
-}
-#Header .headerSuperior .userInfoSearch .form-group {
-  margin-bottom: 0;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  min-width: 348px;
-  width: 35vw;
-  max-width: 600px;
-  height: 40px;
-}
-#Header .headerSuperior .userInfoSearch .has-search .form-control {
-  padding-left: 50px;
-  border-radius: 20px;
-  height: 100%;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-#Header .headerSuperior .userInfoSearch .has-search .form-control-feedback {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 2.375rem;
-  height: 2.375rem;
-  line-height: 2.375rem;
-  margin: 0 0 0 10px !important;
-  text-align: center;
-  pointer-events: none;
-  color: #616161;
-}
-
-.header-categories {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.header-categories ul {
-  margin: 0;
-  padding: 0;
-
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.header-categories ul li {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-}
-
-.header-categories li:not(:first-child):before {
-  content: " | ";
-}
-
-/* .dropdown {
-  position: relative;
-  display: inline-block;
-  overflow-wrap: normal;
-
-  max-width: none;
-  width: 100%;
-} */
-
-.menu-dropdown {
-  /* position: relative !important;
-  z-index: 500; */
-}
-
-.dropbtn {
-  background-color: transparent;
-  color: black;
-  padding: 8px;
-  font-size: 1em;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  white-space: nowrap;
-}
-
-.dropdown .dropbtn svg {
-  color: black;
-}
-
-.dropdown-content {
-  /* display: none; */
-  position: absolute;
-
-  min-width: 120px;
-  z-index: 2;
-  top: 40px;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.dropdown-content button {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  background-color: #f9f9f9;
-  border: none;
-  width: 100%;
-  text-align: center;
-}
-.dropdownLinks {
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  background-color: #f9f9f9;
-}
-.dropdown-content button:hover {
-  background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.logoCasulusDashboard {
-  border: none;
-  position: relative;
-  height: 100px;
-  border: none;
-  margin: 0;
-  z-index: 1;
-}
-.logoNameCasulusDashboard {
-  border: none;
-  position: relative;
-  left: -40px;
-  height: 180px;
-  border: none;
-  margin: 0;
-}
-.headerImg {
-  display: none;
-}
-.dropdown-content .emptyHeaderDiv {
-  height: 32px;
-  background-color: var(--mainColor);
-  opacity: 0;
-  min-width: 120px;
-  border: none;
-}
-
-.userInfoSearch .serach-icon {
-  cursor: pointer;
-  margin: 0 4px;
-
-  transition: color 0.3s;
-}
-.userInfoSearch .serach-icon:hover {
-  color: #1890ff;
-}
-
-.icon-link-responsive {
-  /* position: absolute; */
-  z-index: 1000;
-  cursor: pointer;
-  margin-right: 10px;
-  margin-top: 20px;
-  display: none;
-}
-
-.user-info-responsive {
-  /* position: absolute; */
-  z-index: 1000;
-  cursor: pointer;
-  margin-right: 10px;
-  margin-top: 20px;
-  display: none;
-}
-
-.responsive-search {
-  display: none;
-}
 .header-search-responsive {
   display: none;
 }
-
-.loginBtn {
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ddbd69;
-  color: black;
-  transition: background-color 200ms;
-}
-.loginBtn:hover {
-  background-color: #b49852;
-}
-
-.header-content #lblCartCount {
-  font-size: 12px;
-  color: #fff;
-  vertical-align: super;
-  margin-left: -20px;
-  border: 2px solid white;
-}
-.header-content .badge {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.header-content .label-warning[href],
-.header-content .badge-warning[href] {
-  background-color: #ddbd69;
-}
-
 .responsive-header-superior{
   display: flex;
   justify-content: space-around;
@@ -395,253 +188,22 @@
   width: 100%;
   justify-content: flex-end;
   height: 100%;
-  /* margin-left: 25%; */
 }
-
 .responsive-header-superior .burger-icon {
-  /* width: 100%; */
   margin-left: 10px;
   margin-right: 10px;
 }
-
-
-
-
-@media (max-width: 1220px) {
-  .header-content {
-    flex-direction: column;
-    height: auto !important;
-    margin: 0 !important;
-  }
-  .headerSuperior {
-    padding-bottom: 2%;
-    height: auto !important;
-    margin-right: 0;
-    padding-right: 0 !important;
-  }
+.dropbtn {
+  background-color: transparent;
+  color: black;
+  padding: 8px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  white-space: nowrap;
 }
 
-@media (max-width: 1200px) {
-  .dropbtn {
-    background-color: transparent;
-    color: black;
-    padding: 14px;
-    font-size: 13px;
-    border: none;
-    cursor: pointer;
-  }
-}
-
-@media (max-width: 1050px) {
-  .dropbtn {
-    background-color: transparent;
-    color: black;
-    padding: 10px;
-    font-size: 13px;
-    border: none;
-    cursor: pointer;
-  }
-}
-@media (max-width: 975px) {
-  .dropbtn {
-    background-color: transparent;
-    color: black;
-    padding: 10px;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
-  }
-}
-
-@media (max-width: 925px) {
-  .dropbtn {
-    background-color: transparent;
-    color: black;
-    padding: 10px;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
-  }
-  .emptyDiv {
-    height: 75px;
-    background-color: var(--mainColor);
-    width: 100%;
-    margin-bottom: 20px;
-    border: none;
-  }
-  .dropdown {
-    display: contents;
-  }
-  .logoNameCasulusDashboard {
-    display: none;
-  }
-  .logoCasulusDashboard {
-    /* display: none; */
-  }
-  .headerImg {
-    display: block;
-    height: 75px;
-    margin: 0;
-  }
-  #Header .headerInferior .links {
-    position: fixed;
-    z-index: 999;
-    right: -100%;
-    top: 0;
-    background-color: #ffffff;
-    display: flex !important;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    width: 60%;
-    min-height: 100%;
-    -ms-overflow-style: none;
-    /* padding-top: 70px; */
-    /*overflow-y: scroll;*/
-    transition: all 0.5s ease-out;
-  }
-  #Header .headerInferior .links::-webkit-scrollbar {
-    display: none;
-  }
-
-  #Header .headerInferior {
-    background-color: var(--mainColor);
-  }
-  #Header .headerSuperior {
-    display: none;
-  }
-  #Header .headerInferior .links a,
-  #Header .links .linksSuperior .linguagens h3 {
-    opacity: 0;
-    margin-bottom: 25px;
-  }
-  .dropdown-content {
-    position: initial;
-  }
-  .icone {
-    color: #000000;
-  }
-
-  #Header .header-search-responsive {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-
-    background: #f9ce56 0% 0% no-repeat padding-box;
-  }
-  .header-search-responsive .productsSearchHeader-responsive {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    max-width: 860px;
-
-    padding-top: 35px;
-    padding-bottom: 15px;
-  }
-  .header-search-responsive .productsSearchHeader-responsive input {
-    border: 1.8px solid #000;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-
-    padding: 0;
-    margin-left: 10px;
-
-    background: #f9ce56 0% 0% no-repeat padding-box;
-    font-weight: bold;
-  }
-  .header-search-responsive
-    .productsSearchHeader-responsive
-    input::placeholder {
-    color: black;
-    font-weight: bold;
-    font-size: 22px;
-  }
-
-  .header-search-responsive .responsive-menu {
-    display: flex;
-    justify-content: center;
-
-    margin-top: 385px;
-    background: #F9CE56 0% 0% no-repeat padding-box;
-
-    margin-top: 400px;
-    background: #f9ce56 0% 0% no-repeat padding-box;
-
-    position: absolute;
-    width: 100%;
-    z-index: 30;
-
-    transition: 0.2s;
-  }
-
-  .responsive-menu ul {
-    padding: 0;
-  }
-
-  .responsive-menu ul li {
-    list-style-type: none;
-  }
-
-  .responsive-search {
-    display: flex;
-    align-items: center;
-    height: 60px;
-    padding: 10px;
-    background-color: #ddbd69;
-    margin-right: auto;
-  }
-  .responsive-search input {
-    height: 40px;
-  }
-  .responsive-search button {
-    border: none;
-    background-color: var(--mainColor);
-    color: black;
-    height: 40px;
-    width: 40px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .responsive-search button svg {
-    margin: 0 !important;
-  }
-
-  .icon-link-responsive {
-    display: block;
-    margin-right: 30px !important;
-  }
-
-  .user-info-responsive {
-    display: block;
-    margin: 0px;
-  }
-
-  .icon-link-responsive svg {
-    margin: 0 !important;
-  }
-}
-.iconsDashboard {
-  display: flex;
-  flex-direction: row;
-}
-
-.loginButton {
-  margin-left: 2vh;
-}
-
-.userInfoSearch {
-  display: flex;
-  align-items: center;
-}
 
 .popover {
   border: 2px solid black;
@@ -695,4 +257,95 @@ button.to-addresses {
   border: 1px solid black;
   background-color: black;
   color: white;
+}
+
+
+
+@media (max-width: 1370px) {
+  #NewHeader {
+    position: relative;
+  }
+  #fake-header {
+    display: none;
+  }
+  .header-container {
+    flex-direction: column;
+    max-height: 200px !important;
+  }
+}
+
+@media (max-width: 1110px) {
+  .header-categories ul span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .header-container {
+    display: none !important;
+  }
+
+  #NewHeader .header-search-responsive {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+    background: #f9ce56 0% 0% no-repeat padding-box;
+  }
+  .header-search-responsive .productsSearchHeader-responsive {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: 860px;
+
+    padding-top: 35px;
+    padding-bottom: 15px;
+  }
+  .header-search-responsive .productsSearchHeader-responsive input {
+    border: 1.8px solid #000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+
+    padding: 0;
+    margin-left: 10px;
+
+    background: #f9ce56 0% 0% no-repeat padding-box;
+    font-weight: bold;
+  }
+  .header-search-responsive
+    .productsSearchHeader-responsive
+    input::placeholder {
+    color: black;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .header-search-responsive .responsive-menu {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 385px;
+    background: #F9CE56 0% 0% no-repeat padding-box;
+
+    position: absolute;
+    width: 100%;
+    z-index: 30;
+
+    transition: 0.2s;
+  }
+
+  .responsive-menu ul {
+    padding: 0;
+  }
+
+  .responsive-menu ul li {
+    list-style-type: none;
+  }
 }
