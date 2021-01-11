@@ -30,7 +30,7 @@ export default function Header() {
   const [categoryWidth, setCategoryWidth] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
   const [showResMenu, setShowResMenu] = useState(false);
-  
+
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
@@ -38,6 +38,7 @@ export default function Header() {
 
   const headerRef = createRef();
   const bagRef = useRef();
+  const heightRef = useRef();
 
 
   useEffect(() => {
@@ -88,114 +89,122 @@ export default function Header() {
   }
 
   return (
-    <div id="NewHeader">
-      <div className="header-container">
-        <Link to="/">
-          <img className="logoCasulusDashboard" src={Logo} alt="logo" />
-        </Link>
-
-        <div className="header-categories">
-          <CSSTransition
-            in={showSearch === false}
-            unmountOnExit
-            timeout={500}
-            classNames="categories-header-trans"
-          >
-            <ul>
-              {
-                categories.map(function (cat) {
-                  const menu = (
-                    <Menu>
-                      {cat.subcategories.map((subcat, i) => (
-                        <Menu.Item key={i} onClick={() => handleSubcategory(subcat.id)}>
-                          {subcat.name}
-                        </Menu.Item>
-                      ))}
-                    </Menu>
-                  )
-                  return (
-                    <Space direction="vertical">
-                      <Space wrap>
-                        <Dropdown className="dropdown-header" overlay={menu} placement="bottomCenter" onClick={() => handleCategory(cat.id)}>
-                          <Button>{cat.name}</Button>
-                        </Dropdown>
-                      </Space>
-                    </Space>
-                  )
-                })
-              }
-            </ul>
-          </CSSTransition>
-
-        </div>
-
-        <div className="userInfoSearch">
-          {
-            showSearch ?
-              <CSSTransition
-                in={showSearch}
-                unmountOnExit
-                timeout={500}
-                classNames="search-menu"
-              >
-                <VscChromeClose className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
-              </CSSTransition>
-              :
-              <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
-          }
-
-          <Link
-            to={loginContext.type === "admin" ? "/admin" : "/user"}
-            className="icon-link user-info"
-          >
-            <FaRegUser size={30} />
-          </Link>
-
-          {
-            loginContext.loggedIn ?
-              <Link
-                to={"/user/wishlist"}
-                className="icon-link"
-              >
-                < IoMdHeartEmpty size={34} style={{ margin: 0 }} />
-              </Link>
-              :
-              < IoMdHeartEmpty size={34} />
-          }
-
-          <Link to="/cart" className="icon-link" ref={bagRef}>
-            <HiOutlineShoppingBag size={32} />
-            <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
-          </Link>
-
-          {console.log('bagRef', bagRef)}
-          <AddedProductPopover target={bagRef} />
-
-        </div>
-
+    <div id="header-wrapper" style={{ minHeight: heightRef.current && heightRef.current.scrollHeight }}>
+      <div id="fake-header">
 
       </div>
 
-      <SearchBar
-        showSearch={showSearch}
-        handleSubmit={handleSubmit}
-        search={search}
-        setSearch={setSearch}
-      />
+      <div id="NewHeader">
+        <div id="NewHeader">
+          <div className="header-container">
+            <Link to="/">
+              <img className="logoCasulusDashboard" src={Logo} alt="logo" />
+            </Link>
 
-      <ResponsiveSearch
-        className="responsive-search"
-        search={search}
-        setSearch={setSearch}
-        handleSubmit={handleSubmit}
-        showResMenu={showResMenu}
-        setShowResMenu={setShowResMenu}
-        showSearch={showSearch}
-        categories={categories}
-        handleCategory={handleCategory}
-        cartQuantity={cartQuantity}
-      />
+            <div className="header-categories">
+              <CSSTransition
+                in={showSearch === false}
+                unmountOnExit
+                timeout={500}
+                classNames="categories-header-trans"
+              >
+                <ul>
+                  {
+                    categories.map(function (cat) {
+                      const menu = (
+                        <Menu>
+                          {cat.subcategories.map((subcat, i) => (
+                            <Menu.Item key={i} onClick={() => handleSubcategory(subcat.id)}>
+                              {subcat.name}
+                            </Menu.Item>
+                          ))}
+                        </Menu>
+                      )
+                      return (
+                        <Space direction="vertical">
+                          <Space wrap>
+                            <Dropdown className="dropdown-header" overlay={menu} placement="bottomCenter" onClick={() => handleCategory(cat.id)}>
+                              <Button>{cat.name}</Button>
+                            </Dropdown>
+                          </Space>
+                        </Space>
+                      )
+                    })
+                  }
+                </ul>
+              </CSSTransition>
 
+            </div>
+
+            <div className="userInfoSearch">
+              {
+                showSearch ?
+                  <CSSTransition
+                    in={showSearch}
+                    unmountOnExit
+                    timeout={500}
+                    classNames="search-menu"
+                  >
+                    <VscChromeClose className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
+                  </CSSTransition>
+                  :
+                  <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
+              }
+
+              <Link
+                to={loginContext.type === "admin" ? "/admin" : "/user"}
+                className="icon-link user-info"
+              >
+                <FaRegUser size={30} />
+              </Link>
+
+              {
+                loginContext.loggedIn ?
+                  <Link
+                    to={"/user/wishlist"}
+                    className="icon-link"
+                  >
+                    < IoMdHeartEmpty size={34} style={{ margin: 0 }} />
+                  </Link>
+                  :
+                  < IoMdHeartEmpty size={34} />
+              }
+
+              <Link to="/cart" className="icon-link" ref={bagRef}>
+                <HiOutlineShoppingBag size={32} />
+                <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
+              </Link>
+
+              {console.log('bagRef', bagRef)}
+              <AddedProductPopover target={bagRef} />
+
+            </div>
+
+
+          </div>
+
+          <SearchBar
+            showSearch={showSearch}
+            handleSubmit={handleSubmit}
+            search={search}
+            setSearch={setSearch}
+          />
+
+          <ResponsiveSearch
+            className="responsive-search"
+            search={search}
+            setSearch={setSearch}
+            handleSubmit={handleSubmit}
+            showResMenu={showResMenu}
+            setShowResMenu={setShowResMenu}
+            showSearch={showSearch}
+            categories={categories}
+            handleCategory={handleCategory}
+            cartQuantity={cartQuantity}
+          />
+
+        </div>
+      </div>
     </div>
   )
 }

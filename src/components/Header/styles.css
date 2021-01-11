@@ -1,5 +1,16 @@
 #NewHeader {
+  position: fixed;
+  top: 0;
   width: 100%;
+}
+#header-wrapper {
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 500;
+}
+#fake-header {
+  height: 70px;
 }
 
 #NewHeader .header-container {
@@ -168,6 +179,61 @@
   cursor: pointer;
   width: 100%;
   white-space: nowrap;
+}
+
+
+.popover {
+  border: 2px solid black;
+  background-color: var(--mainColor);
+}
+.arrow,
+.arrow::after,
+.arrow::before {
+  border-bottom-color: black !important;
+}
+
+.cart-popover-wrapper {
+  width: 300px !important;
+  padding: 20px;
+  padding-right: 50px;
+}
+.cart-popover-wrapper hr {
+  color: black;
+  border: 1px solid black;
+  margin: 0;
+}
+
+.price-and-remove-line {
+  display: flex;
+  justify-content: space-between;
+}
+.price-and-remove-line button {
+  justify-content: space-between;
+  border: none;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  text-decoration: underline;
+}
+
+.subtotal-balao {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+button.to-cart {
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+}
+button.to-addresses {
+  border: 1px solid black;
+  background-color: black;
+  color: white;
 }
 
 

@@ -100,7 +100,7 @@ function CartContextProvider({ children }) {
         let id_found = false;
         let products = [];
         productsChanged.current = true;
-        if (minCart) {
+        if (minCart  && !cameFromModal) {
             products = minCart;
             notification.open({
                 message: 'Sucesso!',
@@ -177,7 +177,7 @@ function CartContextProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart: localCart, addItem, deleteItem, clear, totalQuantity, changeQuantity, lastAddedProduct }}>
+        <CartContext.Provider value={{ cart: localCart, addItem, deleteItem, clear, totalQuantity, changeQuantity, lastAddedProduct, setLastAddedProduct }}>
             {children}
         </CartContext.Provider>
     );
