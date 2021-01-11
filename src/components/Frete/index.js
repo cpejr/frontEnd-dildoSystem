@@ -114,16 +114,11 @@ function Testefrete({products}) {
                 <select value={value} onChange={handleClickDrop}>
                     {
                         shipping.map((envio, i )=> (
-                            (envio.Error && envio.Carrier != 'Retirada na Loja') ?
+                            envio.Error ?
                                 <option key={i} className="option-error"> {handleFreteError(envio)} Nenhum</option>
                                 :
                                 <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
-                                    {
-                                    envio.Carrier === 'Retirada na Loja' ?
-                                    `${envio.Carrier} - R$ 0,00 - 0 dias úteis.`
-                                    :
-                                    `${envio.ServiceDescription} - R$ ${envio.ShippingPrice} - ${envio.DeliveryTime} dias úteis.`
-                                    }
+                                    {envio.ServiceDescription} - R$ {envio.ShippingPrice} - {envio.DeliveryTime} dias úteis.
                                 </option>
                         ))
                     }
