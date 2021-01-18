@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import CarouselFooter from '../../components/CarouselFooter';
 import FeaturedImages from '../../components/DashboardNewImages';
 import Instafeed from '../../components/Instafeed';
+import WhatsAppButton from '../../components/WhatsAppButton'
 
 import './styles.css';
 
@@ -43,6 +44,8 @@ function Dashboard(props) {
                 <div className="best_seller-container">
                     <ProductCard best_sellerOnly />
                 </div>
+
+                <WhatsAppButton />
             </div>
             <div>
                 <div className="insta-div">

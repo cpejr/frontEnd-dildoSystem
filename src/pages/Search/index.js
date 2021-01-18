@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
 import Filters from './Filters';
 import { SearchContext } from '../../Contexts/SearchContext';
+import WhatsAppButton from '../../components/WhatsAppButton'
 
 import api from '../../services/api';
 
@@ -73,6 +74,8 @@ function Search(props) {
           </div>
 
           <ProductCard />
+
+          <WhatsAppButton />
 
         </div>
 

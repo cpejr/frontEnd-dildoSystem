@@ -4,6 +4,7 @@ import "./styles.css";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import WhatsAppButton from '../../components/WhatsAppButton'
 
 export default function TermsandConditions() {
     return (
@@ -35,6 +36,7 @@ Ea minim consectetur eiusmod reprehenderit sunt eu deserunt reprehenderit quis. 
 In pariatur velit eu proident do. Eu qui irure do mollit quis quis consectetur consectetur velit amet dolor. Culpa magna et tempor amet sunt ipsum sunt officia tempor ipsum sint tempor nostrud. Do irure labore nostrud enim qui duis deserunt.
             </div>
         </div>
+        <WhatsAppButton />
         <Footer />
         </div>
     )

@@ -5,7 +5,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import './styles.css'
 
-function Testefrete({products}) {
+function Testefrete({products, totalprice}) {
     const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
@@ -35,7 +35,7 @@ function Testefrete({products}) {
 
             SellerCEP: "75389334",
             RecipientCEP: cep,
-            ShipmentInvoiceValue: 320.685,
+            ShipmentInvoiceValue: totalprice,
             ShippingServiceCode: null,
             ShippingItemArray: produtos,
             RecipientCountry: "BR"

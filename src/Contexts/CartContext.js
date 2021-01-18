@@ -100,19 +100,19 @@ function CartContextProvider({ children }) {
         let id_found = false;
         let products = [];
         productsChanged.current = true;
-        if (minCart  && !cameFromModal) {
+        if (minCart) {
             products = minCart;
-            notification.open({
-                message: 'Sucesso!',
-                description:
-                    'O produto foi adicionado ao carrinho.',
-                className: 'ant-notification',
-                top: '100px',
-                icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
-                style: {
-                    width: 600,
-                },
-            });
+            // notification.open({
+            //     message: 'Sucesso!',
+            //     description:
+            //         'O produto foi adicionado ao carrinho.',
+            //     className: 'ant-notification',
+            //     top: '100px',
+            //     icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+            //     style: {
+            //         width: 600,
+            //     },
+            // });
         }
         for (var i = 0; i < products.length; i++) {
             if (product_id === products[i].product_id && subproduct_id && subproduct_id === products[i].subproduct_id) {

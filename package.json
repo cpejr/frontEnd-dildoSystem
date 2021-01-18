@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "infinite-react-carousel": "^1.2.11",
+    "origen-react-instagram-feed": "0.0.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-carousel": "^4.0.7",

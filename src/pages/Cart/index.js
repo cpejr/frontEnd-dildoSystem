@@ -75,7 +75,7 @@ function Cart(props) {
           </div>
           <div className="borderEmpty"></div>
           <div className='container frete'>
-            <Frete products={cart} />
+            <Frete products={cart} totalprice={totalPrice}/>
           </div>
           <div className="button-area">
             {cart && cart.length > 0 && (<Link to="/addresses">
