@@ -30,7 +30,7 @@ function Main(props) {
     })
       .then((response) => {
         setPendingOrders(response.data);
-        
+
       });
   }, []);
 
@@ -42,7 +42,7 @@ function Main(props) {
     })
       .then((response) => {
         setOrders(response.data);
-      
+
       });
   }, []);
 
@@ -81,7 +81,7 @@ function Main(props) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-       
+
       });
     }
   }
