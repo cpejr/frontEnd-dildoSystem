@@ -16,13 +16,22 @@ const contentStyle = {
 export default function Insta() {
   const [feed, setFeed] = useState();
 
-  useEffect(() => {
+  /* useEffect(() => {
     getInstagramFeedInfo('vitormsouza_').then((res) => {
       setFeed(res);
       console.log(res)
     }
     )
-  }, [])
+  }, []) */
+
+  useEffect(() => {
+    /*  const response = await fetch(proxyUrl + targetUrl, requestOptions); */
+    fetch(`https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables=%7B%22id%22:%2219360403638%22,%22first%22:20,%22after%22:null%7D`).then(response => {
+      response.json().then((formattedResponse) => {
+        console.log(formattedResponse)
+      })
+    })
+  }, []);
 
 
   return (
@@ -35,12 +44,12 @@ export default function Insta() {
 
       <Carousel autoplay>
         <div>
-          { feed && feed.media.map((img) => (
+          {feed && feed.media.map((img) => (
 
             < ImageLoader
-            src = {`${img.displayImage}`}
-            // loading={() => <img src={loading} alt="Loading..." />}
-            error={() => <div>Error</div>}
+              src={`${img.displayImage}`}
+              // loading={() => <img src={loading} alt="Loading..." />}
+              error={() => <div>Error</div>}
             />
 
           ))}
