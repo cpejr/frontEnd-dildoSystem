@@ -12,6 +12,7 @@ import Frete from '../../components/Frete'
 
 import { useCart } from '../../Contexts/CartContext';
 import api from '../../services/api'
+import Insta from "../../components/Instagram";
 
 
 function Cart(props) {
@@ -75,7 +76,7 @@ function Cart(props) {
           </div>
           <div className="borderEmpty"></div>
           <div className='container frete'>
-            <Frete products={cart} totalprice={totalPrice}/>
+            <Frete products={cart} totalprice={totalPrice} />
           </div>
           <div className="button-area">
             {cart && cart.length > 0 && (<Link to="/addresses">
@@ -91,6 +92,7 @@ function Cart(props) {
         </div>
 
       </div>
+      <Insta />
       <Footer />
     </div>
   );
