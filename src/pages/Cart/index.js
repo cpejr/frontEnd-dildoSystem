@@ -92,7 +92,6 @@ function Cart(props) {
         </div>
 
       </div>
-      <Insta />
       <Footer />
     </div>
   );
