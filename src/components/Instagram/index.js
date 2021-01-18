@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Carousel } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Carousel } from 'react-bootstrap';
 import ImageLoader from "react-loading-image";
 
 import './styles.css'
 
 export default function Insta() {
-  const [feed, setFeed] = useState();
   const [picsPerSlide, setPicsPerSlide] = useState(Math.max(Math.floor(window.innerWidth / 330), 1));
+  const [feed, _setFeed] = useState();
+  const feedRef = useRef(feed);
+
+  function setFeed(newFeed) {
+    _setFeed(newFeed);
+    feedRef.current = newFeed;
+  }
 
   useEffect(() => {
     fetch(`https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables=%7B%22id%22:%2219360403638%22,%22first%22:20,%22after%22:null%7D`).then(response => {
@@ -20,23 +26,50 @@ export default function Insta() {
         }
         setFeed(newFeed);
 
-        //setFeed(formattedResponse.data.user.edge_owner_to_timeline_media.edges)
-
       })
     })
   }, []);
 
+  useEffect(() => {
+    function updateSlides() {
+
+      let feed = feedRef.current;
+
+      if (!feed) return;
+
+      const newNbOfSlides = Math.max(Math.floor(window.innerWidth / 330), 1);
+
+      const allPics = feed.reduce((acc, current) => [...acc, ...current]);
+
+      let newFeed = [];
+
+      while (allPics.length) {
+        newFeed.push(allPics.splice(0, newNbOfSlides));
+      }
+      setFeed(newFeed);
+      setPicsPerSlide(newNbOfSlides);
+
+    }
+
+    window.addEventListener('resize', updateSlides);
+
+    return () => window.removeEventListener('resize', updateSlides)
+  }, [])
+
 
   return (
     <div>
-      <Carousel /* autoplay */>
+      <Carousel interval={3000}/* autoplay */>
         {
           feed && feed.map((slide, index) => (
-            <div className="ig-slide" key={`slide-${index}`}>
-              {slide.map((img, index) => (
-                <IgImage node={img.node} key={`pic-${index}`} />
-              ))}
-            </div>
+            <Carousel.Item key={`slide-${index}`}>
+              <div className="ig-slide" >
+                {slide.map((img, index) => (
+                  <IgImage node={img.node} key={`pic-${index}`} />
+                ))}
+              </div>
+            </Carousel.Item>
+
           ))
         }
       </Carousel>
