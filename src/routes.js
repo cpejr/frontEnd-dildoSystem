@@ -20,6 +20,7 @@ import NotFound from './components/NotFound'
 import About from './pages/About'
 import Checkout from './pages/checkoutPage'
 import CatNSubCat from './pages/CategoriasESubcategorias'
+import Insta from './components/Instagram'
 
 function Routes() {
     return (
@@ -42,6 +43,7 @@ function Routes() {
                             <Route path='/about' component={About} />
                             <Route path='/conditions' component={TermsandConditions} />
                             <Route path='/checkout/:order_id' component={Checkout} />
+                            <Route path='/insta' component={Insta} />
                             <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>
