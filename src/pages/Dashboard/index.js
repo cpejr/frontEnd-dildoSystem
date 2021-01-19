@@ -11,6 +11,7 @@ import Instafeed from '../../components/Instafeed';
 import WhatsAppButton from '../../components/WhatsAppButton'
 
 import './styles.css';
+import Insta from '../../components/Instagram';
 
 function Dashboard(props) {
     const [search, setSearch] = useState();
@@ -51,9 +52,11 @@ function Dashboard(props) {
                 <div className="insta-div">
                     <br></br>
 
-                    <h3><img alt="instagram-icon" src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50"/>    Confira nosso Instagram:</h3>
-                {/* <Instafeed /> */}
-      
+                    <h3><img alt="instagram-icon" src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50" />    Confira nosso Instagram:</h3>
+
+                    {/* <Instafeed /> */}
+                    <Insta />
+
                 </div>
                 <br></br>
             </div>
