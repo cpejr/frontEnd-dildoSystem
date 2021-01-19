@@ -130,9 +130,8 @@ function Addresses() {
   async function handleSubmitNewAddress(e) {
     e.preventDefault();
 
-
     if (newAddress.street
-      && newAddress.number
+      // && newAddress.number
       && newAddress.neighborhood
       && newAddress.state
       && newAddress.city
@@ -273,7 +272,11 @@ function Address({ onClick, address, selected, index }) {
 
   return (
     <div>
-      <Radio value={index} ><p>{`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}</p></Radio>
+      <Radio value={index} >
+        <p>
+          {`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}
+        </p>
+      </Radio>
       {/* <p>{`${address.street}, ${address.number}, ${address.complement}`}</p>
       <p>{address.neighborhood}</p>
       <p>{`${address.city} - ${address.state}`}</p>

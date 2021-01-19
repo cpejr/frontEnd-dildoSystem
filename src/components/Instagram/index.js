@@ -29,6 +29,7 @@ export default function Insta() {
     fetch(`https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables=%7B%22id%22:%2219360403638%22,%22first%22:20,%22after%22:null%7D`).then(response => {
       response.json().then((formattedResponse) => {
         console.log(formattedResponse)
+        setFeed()
       })
     })
   }, []);

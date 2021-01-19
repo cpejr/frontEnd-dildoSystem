@@ -181,7 +181,7 @@ export default function Header() {
                 <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
               </Link>
 
-              {console.log('bagRef', bagRef)}
+              {/* {console.log('bagRef', bagRef)} */}
               <AddedProductPopover target={bagRef} />
 
             </div>

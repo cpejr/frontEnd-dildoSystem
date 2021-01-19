@@ -13,7 +13,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
     }
   });
   const freteData = {
-    SellerCEP: "31150220",
+    SellerCEP: "75389334",
     RecipientCEP: cepDestino,
     ShipmentInvoiceValue: totalPrice, //MODIFICAR PARA PREÇO CORRETO
     ShippingServiceCode: null,
@@ -104,7 +104,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
       "Items": items
     },
     "Shipping": {
-      "SourceZipCode": "31160430",
+      "SourceZipCode": "75389334",
       "TargetZipCode": address.zipcode,
       "Type": "FixedAmount",
       "Services": shippingServices,
