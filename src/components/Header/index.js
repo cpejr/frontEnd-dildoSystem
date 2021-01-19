@@ -121,7 +121,7 @@ export default function Header() {
                         </Menu>
                       )
                       return (
-                        <Space direction="vertical">
+                        <Space direction="vertical" key={cat.name}>
                           <Space wrap>
                             <Dropdown className="dropdown-header" overlay={menu} placement="bottomCenter" onClick={() => handleCategory(cat.id)}>
                               <Button>{cat.name}</Button>
