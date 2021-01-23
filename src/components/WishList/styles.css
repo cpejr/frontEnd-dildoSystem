@@ -73,12 +73,9 @@
   font-size: 1.1em;
 }
 
-.wish-delete {
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
 .delete-button {
   border: none;
+  background: transparent;
 }
 
 .wish-button:hover {

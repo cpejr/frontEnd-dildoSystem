@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
 import { notification } from 'antd';
+import { Radio, Input } from 'antd';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import './styles.css'
 
-function Testefrete({products, totalprice}) {
+function Testefrete({ products, totalprice }) {
     const [cep, setCEP] = useState('');
     const [shipping, setShipping] = useState([]);
     const [value, setValue] = useState('');
+    const [radio, setRadio] = useState('')
 
     let produtos = []
 
@@ -21,7 +23,7 @@ function Testefrete({products, totalprice}) {
         products.map(p => (
             produtos.push(
                 {
-                    Weight: (p.weight/1000),
+                    Weight: (p.weight / 1000),
                     Height: p.height,
                     Width: p.width,
                     Length: p.length,
@@ -56,7 +58,7 @@ function Testefrete({products, totalprice}) {
         const response = fetch(proxyUrl + targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log('pegou data da frenet',data)
+                console.log('pegou data da frenet', data)
                 // console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
@@ -72,21 +74,31 @@ function Testefrete({products, totalprice}) {
 
     function handleFreteError(envio) {
 
-        if(((envio.ServiceDescription === "SEDEX") && envio.Error))
-        {
-            console.log(envio.ServiceDescription )
+        if (((envio.ServiceDescription === "SEDEX") && envio.Error)) {
+            console.log(envio.ServiceDescription)
             notification.open({
-            message: 'Erro',
-            description:
-              envio.Msg,
-            className: 'ant-notification',
-            top: '100px',
-            icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
-            style: {
-              width: 600,
-            },
-          })
+                message: 'Erro',
+                description:
+                    envio.Msg,
+                className: 'ant-notification',
+                top: '100px',
+                icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
+                style: {
+                    width: 600,
+                },
+            })
         }
+    }
+
+    const radioStyle = {
+        display: 'block',
+        height: 'auto',
+        lineHeight: '30px',
+    };
+
+    function onChange(e) {
+        console.log('radio checked', e.target.value);
+        setRadio(e.target.value)
     }
 
 
@@ -98,11 +110,11 @@ function Testefrete({products, totalprice}) {
                 <div className='setCep d-flex'>
                     <label>Entrega:</label>
                     <div className='inputCep d-flex'>
-                        <input 
-                            type="text" 
-                            value={cep} 
-                            onChange={(e) => setCEP(e.target.value)} 
-                            placeholder="CEP" 
+                        <input
+                            type="text"
+                            value={cep}
+                            onChange={(e) => setCEP(e.target.value)}
+                            placeholder="CEP"
                         />
                         <button type="submit" value="Enviar" >Enviar</button>
                     </div>
@@ -110,20 +122,40 @@ function Testefrete({products, totalprice}) {
                 </div>
             </form>
             <span>{`Preço do frete: `}</span>
-            <div className="dropdown-cart-ship">
+            {
+                shipping ?
+                    <div className="frete-options-area">
+                        <Radio.Group onChange={(e) => onChange(e)} value={radio}>
+                            {
+                                shipping.map((envio, i) => (
+                                    envio.Error ?
+                                        <option key={i} className="option-error"> {handleFreteError(envio)} Nenhum</option>
+                                        :
+                                        <Radio style={radioStyle} value={i} key={i}>
+                                            {envio.ServiceDescription} - R$ {envio.ShippingPrice} - {envio.DeliveryTime} dias úteis.
+                                        </Radio>
+                                ))
+                            }
+                        </Radio.Group>
+                    </div>
+                    :
+                    ''
+            }
+
+            {/* <div className="dropdown-cart-ship">
                 <select value={value} onChange={handleClickDrop}>
                     {
-                        shipping.map((envio, i )=> (
+                        shipping.map((envio, i) => (
                             envio.Error ?
                                 <option key={i} className="option-error"> {handleFreteError(envio)} Nenhum</option>
                                 :
-                                <option key={i+32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
+                                <option key={i + 32} value={`${envio.ServiceDescription} - R$ ${envio.ShippingPrice}`}>
                                     {envio.ServiceDescription} - R$ {envio.ShippingPrice} - {envio.DeliveryTime} dias úteis.
                                 </option>
                         ))
                     }
                 </select>
-            </div>
+            </div> */}
         </div>
     )
 }

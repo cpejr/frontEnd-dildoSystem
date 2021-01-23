@@ -8,9 +8,16 @@ import cart from "../../services/cart"
 
 import { MdDeleteForever } from "react-icons/md";
 import { LoginContext } from "../../Contexts/LoginContext";
+import { useCart } from '../../Contexts/CartContext';
+import { notification } from "antd";
+
+import { AiOutlineCheckCircle } from 'react-icons/ai';
+
 
 export default function WishList(props) {
   const [list, setList] = useState([]);
+
+  const { addItem } = useCart();
 
   const userInfo = useContext(LoginContext);
 
@@ -35,6 +42,20 @@ export default function WishList(props) {
     })
   }
 
+  function notifi() {
+    notification.open({
+      message: 'Sucesso!',
+      description:
+          'O produto foi adicionado ao carrinho.',
+      className: 'ant-notification',
+      top: '100px',
+      icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+      style: {
+          width: 600,
+      },
+  });
+  }
+
 
   return (
     <div className="wish-all">
@@ -53,8 +74,15 @@ export default function WishList(props) {
               <div className="wish-card-text">
                 <h4>{products.name}</h4>
                 <div>
-                  <p>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_price)}</p>
-                  <strong>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_sale_price)}</strong>
+                  {
+                    (products.on_sale_client && products.on_sale_wholesaler) ?
+                    <div>
+                      <p>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_price)}</p>
+                      <strong>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_sale_price)}</strong>
+                    </div>
+                    :
+                    <strong>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(products.client_sale_price)}</strong>
+                  }
                 </div>
                 <div className="wish-text"></div>
               </div>
@@ -62,7 +90,7 @@ export default function WishList(props) {
                 <button className="delete-button" onClick={() => handleDeleteClick(products.id)}>
                   <MdDeleteForever className="wish-delete" size={30} />
                 </button>
-                <button className="wish-button" onClick={(e) => { cart.addItem(products.id)}} >Adicionar ao Carrinho</button>
+                <button className="wish-button" onClick={(e) => { addItem(products.id, 1, products.subproducts); notifi(); }} >Adicionar ao Carrinho</button>
               </div>
             </div>
           </div>
