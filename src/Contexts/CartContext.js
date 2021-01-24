@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import api from '../services/api';
-import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export const CartContext = React.createContext();
 
@@ -54,15 +52,14 @@ function CartContextProvider({ children }) {
             const config = {
                 headers: { 'authorization': `Bearer ${accessToken}` },
             }
-            if (accessToken) {
-                try {
-                    let newCart = await api.post("cart", minCart, config);
-                    newCart = newCart.data;
-                    setLocalCart(newCart);
-                } catch (error) {
-                    console.log(error)
-                }
+            try {
+                let newCart = await api.post("cart", minCart, accessToken && config);
+                newCart = newCart.data;
+                setLocalCart(newCart);
+            } catch (error) {
+                console.log(error)
             }
+
         }
         if (minCart) {
             if (productsChanged.current) {
@@ -102,17 +99,6 @@ function CartContextProvider({ children }) {
         productsChanged.current = true;
         if (minCart) {
             products = minCart;
-            // notification.open({
-            //     message: 'Sucesso!',
-            //     description:
-            //         'O produto foi adicionado ao carrinho.',
-            //     className: 'ant-notification',
-            //     top: '100px',
-            //     icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
-            //     style: {
-            //         width: 600,
-            //     },
-            // });
         }
         for (var i = 0; i < products.length; i++) {
             if (product_id === products[i].product_id && subproduct_id && subproduct_id === products[i].subproduct_id) {

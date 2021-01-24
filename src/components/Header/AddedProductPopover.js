@@ -41,7 +41,12 @@ function AddedProductPopover({ target }) {
 
   useEffect(() => {
     if (lastAddedProduct) {
-      api.get(`/product/${lastAddedProduct.product_id}`, { headers: { authorization: `Bearer ${localStorage.getItem("accessToken")}` } })
+
+      const accessToken = localStorage.getItem("accessToken");
+
+      const config = { headers: { authorization: `Bearer ${localStorage.getItem("accessToken")}` } }
+
+      api.get(`/product/${lastAddedProduct.product_id}`, accessToken && config)
         .then(response => {
           console.log(response);
           setProduct({
@@ -88,10 +93,10 @@ function AddedProductPopover({ target }) {
 
           <div className="buttons-line">
             <Link to='/cart'>
-              <button className="to-cart" onClick={() => {setShow(false); setLastAddedProduct(undefined)}}>Olhar carrinho</button>
+              <button className="to-cart" onClick={() => { setShow(false); setLastAddedProduct(undefined) }}>Olhar carrinho</button>
             </Link>
             <Link to='/addresses'>
-              <button className='to-addresses' onClick={() => {setShow(false); setLastAddedProduct(undefined)}}>Pagar</button>
+              <button className='to-addresses' onClick={() => { setShow(false); setLastAddedProduct(undefined) }}>Pagar</button>
             </Link>
           </div>
         </div>
