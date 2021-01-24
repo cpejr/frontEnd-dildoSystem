@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -22,9 +22,20 @@ import Checkout from './pages/checkoutPage'
 import CatNSubCat from './pages/CategoriasESubcategorias'
 import Insta from './components/Instagram'
 
+function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+}
+
 function Routes() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <CartContextProvider>
                 <LoginContextProvider>
                     <SearchContextProvider>
