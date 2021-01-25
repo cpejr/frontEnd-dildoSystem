@@ -34,6 +34,7 @@ function Search(props) {
             const correctCategory = (response.data.find(element => element.id === categoryId));
             if (correctCategory) {
               setCategory(correctCategory.name);
+              setSubcategory(undefined)
             }
           }
           else if (subcategoryId) {
