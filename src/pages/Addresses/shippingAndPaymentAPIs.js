@@ -23,7 +23,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
   const requestOptions = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'token': '141A8046RB13FR4AE0R9085RD085090B7777'
     },
     body: JSON.stringify(freteData)
@@ -32,7 +32,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
   const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
   try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
+    const response = await fetch(/* proxyUrl + */ targetUrl, requestOptions);
 
 
 
@@ -151,7 +151,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   const targetUrl = `https://cieloecommerce.cielo.com.br/api/public/v1/orders`;
 
   try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
+    const response = await fetch(/* proxyUrl + */ targetUrl, requestOptions);
 
     const formattedApiResponse = await response.json();
     const redirectURL = formattedApiResponse.settings.checkoutUrl;
