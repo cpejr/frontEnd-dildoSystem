@@ -23,7 +23,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
   const requestOptions = {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       'token': '141A8046RB13FR4AE0R9085RD085090B7777'
     },
     body: JSON.stringify(freteData)
