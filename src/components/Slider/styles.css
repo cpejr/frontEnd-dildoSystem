@@ -42,7 +42,7 @@ justify-content: space-around;
 .nextimage {
     position: relative;
     max-width: 300px;
-    opacity: 50%;
+    opacity: 0.5;
     overflow: hidden;
   }
   .nextimage img {
@@ -66,7 +66,7 @@ justify-content: space-around;
 
     position: relative;
     max-width: 300px;
-    opacity: 50%;
+    opacity: 0.5;
     overflow: hidden;
   }
   .previmage img {
