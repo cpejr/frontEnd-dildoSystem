@@ -410,6 +410,8 @@ function ProductPage(props) {
   const [relevantStock, setRelevantStock] = useState();
   const [quantity, setQuantity] = useState(1);
 
+  const [description, setDescription] = useState([]);
+
   const user = useContext(LoginContext);
   const history = useHistory();
 
@@ -490,6 +492,10 @@ function ProductPage(props) {
     async function effectExecutable() {
       const partialData = await getProductData(props.match.params.id, setRelevantStock, accessToken);
 
+      let newDescription = partialData.description;
+      newDescription = newDescription.split('\n');
+      console.log(description);
+      setDescription(newDescription);
 
       setProductData(partialData);
 
@@ -698,7 +704,8 @@ function ProductPage(props) {
                   {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(productData.id)} />}
                 </div> */}
                   <h2 className="title">{productData.name}</h2>
-                  <p className="description">{productData.description}</p>
+                  {/* {description.map(paragraph => <p className="description">{paragraph}</p>)} */}
+                  {/* <p className="description">{productData.description}</p> */}
 
                   {/* <div className="divider-line" /> */}
 
@@ -748,6 +755,7 @@ function ProductPage(props) {
                   )}
                   {!isWish && <button className="wishlist-button" onClick={() => handleAddWishList(productData.id)} >ADICIONAR À LISTA DE DESEJOS</button>}
                   {isWish && <button className="wishlist-button" onClick={() => handleRemoveWishList(productData.id)} >REMOVER DA LISTA DE DESEJOS</button>}
+                  {description.map(paragraph => <p className="description">{paragraph}</p>)}
                 </div>
               </div>
             </div>

@@ -37,7 +37,7 @@ export function PriceElement(props) {
         if (product.on_sale_client) {
             return (
                 <div className="price-container">
-                    <p className="preco-card cortado">{`R$ ${Number(((props.product.client_price - props.product.client_sale_price) / (props.product.client_price)) * 100).toFixed(2)}`}</p>
+                    <p className="preco-card cortado">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</p>
 
                     <p className="preco-promocao">
                         {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
