@@ -77,7 +77,7 @@ function Search(props) {
         <div className="results">
           <div className="search-title">
             <div className="search-actual-titles">
-              {category && <h2>Buscando em "{category}"</h2>}
+              {!subcategory && category && <h2>Buscando em "{category}"</h2>}
               {subcategory && <h2>Buscando em "{subcategory}"</h2>}
               {formattedSearch && <h2>Resultados da sua busca por "{formattedSearch.replace(/%/g, ' ')}"</h2>}
             </div>
