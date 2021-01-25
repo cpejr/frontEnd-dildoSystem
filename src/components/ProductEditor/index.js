@@ -99,7 +99,7 @@ export default function ProductEditor(props) {
   const [category_id, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [subcategories_ids, setSubcategoriesIds] = useState([0]);
+  const [subcategories_ids, setSubcategoriesIds] = useState([]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
 
@@ -421,7 +421,7 @@ export default function ProductEditor(props) {
     setUpdated(!updated);
   };
   useEffect(() => {
-    if (subcategories_ids) {
+    if (subcategories_ids && subcategories_ids.length > 0) {
       let categorizeData = { subcategories_ids: [subcategories_ids] };
       console.log("categorize", categorizeData);
       api

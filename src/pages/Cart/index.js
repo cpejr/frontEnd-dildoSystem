@@ -18,7 +18,7 @@ import Insta from "../../components/Instagram";
 function Cart(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const { cart } = useCart();
+  const { cart, totalPrice: precoTotal, totalPriceWODiscount } = useCart();
 
 
 
@@ -72,7 +72,8 @@ function Cart(props) {
 
           </div>
           <div className='total-price'>
-            <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3>
+            <h3>Valor total: <span>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(precoTotal)}</span></h3>
+            <h3>Valor total anterior ao desconto: <span>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPriceWODiscount)}</span></h3>
           </div>
           <div className="borderEmpty"></div>
           <div className='container frete'>
@@ -80,7 +81,7 @@ function Cart(props) {
           </div>
           <div className="button-area">
             {cart && cart.length > 0 && (<Link to="/addresses">
-              <button className="cart-primary-button">COMPRAR</button>
+              <button className="cart-primary-button">FINALIZAR</button>
             </Link>)}
             <Link to="/">
               <button className="cart-secondary-button">

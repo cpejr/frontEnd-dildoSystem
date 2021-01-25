@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import api from '../services/api';
-import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
+import { LoginContext } from './LoginContext';
 
 export const CartContext = React.createContext();
 
@@ -15,6 +15,9 @@ function CartContextProvider({ children }) {
     const [stringifiedMinCart, setStringifiedMinCart] = useState();
     const [totalQuantity, setTotalQuantity] = useState(0);
 
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalPriceWODiscount, setTotalPriceWODiscount] = useState(0);
+
     const [update, setUpdate] = useState(false);
 
     const [lastAddedProduct, setLastAddedProduct] = useState();
@@ -22,6 +25,7 @@ function CartContextProvider({ children }) {
     const productsChanged = useRef(true);
     const fromModal = useRef(false);
 
+    const { loggingOut, type: userType } = useContext(LoginContext);
 
 
     function updateLocalStorage() {
@@ -46,7 +50,7 @@ function CartContextProvider({ children }) {
 
     window.onbeforeunload = updateLocalStorage;
 
-    useEffect(() => { // TODA VEZ QUE MINIFICADO MUDA, PUXA CARRINHO ESTRUTURADO DO BACK
+    useEffect(() => { // TODA VEZ QUE MINIFICADO MUDA OU TIPO DE USUÁRIO MUDA, PUXA CARRINHO ESTRUTURADO DO BACK
 
         async function grabCartFromBack() {
             const accessToken = localStorage.getItem('accessToken');
@@ -54,16 +58,16 @@ function CartContextProvider({ children }) {
             const config = {
                 headers: { 'authorization': `Bearer ${accessToken}` },
             }
-            if (accessToken) {
-                try {
-                    let newCart = await api.post("cart", minCart, config);
-                    newCart = newCart.data;
-                    setLocalCart(newCart);
-                } catch (error) {
-                    console.log(error)
-                }
+            try {
+                let newCart = await api.post("cart", minCart, accessToken ? config : undefined);
+                newCart = newCart.data;
+                updateTotalPrices(newCart)
+                setLocalCart(newCart);
+            } catch (error) {
+                console.log(error)
             }
         }
+
         if (minCart) {
             if (productsChanged.current) {
                 grabCartFromBack();
@@ -73,6 +77,7 @@ function CartContextProvider({ children }) {
                 minCart.forEach((prod, index) => {
                     newLocalCart[index].quantity = prod.quantity;
                 });
+                updateTotalPrices(newLocalCart);
                 setLocalCart(newLocalCart);
             }
             const newStringifiedMinCart = JSON.stringify(minCart);
@@ -84,11 +89,17 @@ function CartContextProvider({ children }) {
             setLocalCart(undefined);
             setStringifiedMinCart(undefined);
             setTotalQuantity(0);
+            setTotalPrice(0);
+            setTotalPriceWODiscount(0);
         }
 
     }, [minCart, update]);
 
     useEffect(() => {
+        updateTotalPrices(localCart);
+    }, [userType, localCart])
+
+    useEffect(() => { // RESPONSÁVEL PELO COMPORTAMENTO DO POPOVER
         if (lastAddedProduct) {
             setTimeout(() => {
                 setLastAddedProduct();
@@ -96,23 +107,59 @@ function CartContextProvider({ children }) {
         }
     }, [lastAddedProduct]);
 
+    useEffect(() => {
+        if (loggingOut) {
+            clear();
+        }
+    }, [loggingOut])
+
+
+    function getProductPrice(product) {
+        const response = {}
+        if (userType === 'wholesaler') {
+            response.regularPrice = product.wholesaler_price
+            if (product.on_sale_wholesaler) {
+                response.discountedPrice = product.wholesaler_sale_price
+            }
+        } else {
+            response.regularPrice = product.client_price
+            if (product.on_sale_client) {
+                response.discountedPrice = product.client_sale_price
+            }
+        }
+        return response;
+    }
+
+    function updateTotalPrices(cart) {
+        console.log(userType, cart)
+        if (!cart) return;
+
+        let total = 0;
+        let totalWODiscount = 0;
+
+        /* console.log(cart); */
+
+        cart.forEach(prod => {
+            const { regularPrice, discountedPrice } = getProductPrice(prod);
+            if (discountedPrice) {
+                total += discountedPrice * prod.quantity;
+                totalWODiscount += regularPrice * prod.quantity;
+            } else {
+                total += regularPrice * prod.quantity;
+                totalWODiscount += regularPrice * prod.quantity;
+            }
+        });
+
+        setTotalPrice(total);
+        setTotalPriceWODiscount(totalWODiscount);
+    }
+
     function addItem(product_id, product_quantity, subproduct_id, cameFromModal = false) {
         let id_found = false;
         let products = [];
         productsChanged.current = true;
         if (minCart) {
             products = minCart;
-            // notification.open({
-            //     message: 'Sucesso!',
-            //     description:
-            //         'O produto foi adicionado ao carrinho.',
-            //     className: 'ant-notification',
-            //     top: '100px',
-            //     icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
-            //     style: {
-            //         width: 600,
-            //     },
-            // });
         }
         for (var i = 0; i < products.length; i++) {
             if (product_id === products[i].product_id && subproduct_id && subproduct_id === products[i].subproduct_id) {
@@ -160,6 +207,8 @@ function CartContextProvider({ children }) {
         setMinCart(undefined);
         setStringifiedMinCart(undefined);
         setLocalCart(undefined);
+        setTotalPrice(0);
+        setTotalPriceWODiscount(0);
         setUpdate(!update);
     }
 
@@ -177,7 +226,19 @@ function CartContextProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart: localCart, addItem, deleteItem, clear, totalQuantity, changeQuantity, lastAddedProduct, setLastAddedProduct }}>
+        <CartContext.Provider value={{
+            cart: localCart,
+            addItem,
+            deleteItem,
+            clear,
+            totalQuantity,
+            totalPrice,
+            totalPriceWODiscount,
+            changeQuantity,
+            lastAddedProduct,
+            setLastAddedProduct,
+            getProductPrice
+        }}>
             {children}
         </CartContext.Provider>
     );
