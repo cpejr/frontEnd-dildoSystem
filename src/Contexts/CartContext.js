@@ -142,7 +142,6 @@ function CartContextProvider({ children }) {
         cart.forEach(prod => {
             const { regularPrice, discountedPrice } = getProductPrice(prod);
             if (discountedPrice) {
-                console.log('Algo teve desconto', prod.name);
                 total += discountedPrice * prod.quantity;
                 totalWODiscount += regularPrice * prod.quantity;
             } else {
@@ -150,9 +149,6 @@ function CartContextProvider({ children }) {
                 totalWODiscount += regularPrice * prod.quantity;
             }
         });
-
-        console.log("Novo total price", total);
-        console.log("Novo total price sem descontos", totalWODiscount);
 
         setTotalPrice(total);
         setTotalPriceWODiscount(totalWODiscount);

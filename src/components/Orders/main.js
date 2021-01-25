@@ -8,7 +8,7 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 function Main(props) {
   const [newStatus, setnewStatus] = useState();
-  const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number);
+  const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number || "");
 
   const accessToken = localStorage.getItem('accessToken')
 
