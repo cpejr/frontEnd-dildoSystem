@@ -405,13 +405,12 @@ function Register() {
                             <FormControlLabel
                                 value="false"
                                 control={<Checkbox color="default" />}
-                                label={<div><span>Acesse nossos </span><Link to={"/conditions"} target="_blank">termos de uso</Link><span> e </span><Link to={"/conditions"} target="_blank">nossa política de privacidade</Link></div>}
+                                label={<div><span>Aceito os </span><Link to={"/conditions"} target="_blank">termos de uso</Link><span> e a </span><Link to={"/conditions"} target="_blank">política de privacidade</Link></div>}
                                 labelPlacement="end"
                             />
                             <br></br>
 
                             <Button className="button" type="submit" variant="contained" color="primary" onClick={(e) => handleRegister(e)}> Cadastrar </Button>
-
                         </div>
                     </section>
                 </form>
