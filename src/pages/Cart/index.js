@@ -72,9 +72,8 @@ function Cart(props) {
 
           </div>
           <div className='total-price'>
-            {/* <h3>Valor Total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPrice)}</h3> */}
-            <h3>Valor total: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(precoTotal)}</h3>
-            {/* {precoTotal !== totalPriceWODiscount && */} <h3>Valor total anterior ao desconto: {new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPriceWODiscount)}</h3>{/* } */}
+            <h3>Valor total: <span>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(precoTotal)}</span></h3>
+            <h3>Valor total anterior ao desconto: <span>{new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(totalPriceWODiscount)}</span></h3>
           </div>
           <div className="borderEmpty"></div>
           <div className='container frete'>

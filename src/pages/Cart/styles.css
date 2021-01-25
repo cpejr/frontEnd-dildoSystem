@@ -163,8 +163,12 @@
   padding: 0 5%;
 }
 .total-price h3 {
-  text-align: end;
+  /* text-align: start; */
   margin-top: 0.5em;
+}
+.total-price h3 span {
+  /* margin-left: auto; */
+  float: right;
 }
 
 @media (max-width: 1000px) {

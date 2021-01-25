@@ -81,7 +81,7 @@
 } */
 
 .filters-container form input,
-select {
+.filters-container form select {
   background-color: var(--mainColor);
   border-radius: 5px;
   height: 30px;
