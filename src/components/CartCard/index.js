@@ -83,6 +83,7 @@ function CartCard(props) {
     useEffect(() => {
         const price = /* setNewPrice(); */getProductPrice(product)
         //onChangePrice({ productId: product.id, productPrice: price, product_quantity: productQuantity });
+        console.log('Products do carrinho', props.product)
     }, []);
 
     function addOne() {
@@ -131,6 +132,22 @@ function CartCard(props) {
                             </div>
                             <div className="description">
                                 <p>{props.description}</p>
+                            </div>
+                            <div>
+                                {
+                                    props.product.subproduct ?
+                                        <div className="subproduct-cart-wrapper">
+                                            <p>Opção: {props.product.subproduct.name}</p>
+                                            <img
+                                                alt="subproduct"
+                                                src={`https://docs.google.com/uc?id=${props.product.subproduct.image_id} `}
+                                                className='subproduct-image-cart'
+                                            />
+                                        </div>
+                                        :
+                                        ''
+                                }
+
                             </div>
                             <div className="size-quantity">
                                 {/* <div>
