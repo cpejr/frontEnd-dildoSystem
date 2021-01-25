@@ -19,11 +19,11 @@ function LoginContextProvider(props) {
   const [email, setEmail] = useStateWithPromise("");
   const [phonenumber, setPhonenumber] = useStateWithPromise(0);
 
-  const { clear } = useCart();
-
   const history = useHistory();
   const [changed, setChanged] = useState(false);
-  const [location] = useState(history.location)
+  const [location] = useState(history.location);
+
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     if (changed) {
@@ -31,6 +31,12 @@ function LoginContextProvider(props) {
       setChanged(false);
     }
   }, [changed]);
+
+  useEffect(() => {
+    if (loggingOut) {
+      setLoggingOut(false);
+    }
+  }, [loggingOut])
 
   useEffect(() => {
     const newToken = localStorage.getItem("accessToken");
@@ -71,9 +77,9 @@ function LoginContextProvider(props) {
   }, []);
 
   function handleLogout() {
+    setLoggingOut(true);
     setLoggedIn(false);
     setAccessToken('');
-    clear();
     localStorage.removeItem("accessToken");
     api.defaults.headers.authorization = undefined;
     history.push("/login");
@@ -87,6 +93,7 @@ function LoginContextProvider(props) {
     accessToken: accessToken,
     email: email,
     phone: phonenumber,
+    loggingOut: loggingOut,
 
     setLoggedIn: setLoggedIn,
     setName: setUsername,

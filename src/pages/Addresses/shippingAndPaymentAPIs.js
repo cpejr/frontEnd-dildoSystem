@@ -51,7 +51,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return {
       Name: p.name,
       Description: p.description,
-      UnitPrice: getProductPrice(p) * 100,
+      UnitPrice: getProductPriceWODiscount(p, buyer.type) * 100,
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
@@ -91,15 +91,16 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return (error);
   }
 
-
+  const discount = getTotalDiscount(products, buyer.type) * 100;
+  console.log(discount)
 
   const requestBody = {
     "OrderNumber": orderID,
     "SoftDescriptor": "LOJACASULUS",
     "Cart": {
       "Discount": {
-        "Type": "Percent",
-        "Value": 0
+        "Type": /* discount ? */ "Amount"/*  : "Percent" */,
+        "Value": discount
       },
       "Items": items
     },
@@ -151,7 +152,6 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
-    console.log(requestOptions.body);
 
     const formattedApiResponse = await response.json();
     const redirectURL = formattedApiResponse.settings.checkoutUrl;
@@ -167,6 +167,27 @@ function getTotalPrice(products, userType) {
     totalPrice += getProductPrice(p, userType) * p.quantity;
   })
   return totalPrice;
+}
+
+function getProductPriceWODiscount(product, userType) {
+  if (userType === 'wholesaler') {
+    return product.wholesaler_price;
+  } else {
+    return product.client_price;
+  }
+}
+
+function getTotalDiscount(products, userType) {
+  let totalPrice = getTotalPrice(products, userType);
+  let totalPriceWODiscount = 0;
+  products.forEach(prod => {
+    if (userType === 'wholesaler') {
+      totalPriceWODiscount += prod.wholesaler_price * prod.quantity;
+    } else {
+      totalPriceWODiscount += prod.client_price * prod.quantity;
+    }
+  });
+  return totalPriceWODiscount - totalPrice;
 }
 
 function getProductPrice(product, userType) {

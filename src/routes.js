@@ -36,8 +36,8 @@ function Routes() {
     return (
         <BrowserRouter>
             <ScrollToTop />
-            <CartContextProvider>
-                <LoginContextProvider>
+            <LoginContextProvider>
+                <CartContextProvider>
                     <SearchContextProvider>
                         <Switch>
                             <Route path='/' exact component={Dashboard} />
@@ -58,8 +58,8 @@ function Routes() {
                             <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>
-                </LoginContextProvider>
-            </CartContextProvider>
+                </CartContextProvider>
+            </LoginContextProvider>
         </BrowserRouter>
     );
 }
