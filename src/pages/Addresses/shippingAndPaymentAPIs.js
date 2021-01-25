@@ -29,7 +29,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
     body: JSON.stringify(freteData)
   };
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = `http://api.frenet.com.br/shipping/quote`;
+  const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
