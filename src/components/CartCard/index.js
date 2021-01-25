@@ -130,9 +130,9 @@ function CartCard(props) {
                             <div>
                                 <h4>{props.name}</h4>
                             </div>
-                            <div className="description">
+                            {/* <div className="description">
                                 <p>{props.description}</p>
-                            </div>
+                            </div> */}
                             <div>
                                 {
                                     props.product.subproduct ?

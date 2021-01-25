@@ -153,7 +153,7 @@ export default function Header() {
 
               {loginContext.loggedIn && (
                 <Link
-                  to={loginContext.type === "admin" ? "/admin" : "/user"}
+                  to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
                   className="icon-link user-info"
                 >
                   <FaRegUser size={30} />
@@ -262,7 +262,7 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
         <div className="icons-responsive-header">
           {loginContext.loggedIn ? (
             <Link
-              to={loginContext.type === "admin" ? "/admin" : "/user"}
+              to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
               className="icon-link user-info"
             >
               <FaRegUser size={30} />

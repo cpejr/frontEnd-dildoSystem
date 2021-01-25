@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import Logos from "../../images/CASULUS_LOGOTEXTO_PRETO.svg";
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -7,7 +7,19 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import {Link} from 'react-router-dom';
 
+import api from "../../services/api";
+
 export default function Footer() {
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(()=>{
+    api.get("categories").then((response) => {
+      setCategories(response.data);
+    })
+  }, [])
+
+
   return (
     <div className="Footer">
       <div className="FooterWrapper">
@@ -15,7 +27,15 @@ export default function Footer() {
         <div className="textos-footer">
         <div id="texto-institucional">
          <h3>Info</h3>
-         <Link to="/search?category_id=693b6b10-2a64-11eb-93d6-615250937529" className="term-link">
+         {
+           categories.map((categoria)=>(
+            <Link to={`/search?category_id=${categoria.id}`} className="term-link">
+            {categoria.name}
+          </Link>
+           )
+           )
+         }
+         {/* <Link to="/search?category_id=693b6b10-2a64-11eb-93d6-615250937529" className="term-link">
           Moda sensual
         </Link>
         <Link to="/search?category_id=c6169700-22e0-11eb-8d75-214996dae135" className="term-link">
@@ -35,10 +55,7 @@ export default function Footer() {
         </Link>
         <Link to="/search?category_id=e5bcdab0-22e0-11eb-8d75-214996dae135" className="term-link">
           Acessórios BDSM
-        </Link>
-        <Link to="/about" className="term-link">
-          Especiais
-        </Link>
+        </Link> */}
         </div>
         <div id="texto-ajuda">
          <h3>Institucional</h3>
@@ -51,7 +68,7 @@ export default function Footer() {
         <Link to="/about" className="term-link">
           Como comprar
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/register" className="term-link">
           Seja um(a) revendedor(a)
         </Link>
         </div>
