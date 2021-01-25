@@ -10,7 +10,7 @@ import "./styles.css"
 import { Button } from "@material-ui/core";
 import { useCart } from '../../Contexts/CartContext';
 
-function PriceElement(props) {
+/* function PriceElement(props) {
     const product = props.product;
     const { product_quantity } = props;
 
@@ -49,7 +49,7 @@ function PriceElement(props) {
             )
         }
     }
-}
+} */
 
 
 function CartCard(props) {
@@ -59,7 +59,7 @@ function CartCard(props) {
     const { quantity } = props.product;
     const { onChangePrice } = props;
     const { onDeleteProduct } = props;
-    const { deleteItem, changeQuantity } = useCart();
+    const { deleteItem, changeQuantity, getProductPrice } = useCart();
     const [relevantStock] = useState(props.product.subproduct ? props.product.subproduct.stock_quantity : props.product.stock_quantity);
 
     const setNewPrice = () => {
@@ -81,7 +81,7 @@ function CartCard(props) {
     }
 
     useEffect(() => {
-        const price = setNewPrice();
+        const price = /* setNewPrice(); */getProductPrice(product)
         //onChangePrice({ productId: product.id, productPrice: price, product_quantity: productQuantity });
     }, []);
 
@@ -167,6 +167,31 @@ function CartCard(props) {
             }
         </>
     );
+
+    function PriceElement(props) {
+        const product = props.product;
+        const { product_quantity } = props;
+
+        const { regularPrice, discountedPrice } = getProductPrice(product);
+
+        if (discountedPrice) {
+            return (
+                <div className="price-container">
+                    <p className="preco-card cortado">{`R$ ${Number(regularPrice * product_quantity).toFixed(2)}`}</p>
+
+                    <p className="preco-promocao">
+                        {`R$ ${Number(discountedPrice * product_quantity).toFixed(2)}`}
+                    </p>
+                </div>
+            );
+        } else {
+            return (
+                <div className="price-container">
+                    <span className="preco-card">{`R$ ${Number(regularPrice * product_quantity).toFixed(2)}`}</span>
+                </div>
+            );
+        }
+    }
 }
 
 export default CartCard;
