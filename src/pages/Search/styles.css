@@ -15,9 +15,6 @@
   align-items: center;
 }
 
-.search-actual-titles {
-}
-
 .filter-icon {
   margin-right: 50px;
   display: none;
@@ -34,6 +31,9 @@
   margin-top: 50px;
   /* margin-right: 50px; */
   background-color: var(--mainColor);
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
   position: absolute;
   left: 0;
   z-index: 2;
@@ -81,12 +81,16 @@
 } */
 
 .filters-container form input,
-select {
-  background-color: rgba(0, 0, 0, 0);
+.filters-container form select {
+  background-color: var(--mainColor);
   border-radius: 5px;
   height: 30px;
   width: 80%;
   border: 1px solid black;
+}
+
+.filters-container select option {
+  background-color: var(--mainColor);
 }
 
 .price-range {

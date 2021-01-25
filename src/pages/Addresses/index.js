@@ -59,12 +59,12 @@ function Addresses() {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
       }
-      api.get(`/useraddress/${loginContext.id}`, config).then(response => { console.log(response.data); setAddressList(response.data) });
+      api.get(`/useraddress/${loginContext.id}`, config).then(response => { setAddressList(response.data) });
     } catch (error) {
 
     }
 
-  }, [loginContext.id]);
+  }, [loginContext.id, isModalVisible]);
 
   if (!loginContext.loggedIn) {
     history.push('login?return-to-addresses');
@@ -94,6 +94,7 @@ function Addresses() {
 
     await callPaymentAPI(cart, address, shippingOptions, loginContext);
     setSpinning(false);
+
     setTimeout(() => {
       notification.open({
         message: 'Erro!',
@@ -106,7 +107,7 @@ function Addresses() {
           width: 600,
         },
       })
-    }, 1000)
+    }, 5000)
   }
 
   async function handleSubmitExistingAddress() {
@@ -130,6 +131,23 @@ function Addresses() {
   async function handleSubmitNewAddress(e) {
     e.preventDefault();
 
+    if (newAddress.number === undefined) {
+      newAddress.number = '1';
+    }
+
+    //removendo o - do CEP
+    if (newAddress.zipcode[5] === '-') {
+      let aux;
+      let aux2;
+
+      aux = newAddress.zipcode.slice(0, newAddress.zipcode.length - 4);
+      aux2 = newAddress.zipcode.slice(6);
+
+      newAddress.zipcode = aux + aux2
+
+      console.log('Novo CEP: ', newAddress.zipcode)
+    }
+
 
     if (newAddress.street
       && newAddress.number
@@ -145,6 +163,7 @@ function Addresses() {
 
       try {
         await api.post(`/address`, newAddress, config);
+        setIsModalVisible(!isModalVisible);
       } catch (error) {
         notification.open({
           message: 'Erro!',
@@ -160,7 +179,7 @@ function Addresses() {
         return;
       }
 
-      goToCheckout(newAddress);
+      // goToCheckout(newAddress);
 
     } else {
       notification.open({
@@ -176,6 +195,7 @@ function Addresses() {
       });
     }
   }
+
   return (
 
     <div>
@@ -219,7 +239,7 @@ function Addresses() {
                   <label htmlFor="state">Estado</label>
                   <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })} defaultValue="">
                     <option value="" disabled>Estado</option>
-                    {states.map(state => <option value={state}>{state}</option>)}
+                    {states.map((state, i) => <option key={i} value={state}>{state}</option>)}
                   </select>
 
                   <label htmlFor="city">Cidade</label>
@@ -227,6 +247,7 @@ function Addresses() {
 
                   <label htmlFor="zipcode">CEP</label>
                   <Input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
+                  {/* <MaskedInput mask="11111-111" name="zipcode" size="20" onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })}/> */}
 
                   {/* <button type="submit">Continuar com o novo endereço</button> */}
                 </form>
@@ -273,7 +294,16 @@ function Address({ onClick, address, selected, index }) {
 
   return (
     <div>
-      <Radio value={index} ><p>{`${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`}</p></Radio>
+      <Radio value={index} >
+        <p>
+          {
+            address.complement ?
+              `${address.street} ${address.number}, ${address.neighborhood}, ${address.complement} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`
+              :
+              `${address.street} ${address.number}, ${address.neighborhood} - ${address.city}, ${address.state} - CEP ${formatarCEP(address.zipcode)}`
+          }
+        </p>
+      </Radio>
       {/* <p>{`${address.street}, ${address.number}, ${address.complement}`}</p>
       <p>{address.neighborhood}</p>
       <p>{`${address.city} - ${address.state}`}</p>

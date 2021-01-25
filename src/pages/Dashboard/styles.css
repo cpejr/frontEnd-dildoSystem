@@ -1,113 +1,111 @@
-
-.navbar{
-    background: var(--mainColor);
+.navbar {
+  background: var(--mainColor);
 }
 
-.topBackground{
-    border-top: 100px solid #DDBD69;
+.topBackground {
+  border-top: 100px solid #ddbd69;
 }
 
-.division{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+.division {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
-.dashboard-content{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
-    /* max-width: 1400px; */
-    justify-content: center;
+.dashboard-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  /* max-width: 1400px; */
+  justify-content: center;
 }
 
 .dashboard-content h2 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.content{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.release-container{
-    min-height: 425px;
-    width: 100%;
-    background-color: white;
-    border-radius: 2vh;
+.release-container {
+  min-height: 425px;
+  width: 100%;
+  background-color: white;
+  border-radius: 2vh;
 }
 
-.best_seller-container{
-    min-height: 425px;
-    border-radius: 2vh;
-    margin-bottom: 3vh;
+.best_seller-container {
+  min-height: 425px;
+  border-radius: 2vh;
+  margin-bottom: 3vh;
 }
 .insta-div {
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px;
-    width: 90vw;
-    background-color: white;
-    border-radius: 2vh;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 90vw;
+  background-color: white;
+  border-radius: 2vh;
 }
 
 .images-container {
-    width: 100%;
-    /* padding-right: 15px;
+  width: 100%;
+  /* padding-right: 15px;
     padding-left: 15px; */
-    margin-right: auto;
-    margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (max-width: 1400px) {
-    .images-container {
-        max-width: 1300px;
-    } 
+  .images-container {
+    max-width: 1300px;
+  }
 }
 
 @media (max-width: 1200px) {
-    .images-container {
-        max-width: 1140px;
-    } 
+  .images-container {
+    max-width: 1140px;
+  }
 }
 
 @media (max-width: 992px) {
-    .images-container {
-        max-width: 960px;
-    } 
+  .images-container {
+    max-width: 960px;
+  }
 }
 
 @media (max-width: 768px) {
-.images-container {
+  .images-container {
     max-width: 720px;
-}
+  }
 }
 
 @media (max-width: 576px) {
-    .images-container {
-        max-width: 540px; 
-    }
+  .images-container {
+    max-width: 540px;
+  }
 }
 
 .insta-footer {
-    width: 100%;
+  width: 100%;
 }
 .dashboard-content h2 {
-    font-weight: bold;
-    margin-top: 10vh;
+  font-weight: bold;
+  margin-top: 10vh;
 }
 
-.butterfly{
-    background-image: url("../../images/background.png");
-    width: 100%;
-    background-size: cover;
-    background-repeat-x: no-repeat;
-    z-index: -1;
+.butterfly {
+  background-image: url("../../images/background.png");
+  width: 100%;
+  background-size: cover;
+  background-repeat-x: no-repeat;
+  z-index: -1;
 }

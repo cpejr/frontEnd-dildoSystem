@@ -392,6 +392,7 @@ import Footer from '../../components/Footer';
 import api from '../../services/api';
 import cart from '../../services/cart';
 import { useCart } from '../../Contexts/CartContext';
+import WhatsAppButton from '../../components/WhatsAppButton'
 
 //this.props.match.params.id
 
@@ -754,6 +755,7 @@ function ProductPage(props) {
 
 
       </div>
+      <WhatsAppButton />
       <Footer />
     </>
   );

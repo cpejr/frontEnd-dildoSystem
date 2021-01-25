@@ -35,6 +35,12 @@
     border: 1px solid black;
 }
 
+.frete-wrapper .frete-options-area {
+    display: flex;
+    width: 100%;
+    max-width: 300px;
+}
+
 @media only screen and (max-width: 600px) {
     .frete-wrapper{
         flex-direction: column;

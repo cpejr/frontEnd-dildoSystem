@@ -13,7 +13,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
     }
   });
   const freteData = {
-    SellerCEP: "31150220",
+    SellerCEP: "75389334",
     RecipientCEP: cepDestino,
     ShipmentInvoiceValue: totalPrice, //MODIFICAR PARA PREÇO CORRETO
     ShippingServiceCode: null,
@@ -33,11 +33,11 @@ export async function getShippingOptions(products, cepDestino, userType) {
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
-    
+
 
 
     const formattedResponse = await response.json();
-    
+
     return formattedResponse;
 
   } catch (error) {
@@ -51,7 +51,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return {
       Name: p.name,
       Description: p.description,
-      UnitPrice: getProductPrice(p) * 100,
+      UnitPrice: getProductPriceWODiscount(p, buyer.type) * 100,
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
@@ -69,12 +69,12 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
         Carrier: null
       })
   });
- 
-  
+
+
   let user;
   try {
     user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
-    
+
     user = user.data;
   } catch (error) {
     console.error(error);
@@ -85,26 +85,27 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   try {
     orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
     orderID = orderID.data;
-   
+
   } catch (error) {
     console.error(error);
     return (error);
   }
 
-
+  const discount = getTotalDiscount(products, buyer.type) * 100;
+  console.log(discount)
 
   const requestBody = {
     "OrderNumber": orderID,
     "SoftDescriptor": "LOJACASULUS",
     "Cart": {
       "Discount": {
-        "Type": "Percent",
-        "Value": 0
+        "Type": /* discount ? */ "Amount"/*  : "Percent" */,
+        "Value": discount
       },
       "Items": items
     },
     "Shipping": {
-      "SourceZipCode": "31160430",
+      "SourceZipCode": "75389334",
       "TargetZipCode": address.zipcode,
       "Type": "FixedAmount",
       "Services": shippingServices,
@@ -120,8 +121,8 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Payment": {
       "BoletoDiscount": 5,
       "DebitDiscount": 5,
-      "Installments": 10,
-      "MaxNumberOfInstallments": 10
+      /* "Installments": null,
+      "MaxNumberOfInstallments": null */
     },
     "Customer": {
       "Identity": String(user.cpf),
@@ -130,7 +131,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
       "Phone": user.phonenumber
     },
     "Options": {
-      "AntifraudEnabled": true,
+      "AntifraudEnabled": false,
       "ReturnUrl": `https://lojacasulus.com.br/checkout/${orderID}`
     },
     "Settings": null
@@ -142,7 +143,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'MerchantId': 'dee08cb6-062c-4e77-bbaf-73bdc86b6af0'
+      'MerchantId': /* 'dee08cb6-062c-4e77-bbaf-73bdc86b6af0' */ '658dd7d2-2d89-40f8-92ee-886111da3b2d'
     },
     body: JSON.stringify(requestBody)
   };
@@ -151,6 +152,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 
   try {
     const response = await fetch(proxyUrl + targetUrl, requestOptions);
+
     const formattedApiResponse = await response.json();
     const redirectURL = formattedApiResponse.settings.checkoutUrl;
     window.location.href = redirectURL;
@@ -165,6 +167,27 @@ function getTotalPrice(products, userType) {
     totalPrice += getProductPrice(p, userType) * p.quantity;
   })
   return totalPrice;
+}
+
+function getProductPriceWODiscount(product, userType) {
+  if (userType === 'wholesaler') {
+    return product.wholesaler_price;
+  } else {
+    return product.client_price;
+  }
+}
+
+function getTotalDiscount(products, userType) {
+  let totalPrice = getTotalPrice(products, userType);
+  let totalPriceWODiscount = 0;
+  products.forEach(prod => {
+    if (userType === 'wholesaler') {
+      totalPriceWODiscount += prod.wholesaler_price * prod.quantity;
+    } else {
+      totalPriceWODiscount += prod.client_price * prod.quantity;
+    }
+  });
+  return totalPriceWODiscount - totalPrice;
 }
 
 function getProductPrice(product, userType) {

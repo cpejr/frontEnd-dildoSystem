@@ -12,7 +12,7 @@ height: auto;
 }
 
 .carousel{
-    max-width: 100vw;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -42,7 +42,7 @@ justify-content: space-around;
 .nextimage {
     position: relative;
     max-width: 300px;
-    opacity: 50%;
+    opacity: 0.5;
     overflow: hidden;
   }
   .nextimage img {
@@ -66,7 +66,7 @@ justify-content: space-around;
 
     position: relative;
     max-width: 300px;
-    opacity: 50%;
+    opacity: 0.5;
     overflow: hidden;
   }
   .previmage img {
