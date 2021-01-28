@@ -669,92 +669,104 @@ function ProductPage(props) {
           (
             <div className="product-page-wrapper">
               <div className="product-page-container">
-                <div className="photos-column">
-                  {/* <div className="go-back-btn" onClick={() => { history.goBack() }}>
+                <div className='not-description-wrapper'>
+
+                  <div className="photos-column">
+                    {/* <div className="go-back-btn" onClick={() => { history.goBack() }}>
                   <FiArrowLeft className="icon" /> Voltar
                 </div> */}
-                  <div className="img-container">
-                    {
-                      images ?
-                        <ImageLoader
-                          src={images && images[bigImageIndex]}
-                          loading={() => <img src={loading} alt="Loading..." />}
-                          error={() => <div>Error</div>}
-                        /> : <div></div>
-                    }
-                  </div>
-                  <div className="thumbnails">
-                    {images && images.map((imgSrc, index) => {
-                      return (
-                        <div onClick={changeBigImage} data-index={index} >
+                    <div className="img-container">
+                      {
+                        images ?
                           <ImageLoader
-                            src={imgSrc}
+                            src={images && images[bigImageIndex]}
                             loading={() => <img src={loading} alt="Loading..." />}
                             error={() => <div>Error</div>}
-                          />
-                        </div>
-                      )
-                    })}
+                          /> : <div></div>
+                      }
+                    </div>
+                    <div className="thumbnails">
+                      {images && images.map((imgSrc, index) => {
+                        return (
+                          <div onClick={changeBigImage} data-index={index} >
+                            <ImageLoader
+                              src={imgSrc}
+                              loading={() => <img src={loading} alt="Loading..." />}
+                              error={() => <div>Error</div>}
+                            />
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
 
-                <div className="info-column">
-                  {/* <div className="fiheartDiv">
+                  <div className="info-column">
+                    {/* <div className="fiheartDiv">
                   {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(productData.id)} />}
                   {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(productData.id)} />}
                 </div> */}
-                  <h2 className="title">{productData.name}</h2>
-                  {/* {description.map(paragraph => <p className="description">{paragraph}</p>)} */}
-                  {/* <p className="description">{productData.description}</p> */}
+                    <h2 className="title">{productData.name}</h2>
+                    {/* {description.map(paragraph => <p className="description">{paragraph}</p>)} */}
+                    {/* <p className="description">{productData.description}</p> */}
 
-                  {/* <div className="divider-line" /> */}
+                    {/* <div className="divider-line" /> */}
 
-                  <div className="prices">
-                    <h2 className={`main-price ${onSale && 'sale'}`}>{`${new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(price)}`}</h2>
-                    {onSale && <h2 className="sale-price">{`${new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(onSalePrice)}`}</h2>}
-                  </div>
+                    <div className="prices">
+                      <h2 className={`main-price ${onSale && 'sale'}`}>{`${new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(price)}`}</h2>
+                      {onSale && <h2 className="sale-price">{`${new Intl.NumberFormat('br-PT', { style: 'currency', currency: 'BRL' }).format(onSalePrice)}`}</h2>}
+                    </div>
 
-                  {/* <div className="divider-line" /> */}
-                  <div className="options">
+                    {/* <div className="divider-line" /> */}
+                    <div className="options">
 
-                    <div className="subproduct-options">
-                      <div className="option-selector">
-                        <p>Opção: </p>
-                        {productData.subproducts.length > 0
-                          ? productData.subproducts.map((subp, index) => {
-                            return (
-                              <img
-                                alt="subproduct"
-                                src={`https://docs.google.com/uc?id=${subp.image_id} `}
-                                key={`option-${index + 1}`}
-                                data={index}
-                                className={index === selectedSubpIndex && 'selected'}
-                                onClick={selectSubproduct}
-                              />
-                            )
-                          })
-                          : <p> Única</p>}
-                      </div>
-                      {productData.subproducts.length > 0 &&
-                        <div className="chosen-option">
-                          <p style={{ "font-weight": "bold" }}>{'Selecionado:'} </p>
-                          <p> {productData.subproducts[selectedSubpIndex].name}</p>
+                      <div className="subproduct-options">
+                        <div className="option-selector">
+                          <p>Opções: </p>
+                          {productData.subproducts.length > 0
+                            ? productData.subproducts.map((subp, index) => {
+                              return (
+                                <div className='subproduct-wrapper'>
+                                  <img
+                                    alt="subproduct"
+                                    src={`https://docs.google.com/uc?id=${subp.image_id} `}
+                                    key={`option-${index + 1}`}
+                                    data={index}
+                                    className={index === selectedSubpIndex && 'selected'}
+                                    onClick={selectSubproduct}
+                                  />
+                                  <div className="chosen-option">
+                                    {/* <p style={{ "font-weight": "bold" }}>{'Selecionado:'} </p> */}
+                                    <p> {subp.name}</p>
+                                  </div>
+                                </div>
+                              )
+                            })
+                            : <p> Única</p>}
                         </div>
-                      }
-                    </div>
+                        {productData.subproducts.length > 0 &&
+                          <div className="chosen-option">
+                            <p style={{ "font-weight": "bold" }}>{'Selecionado:'} </p>
+                            <p> {productData.subproducts[selectedSubpIndex].name}</p>
+                          </div>
+                        }
+                      </div>
 
-                    <div className="quantity-options">
-                      <FaMinusCircle className={"quantity-changer " + (quantity <= 1 && 'locked')} onClick={decrementQuantity} />
-                      <p className="quantity-indicator">{quantity}</p>
-                      <FaPlusCircle className={"quantity-changer " + (quantity >= relevantStock && "locked")} onClick={incrementQuantity} />
+                      <div className="quantity-options">
+                        <FaMinusCircle className={"quantity-changer " + (quantity <= 1 && 'locked')} onClick={decrementQuantity} />
+                        <p className="quantity-indicator">{quantity}</p>
+                        <FaPlusCircle className={"quantity-changer " + (quantity >= relevantStock && "locked")} onClick={incrementQuantity} />
+                      </div>
                     </div>
+                    {(relevantStock > 0
+                      ? (<button className="buy-button" onClick={() => { addItem(productData.id, quantity, (productData.subproducts && productData.subproducts.length > 0) ? productData.subproducts[selectedSubpIndex].id : undefined); history.push('/cart') }}>ADICIONAR AO CARRINHO</button>)
+                      : (<div className="unavailable">Produto indisponível</div>)
+                    )}
+                    {!isWish && <button className="wishlist-button" onClick={() => handleAddWishList(productData.id)} >ADICIONAR À LISTA DE DESEJOS</button>}
+                    {isWish && <button className="wishlist-button" onClick={() => handleRemoveWishList(productData.id)} >REMOVER DA LISTA DE DESEJOS</button>}
                   </div>
-                  {(relevantStock > 0
-                    ? (<button className="buy-button" onClick={() => { addItem(productData.id, quantity, (productData.subproducts && productData.subproducts.length > 0) ? productData.subproducts[selectedSubpIndex].id : undefined); history.push('/cart') }}>ADICIONAR AO CARRINHO</button>)
-                    : (<div className="unavailable">Produto indisponível</div>)
-                  )}
-                  {!isWish && <button className="wishlist-button" onClick={() => handleAddWishList(productData.id)} >ADICIONAR À LISTA DE DESEJOS</button>}
-                  {isWish && <button className="wishlist-button" onClick={() => handleRemoveWishList(productData.id)} >REMOVER DA LISTA DE DESEJOS</button>}
+                </div>
+                <div className='description'>
+                  <h3>Descrição</h3>
                   {description.map(paragraph => <p className="description">{paragraph}</p>)}
                 </div>
               </div>
