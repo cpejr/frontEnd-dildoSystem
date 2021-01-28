@@ -65,10 +65,10 @@ export default function Footer() {
         <Link to="/conditions" className="term-link">
           Termos de uso e política de privacidade.
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/about2" className="term-link">
           Como comprar
         </Link>
-        <Link to="/register" className="term-link">
+        <Link to="/about2" className="term-link">
           Seja um(a) revendedor(a)
         </Link>
         </div>
@@ -77,11 +77,11 @@ export default function Footer() {
         <div className="term-link">
           lojacasulus@gmail.com
         </div>
-        <Link to="/conditions" className="term-link">
-          Whatsapp
-        </Link>
+        <a className="term-link" href="https://web.whatsapp.com/send?phone=5562993229837" target="_blank">
+          Whatsapp: (62) 99322-9837
+        </a>
         <a href="https://instagram.com/casulus.sex" className="term-link" target="_blank" rel="noopener noreferrer">
-          Instagram
+          Instagram: @casulus.sex
         </a>
         <Link to="/about" className="term-link">
           Perguntas frequentes

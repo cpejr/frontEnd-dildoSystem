@@ -8,7 +8,7 @@ export default function WhatsButton({ children }) {
     return (
         <div>
             {children}
-            <a className="whatsapp-button" href="https://web.whatsapp.com/send?phone=5564992336652" >
+            <a className="whatsapp-button" href="https://web.whatsapp.com/send?phone=5562993229837" target="_blank">
                 {/* <WhatsAppIcon /> */}
                 < RiWhatsappLine className="whats-icon"/>
             </a>

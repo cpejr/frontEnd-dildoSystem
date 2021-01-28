@@ -9,7 +9,7 @@ import { SearchContext } from "../../Contexts/SearchContext";
 import { CartContext } from '../../Contexts/CartContext';
 import AddedProductPopover from './AddedProductPopover';
 
-import Logo from '../../images/CASULUS01LOGODESIGN.png';
+import Logo from '../../images/icone.png';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
