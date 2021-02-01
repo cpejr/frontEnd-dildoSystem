@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import Logos from "../../images/CASULUS_LOGOTEXTO_PRETO.svg";
+import Logos from "../../images/CASULUS_LOGOTEXTO_PRETO.png";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
