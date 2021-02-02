@@ -260,20 +260,20 @@ button.to-addresses {
   color: white;
 }
 
-@media (max-width: 1400px){
+@media (max-width: 1400px) {
   .header-categories ul span {
     font-size: 12px;
   }
 }
 
-@media (max-width: 1370px) {
+/* @media (max-width: 1370px) {
   #NewHeader {
     position: relative;
   }
   #fake-header {
     display: none;
   }
-}
+} */
 
 @media (max-width: 1280px) {
   #NewHeader {
@@ -287,8 +287,10 @@ button.to-addresses {
   .header-categories {
     height: 21%;
   }
+  #fake-header {
+    display: none;
+  }
 }
-
 
 @media (max-width: 1000px) {
   .header-container {
