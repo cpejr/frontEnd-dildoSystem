@@ -1,7 +1,7 @@
 import api from '../../services/api';
 
 export async function getShippingOptions(products, cepDestino, userType) {
-  console.log(products);
+  // console.log(products);
   const totalPrice = getTotalPrice(products, userType);
   const formattedProducts = products.map(p => {
     return {
@@ -92,7 +92,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   }
 
   const discount = getTotalDiscount(products, buyer.type) * 100;
-  console.log(discount)
+  // console.log(discount)
 
   const requestBody = {
     "OrderNumber": orderID,

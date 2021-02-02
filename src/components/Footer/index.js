@@ -28,8 +28,8 @@ export default function Footer() {
         <div id="texto-institucional">
          <h3>Info</h3>
          {
-           categories.map((categoria)=>(
-            <Link to={`/search?category_id=${categoria.id}`} className="term-link">
+           categories.map((categoria, index)=>(
+            <Link to={`/search?category_id=${categoria.id}`} className="term-link" key={index}>
             {categoria.name}
           </Link>
            )
@@ -83,9 +83,9 @@ export default function Footer() {
         <a href="https://instagram.com/casulus.sex" className="term-link" target="_blank" rel="noopener noreferrer">
           Instagram: @casulus.sex
         </a>
-        <Link to="/about" className="term-link">
+        {/* <Link to="/about" className="term-link">
           Perguntas frequentes
-        </Link>
+        </Link> */}
       </div>
         </div>
       </div>

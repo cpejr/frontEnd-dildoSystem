@@ -26,11 +26,11 @@ function Carousel(props) {
   useEffect(() => {
     api.get("Carousel", config).then((response) => {
       setImages(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID));
-      console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
+      // console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
     api.get('banner', config).then((response) => {
       setBannerImages(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID));
-      console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
+      // console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
 
   }, [update]);

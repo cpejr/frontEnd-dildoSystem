@@ -22,6 +22,7 @@ export default function RequestDetails(props) {
   const [id, setOrderId] = useState();
   const [date, setDate] = useState();
   const [track_type, setTrackType] = useState();
+  const [track_number, setTrackNumber] = useState();
   const [order_status, setOrderStatus] = useState();
   const [street, setStreet] = useState();
   const [number, setNumber] = useState();
@@ -61,6 +62,7 @@ export default function RequestDetails(props) {
       setOrderId(orderData.id);
       setDate(orderData.created_at);
       setTrackType(orderData.track_type);
+      setTrackNumber(orderData.track_number);
       setOrderStatus(orderData.order_status);
       setStreet(orderData.street);
       setNumber(orderData.number);
@@ -79,6 +81,8 @@ export default function RequestDetails(props) {
         setOrderId(response.data.id);
         setDate(response.data.created_at);
         setTrackType(response.data.track_type);
+        setTrackNumber(response.data.track_number);
+        // console.log('esse eh o track number: ',response.data.track_number)
         setOrderStatus(response.data.order_status);
         setStreet(response.data.street);
         setNumber(response.data.number);
@@ -117,6 +121,10 @@ export default function RequestDetails(props) {
           <div className="rd-info-list">
             <strong>Status do Pedido:</strong>
             <p>{order_status}</p>
+          </div>
+          <div className="rd-info-list">
+            <strong>Código de Rastreio:</strong>
+            {track_number ? <p>{track_number}</p> : <p>Indisponível (ainda será postado pela loja).</p> }
           </div>
         </div>
         <div className="rd-data">

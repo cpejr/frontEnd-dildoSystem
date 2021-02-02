@@ -240,6 +240,17 @@
   color: black !important;
 }
 
+.no-found-search {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30%;
+      margin-bottom: 76%;
+}
+
+.no-found-search .no-found-paragraph {
+  padding-top: 10%;
+}
+
 @media (max-width: 550px) {
   .products-container {
     flex-direction: column;

@@ -58,7 +58,7 @@ function Testefrete({ products, totalprice }) {
         const response = fetch(proxyUrl + targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log('pegou data da frenet', data)
+                // console.log('pegou data da frenet', data)
                 // console.log(data.ShippingSevicesArray[0].ShippingPrice)
                 setShipping(data.ShippingSevicesArray)
             })
@@ -68,14 +68,14 @@ function Testefrete({ products, totalprice }) {
     }
 
     const handleClickDrop = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         setValue(e.target.value)
     }
 
     function handleFreteError(envio) {
 
         if (((envio.ServiceDescription === "SEDEX") && envio.Error)) {
-            console.log(envio.ServiceDescription)
+            // console.log(envio.ServiceDescription)
             notification.open({
                 message: 'Erro',
                 description:
@@ -97,7 +97,7 @@ function Testefrete({ products, totalprice }) {
     };
 
     function onChange(e) {
-        console.log('radio checked', e.target.value);
+        // console.log('radio checked', e.target.value);
         setRadio(e.target.value)
     }
 

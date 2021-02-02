@@ -31,7 +31,7 @@ function SearchContextProvider(props) {
 
     if (search) {
       newFilters.search = search;
-      newFilters.search = newFilters.search.replace(/ /g, '%') //substitui espaços por %
+      newFilters.search = newFilters.search.replace(/ /g, '+') //substitui espaços por %(+) *correção: com % não estava funcionando
       newFilters.search = newFilters.search.normalize('NFD'); //retira acentos 
     }
 

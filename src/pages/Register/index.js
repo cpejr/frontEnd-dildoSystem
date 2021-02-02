@@ -17,7 +17,7 @@ function Register() {
     const [emailError, setEmailError] = useState();
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState();
-    const [type, setType] = useState('');
+    const [type, setType] = useState('retailer');
     const [typeError, setTypeError] = useState();
     const [cpf, setCpf] = useState('');
     const [cpfError, setCpfError] = useState();
@@ -257,12 +257,13 @@ function Register() {
                                     id="select"
                                     label="Tipo"
                                     variant="outlined"
-                                    value="20"
+                                    // value="20"
                                     style={{ width: 130 }}
                                     value={type}
                                     error={typeError}
                                     helperText={typeError}
                                     onChange={e => setType(e.target.value)}
+                                    // defaultValue="Varejista"
                                     select>
                                     <MenuItem value="retailer">Varejista</MenuItem>
                                     <MenuItem value="wholesaler">Atacadista</MenuItem>

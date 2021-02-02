@@ -131,7 +131,7 @@ function CartContextProvider({ children }) {
     }
 
     function updateTotalPrices(cart) {
-        console.log(userType, cart)
+        // console.log(userType, cart)
         if (!cart) return;
 
         let total = 0;
@@ -188,7 +188,7 @@ function CartContextProvider({ children }) {
                 lastProd.subproduct_id = subproduct_id;
             }
             setLastAddedProduct(lastProd);
-            console.log(lastProd);
+            // console.log(lastProd);
         }
     }
 

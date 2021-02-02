@@ -134,12 +134,12 @@ export default function CarouselProducts() {
                 {products.map((elements, index) => {
 
                     return (
-                        <Carousel.Item>
+                        <Carousel.Item key={index}>
                             <div className="number">
                                 {elements.map((product, index) => {
                                     return (
                                         // <CardProduct product={product}/>
-                                        <NewProductCard product={product} />
+                                        <NewProductCard product={product} key={index}/>
                                     )
                                 })}
                             </div>

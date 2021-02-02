@@ -111,15 +111,15 @@ function Main(props) {
           </div>
           <div className="order-item">
             <strong>Rua:</strong>
-            <p>{props.pedido.user.street}</p>
+            <p>{props.pedido.street}</p>
           </div>
           <div className="order-item">
             <strong>Número</strong>
-            <p>{props.pedido.user.number}</p>
+            <p>{props.pedido.number}</p>
           </div>
           <div className="order-item">
             <strong>Bairro:</strong>
-            <p>{props.pedido.user.neighborhood}</p>
+            <p>{props.pedido.neighborhood}</p>
           </div>
           <div className="order-item">
             <strong>Complemento:</strong>
@@ -127,15 +127,15 @@ function Main(props) {
           </div>
           <div className="order-item">
             <strong>Cidade:</strong>
-            <p>{props.pedido.user.city}</p>
+            <p>{props.pedido.city}</p>
           </div>
           <div className="order-item">
             <strong>Esatado:</strong>
-            <p>{props.pedido.user.state}</p>
+            <p>{props.pedido.state}</p>
           </div>
           <div className="order-item">
             <strong>CEP:</strong>
-            <p>{props.pedido.user.zipcode}</p>
+            <p>{props.pedido.zipcode}</p>
           </div>
 
         </div>

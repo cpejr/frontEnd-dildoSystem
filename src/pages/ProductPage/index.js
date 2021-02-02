@@ -494,14 +494,14 @@ function ProductPage(props) {
 
       let newDescription = partialData.description;
       newDescription = newDescription.split('\n');
-      console.log(description);
+      // console.log(description);
       setDescription(newDescription);
 
       setProductData(partialData);
 
       await getAndSetEveryImage(setImages, partialData, accessToken);
 
-      console.log("Done!")
+      // console.log("Done!")
     }
 
     effectExecutable();

@@ -48,7 +48,7 @@ function AddedProductPopover({ target }) {
 
       api.get(`/product/${lastAddedProduct.product_id}`, accessToken && config)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           setProduct({
             name: response.data.name,
             productQuantity: lastAddedProduct.product_quantity,
