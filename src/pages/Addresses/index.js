@@ -88,35 +88,37 @@ function Addresses() {
 
     /* const cart = JSON.parse(localStorage.getItem('cart')); */
     // console.log(cart);
-    console.log('addres: ',address);
-    if (address.complement){
-      if (address.complement.length > 14){
-        address.complement =  address.complement.slice(0, 14);
+    console.log('addres: ', address);
+    if (address.complement) {
+      if (address.complement.length > 14) {
+        address.complement = address.complement.slice(0, 14);
       }
     }
 
-    
+
     setSpinning(true);
 
-    let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
-    shippingOptions = shippingOptions.ShippingSevicesArray;
+    try {
+      let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
+      shippingOptions = shippingOptions.ShippingSevicesArray;
 
-    const ongoingOrder = {
-      address_id: address.id,
-      products: cart.map(item => {
-        return {
-          product_id: item.id,
-          product_quantity: item.quantity,
-          subproduct_id: item.subproduct_id,
-        }
-      })
-    };
-    localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
+      const ongoingOrder = {
+        address_id: address.id,
+        products: cart.map(item => {
+          return {
+            product_id: item.id,
+            product_quantity: item.quantity,
+            subproduct_id: item.subproduct_id,
+          }
+        })
+      };
+      localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
 
-    await callPaymentAPI(cart, address, shippingOptions, loginContext);
-    setSpinning(false);
 
-    setTimeout(() => {
+      await callPaymentAPI(cart, address, shippingOptions, loginContext);
+    }
+    catch (error) {
+      console.log(error);
       notification.open({
         message: 'Erro!',
         description:
@@ -128,7 +130,24 @@ function Addresses() {
           width: 600,
         },
       })
-    }, 5000)
+    }
+
+
+    setSpinning(false);
+
+    /* setTimeout(() => {
+      notification.open({
+        message: 'Erro!',
+        description:
+          'Houve um erro ao tentar criar o seu pedido.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
+        style: {
+          width: 600,
+        },
+      })
+    }, 5000) */
   }
 
   async function handleSubmitExistingAddress() {
@@ -217,7 +236,7 @@ function Addresses() {
     }
   }
 
-  async function handleSubmitEditAddress(e){
+  async function handleSubmitEditAddress(e) {
     e.preventDefault();
 
     if (editAddress.number === undefined) {
@@ -237,7 +256,7 @@ function Addresses() {
       // console.log('Novo CEP: ', editAddress.zipcode)
     }
 
-    if(!editAddress.complement) {
+    if (!editAddress.complement) {
       delete editAddress.complement
     }
 
@@ -254,7 +273,7 @@ function Addresses() {
         }
       }
 
-      delete editAddress.id 
+      delete editAddress.id
       delete editAddress.created_at
       delete editAddress.updated_at
       delete editAddress.user_id
@@ -343,7 +362,7 @@ function Addresses() {
               <div className="new-address">
                 <form onSubmit={handleSubmitNewAddress}>
                   <label htmlFor="street">Rua ou Avenida</label>
-                  <Input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}  />
+                  <Input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })} />
 
                   <label htmlFor="number">Número</label>
                   <Input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, number: e.target.value })} />
@@ -388,10 +407,10 @@ function Addresses() {
                   <Input className="short" type="number" name="number" value={editAddress.number} step='1' onChange={(e) => setEditAddress({ ...editAddress, number: e.target.value })} defaultValue={`${editAddress.number}`} />
 
                   <label htmlFor="complement">Complemento</label>
-                  <Input type="text" name="complement" value={editAddress.complement} onChange={(e) => setEditAddress({ ...editAddress, complement: e.target.value })} defaultValue={`${editAddress.complement}`}/>
+                  <Input type="text" name="complement" value={editAddress.complement} onChange={(e) => setEditAddress({ ...editAddress, complement: e.target.value })} defaultValue={`${editAddress.complement}`} />
 
                   <label htmlFor="neighborhood">Bairro</label>
-                  <Input type="text" name="neighborhood" value={editAddress.neighborhood} onChange={(e) => setEditAddress({ ...editAddress, neighborhood: e.target.value })} defaultValue={`${editAddress.neighborhood}`}/>
+                  <Input type="text" name="neighborhood" value={editAddress.neighborhood} onChange={(e) => setEditAddress({ ...editAddress, neighborhood: e.target.value })} defaultValue={`${editAddress.neighborhood}`} />
 
                   <label htmlFor="state">Estado</label>
                   <select type="text" name="state" value={editAddress.state} onChange={(e) => setEditAddress({ ...editAddress, state: e.target.value })} defaultValue={`${editAddress.state}`}>
@@ -400,10 +419,10 @@ function Addresses() {
                   </select>
 
                   <label htmlFor="city">Cidade</label>
-                  <Input type="text" name="city" value={editAddress.city} onChange={(e) => setEditAddress({ ...editAddress, city: e.target.value })} defaultValue={`${editAddress.city}`}/>
+                  <Input type="text" name="city" value={editAddress.city} onChange={(e) => setEditAddress({ ...editAddress, city: e.target.value })} defaultValue={`${editAddress.city}`} />
 
                   <label htmlFor="zipcode">CEP</label>
-                  <Input type="text" name="zipcode" value={editAddress.zipcode} onChange={(e) => setEditAddress({ ...editAddress, zipcode: e.target.value })} defaultValue={`${editAddress.zipcode}`}/>
+                  <Input type="text" name="zipcode" value={editAddress.zipcode} onChange={(e) => setEditAddress({ ...editAddress, zipcode: e.target.value })} defaultValue={`${editAddress.zipcode}`} />
                   {/* <MaskedInput mask="11111-111" name="zipcode" size="20" onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })}/> */}
 
                   {/* <button type="submit">Continuar com o novo endereço</button> */}
@@ -449,7 +468,7 @@ function Addresses() {
 
 function Address({ onClick, address, selected, index }) {
 
-  
+
 
   return (
     <div>

@@ -31,19 +31,15 @@ export async function getShippingOptions(products, cepDestino, userType) {
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
-  try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
+
+  const response = await fetch(proxyUrl + targetUrl, requestOptions);
 
 
 
-    const formattedResponse = await response.json();
+  const formattedResponse = await response.json();
 
-    return formattedResponse;
+  return formattedResponse;
 
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
 }
 
 export async function callPaymentAPI(products, address, shippingOptions, buyer) {
@@ -72,24 +68,15 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 
 
   let user;
-  try {
-    user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
 
-    user = user.data;
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
+  user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
+
+  user = user.data;
 
   let orderID;
-  try {
-    orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
-    orderID = orderID.data;
 
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
+  orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
+  orderID = orderID.data;
 
   const discount = getTotalDiscount(products, buyer.type) * 100;
   // console.log(discount)
@@ -150,15 +137,12 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const targetUrl = `https://cieloecommerce.cielo.com.br/api/public/v1/orders`;
 
-  try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
+  const response = await fetch(proxyUrl + targetUrl, requestOptions);
 
-    const formattedApiResponse = await response.json();
-    const redirectURL = formattedApiResponse.settings.checkoutUrl;
-    window.location.href = redirectURL;
-  } catch (error) {
-    console.error(error)
-  }
+  const formattedApiResponse = await response.json();
+  const redirectURL = formattedApiResponse.settings.checkoutUrl;
+  window.location.href = redirectURL;
+
 }
 
 function getTotalPrice(products, userType) {

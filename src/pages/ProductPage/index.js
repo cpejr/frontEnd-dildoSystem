@@ -736,7 +736,7 @@ function ProductPage(props) {
                                   />
                                   <div className="chosen-option">
                                     {/* <p style={{ "font-weight": "bold" }}>{'Selecionado:'} </p> */}
-                                    <p> {subp.name}</p>
+                                    <p className={index === selectedSubpIndex && 'selected'}> {subp.name}</p>
                                   </div>
                                 </div>
                               )
