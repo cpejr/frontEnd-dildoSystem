@@ -87,8 +87,15 @@ function Addresses() {
   async function goToCheckout(address) {
 
     /* const cart = JSON.parse(localStorage.getItem('cart')); */
-    console.log(cart);
-    console.log(address);
+    // console.log(cart);
+    console.log('addres: ',address);
+    if (address.complement){
+      if (address.complement.length > 14){
+        address.complement =  address.complement.slice(0, 14);
+      }
+    }
+
+    
     setSpinning(true);
 
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
