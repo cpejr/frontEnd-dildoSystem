@@ -87,8 +87,8 @@ function Addresses() {
   async function goToCheckout(address) {
 
     /* const cart = JSON.parse(localStorage.getItem('cart')); */
-    // console.log(cart);
-    // console.log(address);
+    console.log(cart);
+    console.log(address);
     setSpinning(true);
 
     let shippingOptions = await getShippingOptions(cart, address.zipcode, loginContext.type);
@@ -159,7 +159,7 @@ function Addresses() {
 
       newAddress.zipcode = aux + aux2
 
-      // console.log('Novo CEP: ', newAddress.zipcode)
+      console.log('Novo CEP: ', newAddress.zipcode)
     }
 
 
@@ -254,7 +254,7 @@ function Addresses() {
       delete editAddress.address_id
 
       try {
-        // console.log('editAddress', editAddress)
+        console.log('editAddress', editAddress)
         await api.put(`/address/${auxAddress}`, editAddress, config);
         setIsModal2Visible(!isModal2Visible);
       } catch (error) {
