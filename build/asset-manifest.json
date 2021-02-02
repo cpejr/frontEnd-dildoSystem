@@ -1,24 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.340e5573.chunk.css",
-    "main.js": "/static/js/main.85db7114.chunk.js",
-    "main.js.map": "/static/js/main.85db7114.chunk.js.map",
+    "main.css": "/static/css/main.402818b9.chunk.css",
+    "main.js": "/static/js/main.eb30ee53.chunk.js",
+    "main.js.map": "/static/js/main.eb30ee53.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b03a7968.js",
     "runtime-main.js.map": "/static/js/runtime-main.b03a7968.js.map",
     "static/css/2.51217ef2.chunk.css": "/static/css/2.51217ef2.chunk.css",
-    "static/js/2.a57b074e.chunk.js": "/static/js/2.a57b074e.chunk.js",
-    "static/js/2.a57b074e.chunk.js.map": "/static/js/2.a57b074e.chunk.js.map",
+    "static/js/2.c3ae1799.chunk.js": "/static/js/2.c3ae1799.chunk.js",
+    "static/js/2.c3ae1799.chunk.js.map": "/static/js/2.c3ae1799.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.fe30ef9966c8f35053515dfed1216685.js": "/precache-manifest.fe30ef9966c8f35053515dfed1216685.js",
+    "precache-manifest.79636be875000be1659b3f0f68345446.js": "/precache-manifest.79636be875000be1659b3f0f68345446.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.51217ef2.chunk.css.map": "/static/css/2.51217ef2.chunk.css.map",
-    "static/css/main.340e5573.chunk.css.map": "/static/css/main.340e5573.chunk.css.map",
-    "static/js/2.a57b074e.chunk.js.LICENSE.txt": "/static/js/2.a57b074e.chunk.js.LICENSE.txt",
-    "static/media/CASULUS01LOGODESIGN.png": "/static/media/CASULUS01LOGODESIGN.eefa93fa.png",
-    "static/media/CASULUS_LOGOTEXTO_PRETO.svg": "/static/media/CASULUS_LOGOTEXTO_PRETO.6f34cd1d.svg",
+    "static/css/main.402818b9.chunk.css.map": "/static/css/main.402818b9.chunk.css.map",
+    "static/js/2.c3ae1799.chunk.js.LICENSE.txt": "/static/js/2.c3ae1799.chunk.js.LICENSE.txt",
+    "static/media/CASULUS_BORBOLETA_2_AMARELO.png": "/static/media/CASULUS_BORBOLETA_2_AMARELO.22703356.png",
+    "static/media/CASULUS_BORBOLETA_4_AMARELO.png": "/static/media/CASULUS_BORBOLETA_4_AMARELO.e5c2c656.png",
+    "static/media/CASULUS_LOGOTEXTO_PRETO.png": "/static/media/CASULUS_LOGOTEXTO_PRETO.ee7c1044.png",
     "static/media/CASULUS_LOGO_PRETO.svg": "/static/media/CASULUS_LOGO_PRETO.f72ff0c4.svg",
     "static/media/CASULUS_TEXTO_PRETO.svg": "/static/media/CASULUS_TEXTO_PRETO.14b5bef5.svg",
     "static/media/styles.css": "/static/media/revicons.2feb69cc.eot",
+    "static/media/icone.png": "/static/media/icone.1212af03.png",
     "static/media/inst1.jpg": "/static/media/inst1.6d9174a1.jpg",
     "static/media/inst2.jpg": "/static/media/inst2.bcfd87f0.jpg",
     "static/media/inst3.jpg": "/static/media/inst3.e3aea2cb.jpg",
@@ -28,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.b03a7968.js",
     "static/css/2.51217ef2.chunk.css",
-    "static/js/2.a57b074e.chunk.js",
-    "static/css/main.340e5573.chunk.css",
-    "static/js/main.85db7114.chunk.js"
+    "static/js/2.c3ae1799.chunk.js",
+    "static/css/main.402818b9.chunk.css",
+    "static/js/main.eb30ee53.chunk.js"
   ]
 }
