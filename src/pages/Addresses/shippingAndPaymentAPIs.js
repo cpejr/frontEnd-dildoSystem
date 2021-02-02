@@ -46,7 +46,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   const items = products.map(p => { //MONTA ARRAY DE PRODUTOS NO FORMATO DESEJADO
     return {
       Name: p.name,
-      Description: p.description,
+      Description: p.description.length >= 256 ? p.description.slice(0, 255) : p.description,
       UnitPrice: getProductPriceWODiscount(p, buyer.type) * 100,
       Quantity: p.quantity,
       Type: "Asset",

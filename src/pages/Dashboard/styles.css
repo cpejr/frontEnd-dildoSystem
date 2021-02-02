@@ -66,31 +66,31 @@
 
 @media (max-width: 1400px) {
   .images-container {
-    max-width: 1300px;
+    /* max-width: 1300px; */
   }
 }
 
 @media (max-width: 1200px) {
   .images-container {
-    max-width: 1140px;
+    /* max-width: 1140px; */
   }
 }
 
 @media (max-width: 992px) {
   .images-container {
-    max-width: 960px;
+    /* max-width: 960px; */
   }
 }
 
 @media (max-width: 768px) {
   .images-container {
-    max-width: 720px;
+    /*  max-width: 720px; */
   }
 }
 
 @media (max-width: 576px) {
   .images-container {
-    max-width: 540px;
+    /* max-width: 540px; */
   }
 }
 
