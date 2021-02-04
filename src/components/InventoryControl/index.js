@@ -23,11 +23,13 @@ export default function InventoryControl() {
     function handleSubmit(event) {
         event.preventDefault();
 
+        // console.log('search dentro do invetory control', search)
+
         let newFormattedSearch;
 
         if(search) {
-            newFormattedSearch = search.replace(/ /g, '%');
-            newFormattedSearch = newFormattedSearch.normalize('NFD');
+            newFormattedSearch = search.replace(/ /g, '+');
+            // newFormattedSearch = newFormattedSearch.normalize('NFD');
         }
         setFormattedSearch(newFormattedSearch);
     }
@@ -45,7 +47,7 @@ export default function InventoryControl() {
                             )}
                     </select>
 
-                    <Button type="submit">Buscar</Button>
+                    <Button type="submit" onClick={e => handleSubmit(e)}>Buscar</Button>
                 </div>
 
             </form>

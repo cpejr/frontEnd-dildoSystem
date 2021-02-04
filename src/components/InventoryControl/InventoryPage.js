@@ -24,6 +24,8 @@ export default function InventoryCard(props) {
     //         setQuantity(quantity - 1);
     // }
 
+    const [change, setChange] = useState(false);
+
     useEffect(() => {
         let newQueries = '';
 
@@ -43,10 +45,14 @@ export default function InventoryCard(props) {
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
+                setChange(!change)
+                console.log('products dentro do inventory page: ', response.data)
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
+                setChange(!change)
+                console.log('products dentro do inventory page: ', response.data)
             });
         }
 
@@ -94,7 +100,7 @@ export default function InventoryCard(props) {
         <div className="products-container-wrapper">
             <div className="products-container">
                 {products.map(product => (
-                    <Inventory product={product} />
+                    <Inventory product={product} search={props.search} change={change}/>
                 ))}
             </div>
             <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button>
