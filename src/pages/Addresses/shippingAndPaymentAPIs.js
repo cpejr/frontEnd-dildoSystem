@@ -32,7 +32,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
   const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
 
-  const response = await fetch(proxyUrl + targetUrl, requestOptions);
+  const response = await fetch(targetUrl, requestOptions);
 
 
 

@@ -55,7 +55,7 @@ function Testefrete({ products, totalprice }) {
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/',
             targetUrl = `https://api.frenet.com.br/shipping/quote`
 
-        const response = fetch(proxyUrl + targetUrl, requestOptions)
+        const response = fetch(targetUrl, requestOptions)
             .then(response => response.json())
             .then(data => {
                 // console.log('pegou data da frenet', data)
