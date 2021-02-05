@@ -4,6 +4,8 @@ import { notification } from 'antd';
 import { Radio, Input } from 'antd';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
+import api from '../../services/api';
+
 import './styles.css'
 
 function Testefrete({ products, totalprice }) {
@@ -43,29 +45,13 @@ function Testefrete({ products, totalprice }) {
             RecipientCountry: "BR"
         }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'token': '141A8046RB13FR4AE0R9085RD085090B7777'
-            },
-            mode: 'cors',
-            body: JSON.stringify(freteData)
+        try {
+            const response = await api.post('frenet', freteData);
+            console.log(response);
+            setShipping(response.data.ShippingSevicesArray);
+        } catch (error) {
+            console.log(error);
         }
-
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = `https://api.frenet.com.br/shipping/quote`
-
-        const response = fetch(targetUrl, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                // console.log('pegou data da frenet', data)
-                // console.log(data.ShippingSevicesArray[0].ShippingPrice)
-                setShipping(data.ShippingSevicesArray)
-            })
-            .catch(err => console.error(err));
-
-
     }
 
     const handleClickDrop = (e) => {

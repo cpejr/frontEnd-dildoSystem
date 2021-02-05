@@ -20,26 +20,12 @@ export async function getShippingOptions(products, cepDestino, userType) {
     ShippingItemArray: formattedProducts,
     RecipientCountry: "BR"
   };
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'token': '141A8046RB13FR4AE0R9085RD085090B7777'
-    },
-    body: JSON.stringify(freteData)
-  };
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
+  const response = await api.post('frenet', freteData);
 
-  const response = await fetch(targetUrl, requestOptions);
+  console.log(response.data);
 
-
-
-  const formattedResponse = await response.json();
-
-  return formattedResponse;
-
+  return response.data;
 }
 
 export async function callPaymentAPI(products, address, shippingOptions, buyer) {
@@ -124,23 +110,10 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Settings": null
   }
 
+  const cieloResponse = await api.post('cielolink', requestBody);
+  console.log(cieloResponse.data)
 
-
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'MerchantId': /* 'dee08cb6-062c-4e77-bbaf-73bdc86b6af0' */ '658dd7d2-2d89-40f8-92ee-886111da3b2d'
-    },
-    body: JSON.stringify(requestBody)
-  };
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = `https://cieloecommerce.cielo.com.br/api/public/v1/orders`;
-
-  const response = await fetch(proxyUrl + targetUrl, requestOptions);
-
-  const formattedApiResponse = await response.json();
-  const redirectURL = formattedApiResponse.settings.checkoutUrl;
+  const redirectURL = cieloResponse.data.settings.checkoutUrl;
   window.location.href = redirectURL;
 
 }
