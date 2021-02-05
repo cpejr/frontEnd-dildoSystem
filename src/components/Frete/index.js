@@ -49,6 +49,7 @@ function Testefrete({ products, totalprice }) {
                 'Content-Type': 'application/json',
                 'token': '141A8046RB13FR4AE0R9085RD085090B7777'
             },
+            mode: 'cors',
             body: JSON.stringify(freteData)
         }
 
