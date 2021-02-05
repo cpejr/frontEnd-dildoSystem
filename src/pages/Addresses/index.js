@@ -88,7 +88,7 @@ function Addresses() {
 
     /* const cart = JSON.parse(localStorage.getItem('cart')); */
     // console.log(cart);
-    console.log('addres: ', address);
+    /*  console.log('addres: ', address); */
     if (address.complement) {
       if (address.complement.length > 14) {
         address.complement = address.complement.slice(0, 14);
@@ -118,7 +118,7 @@ function Addresses() {
       await callPaymentAPI(cart, address, shippingOptions, loginContext);
     }
     catch (error) {
-      console.log(error);
+      console.error(error);
       notification.open({
         message: 'Erro!',
         description:
@@ -185,7 +185,7 @@ function Addresses() {
 
       newAddress.zipcode = aux + aux2
 
-      console.log('Novo CEP: ', newAddress.zipcode)
+      /* console.log('Novo CEP: ', newAddress.zipcode) */
     }
 
 
@@ -280,7 +280,7 @@ function Addresses() {
       delete editAddress.address_id
 
       try {
-        console.log('editAddress', editAddress)
+        /* console.log('editAddress', editAddress) */
         await api.put(`/address/${auxAddress}`, editAddress, config);
         setIsModal2Visible(!isModal2Visible);
       } catch (error) {

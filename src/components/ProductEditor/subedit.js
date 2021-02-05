@@ -97,7 +97,7 @@ export default function SubproductsEdit({ subproduto }) {
         },
       }, response);
     } catch (err) {
-      console.log(JSON.stringify(err));
+      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: 'Erro!',

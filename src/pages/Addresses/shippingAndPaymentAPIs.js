@@ -23,7 +23,7 @@ export async function getShippingOptions(products, cepDestino, userType) {
 
   const response = await api.post('frenet', freteData);
 
-  console.log(response.data);
+  /*  console.log(response.data); */
 
   return response.data;
 }

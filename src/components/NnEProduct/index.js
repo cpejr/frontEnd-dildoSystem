@@ -139,7 +139,7 @@ export default function NnEProduct({ witchOne }) {
     addToData('width', width);
     addToData('length', length);
 
-    console.log('dados enviados para cadastrar o produto: ', client_sale_price, name)
+    /* console.log('dados enviados para cadastrar o produto: ', client_sale_price, name) */
 
 
     try {
@@ -161,7 +161,7 @@ export default function NnEProduct({ witchOne }) {
         },
       });
     } catch (err) {
-      console.log(JSON.stringify(err));
+      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       if (!image) {
         notification.open({

@@ -50,7 +50,8 @@ function Search(props) {
 
         })
       } catch (error) {
-        console.log('Could not fetch categories')
+        console.error(error);
+        /* console.log('Could not fetch categories') */
       }
     }
   }, [categoryId, subcategoryId]);

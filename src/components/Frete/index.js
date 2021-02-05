@@ -47,10 +47,10 @@ function Testefrete({ products, totalprice }) {
 
         try {
             const response = await api.post('frenet', freteData);
-            console.log(response);
+            /* console.log(response); */
             setShipping(response.data.ShippingSevicesArray);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

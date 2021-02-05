@@ -147,7 +147,6 @@ function Carousel(props) {
         },
       });
     } catch (err) {
-      console.log(JSON.stringify(err));
       console.error(err.response);
       notification.open({
         message: 'Erro!',

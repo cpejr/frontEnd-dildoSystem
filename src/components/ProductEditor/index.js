@@ -265,7 +265,7 @@ export default function ProductEditor(props) {
         setBest_Seller(!best_seller);
         break;
       default:
-        console.log("erro");
+        console.error("erro no switch (it's nintendo)");
     }
   };
 
@@ -318,7 +318,7 @@ export default function ProductEditor(props) {
         response
       );
     } catch (err) {
-      console.log(JSON.stringify(err));
+      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: "Erro!",
