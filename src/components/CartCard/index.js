@@ -83,7 +83,7 @@ function CartCard(props) {
     useEffect(() => {
         const price = /* setNewPrice(); */getProductPrice(product)
         //onChangePrice({ productId: product.id, productPrice: price, product_quantity: productQuantity });
-        console.log('Products do carrinho', props.product)
+        // console.log('Products do carrinho', props.product)
     }, []);
 
     function addOne() {
@@ -100,7 +100,7 @@ function CartCard(props) {
             const subpId = props.product.subproduct ? props.product.subproduct.id : undefined;
             changeQuantity(props.product.id, subpId, props.product.quantity + 1);
         } else {
-            console.log("Entrei")
+            // console.log("Entrei")
             document.getElementsByClassName(`more-${props.productId}`)[0].style.color = " #d3cece"
         }
     }

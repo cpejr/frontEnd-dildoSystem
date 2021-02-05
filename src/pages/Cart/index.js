@@ -80,14 +80,15 @@ function Cart(props) {
             <Frete products={cart} totalprice={totalPrice} />
           </div>
           <div className="button-area">
-            {cart && cart.length > 0 && (<Link to="/addresses">
-              <button className="cart-primary-button">FINALIZAR</button>
-            </Link>)}
+
             <Link to="/">
               <button className="cart-secondary-button">
                 CONTINUAR COMPRANDO
               </button>
             </Link>
+            {cart && cart.length > 0 && (<Link to="/addresses">
+              <button className="cart-primary-button">FINALIZAR</button>
+            </Link>)}
           </div>
 
         </div>

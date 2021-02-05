@@ -33,7 +33,7 @@ export default function ControlledCarousel() {
           if (index == 0) {
             prev = images.length - 1
             next = index + 1
-            console.log(images[prev]);
+            // console.log(images[prev]);
           } else if (index == images.length - 1) {
             prev = index - 1;
             next = 0
@@ -42,7 +42,7 @@ export default function ControlledCarousel() {
             next = index + 1;
           };
           return (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <div className="CarouselImages">
                 <div className="previmage">
                   <img

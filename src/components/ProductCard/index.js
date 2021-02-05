@@ -49,17 +49,17 @@ export default withRouter(function ProductCard(props) {
 
         if (props.releaseOnly) url += '&release=true';
         if (props.best_sellerOnly) url += '&best_seller=true';
-        
+
 
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
-                
+                // console.log('esse eh o products resultado da busca: ', response.data)
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
-                
+
             });
         }
     }, [props.location.search])
@@ -86,7 +86,7 @@ export default withRouter(function ProductCard(props) {
             loadFollowingPage();
         }
     }, [requiring])
-    
+
 
     // useEffect(() => {
     //     console.log('novo array de products', products);
@@ -94,7 +94,7 @@ export default withRouter(function ProductCard(props) {
 
 
     useEffect(() => {
-        
+
     }, [products])
 
     async function loadFollowingPage() {
@@ -108,7 +108,7 @@ export default withRouter(function ProductCard(props) {
 
         if (props.featuredOnly) url += '&featured=true';
 
-       
+
 
         let nextPage;
 
@@ -134,35 +134,53 @@ export default withRouter(function ProductCard(props) {
     return (
         <div className={`products-container-wrapper ${props.className}`}>
             <div className="products-container">
-                {products.map(product => (
-                    // <CardProduct product={product}/>
-                    <NewProductCard product={product}/>
-                    // <div className="Card" key={`product-${product.id}`}>
-                    //     <Link to={`/product/${product.id}`} className="image-text-container">
-                    //         <ImageLoader
-                    //             src={`https://docs.google.com/uc?id=${product.image_id}`}
-                    //             loading={() => <img src={loading} alt="Loading..." />}
-                    //             error={() => <div>Error</div>} />
-                    //         <p id="titulo-card">
-                    //             {product.name}
-                    //         </p>
-                    //     </Link>
-                    //     <div className="fiheartDiv">
-                    //         {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(product.id)} />}
-                    //         {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(product.id)} />}
-                    //     </div>
+                {
+                    (products.length > 0) ?
+                        <div className="products-container">
+                            {products.map((product, index) => (
+                                // <CardProduct product={product}/>
+                                <NewProductCard product={product} key={index}/>))}
+                            </div >
+                    :
+                    <div className="no-found-search">
+                        <h4>NENHUM RESULTADO ENCONTRADO</h4>
+                        <h6>Encontramos 0 resultado para sua busca </h6>
+                        <p className='no-found-paragraph'>Dicas para melhorar sua busca </p>
+                        <p> - Verifique se não houve erro de digitação. </p>
+                        <p> - Procure por um termo similar ou sinônimo. </p>
+                        <p> - Tente procurar termos mais gerais e filtrar o resultado da busca. </p>
+                    </div>
+                }
+                {/* {products.map(product => (
+                                // <CardProduct product={product}/>
+                                <NewProductCard product={product} />
+                                // <div className="Card" key={`product-${product.id}`}>
+                                //     <Link to={`/product/${product.id}`} className="image-text-container">
+                                //         <ImageLoader
+                                //             src={`https://docs.google.com/uc?id=${product.image_id}`}
+                                //             loading={() => <img src={loading} alt="Loading..." />}
+                                //             error={() => <div>Error</div>} />
+                                //         <p id="titulo-card">
+                                //             {product.name}
+                                //         </p>
+                                //     </Link>
+                                //     <div className="fiheartDiv">
+                                //         {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(product.id)} />}
+                                //         {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(product.id)} />}
+                                //     </div>
 
-                    //     <PriceElement product={product} />
+                                //     <PriceElement product={product} />
 
-                    //     <Link id="botao-comprar" to="/cart">
-                    //         <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
-                    //     </Link>
+                                //     <Link id="botao-comprar" to="/cart">
+                                //         <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
+                                //     </Link>
 
-                    // </div>
-                ))}
+                                // </div>
+                            ))}
+                        </div> */}
+                            {/* <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button> */}
+                        </div>
             </div>
-            {/* <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button> */}
-        </div>
 
     )
 });

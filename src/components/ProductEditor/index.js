@@ -265,7 +265,7 @@ export default function ProductEditor(props) {
         setBest_Seller(!best_seller);
         break;
       default:
-        console.log("erro");
+        console.error("erro no switch (it's nintendo)");
     }
   };
 
@@ -318,7 +318,7 @@ export default function ProductEditor(props) {
         response
       );
     } catch (err) {
-      console.log(JSON.stringify(err));
+      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: "Erro!",
@@ -351,7 +351,7 @@ export default function ProductEditor(props) {
     //     },
     //   });
     // }
-    console.log("subcategories", subcategories_ids);
+    // console.log("subcategories", subcategories_ids);
   }
 
   function handleImage(img) {
@@ -423,17 +423,17 @@ export default function ProductEditor(props) {
   useEffect(() => {
     if (subcategories_ids && subcategories_ids.length > 0) {
       let categorizeData = { subcategories_ids: [subcategories_ids] };
-      console.log("categorize", categorizeData);
+      // console.log("categorize", categorizeData);
       api
         .put(`categorize/${props.match.params.id}`, categorizeData, config)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
         });
       api.get(`product/${props.match.params.id}`, config).then((response) => {
         setProducts(response.data.subcategories);
-        console.log(response.data);
+        // console.log(response.data);
       });
-      console.log("Entrou");
+      // console.log("Entrou");
     }
   }, [subcategories_ids]);
 

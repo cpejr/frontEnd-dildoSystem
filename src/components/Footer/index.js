@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import Logos from "../../images/CASULUS_LOGOTEXTO_PRETO.svg";
+import Logos from "../../images/CASULUS_LOGOTEXTO_PRETO.png";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
@@ -28,8 +28,8 @@ export default function Footer() {
         <div id="texto-institucional">
          <h3>Info</h3>
          {
-           categories.map((categoria)=>(
-            <Link to={`/search?category_id=${categoria.id}`} className="term-link">
+           categories.map((categoria, index)=>(
+            <Link to={`/search?category_id=${categoria.id}`} className="term-link" key={index}>
             {categoria.name}
           </Link>
            )
@@ -65,10 +65,10 @@ export default function Footer() {
         <Link to="/conditions" className="term-link">
           Termos de uso e política de privacidade.
         </Link>
-        <Link to="/about" className="term-link">
+        <Link to="/about2" className="term-link">
           Como comprar
         </Link>
-        <Link to="/register" className="term-link">
+        <Link to="/about2" className="term-link">
           Seja um(a) revendedor(a)
         </Link>
         </div>
@@ -77,15 +77,15 @@ export default function Footer() {
         <div className="term-link">
           lojacasulus@gmail.com
         </div>
-        <Link to="/conditions" className="term-link">
-          Whatsapp
-        </Link>
-        <a href="https://instagram.com/casulus.sex" className="term-link" target="_blank" rel="noopener noreferrer">
-          Instagram
+        <a className="term-link" href="https://web.whatsapp.com/send?phone=5562993229837" target="_blank">
+          Whatsapp: (62) 99322-9837
         </a>
-        <Link to="/about" className="term-link">
+        <a href="https://instagram.com/casulus.sex" className="term-link" target="_blank" rel="noopener noreferrer">
+          Instagram: @casulus.sex
+        </a>
+        {/* <Link to="/about" className="term-link">
           Perguntas frequentes
-        </Link>
+        </Link> */}
       </div>
         </div>
       </div>

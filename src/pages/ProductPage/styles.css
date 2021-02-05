@@ -274,6 +274,21 @@
   flex: 1 0 auto;
   /* background-color: white; */
   display: flex;
+  flex-direction: column;
+}
+
+.not-description-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 50px;
+  border-radius: 20px;
+  flex: 1 0 auto;
+  /* background-color: white; */
+  display: flex;
+}
+
+.description {
+  margin-top: 30px;
 }
 
 .photos-column {
@@ -399,27 +414,58 @@
   flex-direction: column;
   margin: 20px 0;
   font-size: 1.1rem;
+  width: 100%;
 }
 
 .info-column .options .subproduct-options .option-selector {
   display: flex;
   font-weight: bold;
+  flex-direction: column;
 }
 
 .info-column .options .subproduct-options .option-selector img {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   border-radius: 3px;
-  margin: 0 5px;
+  margin: 5px 5px;
   cursor: pointer;
 }
 
 .info-column .options .subproduct-options .option-selector img.selected {
   border: 2px solid grey;
 }
+.info-column .options .subproduct-options .option-selector p.selected {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.info-column
+  .options
+  .subproduct-options
+  .option-selector
+  .subproduct-wrapper:not(:first-child) {
+  border-bottom: 1px solid gray;
+}
+
+.option-selector .subproduct-wrapper {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid gray;
+  border-right: 0;
+  border-left: 0; */
+}
+
+.option-selector .subproduct-wrapper p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+}
 
 .info-column .options .subproduct-options .chosen-option {
   display: flex;
+  height: 100%;
+  align-items: center;
 }
 .info-column .options .subproduct-options .chosen-option p + p {
   margin-left: 5px;
@@ -535,10 +581,14 @@
     width: 100vw;
     margin-top: 10px;
   }
-  .photos-column,
+  .photos-column {
+    width: 100%;
+    align-items: center;
+  }
   .info-column {
     width: 90%;
     align-items: center;
+    margin: 23px;
   }
   .photos-column .thumbnails {
     justify-content: center;
@@ -547,6 +597,9 @@
     position: relative;
     height: min(400px, 90vw);
     width: min(400px, 90vw);
+  }
+  .not-description-wrapper {
+    flex-direction: column;
   }
 }
 @media (max-width: 500px) {

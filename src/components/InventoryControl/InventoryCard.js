@@ -44,6 +44,12 @@ export default function InventoryCard(props) {
     }
 
     useEffect(() => {
+        // console.log(product.stock_quantity)
+
+        setQuantity(product.stock_quantity)
+        setMinimum(product.min_stock)
+
+
         let newQueries = '';
 
         if (props.search) newQueries += `&search=${props.search}`;
@@ -70,7 +76,7 @@ export default function InventoryCard(props) {
         }
 
 
-    }, [props.search, props.categoryId]);
+    }, [props.search, props.categoryId, props.change]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -116,24 +122,24 @@ export default function InventoryCard(props) {
             if (value !== undefined && value !== "") data.append(key, value);
         }
 
-        addToData("name", product.name);
-        addToData("description", product.description);
-        addToData("client_price", product.client_price);
-        addToData("client_sale_price", product.client_sale_price);
-        addToData("wholesaler_price", product.wholesaler_price);
-        addToData("wholesaler_sale_price", product.wholesaler_sale_price);
+        // addToData("name", product.name);
+        // addToData("description", product.description);
+        // addToData("client_price", product.client_price);
+        // addToData("client_sale_price", product.client_sale_price);
+        // addToData("wholesaler_price", product.wholesaler_price);
+        // addToData("wholesaler_sale_price", product.wholesaler_sale_price);
         addToData("stock_quantity", quantity);
         addToData("min_stock", minimum);
-        addToData("visible", product.visible);
-        addToData("on_sale_client", product.on_sale_client);
-        addToData("on_sale_wholesaler", product.on_sale_wholesaler);
-        addToData('best_seller', product.best_seller);
-        addToData('release', product.release);
-        addToData("subcategory_id", product.subcategory_id);
-        addToData("weight", product.weight);
-        addToData("height", product.height);
-        addToData("width", product.width);
-        addToData("length", product.length);
+        // addToData("visible", product.visible);
+        // addToData("on_sale_client", product.on_sale_client);
+        // addToData("on_sale_wholesaler", product.on_sale_wholesaler);
+        // addToData('best_seller', product.best_seller);
+        // addToData('release', product.release);
+        // addToData("subcategory_id", product.subcategory_id);
+        // addToData("weight", product.weight);
+        // addToData("height", product.height);
+        // addToData("width", product.width);
+        // addToData("length", product.length);
 
         try {
             await api.put(
@@ -153,8 +159,8 @@ export default function InventoryCard(props) {
                 },
             });
         } catch (err) {
-            console.log(JSON.stringify(err));
-            console.err(err.response);
+            /* console.log(JSON.stringify(err)); */
+            console.error(err.response);
             notification.open({
                 message: 'Erro!',
                 description:

@@ -80,7 +80,7 @@ export default function List2({ newCategory }) {
 
 
   function callback(key) {
-    console.log(key);
+    // console.log(key);
   }
 
   const config = {

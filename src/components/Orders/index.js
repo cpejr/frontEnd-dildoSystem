@@ -15,6 +15,8 @@ function Orders(props) {
   useEffect(() => {
     if (props.location.myCustomProps !== undefined) {
       setOrder([props.location.myCustomProps]);
+      // console.log('esse eh order: ', [props.location.myCustomProps])
+
     } else if (props.match.params.id !== undefined) {
 
       url = `orders?byid=${props.match.params.id}`
@@ -22,6 +24,7 @@ function Orders(props) {
       if (accessToken) {
         api.get(url, config).then((response) => {
           setOrder(response.data);
+          // console.log('esse eh order: ', response.data)
         });
       }
     }

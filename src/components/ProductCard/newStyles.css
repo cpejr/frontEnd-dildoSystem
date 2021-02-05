@@ -56,8 +56,8 @@
 
 #titulo-card {
   margin-bottom: 0;
-  font-size: 1.8em;
-  line-height: 20px;
+  font-size: 1.5em;
+  line-height: 22px;
   color: var(--text-color);
   text-align: center;
 }
@@ -238,6 +238,17 @@
 .buy-button {
   background-color: var(--mainColor) !important;
   color: black !important;
+}
+
+.no-found-search {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30%;
+      margin-bottom: 76%;
+}
+
+.no-found-search .no-found-paragraph {
+  padding-top: 10%;
 }
 
 @media (max-width: 550px) {

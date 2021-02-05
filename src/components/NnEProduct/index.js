@@ -16,9 +16,9 @@ export default function NnEProduct({ witchOne }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [client_price, setClientPrice] = useState();
-  const [client_sale_price, setClientSalePrice] = useState();
+  const [client_sale_price, setClientSalePrice] = useState(1);
   const [wholesaler_price, setWholesalerPrice] = useState();
-  const [wholesaler_sale_price, setWholesalerSalePrice] = useState();
+  const [wholesaler_sale_price, setWholesalerSalePrice] = useState(1);
   const [on_sale_client, setOnsaleClient] = useState(false);
   const [on_sale_wholesaler, setOnsaleWholesaler] = useState(false);
   const [release, setRelease] = useState(false);
@@ -107,6 +107,13 @@ export default function NnEProduct({ witchOne }) {
         data.append(key, value);
     }
 
+    // if(client_sale_price === undefined || wholesaler_sale_price === undefined){
+    //   console.log('entrei no if')
+    //   setClientSalePrice(0);
+    //   setWholesalerSalePrice(0);
+    // }
+
+
     addToData('name', name);
     addToData('description', description);
     addToData('client_price', client_price);
@@ -132,6 +139,9 @@ export default function NnEProduct({ witchOne }) {
     addToData('width', width);
     addToData('length', length);
 
+    /* console.log('dados enviados para cadastrar o produto: ', client_sale_price, name) */
+
+
     try {
       await api.post("newProduct", data, {
         headers: {
@@ -151,7 +161,7 @@ export default function NnEProduct({ witchOne }) {
         },
       });
     } catch (err) {
-      console.log(JSON.stringify(err));
+      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       if (!image) {
         notification.open({

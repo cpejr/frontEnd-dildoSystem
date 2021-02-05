@@ -72,7 +72,7 @@ export default function ProductModal({ product, visible, onCancel }) {
             {
               product.subproducts ? (<select value={selectedSubpIndex} onChange={selectSubproduct}>
                 {product.subproducts.map((subp, index) => (
-                  <option disabled={subp.stock_quantity === 0} value={index}>{subp.name}</option>
+                  <option disabled={subp.stock_quantity === 0} value={index} key={index}>{subp.name}</option>
                 ))}
               </select>) : (<p>Única</p>)
             }

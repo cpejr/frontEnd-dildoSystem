@@ -1,7 +1,7 @@
 import api from '../../services/api';
 
 export async function getShippingOptions(products, cepDestino, userType) {
-  console.log(products);
+  // console.log(products);
   const totalPrice = getTotalPrice(products, userType);
   const formattedProducts = products.map(p => {
     return {
@@ -20,37 +20,19 @@ export async function getShippingOptions(products, cepDestino, userType) {
     ShippingItemArray: formattedProducts,
     RecipientCountry: "BR"
   };
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'token': '141A8046RB13FR4AE0R9085RD085090B7777'
-    },
-    body: JSON.stringify(freteData)
-  };
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = `https://api.frenet.com.br/shipping/quote`;
 
-  try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
+  const response = await api.post('frenet', freteData);
 
+  /*  console.log(response.data); */
 
-
-    const formattedResponse = await response.json();
-
-    return formattedResponse;
-
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
+  return response.data;
 }
 
 export async function callPaymentAPI(products, address, shippingOptions, buyer) {
   const items = products.map(p => { //MONTA ARRAY DE PRODUTOS NO FORMATO DESEJADO
     return {
       Name: p.name,
-      Description: p.description,
+      Description: p.description.length >= 256 ? p.description.slice(0, 255) : p.description,
       UnitPrice: getProductPriceWODiscount(p, buyer.type) * 100,
       Quantity: p.quantity,
       Type: "Asset",
@@ -72,27 +54,18 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
 
 
   let user;
-  try {
-    user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
 
-    user = user.data;
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
+  user = await api.get(`/user/${buyer.id}`, { headers: { authorization: `Bearer ${buyer.accessToken}` } });
+
+  user = user.data;
 
   let orderID;
-  try {
-    orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
-    orderID = orderID.data;
 
-  } catch (error) {
-    console.error(error);
-    return (error);
-  }
+  orderID = await api.get('initializeOrder', { headers: { authorization: `Bearer ${buyer.accessToken}` } });
+  orderID = orderID.data;
 
   const discount = getTotalDiscount(products, buyer.type) * 100;
-  console.log(discount)
+  // console.log(discount)
 
   const requestBody = {
     "OrderNumber": orderID,
@@ -137,28 +110,12 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Settings": null
   }
 
+  const cieloResponse = await api.post('cielolink', requestBody);
+  console.log(cieloResponse.data)
 
+  const redirectURL = cieloResponse.data.settings.checkoutUrl;
+  window.location.href = redirectURL;
 
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'MerchantId': /* 'dee08cb6-062c-4e77-bbaf-73bdc86b6af0' */ '658dd7d2-2d89-40f8-92ee-886111da3b2d'
-    },
-    body: JSON.stringify(requestBody)
-  };
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = `https://cieloecommerce.cielo.com.br/api/public/v1/orders`;
-
-  try {
-    const response = await fetch(proxyUrl + targetUrl, requestOptions);
-
-    const formattedApiResponse = await response.json();
-    const redirectURL = formattedApiResponse.settings.checkoutUrl;
-    window.location.href = redirectURL;
-  } catch (error) {
-    console.error(error)
-  }
 }
 
 function getTotalPrice(products, userType) {

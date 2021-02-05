@@ -39,7 +39,7 @@ export default function CheckoutPage(props) {
                 return response.data;
 
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 return error;
             }
         }
@@ -55,7 +55,7 @@ export default function CheckoutPage(props) {
                 const response = await api.post(`newOrder`, order, options);
                 return response.data;
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 return error;
             }
         }
@@ -71,7 +71,7 @@ export default function CheckoutPage(props) {
                 return response.data;
 
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 return error;
             }
         }

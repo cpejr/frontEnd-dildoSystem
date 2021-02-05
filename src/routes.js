@@ -18,6 +18,7 @@ import Addresses from './pages/Addresses';
 import TermsandConditions from './pages/TermsandConditions'
 import NotFound from './components/NotFound'
 import About from './pages/About'
+import About2 from './pages/About2'
 import Checkout from './pages/checkoutPage'
 import CatNSubCat from './pages/CategoriasESubcategorias'
 import Insta from './components/Instagram'
@@ -52,9 +53,9 @@ function Routes() {
                             <Route path='/testefrete' component={Frete} />
                             <Route path='/addresses' component={Addresses} />
                             <Route path='/about' component={About} />
+                            <Route path='/about2' component={About2} />
                             <Route path='/conditions' component={TermsandConditions} />
                             <Route path='/checkout/:order_id' component={Checkout} />
-                            <Route path='/insta' component={Insta} />
                             <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>

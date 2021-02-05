@@ -17,6 +17,15 @@
   width: 100%;
 }
 
+.radio-group-wrapper svg{
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.radio-group-wrapper {
+  display: flex;
+}
+
 .address-box {
   display: flex;
   flex-direction: column;

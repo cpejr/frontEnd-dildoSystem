@@ -10,6 +10,9 @@ import Filters from './Filters';
 import { SearchContext } from '../../Contexts/SearchContext';
 import WhatsAppButton from '../../components/WhatsAppButton'
 
+import borboletaAmarela1 from '../../images/CASULUS_BORBOLETA_2_AMARELO.png'
+import borboletaAmarela2 from '../../images/CASULUS_BORBOLETA_4_AMARELO.png'
+
 import api from '../../services/api';
 
 function Search(props) {
@@ -47,14 +50,18 @@ function Search(props) {
 
         })
       } catch (error) {
-        console.log('Could not fetch categories')
+        console.error(error);
+        /* console.log('Could not fetch categories') */
       }
     }
   }, [categoryId, subcategoryId]);
 
   useEffect(() => {
 
+    // console.log('esse eh o search',search);
+
     const queries = queryString.parse(search);
+    // console.log('esse eh o queries', queries);
     (queries.search) ? setFormattedSearch(queries.search) : setFormattedSearch();
     (queries.category_id) ? setCategoryId(queries.category_id) : setCategoryId();
     (queries.subcategory_id) ? setSubcategoryId(queries.subcategory_id) : setSubcategoryId();
@@ -63,7 +70,7 @@ function Search(props) {
 
   useEffect(() => {
     setUpdate(!update)
-    console.log('ALLO')
+    // console.log('ALLO')
   }, window.innerHeight)
 
   return (
@@ -94,10 +101,24 @@ function Search(props) {
 
         </div>
 
+        <div className='background'>
+          <div className='wrapper-background-1'>
+            <img src={borboletaAmarela2} className='background-img2' alt='borboletas'></img>
+            <img src={borboletaAmarela1} className='background-img1' alt='borboletas'></img>
+          </div>
+          <div className='wrapper-background-2'>
+            <img src={borboletaAmarela1} className='background-img4' alt='borboletas'></img>
+            <img src={borboletaAmarela2} className='background-img3' alt='borboletas'></img>
+          </div>
+
+          {/* <img src={borboletas} className='background-img' alt='borboletas'></img>
+          <img src={borboletas} className='background-img' alt='borboletas'></img> */}
+        </div>
+
 
       </div>
-      <div className="footer-overlap" style={{ height: 360 }} />
-      <div className="footer-div" style={{ position: "absolute", bottom: "0", width: window.innerWidth }} shouldUpdate={update}><Footer /></div>
+      {/* <div className="footer-overlap" style={{ height: 360 }} /> */}
+      <div className="footer-div" style={{ /*position: "absolute"*/ bottom: "0", width: window.innerWidth }} shouldUpdate={update}><Footer /></div>
     </div>
   );
 }

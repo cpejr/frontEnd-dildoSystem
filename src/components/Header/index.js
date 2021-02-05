@@ -9,7 +9,7 @@ import { SearchContext } from "../../Contexts/SearchContext";
 import { CartContext } from '../../Contexts/CartContext';
 import AddedProductPopover from './AddedProductPopover';
 
-import Logo from '../../images/CASULUS01LOGODESIGN.png';
+import Logo from '../../images/icone.png';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -151,14 +151,22 @@ export default function Header() {
                   <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
               }
 
-              {loginContext.loggedIn && (
+              {loginContext.loggedIn ? (
                 <Link
                   to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
                   className="icon-link user-info"
                 >
                   <FaRegUser size={30} />
                 </Link>
-              )}
+              ) : (
+                  <Link
+                    to={"/login"}
+                    className="icon-link user-info"
+                  >
+                    <FaRegUser size={30} />
+                    {/* <p>{loginContext.name}</p> */}
+                  </Link>
+                )}
 
               {
                 loginContext.loggedIn ?
@@ -176,16 +184,6 @@ export default function Header() {
                 <HiOutlineShoppingBag size={32} />
                 <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
               </Link>
-
-              {
-                !loginContext.loggedIn && (
-
-                  <Link to="/login" className="icon-link user-info">
-                    <button className="loginBtn">Login / Cadastrar</button>
-                  </Link>
-
-                )
-              }
 
               {/* {console.log('bagRef', bagRef)} */}
               <AddedProductPopover target={bagRef} />
@@ -269,8 +267,12 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
               {/* <p>{loginContext.name}</p> */}
             </Link>
           ) : (
-              <Link to="/login">
-                <button className="loginBtn">Login / Cadastrar</button>
+              <Link
+                to={"/login"}
+                className="icon-link user-info"
+              >
+                <FaRegUser size={30} />
+                {/* <p>{loginContext.name}</p> */}
               </Link>
             )}
 
