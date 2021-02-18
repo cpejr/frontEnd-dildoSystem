@@ -39,6 +39,7 @@ export default function Header() {
   const headerRef = createRef();
   const bagRef = useRef();
   const heightRef = useRef();
+  const inputRef = React.createRef()
 
 
   useEffect(() => {
@@ -67,6 +68,11 @@ export default function Header() {
     return () => { window.removeEventListener("resize", handleCategoriesSize) }
 
   }, [headerRef])
+
+  useEffect(() => {
+    console.log(inputRef)
+    if (showSearch) inputRef.current.focus()
+  }, [showSearch])
 
   function handleCategory(id) {
     const searchConfig = { categoryId: id };
@@ -198,6 +204,7 @@ export default function Header() {
             handleSubmit={handleSubmit}
             search={search}
             setSearch={setSearch}
+            inputRef={inputRef}
           />
 
           <ResponsiveSearch
@@ -219,7 +226,7 @@ export default function Header() {
   )
 }
 
-function SearchBar({ showSearch, handleSubmit, search, setSearch }) {
+function SearchBar({ showSearch, handleSubmit, search, setSearch, inputRef }) {
   return (
     <CSSTransition
       in={showSearch}
@@ -237,6 +244,7 @@ function SearchBar({ showSearch, handleSubmit, search, setSearch }) {
               placeholder="Procurar"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              ref={inputRef}
             />
           </form>
         </div>
