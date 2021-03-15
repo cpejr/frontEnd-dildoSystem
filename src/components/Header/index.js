@@ -165,14 +165,14 @@ export default function Header() {
                   <FaRegUser size={30} />
                 </Link>
               ) : (
-                  <Link
-                    to={"/login"}
-                    className="icon-link user-info"
-                  >
-                    <FaRegUser size={30} />
-                    {/* <p>{loginContext.name}</p> */}
-                  </Link>
-                )}
+                <Link
+                  to={"/login"}
+                  className="icon-link user-info"
+                >
+                  <FaRegUser size={30} />
+                  {/* <p>{loginContext.name}</p> */}
+                </Link>
+              )}
 
               {
                 loginContext.loggedIn ?
@@ -218,6 +218,7 @@ export default function Header() {
             categories={categories}
             handleCategory={handleCategory}
             cartQuantity={cartQuantity}
+            handleSubcategory={handleSubcategory}
           />
 
         </div>
@@ -253,9 +254,27 @@ function SearchBar({ showSearch, handleSubmit, search, setSearch, inputRef }) {
   )
 }
 
-function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories, cartQuantity }) {
+function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories, cartQuantity, handleSubcategory }) {
 
   const loginContext = useContext(LoginContext);
+
+  const { SubMenu } = Menu;
+
+  const [openKeys, setOpenKeys] = useState([]);
+
+  const rootSubmenuKeys = [];
+  categories.map( (cat, i) => rootSubmenuKeys.push(i));
+  
+  // console.log(rootSubmenuKeys)
+  
+  const onOpenChange = keys => {
+    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  }
 
   return (
     <div className="header-search-responsive">
@@ -275,14 +294,14 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
               {/* <p>{loginContext.name}</p> */}
             </Link>
           ) : (
-              <Link
-                to={"/login"}
-                className="icon-link user-info"
-              >
-                <FaRegUser size={30} />
-                {/* <p>{loginContext.name}</p> */}
-              </Link>
-            )}
+            <Link
+              to={"/login"}
+              className="icon-link user-info"
+            >
+              <FaRegUser size={30} />
+              {/* <p>{loginContext.name}</p> */}
+            </Link>
+          )}
 
           <Link to="/user/wishlist" className="icon-link">
             < IoMdHeartEmpty size={34} />
@@ -320,15 +339,38 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
 
         }
       </div>
+      
       <CSSTransition
         in={showResMenu}
         unmountOnExit
         timeout={500}
         classNames="categories-header-trans"
       >
+        
         <div className="responsive-menu">
+          {/* <div className='fake-menu'></div> */}
+          < Menu mode="inline" onOpenChange={onOpenChange} openKeys={openKeys}>
+            {
+            categories.map((cat, i) => (
+              <SubMenu key={i} title={cat.name}>
+                {cat.subcategories.map((subcat, i) => (
+                  <Menu.Item key={i} onClick={() => handleSubcategory(subcat.id)}>
+                    {subcat.name}
+                  </Menu.Item>))
+                }
+              </SubMenu>
+                //   <button
+                //     className="dropbtn"
+                //     onClick={() => handleCategory(cat.id)}>{cat.name}
+                //   </button>
+                // </li>
+              )
+              )
+            }
 
-          <ul >
+          </Menu>
+
+          {/* <ul >
             {
               categories.map(cat => (
                 <li key={cat.id}>
@@ -341,7 +383,7 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
               )
             }
 
-          </ul>
+          </ul> */}
         </div>
       </CSSTransition>
 

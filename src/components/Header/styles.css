@@ -343,7 +343,7 @@ button.to-addresses {
     display: flex;
     justify-content: center;
 
-    margin-top: 310px;
+    /* margin-top: 140%; */
     background: #f9ce56 0% 0% no-repeat padding-box;
 
     position: absolute;
@@ -351,6 +351,15 @@ button.to-addresses {
     z-index: 30;
 
     transition: 0.2s;
+  }
+
+  .header-search-responsive .responsive-menu .ant-menu-root.ant-menu-inline {
+    position: fixed;
+    background: #f9ce56 0% 0% no-repeat padding-box;
+    border-right: 0;
+  }
+  .header-search-responsive .responsive-menu .ant-menu-sub.ant-menu-inline {
+    background: #f9ce56 0% 0% no-repeat padding-box;
   }
 
   .responsive-menu ul {
