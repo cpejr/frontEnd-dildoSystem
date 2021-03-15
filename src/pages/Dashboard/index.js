@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
@@ -13,8 +13,19 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import './styles.css';
 import Insta from '../../components/Instagram';
 
+import { LoginContext } from '../../Contexts/LoginContext';
+
 function Dashboard(props) {
     const [search, setSearch] = useState();
+
+    const loginContext = useContext(LoginContext);
+
+    // useEffect(() => {
+    //     if(localStorage.getItem('accessToken') && loginContext.loggedIn){
+    //         loginContext.handleLogout(true);
+    //     }
+    //     console.log('testando o localStorage: ', localStorage.getItem('accessToken'))
+    // }, [])
 
     useEffect(() => {
         let newSearch = props.location.search;
