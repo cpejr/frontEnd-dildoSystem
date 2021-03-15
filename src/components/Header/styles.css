@@ -354,7 +354,7 @@ button.to-addresses {
   }
 
   .header-search-responsive .responsive-menu .ant-menu-root.ant-menu-inline {
-    position: fixed;
+    position: absolute;
     background: #f9ce56 0% 0% no-repeat padding-box;
     border-right: 0;
   }
