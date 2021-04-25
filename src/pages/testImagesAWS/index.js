@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 
 import './styles.css'
@@ -29,6 +29,11 @@ export default function TestImagesAWS() {
     const file = event.target.files[0]
 		setFile(file)
 	}
+
+  // useEffect(()=>{
+  //   const res = api.get('/imagesAWS/0ab920c359b1cbdd18549f569ee3adf1')
+  //   console.log(res)
+  // }, [])
   
   return (
     <div className="App-test-images">
@@ -44,7 +49,7 @@ export default function TestImagesAWS() {
         </div>
       ))}
 
-      <img src='https://backend.lojacasulus.com.br/imagesAWS/0ab920c359b1cbdd18549f569ee3adf1'></img>
+      <img src='https://backend.lojacasulus.com.br/imagesAWS/5382e96b67030d327808f29b3efbfec5'></img>
 
     </div>
   );
