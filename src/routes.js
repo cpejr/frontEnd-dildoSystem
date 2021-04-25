@@ -23,6 +23,8 @@ import Checkout from './pages/checkoutPage'
 import CatNSubCat from './pages/CategoriasESubcategorias'
 import Insta from './components/Instagram'
 
+import testImagesAWS from './pages/testImagesAWS'
+
 function ScrollToTop() {
     const { pathname } = useLocation();
 
@@ -56,6 +58,7 @@ function Routes() {
                             <Route path='/about2' component={About2} />
                             <Route path='/conditions' component={TermsandConditions} />
                             <Route path='/checkout/:order_id' component={Checkout} />
+                            <Route path='/imagesAWS' component={testImagesAWS} />
                             <Route exact={true} component={NotFound} />
                         </Switch>
                     </SearchContextProvider>

@@ -1,0 +1,34 @@
+.App-test-images {
+  text-align: center;
+}
+
+.App-test-images form {
+  display: flex; 
+  flex-direction: column; 
+  max-width: 400px; 
+  margin: auto;
+}
+
+.App-test-images .imagePreview {
+  position: relative;
+  width: 200px;
+}
+
+.App-test-images .imagePreview img {
+  width: 100%;
+}
+
+.App-test-images .imagePreview button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.App-test-images form > * {
+  margin: 10px 0;
+}
+
+.App-test-images img {
+  max-width: 400px;
+  margin: auto;
+}

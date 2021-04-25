@@ -30,15 +30,16 @@ export default function Insta() {
 
     //   })
     // })
-    api.post("instagram").then((res) => {
+    api.get("instagram").then((res) => {
       const pics = res.data;
       let newFeed = [];
-      console.log(pics)
+      console.log('esse é o pics: ',pics)
 
         while (pics.length) {
           newFeed.push(pics.splice(0, picsPerSlide));
         }
         setFeed(newFeed);
+        console.log(newFeed);
       
     })
   }, []);
@@ -78,7 +79,7 @@ export default function Insta() {
             <Carousel.Item key={`slide-${index}`}>
               <div className="ig-slide" >
                 {slide.map((img, index) => (
-                  <IgImage node={img.node} key={`pic-${index}`} />
+                  <IgImage display_url={img.media_url} key={`pic-${index}`} />
                 ))}
               </div>
             </Carousel.Item>
@@ -90,11 +91,11 @@ export default function Insta() {
   )
 }
 
-function IgImage({ node: { shortcode, display_url } }) {
+function IgImage({display_url}) {
 
   return (
     <div className="ig-img-wrapper" style={{ width: 300, height: 300 }}>
-      <a href={`https://www.instagram.com/p/${shortcode}/`} target="_blank">
+      <a /*href={`https://www.instagram.com/p/${shortcode}/`}*/ target="_blank">
         <ImageLoader src={display_url} alt="Loja Casulus" image={({ src, width, height }) => <img src={src} alt="Loja Casulus" />} />
       </a>
     </div>

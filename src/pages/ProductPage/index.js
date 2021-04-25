@@ -444,7 +444,12 @@ function ProductPage(props) {
 
     if (currentData.secondaries !== undefined) {
       currentSecondaries = currentData.secondaries.map((secondary) => {
-        return `https://docs.google.com/uc?id=${secondary.id}`;
+
+        api.get(`/driveimages/${secondary.id}`).then(res => {
+          return res;
+        })
+
+        // return `https://docs.google.com/uc?id=${secondary.id}`;
       });
     }
 
@@ -452,7 +457,12 @@ function ProductPage(props) {
     if (currentData.subproducts !== undefined) {
       currentSubproducts = currentData.subproducts.map((subproduct) => {
         param_ids.push(subproduct.id);
-        return `https://docs.google.com/uc?id=${subproduct.image_id}`;
+
+        api.get(`/driveimages/${subproduct.image_id}`).then(res => {
+          return res;
+        })
+
+        // return `https://docs.google.com/uc?id=${subproduct.image_id}`;
       });
     }
 
@@ -467,20 +477,31 @@ function ProductPage(props) {
 
     if (subSecondary !== undefined) {
       currentSubSecondaries = subSecondary.map((images) => {
-        return `https://docs.google.com/uc?id=${images.id}`
+
+        api.get(`/driveimages/${images.id}`).then(res => {
+          return res;
+        })
+
+        // return `https://docs.google.com/uc?id=${images.id}`
       })
     }
 
     if (images !== undefined) {
       setImageFunction([...images,
-      `https://docs.google.com/uc?id=${currentData.image_id}`,
+      // `https://docs.google.com/uc?id=${currentData.image_id}`,
+      `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
+        return res;
+      })}`,
       ...currentSecondaries,
       ...currentSubproducts,
       ...currentSubSecondaries
       ]);
     } else {
       setImageFunction([
-        `https://docs.google.com/uc?id=${currentData.image_id}`,
+        // `https://docs.google.com/uc?id=${currentData.image_id}`,
+        `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
+          return res;
+        })}`,
         ...currentSecondaries,
         ...currentSubproducts,
         ...currentSubSecondaries
