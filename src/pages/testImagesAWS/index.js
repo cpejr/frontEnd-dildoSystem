@@ -49,7 +49,7 @@ export default function TestImagesAWS() {
         </div>
       ))}
 
-      <img src='https://backend.lojacasulus.com.br/imagesAWS/5382e96b67030d327808f29b3efbfec5'></img>
+      <img src='https://backend.lojacasulus.com.br/imagesAWS/2f73a60d86fe32b29326284b9eaaac31'></img>
 
     </div>
   );
