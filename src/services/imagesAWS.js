@@ -1,4 +1,4 @@
 
-const urlAWS = 'http://localhost:3333/imagesAWS'
+const urlAWS = 'https://backend.lojacasulus.com.br/imagesAWS'
 
 export default urlAWS
