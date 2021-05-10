@@ -178,7 +178,7 @@ export default function InventoryCard(props) {
     return (
         <div className="inventory-card">
             <ImageLoader
-                src={`https://docs.google.com/uc?id=${product.image_id}`}
+                src={`http://localhost:3333/imagesAWS/${product.image_id}`}
                 loading={() => <img src={loading} alt="Loading..." />}
                 error={() => <div>Error</div>} />
             <p id="titulo-card">

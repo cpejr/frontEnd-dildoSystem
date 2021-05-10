@@ -396,6 +396,10 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 
 //this.props.match.params.id
 
+// const urlAWS = 'http://localhost:3333/imagesAWS'
+
+import urlAWS from '../../services/imagesAWS'
+
 function ProductPage(props) {
 
   const [productData, setProductData] = useState();
@@ -445,11 +449,11 @@ function ProductPage(props) {
     if (currentData.secondaries !== undefined) {
       currentSecondaries = currentData.secondaries.map((secondary) => {
 
-        api.get(`/driveimages/${secondary.id}`).then(res => {
-          return res;
-        })
+        // api.get(`/driveimages/${secondary.id}`).then(res => {
+        //   return res;
+        // })
 
-        // return `https://docs.google.com/uc?id=${secondary.id}`;
+        return `${urlAWS}/${secondary.id}`;
       });
     }
 
@@ -458,11 +462,11 @@ function ProductPage(props) {
       currentSubproducts = currentData.subproducts.map((subproduct) => {
         param_ids.push(subproduct.id);
 
-        api.get(`/driveimages/${subproduct.image_id}`).then(res => {
-          return res;
-        })
+        // api.get(`/driveimages/${subproduct.image_id}`).then(res => {
+        //   return res;
+        // })
 
-        // return `https://docs.google.com/uc?id=${subproduct.image_id}`;
+        return `${urlAWS}/${subproduct.image_id}`;
       });
     }
 
@@ -478,30 +482,30 @@ function ProductPage(props) {
     if (subSecondary !== undefined) {
       currentSubSecondaries = subSecondary.map((images) => {
 
-        api.get(`/driveimages/${images.id}`).then(res => {
-          return res;
-        })
+        // api.get(`/driveimages/${images.id}`).then(res => {
+        //   return res;
+        // })
 
-        // return `https://docs.google.com/uc?id=${images.id}`
+        return `${urlAWS}/${images.id}`;
       })
     }
 
     if (images !== undefined) {
       setImageFunction([...images,
-      // `https://docs.google.com/uc?id=${currentData.image_id}`,
-      `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
-        return res;
-      })}`,
+        `${urlAWS}/${currentData.image_id}`,
+      // `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
+      //   return res;
+      // })}`,
       ...currentSecondaries,
       ...currentSubproducts,
       ...currentSubSecondaries
       ]);
     } else {
       setImageFunction([
-        // `https://docs.google.com/uc?id=${currentData.image_id}`,
-        `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
-          return res;
-        })}`,
+        `${urlAWS}/${currentData.image_id}`,
+        // `${api.get(`/driveimages/${currentData.image_id}`).then(res => {
+        //   return res;
+        // })}`,
         ...currentSecondaries,
         ...currentSubproducts,
         ...currentSubSecondaries
@@ -749,7 +753,7 @@ function ProductPage(props) {
                                 <div className='subproduct-wrapper'>
                                   <img
                                     alt="subproduct"
-                                    src={`https://docs.google.com/uc?id=${subp.image_id} `}
+                                    src={`${urlAWS}/${subp.image_id} `}
                                     key={`option-${index + 1}`}
                                     data={index}
                                     className={index === selectedSubpIndex && 'selected'}

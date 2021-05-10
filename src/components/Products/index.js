@@ -8,6 +8,8 @@ import api from '../../services/api';
 import './styles.css'
 import loading from '../../images/Loading.gif';
 
+import urlAWS from '../../services/imagesAWS'
+
 export default function Product(props) {
 
     const [products, setProducts] = useState([]);
@@ -93,7 +95,7 @@ export default function Product(props) {
                     <div className="Card">
                         <Link to={`/product/${product.id}`} className="image-text-container">
                             <ImageLoader
-                                src={`https://docs.google.com/uc?id=${product.image_id}`}
+                                src={`${urlAWS}/${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">

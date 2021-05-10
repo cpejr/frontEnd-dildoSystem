@@ -5,6 +5,7 @@ import loading from '../../images/Loading.gif';
 
 import api from "../../services/api";
 import cart from "../../services/cart"
+import urlAWS from '../../services/imagesAWS';
 
 import { MdDeleteForever } from "react-icons/md";
 import { LoginContext } from "../../Contexts/LoginContext";
@@ -67,7 +68,7 @@ export default function WishList(props) {
             <div className="wish-card">
               <div className="wish-img">
               <ImageLoader
-                  src={`https://docs.google.com/uc?id=${products.image_id}`}
+                  src={`${urlAWS}/${products.image_id}`}
                   loading={() => <img src={loading} alt="Loading..." />}
                   error={() => <div>Error</div>} />
               </div>

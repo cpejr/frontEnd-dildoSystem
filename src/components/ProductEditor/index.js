@@ -15,6 +15,7 @@ import SimpleInput from "../NnEProduct/SimpleInput";
 import SimpleSwitch from "../NnEProduct/SimpleSwitch";
 
 import api from "../../services/api";
+import urlAWS from '../../services/imagesAWS';
 import "./styles.css";
 import ImageUpload from "../../components/ImageUpload";
 import Subedit from "./subedit.js";
@@ -417,7 +418,36 @@ export default function ProductEditor(props) {
   const handleDeleteSecImage = (image) => {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
-    api.delete(`image/${image}`, config).then((response) => { });
+    // api.delete(`image/${image}`, config).then((response) => { });
+    try {
+      const response = api.delete(`image/${image}`, config).then((response) => { });
+      notification.open(
+        {
+          message: "Sucesso!",
+          description: "Imagem secundária deletada.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          style: {
+            width: 600,
+          },
+        },
+        response
+      );
+    } catch (err) {
+      /* console.log(JSON.stringify(err)); */
+      console.error(err.response);
+      notification.open({
+        message: "Erro!",
+        description: "Não foi possível excluir a imagem.",
+        className: "ant-notification",
+        top: "100px",
+        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        style: {
+          width: 600,
+        },
+      });
+    }
     setUpdated(!updated);
   };
   useEffect(() => {
@@ -585,7 +615,7 @@ export default function ProductEditor(props) {
                         {image_id && (
                           <ImageLoader
                             className="image-loader-sub"
-                            src={`https://docs.google.com/uc?id=${image_id}`}
+                            src={`${urlAWS}/${image_id}`}
                             loading={() => (
                               <img src={loading} alt="Loading..." />
                             )}
@@ -610,7 +640,7 @@ export default function ProductEditor(props) {
                         </div>
 
                         <label className="images-label" htmlFor="secondary">
-                          Secudárias
+                          Secundárias
                         </label>
                         <div className="pres-imgs">
                           {images.map(
@@ -626,7 +656,7 @@ export default function ProductEditor(props) {
                                   />
                                   <ImageLoader
                                     className="secimage-loader-sub"
-                                    src={`https://docs.google.com/uc?id=${image.id}`}
+                                    src={`${urlAWS}/${image.id}`}
                                     loading={() => (
                                       <img src={loading} alt="Loading..." />
                                     )}

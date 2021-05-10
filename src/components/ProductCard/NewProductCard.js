@@ -10,6 +10,7 @@ import loading from '../../images/Loading.gif';
 
 import api from '../../services/api';
 import ProductModal from './ProductModal';
+import urlAWS from '../../services/imagesAWS'
 
 export function PriceElement(props) {
 
@@ -176,7 +177,7 @@ export default function NewProductCard(props) {
             <div className='product-image'>
                 <Link to={`/product/${product.id}`} className="image-text-container">
                     <ImageLoader
-                        src={`https://docs.google.com/uc?id=${product.image_id}`}
+                        src={`${urlAWS}/${product.image_id}`}
                         loading={() => <img src={loading} alt="Loading..." />}
                         error={() => <div>Error</div>} />
                 </Link>

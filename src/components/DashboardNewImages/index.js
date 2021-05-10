@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
 
 import api from '../../services/api'
+import urlAWS from '../../services/imagesAWS'
 
 import './styles.css'
 
@@ -30,7 +31,7 @@ export default function FeaturedImages() {
               <div className="textbanner">
                 <a href={img.link}>
                   <div className="text-banner-image">
-                    <img alt="dashboard-images" src={`https://docs.google.com/uc?id=${img.image_id}`} ></img>
+                    <img alt="dashboard-images" src={`${urlAWS}/${img.image_id}`} ></img>
                   </div>
                 </a>
               </div>

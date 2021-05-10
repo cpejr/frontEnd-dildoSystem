@@ -10,6 +10,8 @@ import "./styles.css"
 import { Button } from "@material-ui/core";
 import { useCart } from '../../Contexts/CartContext';
 
+import urlAWS from '../../services/imagesAWS'
+
 /* function PriceElement(props) {
     const product = props.product;
     const { product_quantity } = props;
@@ -118,7 +120,7 @@ function CartCard(props) {
 
                         <Link to={`/product/${props.productId}`} className="image-text-container">
                             <ImageLoader
-                                src={`https://docs.google.com/uc?id=${props.image_id}`}
+                                src={`${urlAWS}/${props.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                         </Link>
@@ -140,7 +142,7 @@ function CartCard(props) {
                                             <p>Opção: {props.product.subproduct.name}</p>
                                             <img
                                                 alt="subproduct"
-                                                src={`https://docs.google.com/uc?id=${props.product.subproduct.image_id} `}
+                                                src={`${urlAWS}/${props.product.subproduct.image_id} `}
                                                 className='subproduct-image-cart'
                                             />
                                         </div>

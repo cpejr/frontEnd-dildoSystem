@@ -5,6 +5,7 @@ import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 import { PriceElement } from './NewProductCard';
 import cart from '../../services/cart';
 import { useCart } from '../../Contexts/CartContext';
+import urlAWS from '../../services/imagesAWS';
 
 import './styles.css';
 
@@ -65,7 +66,7 @@ export default function ProductModal({ product, visible, onCancel }) {
     // destroyOnClose={true}
     >
       <div className="product-modal-wrapper" ref={childrenRef}>
-        <img className="product-modal-image" src={`https://docs.google.com/uc?id=${product.image_id}`} alt={product.name} onLoad={setModalSize} />
+        <img className="product-modal-image" src={`${urlAWS}/${product.image_id}`} alt={product.name} onLoad={setModalSize} />
         <div className="buying-configs">
           <div className="subproduct-selection">
             <p>Opção: </p>

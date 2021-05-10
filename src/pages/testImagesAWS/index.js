@@ -31,7 +31,7 @@ export default function TestImagesAWS() {
 	}
 
   // useEffect(()=>{
-  //   const res = api.get('/imagesAWS/0ab920c359b1cbdd18549f569ee3adf1')
+  //   const res = api.get('/imagesAWS/cd934e50d452ebf32a84d83e5a61e3ef')
   //   console.log(res)
   // }, [])
   
@@ -49,8 +49,10 @@ export default function TestImagesAWS() {
         </div>
       ))}
 
-      <img src='https://backend.lojacasulus.com.br/imagesAWS/2f73a60d86fe32b29326284b9eaaac31'></img>
+      <img src='http://localhost:3333/imagesAWS/cd934e50d452ebf32a84d83e5a61e3ef'></img>
 
     </div>
   );
 }
+
+// http://localhost:3333/imagesAWS/cd934e50d452ebf32a84d83e5a61e3ef

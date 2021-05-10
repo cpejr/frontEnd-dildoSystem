@@ -5,6 +5,8 @@ import api from "../../services/api";
 import nextIcon from "../../images/nextIcon.png";
 import prevIcon from "../../images/prevIcon.png";
 
+import urlAWS from '../../services/imagesAWS'
+
 export default function ControlledCarousel() {
   const [index, setIndex] = useState(0);
 
@@ -47,21 +49,21 @@ export default function ControlledCarousel() {
                 <div className="previmage">
                   <img
 
-                    src={`https://docs.google.com/uc?id=${images[prev].image_id}`}
+                    src={`${urlAWS}/${images[prev].image_id}`}
 
                   />
                 </div>
                 <a href={image.link}>
                   <img
                     className="d-block w-100"
-                    src={`https://docs.google.com/uc?id=${image.image_id}`}
+                    src={`${urlAWS}/${image.image_id}`}
                     alt={image}
                   />
                 </a>
                 <div className="nextimage">
                   <img
 
-                    src={`https://docs.google.com/uc?id=${images[next].image_id}`}
+                    src={`${urlAWS}/${images[next].image_id}`}
 
                   />
                 </div>

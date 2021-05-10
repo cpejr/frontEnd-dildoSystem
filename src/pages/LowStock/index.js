@@ -4,6 +4,7 @@ import ImageLoader from 'react-loading-image';
 import CreateIcon from '@material-ui/icons/Create';
 import '../../components/ProductEditor';
 import api from '../../services/api';
+import urlAWS from '../../services/imagesAWS';
 
 import './styles.css'
 import loading from '../../images/Loading.gif';
@@ -80,7 +81,7 @@ export default function Product(props) {
                     <div className="Card">
                         <Link to={`/product/${product.id}`} className="image-text-container">
                             <ImageLoader
-                                src={`https://docs.google.com/uc?id=${product.image_id}`}
+                                src={`${urlAWS}/${product.image_id}`}
                                 loading={() => <img src={loading} alt="Loading..." />}
                                 error={() => <div>Error</div>} />
                             <p id="titulo-card">

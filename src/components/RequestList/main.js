@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { formatDate } from '../../components/FormatDate/index'
 import "./styles.css";
 
+import urlAWS from '../../services/imagesAWS'
+
 function RequestBody(props) {
   return props.products.map((product) => {
     return (
@@ -11,7 +13,7 @@ function RequestBody(props) {
         >
           
         <div className="order-product-image">
-          <img alt="request-images" src={`https://docs.google.com/uc?id=${product.image_id}`}></img>
+          <img alt="request-images" src={`${urlAWS}/${product.image_id}`}></img>
         </div>
         
           <strong className="request-name">{product.name}</strong>

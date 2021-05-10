@@ -10,6 +10,7 @@ import MultipleUploader from "../../components/MultipleUploader";
 import { useParams } from "react-router-dom";
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import urlAWS from '../../services/imagesAWS';
 
 export default function SubproductsEdit({ subproduto }) {
   const [name, setName] = useState("");
@@ -123,10 +124,35 @@ export default function SubproductsEdit({ subproduto }) {
     // const image_index = e.target.index;
     // const image_id = images[image_index].id;
 
-
-
-    api.delete(`image/${image}`, config).then((response) => {
-    });
+    try {
+      const response = api.delete(`image/${image}`, config).then((response) => { });
+      notification.open(
+        {
+          message: "Sucesso!",
+          description: "Imagem secundária deletada.",
+          className: "ant-notification",
+          top: "100px",
+          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          style: {
+            width: 600,
+          },
+        },
+        response
+      );
+    } catch (err) {
+      /* console.log(JSON.stringify(err)); */
+      console.error(err.response);
+      notification.open({
+        message: "Erro!",
+        description: "Não foi possível excluir a imagem.",
+        className: "ant-notification",
+        top: "100px",
+        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        style: {
+          width: 600,
+        },
+      });
+    }
     setUpdated(!updated);
   };
 
@@ -195,7 +221,7 @@ export default function SubproductsEdit({ subproduto }) {
           <p className="productTitle">Imagens</p>
           <ImageLoader
             className="image-loader-sub"
-            src={`https://docs.google.com/uc?id=${subproduto.image_id}`}
+            src={`${urlAWS}/${subproduto.image_id}`}
             loading={() => <img src={loading} alt="Loading..." />}
             error={() => <div>Error</div>}
           />
@@ -217,7 +243,7 @@ export default function SubproductsEdit({ subproduto }) {
                   onClick={() => handleDeleteSecImage(image.id)} />
                 <ImageLoader
                   className="secimage-loader-sub"
-                  src={`https://docs.google.com/uc?id=${image.id}`}
+                  src={`${urlAWS}/${image.id}`}
                   loading={() => (
                     <img src={loading} alt="Loading..." />
                   )}

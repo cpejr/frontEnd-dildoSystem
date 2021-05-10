@@ -7,6 +7,8 @@ import api from '../../services/api';
 import { notification } from 'antd';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
+import urlAWS from '../../services/imagesAWS';
+
 
 function CarouselImages(props) {
   const [newPosition, setNewPosition] = useState();
@@ -68,7 +70,7 @@ function CarouselImages(props) {
     <div className="EditCarousel-Container">
       <div className="image-container">
         <ImageLoader
-          src={`https://docs.google.com/uc?id=${props.image.image_id}`}
+          src={`${urlAWS}/${props.image.image_id}`}
           loading={() => <img src={loading} alt="Loading..." />}
           error={() => <div>Error</div>}
         />
