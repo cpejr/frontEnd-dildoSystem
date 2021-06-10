@@ -92,7 +92,7 @@ function Register() {
         // }
         // if (zipcodeError) setZipcodeError();
 
-        if (phonenumber.trim().length < 1 && phonenumber.trim().length > 12) {
+        if (phonenumber.trim().length < 1) {
             setPhonenumberError('Esse campo não pode estar vazio')
             return false;
         }

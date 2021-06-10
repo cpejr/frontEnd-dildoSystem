@@ -67,7 +67,6 @@ function Addresses() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log('esse eh o cart:', cart)
     try {
       const config = {
         headers: {
@@ -109,13 +108,11 @@ function Addresses() {
           return {
             product_id: item.id,
             product_quantity: item.quantity,
-            subproduct_id: item.subproduct?.id,
+            subproduct_id: item.subproduct_id,
           }
         })
       };
       localStorage.setItem("ongoingOrder", JSON.stringify(ongoingOrder));
-
-      // console.log(localStorage.getItem("ongoingOrder"))
 
 
       await callPaymentAPI(cart, address, shippingOptions, loginContext);
