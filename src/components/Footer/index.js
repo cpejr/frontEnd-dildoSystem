@@ -77,8 +77,8 @@ export default function Footer() {
         <div className="term-link">
           lojacasulus@gmail.com
         </div>
-        <a className="term-link" href="https://web.whatsapp.com/send?phone=5562993229837" target="_blank">
-          Whatsapp: (62) 99322-9837
+        <a className="term-link" href="https://web.whatsapp.com/send?phone=5562992250633" target="_blank">
+          Whatsapp: (62) 99225-0633
         </a>
         <a href="https://instagram.com/casulus.sex" className="term-link" target="_blank" rel="noopener noreferrer">
           Instagram: @casulus.sex

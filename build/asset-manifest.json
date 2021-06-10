@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.f1f4324d.chunk.css",
-    "main.js": "/static/js/main.fa887e13.chunk.js",
-    "main.js.map": "/static/js/main.fa887e13.chunk.js.map",
+    "main.css": "/static/css/main.1a31ae9d.chunk.css",
+    "main.js": "/static/js/main.cb51163f.chunk.js",
+    "main.js.map": "/static/js/main.cb51163f.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b03a7968.js",
     "runtime-main.js.map": "/static/js/runtime-main.b03a7968.js.map",
-    "static/css/2.7327d1c0.chunk.css": "/static/css/2.7327d1c0.chunk.css",
-    "static/js/2.dc323c20.chunk.js": "/static/js/2.dc323c20.chunk.js",
-    "static/js/2.dc323c20.chunk.js.map": "/static/js/2.dc323c20.chunk.js.map",
+    "static/css/2.7a592f14.chunk.css": "/static/css/2.7a592f14.chunk.css",
+    "static/js/2.b5c6f530.chunk.js": "/static/js/2.b5c6f530.chunk.js",
+    "static/js/2.b5c6f530.chunk.js.map": "/static/js/2.b5c6f530.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.2aa192286e95acd48229cb0fa3215099.js": "/precache-manifest.2aa192286e95acd48229cb0fa3215099.js",
+    "precache-manifest.7dca23a2f0db076dbf0952f3a1bd44cd.js": "/precache-manifest.7dca23a2f0db076dbf0952f3a1bd44cd.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.7327d1c0.chunk.css.map": "/static/css/2.7327d1c0.chunk.css.map",
-    "static/css/main.f1f4324d.chunk.css.map": "/static/css/main.f1f4324d.chunk.css.map",
-    "static/js/2.dc323c20.chunk.js.LICENSE.txt": "/static/js/2.dc323c20.chunk.js.LICENSE.txt",
+    "static/css/2.7a592f14.chunk.css.map": "/static/css/2.7a592f14.chunk.css.map",
+    "static/css/main.1a31ae9d.chunk.css.map": "/static/css/main.1a31ae9d.chunk.css.map",
+    "static/js/2.b5c6f530.chunk.js.LICENSE.txt": "/static/js/2.b5c6f530.chunk.js.LICENSE.txt",
     "static/media/CASULUS_BORBOLETA_2_AMARELO.png": "/static/media/CASULUS_BORBOLETA_2_AMARELO.22703356.png",
     "static/media/CASULUS_BORBOLETA_4_AMARELO.png": "/static/media/CASULUS_BORBOLETA_4_AMARELO.e5c2c656.png",
     "static/media/CASULUS_LOGOTEXTO_PRETO.png": "/static/media/CASULUS_LOGOTEXTO_PRETO.ee7c1044.png",
@@ -29,9 +29,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.b03a7968.js",
-    "static/css/2.7327d1c0.chunk.css",
-    "static/js/2.dc323c20.chunk.js",
-    "static/css/main.f1f4324d.chunk.css",
-    "static/js/main.fa887e13.chunk.js"
+    "static/css/2.7a592f14.chunk.css",
+    "static/js/2.b5c6f530.chunk.js",
+    "static/css/main.1a31ae9d.chunk.css",
+    "static/js/main.cb51163f.chunk.js"
   ]
 }
