@@ -82,7 +82,8 @@ function LoginContextProvider(props) {
     setAccessToken('');
     localStorage.removeItem("accessToken");
     api.defaults.headers.authorization = undefined;
-    history.push("/login");
+    // history.push("/login");
+    window.location.href = "/"
   }
 
   const userInfo = {
