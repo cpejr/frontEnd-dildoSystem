@@ -33,7 +33,7 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     return {
       Name: p.name,
       Description: p.description.length >= 256 ? p.description.slice(0, 255) : p.description,
-      UnitPrice: getProductPriceWODiscount(p, buyer.type) * 100,
+      UnitPrice: Math.round(getProductPriceWODiscount(p, buyer.type) * 100),
       Quantity: p.quantity,
       Type: "Asset",
       Sku: "",
