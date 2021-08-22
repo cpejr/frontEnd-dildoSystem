@@ -24,6 +24,7 @@ function CartContextProvider({ children }) {
 
     const productsChanged = useRef(true);
     const fromModal = useRef(false);
+    const didMount = useRef(false);
 
     const { loggingOut, type: userType } = useContext(LoginContext);
 
@@ -35,6 +36,13 @@ function CartContextProvider({ children }) {
             localStorage.removeItem('cart');
         }
     }
+
+    useEffect(() => {
+        if(didMount.current)
+            updateLocalStorage();
+        else
+            didMount.current = true;
+    }, [stringifiedMinCart])
 
     useEffect(() => { // PUXA CARRINHO DO LOCALSTORAGE INICIALMENTE E SETA MINIFICADO
         if (localStorage.getItem('cart')) {
