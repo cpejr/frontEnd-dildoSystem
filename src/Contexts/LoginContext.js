@@ -60,6 +60,8 @@ function LoginContextProvider(props) {
           ]);
           setChanged(true);
         } else {
+          localStorage.removeItem('accessToken');
+          window.location.reload();
           await Promise.all([
             setUsername(""),
             setUserId(0),
