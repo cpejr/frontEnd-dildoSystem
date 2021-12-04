@@ -63,10 +63,7 @@ export default function ControlledCarousel() {
           >
             {images.map((image, index) => {
               const isUniqueImage = images.length === 1;
-              console.log(
-                "🚀 ~ file: Slider.js ~ line 52 ~ {images.map ~ isUniqueImage",
-                isUniqueImage
-              );
+
               let prev = index;
               let next = index;
               if (!isUniqueImage) {
