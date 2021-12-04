@@ -13,19 +13,8 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import './styles.css';
 import Insta from '../../components/Instagram';
 
-import { LoginContext } from '../../Contexts/LoginContext';
-
 function Dashboard(props) {
     const [search, setSearch] = useState();
-
-    const loginContext = useContext(LoginContext);
-
-    // useEffect(() => {
-    //     if(localStorage.getItem('accessToken') && loginContext.loggedIn){
-    //         loginContext.handleLogout(true);
-    //     }
-    //     console.log('testando o localStorage: ', localStorage.getItem('accessToken'))
-    // }, [])
 
     useEffect(() => {
         let newSearch = props.location.search;
@@ -40,7 +29,6 @@ function Dashboard(props) {
                 <Header />
             </div>
             <div className="dashboard-content">
-
                 {/* <HomeNavbar /> */}
                 <ControlledCarousel />
                 <CarouselFooter />
@@ -51,23 +39,18 @@ function Dashboard(props) {
                 <div className="release-container">
                     <CarouselProducts />
                 </div>
-
                 <h2>Mais Vendidos</h2>
                 <div className="best_seller-container">
                     <ProductCard best_sellerOnly />
                 </div>
-
                 <WhatsAppButton />
             </div>
             <div>
                 <div className="insta-div">
                     <br></br>
-
                     <h3><img alt="instagram-icon" src="https://imagepng.org/wp-content/uploads/2017/08/instagram-icone-icon-1.png" width="50" height="50" />    Confira nosso Instagram:</h3>
-
                     {/* <Instafeed /> */}
                     <Insta />
-
                 </div>
                 <br></br>
             </div>

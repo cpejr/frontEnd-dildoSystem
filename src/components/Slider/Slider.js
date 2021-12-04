@@ -27,31 +27,44 @@ export default function ControlledCarousel() {
     setIndex(selectedIndex);
   };
 
+  const getPrevNext = (index, images) => {
+    let prev, next;
+    if (index == 0) {
+      prev = images.length - 1;
+      next = index + 1;
+    } else if (index == images.length - 1) {
+      prev = index - 1;
+      next = 0;
+    } else {
+      prev = index - 1;
+      next = index + 1;
+    };
+    return { prev, next };
+  };
+
   return (
     <>
       {images && (
         <div className="Carousel">
           <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="" > <img src={nextIcon} /></span>} prevIcon={<span aria-hidden="true" className="" ><img src={prevIcon} /></span>}>
             {images.map((image, index) => {
+              const isUniqueImage = images.length === 1;
               let prev, next;
-              if (index == 0) {
-                prev = images.length - 1
-                next = index + 1
-              } else if (index == images.length - 1) {
-                prev = index - 1;
-                next = 0
-              } else {
-                prev = index - 1;
-                next = index + 1;
-              };
+              if (!isUniqueImage) {
+                const position = getPrevNext(index, images);
+                prev = position.prev;
+                next = position.next;
+              }
               return (
                 <Carousel.Item key={index}>
                   <div className="CarouselImages">
-                    <div className="previmage">
-                      <img
-                        src={`${urlAWS}/${images[prev]?.image_id}`}
-                      />
-                    </div>
+                    {!isUniqueImage && (
+                      <div className="previmage">
+                        <img
+                          src={`${urlAWS}/${images[prev]?.image_id}`}
+                        />
+                      </div>
+                    )}
                     <a href={image?.link}>
                       <img
                         className="d-block w-100"
@@ -59,11 +72,13 @@ export default function ControlledCarousel() {
                         alt={image}
                       />
                     </a>
-                    <div className="nextimage">
-                      <img
-                        src={`${urlAWS}/${images[next]?.image_id}`}
-                      />
-                    </div>
+                    {!isUniqueImage && (
+                      <div className="nextimage">
+                        <img
+                          src={`${urlAWS}/${images[next]?.image_id}`}
+                        />
+                      </div>
+                    )}
                   </div>
                 </Carousel.Item>
               );
