@@ -47,6 +47,7 @@ export default function ControlledCarousel() {
       {images && (
         <div className="Carousel">
           <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="" > <img src={nextIcon} /></span>} prevIcon={<span aria-hidden="true" className="" ><img src={prevIcon} /></span>}>
+            {console.log('IMAGEEEESS', images)}
             {images.map((image, index) => {
               const isUniqueImage = images.length === 1;
               console.log("🚀 ~ file: Slider.js ~ line 52 ~ {images.map ~ isUniqueImage", isUniqueImage)
