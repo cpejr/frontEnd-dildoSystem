@@ -5,7 +5,7 @@ import api from "../../services/api";
 import nextIcon from "../../images/nextIcon.png";
 import prevIcon from "../../images/prevIcon.png";
 
-import urlAWS from '../../services/imagesAWS'
+import urlAWS from "../../services/imagesAWS";
 
 export default function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -21,7 +21,7 @@ export default function ControlledCarousel() {
     api.get("Carousel", config).then((response) => {
       setImages([...response.data]);
     });
-  }, []);
+  }, [config]);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -38,7 +38,7 @@ export default function ControlledCarousel() {
     } else {
       prev = index - 1;
       next = index + 1;
-    };
+    }
     return { prev, next };
   };
 
@@ -46,11 +46,27 @@ export default function ControlledCarousel() {
     <>
       {images && (
         <div className="Carousel">
-          <Carousel activeIndex={index} onSelect={handleSelect} nextIcon={<span aria-hidden="true" className="" > <img src={nextIcon} /></span>} prevIcon={<span aria-hidden="true" className="" ><img src={prevIcon} /></span>}>
-            {console.log('IMAGEEEESS', images)}
+          <Carousel
+            activeIndex={index}
+            onSelect={handleSelect}
+            nextIcon={
+              <span aria-hidden="true" className="">
+                {" "}
+                <img src={nextIcon} />
+              </span>
+            }
+            prevIcon={
+              <span aria-hidden="true" className="">
+                <img src={prevIcon} />
+              </span>
+            }
+          >
             {images.map((image, index) => {
               const isUniqueImage = images.length === 1;
-              console.log("🚀 ~ file: Slider.js ~ line 52 ~ {images.map ~ isUniqueImage", isUniqueImage)
+              console.log(
+                "🚀 ~ file: Slider.js ~ line 52 ~ {images.map ~ isUniqueImage",
+                isUniqueImage
+              );
               let prev = index;
               let next = index;
               if (!isUniqueImage) {
@@ -62,9 +78,7 @@ export default function ControlledCarousel() {
                 <Carousel.Item key={index}>
                   <div className="CarouselImages">
                     <div className="previmage">
-                      <img
-                        src={`${urlAWS}/${images[prev]?.image_id}`}
-                      />
+                      <img src={`${urlAWS}/${images[prev]?.image_id}`} />
                     </div>
                     <a href={image?.link}>
                       <img
@@ -74,9 +88,7 @@ export default function ControlledCarousel() {
                       />
                     </a>
                     <div className="nextimage">
-                      <img
-                        src={`${urlAWS}/${images[next]?.image_id}`}
-                      />
+                      <img src={`${urlAWS}/${images[next]?.image_id}`} />
                     </div>
                   </div>
                 </Carousel.Item>
