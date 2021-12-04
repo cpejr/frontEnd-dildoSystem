@@ -77,8 +77,8 @@ function CartContextProvider({ children }) {
         }
 
         if (minCart) {
-            grabCartFromBack();
             if (productsChanged.current) {
+                grabCartFromBack();
                 productsChanged.current = false;
             } else {
                 let newLocalCart = [...localCart];
@@ -101,7 +101,7 @@ function CartContextProvider({ children }) {
             setTotalPriceWODiscount(0);
         }
 
-    }, [minCart, update, userType]);
+    }, [minCart, update]);
 
     useEffect(() => {
         updateTotalPrices(localCart);

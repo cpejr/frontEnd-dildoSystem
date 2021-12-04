@@ -63,7 +63,6 @@ export default function ControlledCarousel() {
           >
             {images.map((image, index) => {
               const isUniqueImage = images.length === 1;
-
               let prev = index;
               let next = index;
               if (!isUniqueImage) {
