@@ -33,7 +33,6 @@ export default function CatNSubCat() {
       const sendData = {
         name: data
       }
-      // setUpdate(!update)
 
       api.post('newCategory', sendData, config).then(() => {
         notification.open({

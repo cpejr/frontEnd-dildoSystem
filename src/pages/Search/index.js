@@ -51,17 +51,14 @@ function Search(props) {
         })
       } catch (error) {
         console.error(error);
-        /* console.log('Could not fetch categories') */
       }
     }
   }, [categoryId, subcategoryId]);
 
   useEffect(() => {
 
-    // console.log('esse eh o search',search);
 
     const queries = queryString.parse(search);
-    // console.log('esse eh o queries', queries);
     (queries.search) ? setFormattedSearch(queries.search) : setFormattedSearch();
     (queries.category_id) ? setCategoryId(queries.category_id) : setCategoryId();
     (queries.subcategory_id) ? setSubcategoryId(queries.subcategory_id) : setSubcategoryId();
@@ -70,8 +67,7 @@ function Search(props) {
 
   useEffect(() => {
     setUpdate(!update)
-    // console.log('ALLO')
-  }, window.innerHeight)
+  }, [window.innerHeight])
 
   return (
     <div className="content" style={{ position: "relative", minHeight: "100vh" }}>
@@ -111,13 +107,10 @@ function Search(props) {
             <img src={borboletaAmarela2} className='background-img3' alt='borboletas'></img>
           </div>
 
-          {/* <img src={borboletas} className='background-img' alt='borboletas'></img>
-          <img src={borboletas} className='background-img' alt='borboletas'></img> */}
         </div>
 
 
       </div>
-      {/* <div className="footer-overlap" style={{ height: 360 }} /> */}
       <div className="footer-div" style={{ /*position: "absolute"*/ bottom: "0", width: window.innerWidth }} shouldUpdate={update}><Footer /></div>
     </div>
   );

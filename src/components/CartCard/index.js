@@ -12,48 +12,6 @@ import { useCart } from '../../Contexts/CartContext';
 
 import urlAWS from '../../services/imagesAWS'
 
-/* function PriceElement(props) {
-    const product = props.product;
-    const { product_quantity } = props;
-
-    if (product.wholesaler_price) {
-        if (product.on_sale_wholesaler) {
-            return (
-                <div className="price-container">
-                    <p className="preco-card cortado">{`R$ ${Number(product.wholesaler_price * product_quantity).toFixed(2)}`}</p>
-
-                    <p className="preco-promocao">
-                        {`R$ ${Number(product.wholesaler_sale_price * product_quantity).toFixed(2)}`}
-                    </p>
-                </div>
-            )
-        } else {
-            return (
-                <div className="price-container">
-                    <span className="preco-card">{`R$ ${Number(product.wholesaler_price * product_quantity).toFixed(2)}`}</span>
-                </div>)
-
-        }
-    } else {
-        if (product.on_sale_client) {
-            return (
-                <div className="price-container">
-                    <p className="preco-card cortado">{`R$ ${Number(product.client_price * product_quantity).toFixed(2)}`}</p>
-
-                    <p className="preco-promocao">
-                        {`R$ ${Number(product.client_sale_price * product_quantity).toFixed(2)}`}
-                    </p>
-                </div>
-            )
-        } else {
-            return (
-                <span className="preco-card">{`R$ ${Number(product.client_price * product_quantity).toFixed(2)}`}</span>
-            )
-        }
-    }
-} */
-
-
 function CartCard(props) {
     const [productQuantity, setProductQuantity] = useState(props.product.quantity);
     const [isVisible, setIsVisible] = useState(true);

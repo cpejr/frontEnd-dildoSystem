@@ -5,32 +5,6 @@ import api from "../../services/api"
 import MainRequest from "./main";
 import { LoginContext } from "../../Contexts/LoginContext";
 
-// const MeusPedidos = [
-//   {
-//     requestNumber: 12345,
-//     name: "Sabonete Haus Preto",
-//     quantity: 2,
-//     productPrice: 15.0,
-//     delivery: 2.0,
-//     deadline: "07/12",
-//   },
-//   {
-//     requestNumber: 12345,
-//     name: "Sabonete Haus Preto",
-//     quantity: 2,
-//     productPrice: 10.0,
-//     delivery: 2.0,
-//     deadline: "07/12",
-//   },
-//   {
-//     requestNumber: 12345,
-//     name: "Sabonete Haus Preto",
-//     quantity: 2,
-//     productPrice: 10.0,
-//     delivery: 2.0,
-//     deadline: "07/12",
-//   }, 
-// ];
 
 export default function RequestsList() {
   const user = useContext(LoginContext);
@@ -63,18 +37,4 @@ export default function RequestsList() {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="request-all">
-  //     <h4>Meus Pedidos</h4>
-  //     <div className="requestlist-container">
-  //       <div className="request-data">
-  //       </div>
-  //       {MeusPedidos.map((produto, index) => (
-  //         <RequestArray key={`produto-${index}`} produto={produto} />
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
-
 }

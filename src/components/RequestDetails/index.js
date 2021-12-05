@@ -30,12 +30,8 @@ export default function RequestDetails(props) {
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zipcode, setZipcode] = useState();
-  // const [name, setName] = useState();
-  // const [product_quantity, setQuantity] = useState();
   const [totalprice, setTotalPrice] = useState();
   const [track_price, setTrackPrice] = useState();
-  // const [individualprice, setIndividualPrice] = useState();
-  // const [totalorder, setTotalOrder] = useState();
 
   const accessToken = localStorage.getItem("accessToken");
 
@@ -70,11 +66,8 @@ export default function RequestDetails(props) {
       setCity(orderData.city);
       setState(orderData.state);
       setZipcode(orderData.zipcode);
-      // setName(orderData.name);
-      // setQuantity(orderData.user_id);
       setTrackPrice(orderData.track_price);
       setTotalPrice(orderData.totalPrice);
-      // setTotalOrder(totalprice + track_price);
     } else if (accessToken) {
       api.get(url, config).then((response) => {
         setOrderProducts(response.data);
@@ -82,7 +75,6 @@ export default function RequestDetails(props) {
         setDate(response.data.created_at);
         setTrackType(response.data.track_type);
         setTrackNumber(response.data.track_number);
-        // console.log('esse eh o track number: ',response.data.track_number)
         setOrderStatus(response.data.order_status);
         setStreet(response.data.street);
         setNumber(response.data.number);
@@ -90,12 +82,8 @@ export default function RequestDetails(props) {
         setCity(response.data.city);
         setState(response.data.state);
         setZipcode(response.data.zipcode);
-        // setName(response.data.products.id);
-        // setQuantity(response.data.product_quantity);    
-        // setIndividualPrice(response.data.products.price);
         setTrackPrice(response.data.track_price);
         setTotalPrice(SumProducts(response.data.products));
-        // setTotalOrder(((product_quantity * individualprice) + track_price));
       });
     }
   }, []);

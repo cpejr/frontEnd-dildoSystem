@@ -19,9 +19,7 @@ function Cart(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const { cart, totalPrice: precoTotal, totalPriceWODiscount } = useCart();
-
-
-
+  
   const getRealPrice = (product) => {
     let product_price;
     if (product.wholesaler_price) {
@@ -90,9 +88,7 @@ function Cart(props) {
               <button className="cart-primary-button">FINALIZAR</button>
             </Link>)}
           </div>
-
         </div>
-
       </div>
       <Footer />
     </div>

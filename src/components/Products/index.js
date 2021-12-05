@@ -20,16 +20,12 @@ export default function Product(props) {
     useEffect(() => {
         let newQueries = '';
 
-      
-
         if (props.search) newQueries += `&search=${props.search}`;
         if (props.categoryId) newQueries += `&category_id=${props.categoryId}`;
 
         setQueries(newQueries);
 
         const url = `products?page=${page}${newQueries}`;
-       
-
         const accessToken = localStorage.getItem('accessToken')
 
         const config = {
@@ -39,16 +35,12 @@ export default function Product(props) {
         if (accessToken) {
             api.get(url, config).then(response => {
                 setProducts(response.data)
-                
             });
         } else {
             api.get(url).then(response => {
                 setProducts(response.data)
-               
             });
         }
-
-
     }, [props.search, props.categoryId]);
 
     useEffect(() => {

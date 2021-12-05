@@ -190,8 +190,6 @@ export default function ProfileSettings() {
           },
         }, response);
       } catch (err) {
-        /* console.log(JSON.stringify(err)); */
-        console.error(err.response);
       }
 
     }
@@ -242,8 +240,6 @@ export default function ProfileSettings() {
         },
       }, response);
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
-      console.error(err.response);
       notification.open({
         message: 'Erro!',
         description:

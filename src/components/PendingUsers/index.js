@@ -5,21 +5,6 @@ import api from "../../services/api";
 import UsuariosPendentes from "./UsuariosPendentes";
 import "./styles.css";
 
-/* const usuariospendentes = [
-  {
-    name: 'Alceu Carvalho de Pinto',
-    cpf: '121.241.322-54',
-    email: 'alcefe@gmail.com',
-    telefone: '(31) 9134514231'
-  },
-  
-  {
-    name: 'Ângela de Lima Siqueira',
-    cpf: '141.211.312-76',
-    email: 'adqfgr@msn.com',
-    telefone: '(31) 931233321'
-  },
-] */
 
 export default function PendingUsers() {
   const [usuariospendentes, setusuariospendentes] = useState([]);

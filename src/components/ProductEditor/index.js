@@ -103,33 +103,8 @@ export default function ProductEditor(props) {
   const [subcategories_ids, setSubcategoriesIds] = useState([]);
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
-
-  // const [imageFile, setimageFile] = useState();
   const [subproducts, setSubproducts] = useState([]);
-  const [updated, setUpdated] = useState(false);
-
-  // const [open, setOpen] = useState(true);
-  // // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  // const [fullWidth, setFullWidth] = useState();
-  // const [maxWidth, setMaxWidth] = useState("md");
   const history = useHistory();
-
-  // const handleMaxWidthChange = (event) => {
-  //   setMaxWidth(event.target.value);
-  // };
-
-  // const handleFullWidthChange = (event) => {
-  //   setFullWidth(event.target.checked);
-  // };
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   history.goBack();
-  //   setOpen(false);
-  // };
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -277,7 +252,6 @@ export default function ProductEditor(props) {
       if (value !== undefined && value !== "") data.append(key, value);
     }
 
-    // let categorizeData = { subcategories_ids: [subcategories_ids] };
 
     addToData("name", name);
     addToData("description", description);
@@ -319,7 +293,6 @@ export default function ProductEditor(props) {
         response
       );
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: "Erro!",
@@ -332,27 +305,6 @@ export default function ProductEditor(props) {
         },
       });
     }
-    // try {
-    //   await api.put(
-    //     `categorize/${props.match.params.id}`,
-    //     categorizeData,
-    //     config
-    //   );
-    // } catch (err) {
-    //   console.log(JSON.stringify(err));
-    //   console.error(err.response);
-    //   notification.open({
-    //     message: "Erro!",
-    //     description: "Edição do produto impedida.",
-    //     className: "ant-notification",
-    //     top: "100px",
-    //     icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
-    //     style: {
-    //       width: 600,
-    //     },
-    //   });
-    // }
-    // console.log("subcategories", subcategories_ids);
   }
 
   function handleImage(img) {
@@ -416,9 +368,6 @@ export default function ProductEditor(props) {
   }
 
   const handleDeleteSecImage = (image) => {
-    // const image_index = e.target.index;
-    // const image_id = images[image_index].id;
-    // api.delete(`image/${image}`, config).then((response) => { });
     try {
       const response = api.delete(`image/${image}`, config).then((response) => { });
       notification.open(
@@ -435,7 +384,6 @@ export default function ProductEditor(props) {
         response
       );
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: "Erro!",
@@ -453,17 +401,13 @@ export default function ProductEditor(props) {
   useEffect(() => {
     if (subcategories_ids && subcategories_ids.length > 0) {
       let categorizeData = { subcategories_ids: [subcategories_ids] };
-      // console.log("categorize", categorizeData);
       api
         .put(`categorize/${props.match.params.id}`, categorizeData, config)
         .then((response) => {
-          // console.log(response.data);
         });
       api.get(`product/${props.match.params.id}`, config).then((response) => {
         setProducts(response.data.subcategories);
-        // console.log(response.data);
       });
-      // console.log("Entrou");
     }
   }, [subcategories_ids]);
 

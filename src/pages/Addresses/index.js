@@ -132,22 +132,7 @@ function Addresses() {
       })
     }
 
-
     setSpinning(false);
-
-    /* setTimeout(() => {
-      notification.open({
-        message: 'Erro!',
-        description:
-          'Houve um erro ao tentar criar o seu pedido.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
-        style: {
-          width: 600,
-        },
-      })
-    }, 5000) */
   }
 
   async function handleSubmitExistingAddress() {
@@ -185,7 +170,6 @@ function Addresses() {
 
       newAddress.zipcode = aux + aux2
 
-      /* console.log('Novo CEP: ', newAddress.zipcode) */
     }
 
 
@@ -219,8 +203,6 @@ function Addresses() {
         return;
       }
 
-      // goToCheckout(newAddress);
-
     } else {
       notification.open({
         message: 'Erro!',
@@ -252,8 +234,6 @@ function Addresses() {
       aux2 = editAddress.zipcode.slice(6);
 
       editAddress.zipcode = aux + aux2
-
-      // console.log('Novo CEP: ', editAddress.zipcode)
     }
 
     if (!editAddress.complement) {
@@ -280,7 +260,6 @@ function Addresses() {
       delete editAddress.address_id
 
       try {
-        /* console.log('editAddress', editAddress) */
         await api.put(`/address/${auxAddress}`, editAddress, config);
         setIsModal2Visible(!isModal2Visible);
       } catch (error) {
@@ -297,8 +276,6 @@ function Addresses() {
         });
         return;
       }
-
-      // goToCheckout(newAddress);
 
     } else {
       notification.open({
@@ -384,9 +361,7 @@ function Addresses() {
 
                   <label htmlFor="zipcode">CEP</label>
                   <Input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
-                  {/* <MaskedInput mask="11111-111" name="zipcode" size="20" onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })}/> */}
 
-                  {/* <button type="submit">Continuar com o novo endereço</button> */}
                 </form>
               </div>
             </Modal>
@@ -423,42 +398,9 @@ function Addresses() {
 
                   <label htmlFor="zipcode">CEP</label>
                   <Input type="text" name="zipcode" value={editAddress.zipcode} onChange={(e) => setEditAddress({ ...editAddress, zipcode: e.target.value })} defaultValue={`${editAddress.zipcode}`} />
-                  {/* <MaskedInput mask="11111-111" name="zipcode" size="20" onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })}/> */}
-
-                  {/* <button type="submit">Continuar com o novo endereço</button> */}
                 </form>
               </div>
             </Modal>
-            {/* <div className="new-address">
-            <h3>Se preferir, cadastre um novo endereço</h3>
-            <form onSubmit={handleSubmitNewAddress}>
-              <label htmlFor="street">Rua ou Avenida</label>
-              <input type="text" name="street" value={newAddress.street} onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })} />
-
-              <label htmlFor="number">Número</label>
-              <input className="short" type="number" name="number" value={newAddress.number} step='1' onChange={(e) => setNewAddress({ ...newAddress, number: e.target.value })} />
-
-              <label htmlFor="complement">Complemento</label>
-              <input type="text" name="complement" value={newAddress.complement} onChange={(e) => setNewAddress({ ...newAddress, complement: e.target.value })} />
-
-              <label htmlFor="neighborhood">Bairro</label>
-              <input type="text" name="neighborhood" value={newAddress.neighborhood} onChange={(e) => setNewAddress({ ...newAddress, neighborhood: e.target.value })} />
-
-              <label htmlFor="state">Estado</label>
-              <select type="text" name="state" value={newAddress.state} onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })} defaultValue="">
-                <option value="" disabled>Estado</option>
-                {states.map(state => <option value={state}>{state}</option>)}
-              </select>
-
-              <label htmlFor="city">Cidade</label>
-              <input type="text" name="city" value={newAddress.city} onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })} />
-
-              <label htmlFor="zipcode">CEP</label>
-              <input type="text" name="zipcode" value={newAddress.zipcode} onChange={(e) => setNewAddress({ ...newAddress, zipcode: e.target.value })} />
-
-              <button type="submit">Continuar com o novo endereço</button>
-            </form>
-          </div> */}
           </div>
         </div>
       </Spin>
@@ -467,9 +409,6 @@ function Addresses() {
 }
 
 function Address({ onClick, address, selected, index }) {
-
-
-
   return (
     <div>
       <Radio value={index} >
@@ -483,18 +422,7 @@ function Address({ onClick, address, selected, index }) {
         </p>
 
       </Radio>
-      {/* <p>{`${address.street}, ${address.number}, ${address.complement}`}</p>
-      <p>{address.neighborhood}</p>
-      <p>{`${address.city} - ${address.state}`}</p>
-      <p>{address.zipcode}</p> */}
     </div>
-
-    // <div className={`address-box ${selected && 'selected'}`} onClick={onClick}>
-    //   <p>{`${address.street}, ${address.number}, ${address.complement}`}</p>
-    //   <p>{address.neighborhood}</p>
-    //   <p>{`${address.city} - ${address.state}`}</p>
-    //   <p>{address.zipcode}</p>
-    // </div>
   );
 }
 

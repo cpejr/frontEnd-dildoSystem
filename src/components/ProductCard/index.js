@@ -93,9 +93,6 @@ export default withRouter(function ProductCard(props) {
     // }, [products])
 
 
-    useEffect(() => {
-
-    }, [products])
 
     async function loadFollowingPage() {
         const currentPos = window.pageYOffset;
@@ -151,34 +148,6 @@ export default withRouter(function ProductCard(props) {
                         <p> - Tente procurar termos mais gerais e filtrar o resultado da busca. </p>
                     </div>
                 }
-                {/* {products.map(product => (
-                                // <CardProduct product={product}/>
-                                <NewProductCard product={product} />
-                                // <div className="Card" key={`product-${product.id}`}>
-                                //     <Link to={`/product/${product.id}`} className="image-text-container">
-                                //         <ImageLoader
-                                //             src={`https://docs.google.com/uc?id=${product.image_id}`}
-                                //             loading={() => <img src={loading} alt="Loading..." />}
-                                //             error={() => <div>Error</div>} />
-                                //         <p id="titulo-card">
-                                //             {product.name}
-                                //         </p>
-                                //     </Link>
-                                //     <div className="fiheartDiv">
-                                //         {!isWish && <FiHeart className="fiheart" onClick={() => handleAddWishList(product.id)} />}
-                                //         {isWish && <FaHeart className="fiheart" onClick={() => handleRemoveWishList(product.id)} />}
-                                //     </div>
-
-                                //     <PriceElement product={product} />
-
-                                //     <Link id="botao-comprar" to="/cart">
-                                //         <span onClick={(e) => cart.addItem(product)}>COMPRAR</span>
-                                //     </Link>
-
-                                // </div>
-                            ))}
-                        </div> */}
-                            {/* <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button> */}
                         </div>
             </div>
 

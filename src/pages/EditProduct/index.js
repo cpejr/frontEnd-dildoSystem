@@ -28,7 +28,6 @@ export default function EditProduct() {
 
         if(search) {
             newFormattedSearch = search.replace(/ /g, '+');
-            // newFormattedSearch = newFormattedSearch.normalize('NFD');
         }
 
         setFormattedSearch(newFormattedSearch);

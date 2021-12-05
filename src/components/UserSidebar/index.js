@@ -24,8 +24,8 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import { useState, useEffect } from 'react';
 import { FaUserAlt } from 'react-icons/fa'
 
-import Logo from "../../images/CASULUS_LOGO_PRETO.svg"; //CASULUS_LOGO_PRETO.svg
-import Text from "../../images/CASULUS_TEXTO_PRETO.svg"; //CASULUS_TEXTO_PRETO.svg
+import Logo from "../../images/CASULUS_LOGO_PRETO.svg"; 
+import Text from "../../images/CASULUS_TEXTO_PRETO.svg"; 
 
 import "./styles.css";
 import { LoginContext } from "../../Contexts/LoginContext";

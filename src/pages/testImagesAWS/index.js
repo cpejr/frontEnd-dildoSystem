@@ -30,11 +30,6 @@ export default function TestImagesAWS() {
 		setFile(file)
 	}
 
-  // useEffect(()=>{
-  //   const res = api.get('/imagesAWS/cd934e50d452ebf32a84d83e5a61e3ef')
-  //   console.log(res)
-  // }, [])
-  
   return (
     <div className="App-test-images">
       <form onSubmit={submit}>
@@ -55,4 +50,3 @@ export default function TestImagesAWS() {
   );
 }
 
-// http://localhost:3333/imagesAWS/cd934e50d452ebf32a84d83e5a61e3ef

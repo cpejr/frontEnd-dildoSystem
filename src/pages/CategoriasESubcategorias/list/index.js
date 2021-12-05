@@ -126,8 +126,6 @@ export default function List2({ newCategory }) {
   function handleClickCategoryEditButton(catId) {
 
     setCategorySelection(catId)
-    // if(catId && !visible)
-    //   setVisible(!visible)
   }
 
   function handleVisibleChange(catId) {

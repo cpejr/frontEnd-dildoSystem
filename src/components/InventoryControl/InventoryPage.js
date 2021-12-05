@@ -11,18 +11,6 @@ export default function InventoryCard(props) {
     const [page, setPage] = useState(1);
     const [queries, setQueries] = useState('');
     const [scrollPosition, setSrollPosition] = useState(0);
-    //const [quantity, setQuantity] = useState(1);
-    //const [relevantStock, setRelevantStock] = useState();
-    //const accessToken = localStorage.getItem('accessToken');
-
-    // function incrementQuantity() {
-    //     setQuantity(quantity + 1);
-    // }
-
-    // function decrementQuantity() {
-    //     if (quantity > 1)
-    //         setQuantity(quantity - 1);
-    // }
 
     const [change, setChange] = useState(false);
 

@@ -12,18 +12,8 @@ import loading from '../../images/Loading.gif';
 export default function Product(props) {
 
     const [lowStock, setLowStock] = useState([]);
-    // const [page, setPage] = useState(1);
-    // const [queries, setQueries] = useState('');
-    // const [scrollPosition, setSrollPosition] = useState(0);
 
     useEffect(() => {
-        // let newQueries = '';
-
-        // if (props.search) newQueries += `&search=${props.search}`;
-        // if (props.categoryId) newQueries += `&category_id=${props.categoryId}`;
-
-        // setQueries(newQueries);
-
         const accessToken = localStorage.getItem('accessToken')
 
         const config = {
@@ -36,43 +26,6 @@ export default function Product(props) {
         
 
     }, [props.search, props.categoryId]);
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
-
-    // const handleScroll = () => {
-    //     const position = window.pageYOffset;
-    //     setSrollPosition(position);
-    // };
-
-    // async function loadFollowingPage() {
-    //     const currentPos = scrollPosition;
-
-    //     const url = `products?page=${page + 1}${queries}`;
-
-    //     let nextPage;
-
-    //     const accessToken = localStorage.getItem('accessToken')
-
-    //     const config = {
-    //         headers: { 'authorization': `Bearer ${accessToken}` }
-    //     }
-
-    //     if (accessToken) {
-    //         nextPage = await api.get(url, config);
-    //     } else {
-    //         nextPage = await api.get(url);
-    //     }
-
-    //     setLowStock([...lowStock, ...nextPage.data]);
-    //     setPage(page + 1);
-    //     window.scrollTo(0, currentPos);
-    // }
 
     return (
         <div className="products-container-wrapper">
@@ -99,7 +52,6 @@ export default function Product(props) {
                     </div>
                 ))}
             </div>
-            {/* <button className="loader-button" onClick={loadFollowingPage}>Carregar mais produtos</button> */}
         </div>
 
     )

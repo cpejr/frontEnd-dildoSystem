@@ -23,7 +23,6 @@ export default function SubproductsCreate(props) {
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
 
-  // const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (props.wichOne === "editar") {
@@ -70,8 +69,6 @@ export default function SubproductsCreate(props) {
       setUpdated(!updated);
       window.location.reload();
     } catch (err) {
-      /*  console.log(JSON.stringify(err)); */
-      console.error(err.response);
       if (!image) {
         notification.open({
           message: 'Erro!',

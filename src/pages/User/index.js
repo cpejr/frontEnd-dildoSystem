@@ -53,9 +53,6 @@ function User(props) {
         history.push("/")
         return 0;
         }
-      
-      
-  
 }
 
 export default User;

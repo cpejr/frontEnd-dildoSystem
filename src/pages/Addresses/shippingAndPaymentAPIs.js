@@ -1,7 +1,6 @@
 import api from '../../services/api';
 
 export async function getShippingOptions(products, cepDestino, userType) {
-  // console.log(products);
   const totalPrice = getTotalPrice(products, userType);
   const formattedProducts = products.map(p => {
     return {
@@ -22,8 +21,6 @@ export async function getShippingOptions(products, cepDestino, userType) {
   };
 
   const response = await api.post('frenet', freteData);
-
-  /*  console.log(response.data); */
 
   return response.data;
 }
@@ -65,7 +62,6 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
   orderID = orderID.data;
 
   const discount = getTotalDiscount(products, buyer.type) * 100;
-  // console.log(discount)
 
   const requestBody = {
     "OrderNumber": orderID,
@@ -94,8 +90,6 @@ export async function callPaymentAPI(products, address, shippingOptions, buyer) 
     "Payment": {
       "BoletoDiscount": 5,
       "DebitDiscount": 5,
-      /* "Installments": null,
-      "MaxNumberOfInstallments": null */
     },
     "Customer": {
       "Identity": String(user.cpf),
@@ -162,6 +156,3 @@ function getProductPrice(product, userType) {
     }
   }
 }
-
-
-
