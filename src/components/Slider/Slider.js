@@ -13,15 +13,15 @@ export default function ControlledCarousel() {
   const [images, setImages] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
 
-  const config = {
-    headers: { authorization: `Bearer ${accessToken}` },
-  };
-
   useEffect(() => {
+    const config = {
+      headers: { authorization: `Bearer ${accessToken}` },
+    };
+
     api.get("Carousel", config).then((response) => {
       setImages([...response.data]);
     });
-  }, [config]);
+  }, []);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
