@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/static/css/main.dd2f44a7.chunk.css",
-    "main.js": "/static/js/main.b7ddf248.chunk.js",
+    "main.js": "/static/js/main.a9fdfbd1.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.b03a7968.js",
     "static/css/2.c9f73512.chunk.css": "/static/css/2.c9f73512.chunk.css",
     "static/js/2.66d98ae9.chunk.js": "/static/js/2.66d98ae9.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.8515d1ccf6ec430dc8ac9ee274c988df.js": "/precache-manifest.8515d1ccf6ec430dc8ac9ee274c988df.js",
+    "precache-manifest.c83baa36e62b1fbf2ff878745a22acbd.js": "/precache-manifest.c83baa36e62b1fbf2ff878745a22acbd.js",
     "service-worker.js": "/service-worker.js",
     "static/js/2.66d98ae9.chunk.js.LICENSE.txt": "/static/js/2.66d98ae9.chunk.js.LICENSE.txt",
     "static/media/CASULUS_BORBOLETA_2_AMARELO.png": "/static/media/CASULUS_BORBOLETA_2_AMARELO.22703356.png",
@@ -27,6 +27,6 @@
     "static/css/2.c9f73512.chunk.css",
     "static/js/2.66d98ae9.chunk.js",
     "static/css/main.dd2f44a7.chunk.css",
-    "static/js/main.b7ddf248.chunk.js"
+    "static/js/main.a9fdfbd1.chunk.js"
   ]
 }
