@@ -14,15 +14,6 @@ import './styles.css';
 import Insta from '../../components/Instagram';
 
 function Dashboard(props) {
-    const [search, setSearch] = useState();
-
-    useEffect(() => {
-        let newSearch = props.location.search;
-        const equalsIndex = newSearch.indexOf('=') + 1;
-        newSearch = newSearch.substring(equalsIndex);
-        setSearch(newSearch);
-    }, [props.location.search])
-
     return (
         <div className="content">
             <div className="content">
