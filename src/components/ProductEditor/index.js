@@ -104,6 +104,7 @@ export default function ProductEditor(props) {
   const [images, setImages] = useState([]);
   const [img_url, setImgURL] = useState();
   const [subproducts, setSubproducts] = useState([]);
+  const [updated, setUpdated] = useState(false);
   const history = useHistory();
 
   const [state, setState] = React.useState({
