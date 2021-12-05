@@ -31,7 +31,7 @@ export default function WishList(props) {
       api.get(`userwishlist/${userInfo.id}`, config).then(response => {        
         setList(response.data)
       })
-  }, [userInfo])
+  }, [userInfo?.id])
 
   const handleDeleteClick = (product_id) => {
     const newToken = localStorage.getItem("accessToken");
