@@ -1,52 +1,47 @@
-import React, { useEffect, useState } from "react";
-import "./style.css";
-import CarouselImages from "./CarouselImages";
-import api from "../../services/api";
-import ImageUpload from "../../components/ImageUpload";
-import BannerImages from "./BannerImages.js";
-import { Row, Col } from "antd";
-import { notification } from "antd";
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-
-import { Tabs } from "antd";
+import React, { useEffect, useState } from 'react';
+import './style.css';
+import {
+  Row, Col, notification, Tabs,
+} from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import CarouselImages from './CarouselImages';
+import api from '../../services/api';
+import ImageUpload from '../ImageUpload';
+import BannerImages from './BannerImages.js';
 
 const { TabPane } = Tabs;
 
-function Carousel(props) {
+const Carousel = function (props) {
   const [images, setImages] = useState([]);
   const [newImage, setNewImage] = useState(null);
   const [update, setUpdate] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
 
   const [bannerImages, setBannerImages] = useState([]);
   const [bannerNewImage, setBannerNewImage] = useState(null);
   const [linkBanner, setLinkBanner] = useState([]);
 
   useEffect(() => {
-    api.get("Carousel", config).then((response) => {
+    api.get('Carousel', config).then((response) => {
       setImages(
         response.data.sort(
-          ({ position: previousID }, { position: currentID }) =>
-            previousID - currentID
-        )
+          ({ position: previousID }, { position: currentID }) => previousID - currentID,
+        ),
       );
-      // console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
-    api.get("banner", config).then((response) => {
+    api.get('banner', config).then((response) => {
       setBannerImages(
         response.data.sort(
-          ({ position: previousID }, { position: currentID }) =>
-            previousID - currentID
-        )
+          ({ position: previousID }, { position: currentID }) => previousID - currentID,
+        ),
       );
-      // console.log(response.data.sort(({ position: previousID }, { position: currentID }) => previousID - currentID))
     });
   }, [update]);
 
   function handlePositionChange(id, pos) {
-    let newarray = [...images];
-    for (var i = 0; i < images.length; i++) {
+    const newarray = [...images];
+    for (let i = 0; i < images.length; i++) {
       if (images[i].id === id) {
         newarray[i].position = parseInt(pos);
         setImages(newarray);
@@ -55,8 +50,8 @@ function Carousel(props) {
   }
 
   function handleLinkChange(id, link) {
-    let newarray = [...images];
-    for (var i = 0; i < images.length; i++) {
+    const newarray = [...images];
+    for (let i = 0; i < images.length; i++) {
       if (images[i].id === id) {
         newarray[i].link = link;
         setImages(newarray);
@@ -65,7 +60,7 @@ function Carousel(props) {
   }
 
   function handlePositionChangeBanner(id, pos) {
-    let newarray = [...bannerImages];
+    const newarray = [...bannerImages];
     for (let i = 0; i < bannerImages.length; i++) {
       if (bannerImages[i].id === id) {
         newarray[i].position = parseInt(pos);
@@ -76,7 +71,7 @@ function Carousel(props) {
 
   function handleLinkChangeBanner(id, link) {
     // setLinkBanner(link)
-    let newarray = [...bannerImages];
+    const newarray = [...bannerImages];
     for (let j = 0; j < bannerImages.length; j++) {
       if (bannerImages[j].id === id) {
         bannerImages[j].link = link;
@@ -98,30 +93,30 @@ function Carousel(props) {
   }
 
   async function handleSubmit(e) {
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data.append(key, value);
+      if (value !== undefined && value !== '') data.append(key, value);
     }
 
-    addToData("imageFile", newImage);
+    addToData('imageFile', newImage);
 
     if (newImage) {
       try {
-        await api.post("newCarousel", data, {
+        await api.post('newCarousel', data, {
           headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.accessToken}`,
           },
         });
         setNewImage(undefined);
       } catch (err) {
         console.error(err.response);
         notification.open({
-          message: "Erro!",
-          description: "Erro ao registrar imagem.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+          message: 'Erro!',
+          description: 'Erro ao registrar imagem.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -131,22 +126,22 @@ function Carousel(props) {
 
     try {
       await api.put(
-        "Carousel",
+        'Carousel',
         { info: images },
         {
           headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.accessToken}`,
           },
-        }
+        },
       );
       setUpdate(!update);
       notification.open({
-        message: "Sucesso!",
-        description: "Atualizado com sucesso.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+        message: 'Sucesso!',
+        description: 'Atualizado com sucesso.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -154,11 +149,11 @@ function Carousel(props) {
     } catch (err) {
       console.error(err.response);
       notification.open({
-        message: "Erro!",
-        description: "Erro ao editar posições.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        message: 'Erro!',
+        description: 'Erro ao editar posições.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -167,32 +162,30 @@ function Carousel(props) {
   }
 
   async function handleBannerSubmit(e) {
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data.append(key, value);
+      if (value !== undefined && value !== '') data.append(key, value);
     }
 
-    addToData("imageFile", bannerNewImage);
-    addToData("link", linkBanner);
+    addToData('imageFile', bannerNewImage);
+    addToData('link', linkBanner);
 
     if (bannerNewImage) {
       try {
-        await api.post("newBanner", data, {
+        await api.post('newBanner', data, {
           headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.accessToken}`,
           },
         });
         setBannerNewImage(undefined);
       } catch (err) {
-        console.log(JSON.stringify(err));
-        console.error(err.response);
         notification.open({
-          message: "Erro!",
-          description: "Erro ao registrar imagem.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+          message: 'Erro!',
+          description: 'Erro ao registrar imagem.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
@@ -202,37 +195,37 @@ function Carousel(props) {
 
     try {
       const response = await api.put(
-        "banner",
+        'banner',
         { info: bannerImages },
         {
           headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.accessToken,
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.accessToken}`,
           },
-        }
+        },
       );
       setUpdate(!update);
       notification.open(
         {
-          message: "Sucesso!",
-          description: "Atualizado com sucesso.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          message: 'Sucesso!',
+          description: 'Atualizado com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         },
-        response
+        response,
       );
     } catch (err) {
       console.error(err.response);
       notification.open({
-        message: "Erro!",
-        description: "Erro ao editar posições.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        message: 'Erro!',
+        description: 'Erro ao editar posições.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -240,12 +233,8 @@ function Carousel(props) {
     }
   }
 
-  function callback(key) {
-    // console.log(key);
-  }
-
   return (
-    <Tabs onChange={callback} type="card">
+    <Tabs type="card">
       <TabPane tab="Carrosel" key="1">
         <div className="EditCarousel-Container">
           {images.map((image, index) => (
@@ -263,7 +252,7 @@ function Carousel(props) {
 
           <div className="carousel-image-form">
             <div className="input-group mb-3">
-              <ImageUpload onChange={handleImage} fileName={"imageFile"} />
+              <ImageUpload onChange={handleImage} fileName="imageFile" />
             </div>
           </div>
           <div className="enviar-button-carousel">
@@ -304,7 +293,7 @@ function Carousel(props) {
               <div className="input-group mb-3">
                 <ImageUpload
                   onChange={handleBannerImage}
-                  fileName={"BannerImageFile"}
+                  fileName="BannerImageFile"
                 />
               </div>
             </div>
@@ -318,6 +307,6 @@ function Carousel(props) {
       </TabPane>
     </Tabs>
   );
-}
+};
 
 export default Carousel;

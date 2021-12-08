@@ -1,9 +1,6 @@
-import React from "react";
-import "./styles.css";
-import { IoMdKey } from "react-icons/io";
-import api from "../../services/api";
-import { useEffect } from "react";
-import useStateWithPromise from "../../Contexts/useStateWithPromise";
+import React, { useEffect } from 'react';
+import './styles.css';
+import { IoMdKey } from 'react-icons/io';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,9 +10,11 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import useStateWithPromise from '../../Contexts/useStateWithPromise';
+import api from '../../services/api';
 
 const styles = (theme) => ({
   root: {
@@ -31,7 +30,9 @@ const styles = (theme) => ({
 });
 
 const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const {
+    children, classes, onClose, ...other
+  } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
@@ -59,20 +60,19 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function ProfileSettings() {
-
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwd, setPasswd] = React.useState("");
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [passwd, setPasswd] = React.useState('');
   const [cpf, setCpf] = React.useState(0);
   const [zipcode, setZipcode] = React.useState(0);
   const [phonenumber, setPhonenumber] = React.useState(0);
-  const [state, setState] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [neighborhood, setNeighborhood] = React.useState("");
-  const [street, setStreet] = React.useState("");
+  const [state, setState] = React.useState('');
+  const [city, setCity] = React.useState('');
+  const [neighborhood, setNeighborhood] = React.useState('');
+  const [street, setStreet] = React.useState('');
   const [number, setNumber] = React.useState(0);
-  const [complement, setComplement] = React.useState("");
+  const [complement, setComplement] = React.useState('');
   const [userId, setUserId] = useStateWithPromise(0);
   const [error, setError] = React.useState();
   const [open, setOpen] = React.useState(false);
@@ -83,15 +83,15 @@ export default function ProfileSettings() {
 
   const handleOpen = () => {
     setMopen(true);
-  }
+  };
 
   const history = useHistory();
   const [changed, setChanged] = React.useState(false);
-  const location = history.location;
+  const { location } = history;
 
   const handleXopen = () => {
     setXopen(true);
-  }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -110,13 +110,13 @@ export default function ProfileSettings() {
   }, [changed]);
 
   useEffect(() => {
-    const newToken = localStorage.getItem("accessToken");
+    const newToken = localStorage.getItem('accessToken');
     if (newToken) {
       async function grabData() {
         const config = {
           headers: { authorization: `Bearer ${newToken}` },
         };
-        const resp = await api.get("verify", config);
+        const resp = await api.get('verify', config);
 
         if (resp.data.verified) {
           await Promise.all([
@@ -132,7 +132,7 @@ export default function ProfileSettings() {
             setStreet(resp.data.user.street),
             setNumber(resp.data.user.number),
             setComplement(resp.data.user.complement),
-            setPassword(resp.data.user.password)
+            setPassword(resp.data.user.password),
           ]);
         }
       }
@@ -146,13 +146,13 @@ export default function ProfileSettings() {
     let data;
 
     try {
-      const response = await api.post("login", { email, password: passwd });
-      const user = response.data.user;
+      const response = await api.post('login', { email, password: passwd });
+      const { user } = response.data;
       if (user) {
         data = {
-          password: password,
-          name: name
-        }
+          password,
+          name,
+        };
       }
     } catch (err) {
       setError(err.response.data.message);
@@ -171,13 +171,12 @@ export default function ProfileSettings() {
     }
 
     if (data) {
-
       try {
         const response = await api.put(`user/${userId}`, data, {
           headers: {
-            authorization: "Bearer " + localStorage.accessToken,
-          }
-        })
+            authorization: `Bearer ${localStorage.accessToken}`,
+          },
+        });
         notification.open({
           message: 'Sucesso!',
           description:
@@ -191,12 +190,10 @@ export default function ProfileSettings() {
         }, response);
       } catch (err) {
       }
-
     }
 
-    setPassword("");
-    setPasswd("");
-
+    setPassword('');
+    setPasswd('');
   }
 
   async function handleSubmit(e) {
@@ -208,7 +205,6 @@ export default function ProfileSettings() {
         data = { ...data, [key]: value };
       }
     }
-
 
     addToData('name', name);
     addToData('email', email);
@@ -225,9 +221,9 @@ export default function ProfileSettings() {
     try {
       const response = await api.put(`user/${userId}`, data, {
         headers: {
-          authorization: "Bearer " + localStorage.accessToken,
-        }
-      })
+          authorization: `Bearer ${localStorage.accessToken}`,
+        },
+      });
       notification.open({
         message: 'Sucesso!',
         description:
@@ -252,16 +248,15 @@ export default function ProfileSettings() {
         },
       });
     }
-
   }
 
   const handleDeleteUser = () => {
     api.delete(`user/${userId}`, {
       headers: {
-        authorization: "Bearer " + localStorage.accessToken,
-      }
+        authorization: `Bearer ${localStorage.accessToken}`,
+      },
     }).then((response) => {
-    })
+    });
     notification.open({
       message: 'Sucesso!',
       description:
@@ -273,9 +268,8 @@ export default function ProfileSettings() {
         width: 600,
       },
     });
-    history.push("/login");
-  }
-
+    history.push('/login');
+  };
 
   return (
     <div className="settings-container">
@@ -304,15 +298,15 @@ export default function ProfileSettings() {
         <div className="settings-button-edit-area">
           <button className="settings-button" onClick={handleOpen}>
             <IoMdKey className="settings-key" size={20} />
-              Alterar Senha
-            </button>
+            Alterar Senha
+          </button>
           <Dialog open={mopen} onClose={handleClose} aria-labelledby="form-dialog-title">
             <form className="passEdit" onSubmit={handlePasswordSubmit}>
               <DialogTitle id="form-dialog-title">Alterar senha</DialogTitle>
               <DialogContent>
                 <div className="settings-info-item-form">
                   <strong>Digite a senha atual:</strong>
-                  <br></br>
+                  <br />
                   <input
                     type="password"
                     value={passwd}
@@ -321,7 +315,7 @@ export default function ProfileSettings() {
                 </div>
                 <div className="settings-info-item-form">
                   <strong>Digite a senha nova:</strong>
-                  <br></br>
+                  <br />
                   <input
                     type="password"
                     value={password}
@@ -332,10 +326,10 @@ export default function ProfileSettings() {
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
                   Cancelar
-          </Button>
+                </Button>
                 <Button type="submit" autoFocus onClick={handleClose} color="primary">
                   Confirmar
-          </Button>
+                </Button>
               </DialogActions>
             </form>
           </Dialog>
@@ -345,7 +339,8 @@ export default function ProfileSettings() {
             maxWidth={maxWidth}
             onClose={handleClose}
             aria-labelledby="customized-dialog-title"
-            open={open}>
+            open={open}
+          >
             <form className="userEdit-form" onSubmit={handleSubmit}>
               <DialogContent dividers className="contentDialog">
                 <div className="settings-container">
@@ -394,24 +389,22 @@ export default function ProfileSettings() {
                           />
                         </div>
                       </div>
-                      <div className="settings-button-area">
-                      </div>
+                      <div className="settings-button-area" />
                     </div>
-                    <div className="settings-button-edit-area">
-                    </div>
+                    <div className="settings-button-edit-area" />
                   </div>
                 </div>
               </DialogContent>
               <DialogActions classname="dialogac">
                 <Button type="submit" autoFocus onClick={handleClose} color="primary">
                   Salvar alterações
-          </Button>
+                </Button>
               </DialogActions>
             </form>
           </Dialog>
           <button type="button" className="settings-button-delete" onClick={handleXopen}>
             Excluir minha conta
-      </button>
+          </button>
           <Dialog open={xopen} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogContent>
               <h5 className="modal-delete-title">Você tem certeza?</h5>

@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
-import ImageLoader from "react-loading-image";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import loading from "../../images/Loading.gif";
-import api from '../../services/api';
+import React, { useState, useEffect } from 'react';
+import './style.css';
+import ImageLoader from 'react-loading-image';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import loading from '../../images/Loading.gif';
+import api from '../../services/api';
 
-import urlAWS from '../../services/imagesAWS'
+import urlAWS from '../../services/imagesAWS';
 
-function BannerImages(props) {
+const BannerImages = function (props) {
   const [newBannerPosition, setBannerNewPosition] = useState();
   const [linkState, setLinkState] = useState();
 
   useEffect(() => {
-    if (!isNaN(props.image.position))
-      setBannerNewPosition(props.image.position)
+    if (!isNaN(props.image.position)) setBannerNewPosition(props.image.position);
   }, [props.image.position]);
-  
+
   useEffect(() => {
-    setLinkState(props.image.link)
+    setLinkState(props.image.link);
   }, [props.image.link]);
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` },
-  }
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   async function handleDelete(e) {
     try {
-      await api.delete('/banner/' + props.image.id, config);
+      await api.delete(`/banner/${props.image.id}`, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -44,7 +43,6 @@ function BannerImages(props) {
         },
       });
       props.setUpdate(!props.update);
-
     } catch (err) {
       console.error(err);
       notification.open({
@@ -81,8 +79,8 @@ function BannerImages(props) {
             type="text"
             value={newBannerPosition}
             onChange={(e) => {
-              setBannerNewPosition(e.target.value)
-              props.handlePositionChangeBanner(props.image.id, e.target.value)
+              setBannerNewPosition(e.target.value);
+              props.handlePositionChangeBanner(props.image.id, e.target.value);
             }}
             className="form-control"
             id="validationDefaultUsername"
@@ -100,8 +98,8 @@ function BannerImages(props) {
             type="text"
             value={linkState}
             onChange={(e) => {
-              setLinkState(e.target.value)
-              props.handleLinkChangeBanner(props.image.id, e.target.value)
+              setLinkState(e.target.value);
+              props.handleLinkChangeBanner(props.image.id, e.target.value);
             }}
             className="form-control"
             id="validationDefaultUsername"
@@ -110,8 +108,6 @@ function BannerImages(props) {
           />
         </div>
       </div>
-
-
 
       <div className="enviar-button-carousel">
 
@@ -122,6 +118,6 @@ function BannerImages(props) {
       </div>
     </div>
   );
-}
+};
 
 export default BannerImages;

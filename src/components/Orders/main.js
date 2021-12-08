@@ -1,38 +1,37 @@
-import React, { useState } from "react";
-import "./styles.css";
-import OrderArray from "./order.js";
-import { formatDate } from '../FormatDate/index'
-import api from '../../services/api';
+import React, { useState } from 'react';
+import './styles.css';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import OrderArray from './order.js';
+import { formatDate } from '../FormatDate/index';
+import api from '../../services/api';
 
-function Main(props) {
+const Main = function (props) {
   const [newStatus, setnewStatus] = useState();
-  const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number || "");
+  const [newTrackNumber, setnewTrackNumber] = useState(props.pedido.track_number || '');
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` },
-  }
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
   async function handleSubmit(e) {
-
     let engstatus;
     switch (newStatus) {
-      case "Pedido Pendente":
-        engstatus = "pending";
+      case 'Pedido Pendente':
+        engstatus = 'pending';
         break;
-      case "Pedido Pago":
-        engstatus = "paid";
+      case 'Pedido Pago':
+        engstatus = 'paid';
         break;
-      case "Pedido Enviado":
-        engstatus = "mailed";
+      case 'Pedido Enviado':
+        engstatus = 'mailed';
         break;
-      case "Pedido Entregue":
-        engstatus = "delivered";
+      case 'Pedido Entregue':
+        engstatus = 'delivered';
         break;
-      case "Pedido Cancelado":
-        engstatus = "cancelled";
+      case 'Pedido Cancelado':
+        engstatus = 'cancelled';
         break;
       default:
         break;
@@ -51,7 +50,6 @@ function Main(props) {
           width: 600,
         },
       });
-
     } catch (err) {
       console.error(err);
       notification.open({
@@ -70,20 +68,20 @@ function Main(props) {
 
   let status;
   switch (props.pedido.order_status) {
-    case "pending":
-      status = "Pedido Pendente";
+    case 'pending':
+      status = 'Pedido Pendente';
       break;
-    case "paid":
-      status = "Pedido Pago";
+    case 'paid':
+      status = 'Pedido Pago';
       break;
-    case "mailed":
-      status = "Pedido Enviado";
+    case 'mailed':
+      status = 'Pedido Enviado';
       break;
-    case "delivered":
-      status = "Pedido Entregue";
+    case 'delivered':
+      status = 'Pedido Entregue';
       break;
-    case "cancelled":
-      status = "Pedido Cancelado";
+    case 'cancelled':
+      status = 'Pedido Cancelado';
       break;
     default:
       break;
@@ -154,16 +152,20 @@ function Main(props) {
         <div className="order-delivery">
           <div className="order-value">
             <div className="order-request-value">
-              Valor total dos produtos:{" "}
-              {`R$${Number(props.pedido.totalPrice).toFixed(2)}`}
+              Valor total dos produtos:
+              {' '}
+              {`R${Number(props.pedido.totalPrice).toFixed(2)}`}
             </div>
             <div className="order-request-value">
-              Frete: {`R$${Number(props.pedido.track_price).toFixed(2)}`}
+              Frete:
+              {' '}
+              {`R${Number(props.pedido.track_price).toFixed(2)}`}
             </div>
             <div className="order-request-value">
-              Valor total da compra:{" "}
-              {`R$${Number(
-                props.pedido.track_price + props.pedido.totalPrice
+              Valor total da compra:
+              {' '}
+              {`R${Number(
+                props.pedido.track_price + props.pedido.totalPrice,
               ).toFixed(2)}`}
             </div>
           </div>
@@ -192,7 +194,7 @@ function Main(props) {
               className="order-track"
               value={newTrackNumber}
               onChange={(e) => setnewTrackNumber(e.target.value)}
-            ></input>
+            />
           </label>
         </div>
         <div className="order-save-button">
@@ -203,6 +205,6 @@ function Main(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Main;

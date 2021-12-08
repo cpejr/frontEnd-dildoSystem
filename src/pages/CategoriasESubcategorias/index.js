@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { FaPlusCircle } from 'react-icons/fa';
-import './styles.css'
+import './styles.css';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 
 import api from '../../services/api';
 import Lista from './list/index.js';
@@ -11,28 +11,27 @@ import Lista from './list/index.js';
 export default function CatNSubCat() {
   const [newCategory, setNewCategory] = useState(false);
 
-  function ButtonAddCat() {
+  const ButtonAddCat = function () {
     const [inputShow, setInputShow] = useState(false);
     const [submitData, setSubmitData] = useState('');
 
-
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + localStorage.accessToken,
-      }
-    }
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.accessToken}`,
+      },
+    };
 
     function handleClickButton() {
-      setInputShow(!inputShow)
+      setInputShow(!inputShow);
     }
 
     function handleClickAddSub(e, data) {
       e.preventDefault();
 
       const sendData = {
-        name: data
-      }
+        name: data,
+      };
 
       api.post('newCategory', sendData, config).then(() => {
         notification.open({
@@ -46,8 +45,8 @@ export default function CatNSubCat() {
             width: 600,
           },
         });
-        setNewCategory(!newCategory)
-      })
+        setNewCategory(!newCategory);
+      });
     }
 
     return (
@@ -57,20 +56,21 @@ export default function CatNSubCat() {
           <span className="add-cat-descrip">Adicionar Categorias</span>
         </button>
         {
-          inputShow ?
-            <span className="list-cat-add-sub" >
-              <form onSubmit={(e) => handleClickAddSub(e, submitData)}>
-                <input type='text' onChange={(e) => setSubmitData(e.target.value)} ></input>
-              </form>
-              < FaPlusCircle />
-              (adicionar categoria)
-            </span>
-            :
-            ''
+          inputShow
+            ? (
+              <span className="list-cat-add-sub">
+                <form onSubmit={(e) => handleClickAddSub(e, submitData)}>
+                  <input type="text" onChange={(e) => setSubmitData(e.target.value)} />
+                </form>
+                <FaPlusCircle />
+                (adicionar categoria)
+              </span>
+            )
+            : ''
         }
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="geral-wrapper-cat-sub">
@@ -84,10 +84,10 @@ export default function CatNSubCat() {
           subcategorias e produtos. Você também poderá adicionar
           uma nova categoria na área ao lado.
         </p>
-        < ButtonAddCat />
+        <ButtonAddCat />
 
       </div>
       <Lista newCategory={newCategory} />
     </div>
-  )
+  );
 }

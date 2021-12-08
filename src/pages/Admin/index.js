@@ -1,34 +1,34 @@
-import React from "react";
-import { Route, useHistory } from "react-router-dom";
+import React from 'react';
+import { Route, useHistory } from 'react-router-dom';
 
-import { LoginContext } from "../../Contexts/LoginContext";
+import { LoginContext } from '../../Contexts/LoginContext';
 
-import Main from "./Main";
-import "./styles.css";
+import Main from './Main';
+import './styles.css';
 
-import NnEProduct from "../../components/NnEProduct";
+import NnEProduct from '../../components/NnEProduct';
 
-import ProductEditor from "../../components/ProductEditor";
-import EditProduct from "../../pages/EditProduct";
-import AdminDashboard2 from "../TestAdmin";
-import Orders from "../../components/Orders";
-import PendingUsers from "../../components/PendingUsers";
-import Carousel from "../../components/Carousel/index.js";
-import CategorieEditor from "../../pages/CategoriasESubcategorias"
+import ProductEditor from '../../components/ProductEditor';
+import EditProduct from '../EditProduct';
+import AdminDashboard2 from '../TestAdmin';
+import Orders from '../../components/Orders';
+import PendingUsers from '../../components/PendingUsers';
+import Carousel from '../../components/Carousel/index.js';
+import CategorieEditor from '../CategoriasESubcategorias';
 
-import PendingOrders from "../../components/PendingOrders/index.js";
-import InventoryControl from "../../components/InventoryControl/index"
+import PendingOrders from '../../components/PendingOrders/index.js';
+import InventoryControl from '../../components/InventoryControl/index';
 
-import AllUsers from "../../components/AllUsers";
-import LowStock from "../LowStock";
+import AllUsers from '../../components/AllUsers';
+import LowStock from '../LowStock';
 
-function Admin(props) {
+const Admin = function (props) {
   const history = useHistory();
 
   return (
     <LoginContext.Consumer>
       {(value) => {
-        if (value.type === "admin") {
+        if (value.type === 'admin') {
           return (
             <div>
               <AdminDashboard2 name={value.name} type={value.type}>
@@ -48,7 +48,7 @@ function Admin(props) {
                   path={`${props.match.path}/editproduct`}
                   component={EditProduct}
                 />
-                
+
                 <Route
                   path={`${props.match.path}/categories`}
                   component={CategorieEditor}
@@ -89,12 +89,11 @@ function Admin(props) {
               </AdminDashboard2>
             </div>
           );
-        } else {
-          history.push("/");
         }
+        history.push('/');
       }}
     </LoginContext.Consumer>
   );
-}
+};
 
 export default Admin;

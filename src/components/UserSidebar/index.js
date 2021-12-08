@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,23 +21,22 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StarIcon from '@material-ui/icons/Star';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ReplyIcon from '@material-ui/icons/Reply';
-import { useState, useEffect } from 'react';
-import { FaUserAlt } from 'react-icons/fa'
+import { FaUserAlt } from 'react-icons/fa';
 
-import Logo from "../../images/CASULUS_LOGO_PRETO.svg"; 
-import Text from "../../images/CASULUS_TEXTO_PRETO.svg"; 
+import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
+import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
 
-import "./styles.css";
-import { LoginContext } from "../../Contexts/LoginContext";
+import './styles.css';
+import { LoginContext } from '../../Contexts/LoginContext';
 
 const drawerWidth = 265;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: "none",
+    display: 'none',
   },
   drawer: {
     width: drawerWidth,
@@ -64,20 +63,20 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-    backgroundColor: "#F9CE56",
+    justifyContent: 'flex-end',
+    backgroundColor: '#F9CE56',
     boxShadow:
-      "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
+      '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -86,13 +85,13 @@ const useStyles = makeStyles((theme) => ({
   content2: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   contentShift: {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -128,8 +127,8 @@ export default function UserSidebar(props) {
     function handleSize() {
       setWindowdimension(getWindowdimension());
     }
-    window.addEventListener("resize", handleSize);
-    return () => window.removeEventListener("resize", handleSize);
+    window.addEventListener('resize', handleSize);
+    return () => window.removeEventListener('resize', handleSize);
   }, []);
 
   return (
@@ -141,7 +140,7 @@ export default function UserSidebar(props) {
           [classes.appBarShift]: open,
         })} header-bar`}
       >
-        <Toolbar style={{ height: 70, display: "flex" }}>
+        <Toolbar style={{ height: 70, display: 'flex' }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -178,7 +177,11 @@ export default function UserSidebar(props) {
             </Link>
             <div className="user">
               <h5>{props.name}</h5>
-              <p>({props.type})</p>
+              <p>
+                (
+                {props.type}
+                )
+              </p>
             </div>
             <div>
               <FaUserAlt />
@@ -198,11 +201,11 @@ export default function UserSidebar(props) {
         >
           <div className={classes.drawerHeader} style={{ height: 70 }}>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
+              {theme.direction === 'ltr' ? (
                 <ChevronLeftIcon />
               ) : (
-                  <ChevronRightIcon />
-                )}
+                <ChevronRightIcon />
+              )}
             </IconButton>
           </div>
           <Divider />
@@ -279,7 +282,7 @@ export default function UserSidebar(props) {
                 <ListItem
                   button
                   onClick={context.handleLogout}
-                  style={{ position: "fixed", bottom: 0, width: 240 }}
+                  style={{ position: 'fixed', bottom: 0, width: 240 }}
                 >
                   <ListItemIcon>
                     <ExitToApp />
@@ -291,96 +294,96 @@ export default function UserSidebar(props) {
           </List>
         </Drawer>
       ) : (
-          <Drawer
-            className={classes.drawer}
-            anchor="left"
-            open={open}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div className={classes.drawerHeader} style={{ height: 75 }}>
-              <IconButton onClick={handleDrawerClose}>
-                {theme.direction === "ltr" ? (
-                  <ChevronLeftIcon />
-                ) : (
-                    <ChevronRightIcon />
-                  )}
-              </IconButton>
-            </div>
+        <Drawer
+          className={classes.drawer}
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader} style={{ height: 75 }}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem
+              button
+              component={Link}
+              to="/user/myrequests"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <LocalMallIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Pedidos</ListItemText>
+            </ListItem>
+
             <Divider />
-            <List>
-              <ListItem
-                button
-                component={Link}
-                to="/user/myrequests"
-                onClick={props.handleDrawerClose}
-              >
-                <ListItemIcon>
-                  <LocalMallIcon />
-                </ListItemIcon>
-                <ListItemText>Meus Pedidos</ListItemText>
-              </ListItem>
 
-              <Divider />
+            <ListItem
+              button
+              component={Link}
+              to="/user/wishlist"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <StarIcon />
+              </ListItemIcon>
+              <ListItemText>Lista de Desejos</ListItemText>
+            </ListItem>
 
-              <ListItem
-                button
-                component={Link}
-                to="/user/wishlist"
-                onClick={props.handleDrawerClose}
-              >
-                <ListItemIcon>
-                  <StarIcon />
-                </ListItemIcon>
-                <ListItemText>Lista de Desejos</ListItemText>
-              </ListItem>
+            <Divider />
 
-              <Divider />
+            <ListItem
+              button
+              component={Link}
+              to="/user/usersettings"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText>Meus Dados</ListItemText>
+            </ListItem>
+            <Divider />
 
-              <ListItem
-                button
-                component={Link}
-                to="/user/usersettings"
-                onClick={props.handleDrawerClose}
-              >
-                <ListItemIcon>
-                  <SettingsIcon />
-                </ListItemIcon>
-                <ListItemText>Meus Dados</ListItemText>
-              </ListItem>
-              <Divider />
+            <ListItem
+              button
+              component={Link}
+              to="/"
+              onClick={props.handleDrawerClose}
+            >
+              <ListItemIcon>
+                <ReplyIcon />
+              </ListItemIcon>
+              <ListItemText>Voltar às Compras</ListItemText>
+            </ListItem>
 
-              <ListItem
-                button
-                component={Link}
-                to="/"
-                onClick={props.handleDrawerClose}
-              >
-                <ListItemIcon>
-                  <ReplyIcon />
-                </ListItemIcon>
-                <ListItemText>Voltar às Compras</ListItemText>
-              </ListItem>
-
-              <Divider />
-              <LoginContext.Consumer>
-                {(context) => (
-                  <ListItem
-                    button
-                    onClick={context.handleLogout}
-                    style={{ position: "fixed", bottom: 0, width: 240 }}
-                  >
-                    <ListItemIcon>
-                      <ExitToApp />
-                    </ListItemIcon>
-                    <ListItemText>Sair</ListItemText>
-                  </ListItem>
-                )}
-              </LoginContext.Consumer>
-            </List>
-          </Drawer>
-        )}
+            <Divider />
+            <LoginContext.Consumer>
+              {(context) => (
+                <ListItem
+                  button
+                  onClick={context.handleLogout}
+                  style={{ position: 'fixed', bottom: 0, width: 240 }}
+                >
+                  <ListItemIcon>
+                    <ExitToApp />
+                  </ListItemIcon>
+                  <ListItemText>Sair</ListItemText>
+                </ListItem>
+              )}
+            </LoginContext.Consumer>
+          </List>
+        </Drawer>
+      )}
       {Windowdimension.width > 900 ? (
         <main
           className={clsx(classes.content, {
@@ -390,14 +393,14 @@ export default function UserSidebar(props) {
           <div className="main-admin-container">{props.children}</div>
         </main>
       ) : (
-          <main
-            className={clsx(classes.content2, {
-              [classes.contentShift]: open,
-            })}
-          >
-            <div className="main-admin-container">{props.children}</div>
-          </main>
-        )}
+        <main
+          className={clsx(classes.content2, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className="main-admin-container">{props.children}</div>
+        </main>
+      )}
     </div>
   );
 }

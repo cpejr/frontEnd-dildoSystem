@@ -23,7 +23,7 @@ export default function ProductModal({ product, visible, onCancel }) {
     if (!product.subproducts || product.subproducts.length === 0) {
       setRelevantStock(product.stock_quantity);
     } else {
-      selectSubproduct({ target: { value: 0 } })
+      selectSubproduct({ target: { value: 0 } });
     }
   }, [product]);
 
@@ -32,7 +32,7 @@ export default function ProductModal({ product, visible, onCancel }) {
       setModalSize();
       setFirstTime(false);
     }
-  }, [childrenRef.current, visible])
+  }, [childrenRef.current, visible]);
 
   function setModalSize() {
     const newWidth = childrenRef.current.scrollWidth;
@@ -47,13 +47,11 @@ export default function ProductModal({ product, visible, onCancel }) {
   }
 
   function incrementQuantity() {
-    if (quantity < relevantStock)
-      setQuantity(quantity + 1);
+    if (quantity < relevantStock) setQuantity(quantity + 1);
   }
 
   function decrementQuantity() {
-    if (quantity > 1)
-      setQuantity(quantity - 1);
+    if (quantity > 1) setQuantity(quantity - 1);
   }
 
   return (
@@ -71,26 +69,29 @@ export default function ProductModal({ product, visible, onCancel }) {
           <div className="subproduct-selection">
             <p>Opção: </p>
             {
-              product.subproducts ? (<select value={selectedSubpIndex} onChange={selectSubproduct}>
-                {product.subproducts.map((subp, index) => (
-                  <option disabled={subp.stock_quantity === 0} value={index} key={index}>{subp.name}</option>
-                ))}
-              </select>) : (<p>Única</p>)
+              product.subproducts ? (
+                <select value={selectedSubpIndex} onChange={selectSubproduct}>
+                  {product.subproducts.map((subp, index) => (
+                    <option disabled={subp.stock_quantity === 0} value={index} key={index}>{subp.name}</option>
+                  ))}
+                </select>
+              ) : (<p>Única</p>)
             }
           </div>
           <div className="quantity-options">
             <p>Quantidade: </p>
-            <FaMinusCircle className={"quantity-changer " + (quantity <= 1 && 'locked')} onClick={decrementQuantity} />
+            <FaMinusCircle className={`quantity-changer ${quantity <= 1 && 'locked'}`} onClick={decrementQuantity} />
             <p className="quantity-indicator">{quantity}</p>
-            <FaPlusCircle className={"quantity-changer " + (quantity >= relevantStock && "locked")} onClick={incrementQuantity} />
+            <FaPlusCircle className={`quantity-changer ${quantity >= relevantStock && 'locked'}`} onClick={incrementQuantity} />
           </div>
           <p>Preço unitário:</p>
-          <PriceElement product={product} /><br />
+          <PriceElement product={product} />
+          <br />
           <button className="buy-button" onClick={() => { addItem(product.id, quantity, (product.subproducts && product.subproducts.length > 0) ? product.subproducts[selectedSubpIndex].id : undefined, true); onCancel(); }}>COMPRAR</button>
 
         </div>
       </div>
 
-    </Modal >
-  )
+    </Modal>
+  );
 }

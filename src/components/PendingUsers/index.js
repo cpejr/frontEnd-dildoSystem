@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import UsuariosPendentes from "./UsuariosPendentes";
-import "./styles.css";
-
+import UsuariosPendentes from './UsuariosPendentes';
+import './styles.css';
 
 export default function PendingUsers() {
   const [usuariospendentes, setusuariospendentes] = useState([]);
@@ -12,9 +11,9 @@ export default function PendingUsers() {
 
   useEffect(() => {
     api
-      .get("users?user_status=pending", {
+      .get('users?user_status=pending', {
         headers: {
-          authorization: "Bearer " + localStorage.accessToken,
+          authorization: `Bearer ${localStorage.accessToken}`,
         },
       })
       .then((response) => {

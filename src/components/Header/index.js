@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext, useRef, createRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  createRef,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import api from "../../services/api";
-
-import { LoginContext } from "../../Contexts/LoginContext";
-import { SearchContext } from "../../Contexts/SearchContext";
-import { CartContext } from '../../Contexts/CartContext';
-import AddedProductPopover from './AddedProductPopover';
-
-import Logo from '../../images/icone.png';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -17,20 +15,25 @@ import { VscChromeClose } from 'react-icons/vsc';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaRegUser } from 'react-icons/fa';
 
-import { Menu, Dropdown, Button, Space } from 'antd';
+import {
+  Menu, Dropdown, Button, Space,
+} from 'antd';
+import Logo from '../../images/icone.png';
+import AddedProductPopover from './AddedProductPopover';
+import { CartContext } from '../../Contexts/CartContext';
+import { SearchContext } from '../../Contexts/SearchContext';
+import { LoginContext } from '../../Contexts/LoginContext';
+import api from '../../services/api';
 
 import './styles.css';
 
-
 export default function Header() {
-
   const [search, setSearch] = useState('');
-  const [cartQuantity, setCartQuantity] = useState(0)
+  const [cartQuantity, setCartQuantity] = useState(0);
   const [categories, setCategories] = useState([]);
   const [categoryWidth, setCategoryWidth] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
   const [showResMenu, setShowResMenu] = useState(false);
-
 
   const searchContext = useContext(SearchContext);
   const loginContext = useContext(LoginContext);
@@ -39,19 +42,18 @@ export default function Header() {
   const headerRef = createRef();
   const bagRef = useRef();
   const heightRef = useRef();
-  const inputRef = React.createRef()
-
+  const inputRef = React.createRef();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem('accessToken');
 
     const config = {
       headers: { authorization: `Bearer ${accessToken}` },
     };
-    api.get("categories", config).then((response) => {
+    api.get('categories', config).then((response) => {
       setCategories(response.data);
-    })
-  }, [])
+    });
+  }, []);
 
   useEffect(() => {
     function handleCategoriesSize() {
@@ -61,18 +63,18 @@ export default function Header() {
       }
     }
 
-    window.addEventListener("resize", handleCategoriesSize);
+    window.addEventListener('resize', handleCategoriesSize);
 
     handleCategoriesSize();
 
-    return () => { window.removeEventListener("resize", handleCategoriesSize) }
-
-  }, [headerRef])
+    return () => {
+      window.removeEventListener('resize', handleCategoriesSize);
+    };
+  }, [headerRef]);
 
   useEffect(() => {
-    console.log(inputRef)
-    if (showSearch) inputRef.current.focus()
-  }, [showSearch])
+    if (showSearch) inputRef.current.focus();
+  }, [showSearch]);
 
   function handleCategory(id) {
     const searchConfig = { categoryId: id };
@@ -89,16 +91,17 @@ export default function Header() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const searchConfig = { search: search };
+    const searchConfig = { search };
 
     searchContext.handleSearch(searchConfig);
   }
 
   return (
-    <div id="header-wrapper" style={{ minHeight: heightRef.current && heightRef.current.scrollHeight }}>
-      <div id="fake-header">
-
-      </div>
+    <div
+      id="header-wrapper"
+      style={{ minHeight: heightRef.current && heightRef.current.scrollHeight }}
+    >
+      <div id="fake-header" />
 
       <div id="NewHeader">
         <div id="NewHeader">
@@ -115,88 +118,96 @@ export default function Header() {
                 classNames="categories-header-trans"
               >
                 <ul>
-                  {
-                    categories.map(function (cat) {
-                      const menu = (
-                        <Menu>
-                          {cat.subcategories.map((subcat, i) => (
-                            <Menu.Item key={i} onClick={() => handleSubcategory(subcat.id)}>
-                              {subcat.name}
-                            </Menu.Item>
-                          ))}
-                        </Menu>
-                      )
-                      return (
-                        <Space direction="vertical" key={cat.name}>
-                          <Space wrap>
-                            <Dropdown className="dropdown-header" overlay={menu} placement="bottomCenter" onClick={() => handleCategory(cat.id)}>
-                              <Button>{cat.name}</Button>
-                            </Dropdown>
-                          </Space>
+                  {categories.map((cat) => {
+                    const menu = (
+                      <Menu>
+                        {cat.subcategories.map((subcat, i) => (
+                          <Menu.Item
+                            key={i}
+                            onClick={() => handleSubcategory(subcat.id)}
+                          >
+                            {subcat.name}
+                          </Menu.Item>
+                        ))}
+                      </Menu>
+                    );
+                    return (
+                      <Space direction="vertical" key={cat.name}>
+                        <Space wrap>
+                          <Dropdown
+                            className="dropdown-header"
+                            overlay={menu}
+                            placement="bottomCenter"
+                            onClick={() => handleCategory(cat.id)}
+                          >
+                            <Button>{cat.name}</Button>
+                          </Dropdown>
                         </Space>
-                      )
-                    })
-                  }
+                      </Space>
+                    );
+                  })}
                 </ul>
               </CSSTransition>
-
             </div>
 
             <div className="userInfoSearch">
-              {
-                showSearch ?
-                  <CSSTransition
-                    in={showSearch}
-                    unmountOnExit
-                    timeout={500}
-                    classNames="search-menu"
-                  >
-                    <VscChromeClose className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
-                  </CSSTransition>
-                  :
-                  <FiSearch className="serach-icon" size={30} onClick={() => setShowSearch(!showSearch)} />
-              }
+              {showSearch ? (
+                <CSSTransition
+                  in={showSearch}
+                  unmountOnExit
+                  timeout={500}
+                  classNames="search-menu"
+                >
+                  <VscChromeClose
+                    className="serach-icon"
+                    size={30}
+                    onClick={() => setShowSearch(!showSearch)}
+                  />
+                </CSSTransition>
+              ) : (
+                <FiSearch
+                  className="serach-icon"
+                  size={30}
+                  onClick={() => setShowSearch(!showSearch)}
+                />
+              )}
 
               {loginContext.loggedIn ? (
                 <Link
-                  to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
+                  to={
+                    loginContext.type === 'admin'
+                      ? '/admin'
+                      : '/user/myrequests'
+                  }
                   className="icon-link user-info"
                 >
                   <FaRegUser size={30} />
                 </Link>
               ) : (
-                <Link
-                  to={"/login"}
-                  className="icon-link user-info"
-                >
+                <Link to="/login" className="icon-link user-info">
                   <FaRegUser size={30} />
-                  {/* <p>{loginContext.name}</p> */}
                 </Link>
               )}
 
-              {
-                loginContext.loggedIn ?
-                  <Link
-                    to={"/user/wishlist"}
-                    className="icon-link"
-                  >
-                    < IoMdHeartEmpty size={34} style={{ margin: 0 }} />
-                  </Link>
-                  :
-                  < IoMdHeartEmpty size={34} />
-              }
+              {loginContext.loggedIn ? (
+                <Link to="/user/wishlist" className="icon-link">
+                  <IoMdHeartEmpty size={34} style={{ margin: 0 }} />
+                </Link>
+              ) : (
+                <IoMdHeartEmpty size={34} />
+              )}
 
               <Link to="/cart" className="icon-link" ref={bagRef}>
                 <HiOutlineShoppingBag size={32} />
-                <span className='badge badge-warning' id='lblCartCount'> {cartContext.totalQuantity || 0} </span>
+                <span className="badge badge-warning" id="lblCartCount">
+                  {' '}
+                  {cartContext.totalQuantity || 0}
+                  {' '}
+                </span>
               </Link>
 
-              {/* {console.log('bagRef', bagRef)} */}
               <AddedProductPopover target={bagRef} />
-
             </div>
-
-
           </div>
 
           <SearchBar
@@ -220,14 +231,15 @@ export default function Header() {
             cartQuantity={cartQuantity}
             handleSubcategory={handleSubcategory}
           />
-
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function SearchBar({ showSearch, handleSubmit, search, setSearch, inputRef }) {
+const SearchBar = function ({
+  showSearch, handleSubmit, search, setSearch, inputRef,
+}) {
   return (
     <CSSTransition
       in={showSearch}
@@ -251,11 +263,22 @@ function SearchBar({ showSearch, handleSubmit, search, setSearch, inputRef }) {
         </div>
       </div>
     </CSSTransition>
-  )
-}
+  );
+};
 
-function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResMenu, setShowResMenu, showSearch, handleCategory, categories, cartQuantity, handleSubcategory }) {
-
+const ResponsiveSearch = function ({
+  className,
+  handleSubmit,
+  search,
+  setSearch,
+  showResMenu,
+  setShowResMenu,
+  showSearch,
+  handleCategory,
+  categories,
+  cartQuantity,
+  handleSubcategory,
+}) {
   const loginContext = useContext(LoginContext);
 
   const { SubMenu } = Menu;
@@ -263,18 +286,16 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
   const [openKeys, setOpenKeys] = useState([]);
 
   const rootSubmenuKeys = [];
-  categories.map( (cat, i) => rootSubmenuKeys.push(i));
-  
-  // console.log(rootSubmenuKeys)
-  
-  const onOpenChange = keys => {
-    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+  categories.map((cat, i) => rootSubmenuKeys.push(i));
+
+  const onOpenChange = (keys) => {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
       setOpenKeys(keys);
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
-  }
+  };
 
   return (
     <div className="header-search-responsive">
@@ -287,87 +308,79 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
         <div className="icons-responsive-header">
           {loginContext.loggedIn ? (
             <Link
-              to={loginContext.type === "admin" ? "/admin" : "/user/myrequests"}
+              to={loginContext.type === 'admin' ? '/admin' : '/user/myrequests'}
               className="icon-link user-info"
             >
               <FaRegUser size={30} />
               {/* <p>{loginContext.name}</p> */}
             </Link>
           ) : (
-            <Link
-              to={"/login"}
-              className="icon-link user-info"
-            >
+            <Link to="/login" className="icon-link user-info">
               <FaRegUser size={30} />
               {/* <p>{loginContext.name}</p> */}
             </Link>
           )}
 
           <Link to="/user/wishlist" className="icon-link">
-            < IoMdHeartEmpty size={34} />
+            <IoMdHeartEmpty size={34} />
           </Link>
 
           <Link to="/cart" className="icon-link">
             <HiOutlineShoppingBag size={32} />
             {/* <span className='badge badge-warning' id='lblCartCount'> {cartQuantity} </span> */}
           </Link>
-
         </div>
-        {
-          showResMenu ?
-            <CSSTransition
-              in={showResMenu}
-              unmountOnExit
-              timeout={500}
-              classNames="search-menu"
-            >
-              <div className="burger-icon">
-                <VscChromeClose
-                  className="burger-icon"
-                  size={35}
-                  onClick={() => setShowResMenu(!showResMenu)}
-                />
-              </div>
-            </CSSTransition>
-            :
+        {showResMenu ? (
+          <CSSTransition
+            in={showResMenu}
+            unmountOnExit
+            timeout={500}
+            classNames="search-menu"
+          >
             <div className="burger-icon">
-              <GiHamburgerMenu
+              <VscChromeClose
+                className="burger-icon"
                 size={35}
                 onClick={() => setShowResMenu(!showResMenu)}
               />
             </div>
-
-        }
+          </CSSTransition>
+        ) : (
+          <div className="burger-icon">
+            <GiHamburgerMenu
+              size={35}
+              onClick={() => setShowResMenu(!showResMenu)}
+            />
+          </div>
+        )}
       </div>
-      
+
       <CSSTransition
         in={showResMenu}
         unmountOnExit
         timeout={500}
         classNames="categories-header-trans"
       >
-        
         <div className="responsive-menu">
           {/* <div className='fake-menu'></div> */}
-          < Menu mode="inline" onOpenChange={onOpenChange} openKeys={openKeys}>
-            {
-            categories.map((cat, i) => (
+          <Menu mode="inline" onOpenChange={onOpenChange} openKeys={openKeys}>
+            {categories.map((cat, i) => (
               <SubMenu key={i} title={cat.name}>
                 {cat.subcategories.map((subcat, i) => (
-                  <Menu.Item key={i} onClick={() => handleSubcategory(subcat.id)}>
+                  <Menu.Item
+                    key={i}
+                    onClick={() => handleSubcategory(subcat.id)}
+                  >
                     {subcat.name}
-                  </Menu.Item>))
-                }
+                  </Menu.Item>
+                ))}
               </SubMenu>
-                //   <button
-                //     className="dropbtn"
-                //     onClick={() => handleCategory(cat.id)}>{cat.name}
-                //   </button>
-                // </li>
-              )
-              )
-            }
-
+              //   <button
+              //     className="dropbtn"
+              //     onClick={() => handleCategory(cat.id)}>{cat.name}
+              //   </button>
+              // </li>
+            ))}
           </Menu>
 
           {/* <ul >
@@ -387,9 +400,11 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
         </div>
       </CSSTransition>
 
-
       <div className="productsSearchHeader-responsive">
-        <form className="form-group has-search-responsive" onSubmit={handleSubmit}>
+        <form
+          className="form-group has-search-responsive"
+          onSubmit={handleSubmit}
+        >
           <FiSearch className="serach-icon" size={36} />
           <input
             type="text"
@@ -402,4 +417,4 @@ function ResponsiveSearch({ className, handleSubmit, search, setSearch, showResM
       </div>
     </div>
   );
-}
+};

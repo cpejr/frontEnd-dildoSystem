@@ -1,20 +1,20 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import "./styles.css";
-import api from "../../services/api";
-import ImageUpload from "../../components/ImageUpload";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import ImageLoader from "react-loading-image";
-import loading from "../../images/Loading.gif";
-import MultipleUploader from "../../components/MultipleUploader";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+
+import './styles.css';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import ImageLoader from 'react-loading-image';
+import { useParams } from 'react-router-dom';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import MultipleUploader from '../MultipleUploader';
+import loading from '../../images/Loading.gif';
+import ImageUpload from '../ImageUpload';
+import api from '../../services/api';
 import urlAWS from '../../services/imagesAWS';
 
 export default function SubproductsEdit({ subproduto }) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
@@ -25,9 +25,9 @@ export default function SubproductsEdit({ subproduto }) {
   const { id } = useParams();
   const [img_url, setImgURL] = useState();
 
-  const [editar, setEditar] = useState("editar");
+  const [editar, setEditar] = useState('editar');
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
@@ -50,31 +50,30 @@ export default function SubproductsEdit({ subproduto }) {
   }, [subproduto]);
 
   useEffect(() => {
-    if (subproduto.wichOne === "editar") {
+    if (subproduto.wichOne === 'editar') {
       setEditar(true);
     }
   }, []);
 
   const handleDeleteSubproduct = () => {
-    api.delete(`subproducts/${subproduto.id}`, config).then((response) => {
-    });
+    api.delete(`subproducts/${subproduto.id}`, config).then((response) => {});
     window.location.reload();
   };
 
   async function handleSubSubmit(e) {
     e.preventDefault();
 
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data.append(key, value);
+      if (value !== undefined && value !== '') data.append(key, value);
     }
 
-    addToData("name", name);
-    addToData("description", description);
-    addToData("stock_quantity", stock_quantity);
-    addToData("min_stock", min_stock);
-    addToData("visible", visible);
-    addToData("imageFile", image_id);
+    addToData('name', name);
+    addToData('description', description);
+    addToData('stock_quantity', stock_quantity);
+    addToData('min_stock', min_stock);
+    addToData('visible', visible);
+    addToData('imageFile', image_id);
 
     try {
       const response = await api.put(
@@ -82,28 +81,28 @@ export default function SubproductsEdit({ subproduto }) {
         data,
         {
           headers: {
-            authorization: "Bearer " + localStorage.accessToken,
+            authorization: `Bearer ${localStorage.accessToken}`,
           },
-        }
-      );
-      notification.open({
-        message: 'Sucesso!',
-        description:
-          'Edição de subproduto concluída.',
-        className: 'ant-notification',
-        top: '100px',
-        icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
-        style: {
-          width: 600,
         },
-      }, response);
+      );
+      notification.open(
+        {
+          message: 'Sucesso!',
+          description: 'Edição de subproduto concluída.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
+          style: {
+            width: 600,
+          },
+        },
+        response,
+      );
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
         message: 'Erro!',
-        description:
-          'Edição do subproduto impedida.',
+        description: 'Edição do subproduto impedida.',
         className: 'ant-notification',
         top: '100px',
         icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
@@ -115,39 +114,37 @@ export default function SubproductsEdit({ subproduto }) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img);
+    const img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
 
   const handleDeleteSecImage = (image) => {
-    // const image_index = e.target.index;
-    // const image_id = images[image_index].id;
-
     try {
-      const response = api.delete(`image/${image}`, config).then((response) => { });
+      const response = api
+        .delete(`image/${image}`, config)
+        .then((response) => {});
       notification.open(
         {
-          message: "Sucesso!",
-          description: "Imagem secundária deletada.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          message: 'Sucesso!',
+          description: 'Imagem secundária deletada.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         },
-        response
+        response,
       );
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       notification.open({
-        message: "Erro!",
-        description: "Não foi possível excluir a imagem.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        message: 'Erro!',
+        description: 'Não foi possível excluir a imagem.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -225,12 +222,16 @@ export default function SubproductsEdit({ subproduto }) {
             loading={() => <img src={loading} alt="Loading..." />}
             error={() => <div>Error</div>}
           />
-          <br></br>
+          <br />
           <label className="images-label" htmlFor="main">
             Principal
           </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={"imageFile"} url={img_url} />
+            <ImageUpload
+              onChange={handleImage}
+              fileName="imageFile"
+              url={img_url}
+            />
           </div>
           <label className="images-label" htmlFor="secondary">
             Secudárias
@@ -238,32 +239,32 @@ export default function SubproductsEdit({ subproduto }) {
           <div className="pres-sub-imgs">
             {images.map((image, index) => (
               <div className="secimage-comp-loader-sub">
-                <DeleteForeverIcon className="edit-delete-secimage"
+                <DeleteForeverIcon
+                  className="edit-delete-secimage"
                   type="button"
-                  onClick={() => handleDeleteSecImage(image.id)} />
+                  onClick={() => handleDeleteSecImage(image.id)}
+                />
                 <ImageLoader
                   className="secimage-loader-sub"
                   src={`${urlAWS}/${image.id}`}
-                  loading={() => (
-                    <img src={loading} alt="Loading..." />
-                  )}
+                  loading={() => <img src={loading} alt="Loading..." />}
                   error={() => <div>Error</div>}
                 />
               </div>
             ))}
           </div>
           <MultipleUploader
-            canSubmit={true}
-            canDelete={true}
+            canSubmit
+            canDelete
             subproductId={subproduto.id}
             productId={id}
           />
           <div className="input-group mb-3">
             <label
               className="file-label"
-              for="inputGroupFile01"
+              htmlFor="inputGroupFile01"
               htmlFor="fileName"
-            ></label>
+            />
           </div>
           <span className="images-label">Formatos aceitos: JPG, PNG</span>
         </div>

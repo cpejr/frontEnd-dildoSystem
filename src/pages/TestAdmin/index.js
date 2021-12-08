@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,13 +15,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp, PersonAdd } from '@material-ui/icons';
-import { FaUserClock } from "react-icons/fa";
+import {
+  Home, LibraryAddCheck, LocalOffer, Group, ChromeReaderMode, ExitToApp, PersonAdd,
+} from '@material-ui/icons';
+import { FaUserClock, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ImageIcon from '@material-ui/icons/Image';
-import { useState, useEffect } from 'react';
-
-import { FaUserAlt } from 'react-icons/fa';
 
 import Logo from '../../images/CASULUS_LOGO_PRETO.svg';
 import Text from '../../images/CASULUS_TEXTO_PRETO.svg';
@@ -70,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
     backgroundColor: '#F9CE56',
-    boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+    boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
   },
   content: {
     flexGrow: 1,
@@ -101,15 +100,14 @@ const useStyles = makeStyles((theme) => ({
 export default function AdminDashboard2(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(window.innerWidth > 1000
-  );
+  const [open, setOpen] = React.useState(window.innerWidth > 1000);
 
   function getWindowdimension() {
     const width = window.innerWidth;
     const height = window.innerHeight;
     return {
       width,
-      height
+      height,
     };
   }
 
@@ -122,18 +120,16 @@ export default function AdminDashboard2(props) {
   };
 
   const [Windowdimension, setWindowdimension] = useState(
-    getWindowdimension()
+    getWindowdimension(),
   );
 
-  useEffect(
-    () => {
-      function handleSize() {
-        setWindowdimension(getWindowdimension())
-      }
-      window.addEventListener("resize", handleSize);
-      return () => window.removeEventListener("resize", handleSize);
-    }, []
-  );
+  useEffect(() => {
+    function handleSize() {
+      setWindowdimension(getWindowdimension());
+    }
+    window.addEventListener('resize', handleSize);
+    return () => window.removeEventListener('resize', handleSize);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -144,7 +140,7 @@ export default function AdminDashboard2(props) {
           [classes.appBarShift]: open,
         })} header-bar`}
       >
-        <Toolbar style={{ height: 70, display: "flex" }}>
+        <Toolbar style={{ height: 70, display: 'flex' }}>
           <IconButton
             color="black"
             aria-label="open drawer"
@@ -161,7 +157,18 @@ export default function AdminDashboard2(props) {
             </div>
           </Link>
           <div className="userDiv">
-            <div className="user"><h5>{props.name}   </h5><p>({props.type})  </p></div>
+            <div className="user">
+              <h5>
+                {props.name}
+                {' '}
+              </h5>
+              <p>
+                (
+                {props.type}
+                )
+                {' '}
+              </p>
+            </div>
             <div><Link to="/admin"><FaUserAlt /></Link></div>
           </div>
         </Toolbar>
@@ -196,7 +203,6 @@ export default function AdminDashboard2(props) {
             </ListItem>
 
             <Divider />
-
 
             <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
@@ -248,14 +254,18 @@ export default function AdminDashboard2(props) {
 
             <LoginContext.Consumer>
               {
-                context => (
+                (context) => (
                   <ListItem button onClick={context.handleLogout} style={{ position: 'fixed', bottom: 0, width: 240 }}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
-                  </ListItem>)}
+                  </ListItem>
+                )
+}
             </LoginContext.Consumer>
           </List>
-        </Drawer>) : (<Drawer
+        </Drawer>
+      ) : (
+        <Drawer
           className={classes.drawer}
           anchor="left"
           open={open}
@@ -283,7 +293,6 @@ export default function AdminDashboard2(props) {
             </ListItem>
 
             <Divider />
-
 
             <ListItem button component={Link} to="/admin/editproduct" onClick={props.handleDrawerClose}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
@@ -328,36 +337,40 @@ export default function AdminDashboard2(props) {
 
             <LoginContext.Consumer>
               {
-                context => (
+                (context) => (
                   <ListItem button onClick={context.handleLogout} style={{ position: 'fixed', bottom: 0, width: 240 }}>
                     <ListItemIcon><ExitToApp /></ListItemIcon>
                     <ListItemText>Sair</ListItemText>
-                  </ListItem>)}
+                  </ListItem>
+                )
+}
             </LoginContext.Consumer>
           </List>
-        </Drawer>)}
+        </Drawer>
+      )}
       {Windowdimension.width > 900 ? (
         <main
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}
         >
-          <div className='main-admin-container'>
+          <div className="main-admin-container">
             {props.children}
           </div>
 
-        </main>) : (
-          <main
-            className={clsx(classes.content2, {
-              [classes.contentShift]: open,
-            })}
-          >
-            <div className='main-admin-container'>
-              {props.children}
-            </div>
+        </main>
+      ) : (
+        <main
+          className={clsx(classes.content2, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className="main-admin-container">
+            {props.children}
+          </div>
 
-          </main>
-        )}
+        </main>
+      )}
     </div>
   );
 }

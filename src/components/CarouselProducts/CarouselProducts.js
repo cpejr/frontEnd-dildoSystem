@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-bootstrap/Carousel";
-import "./CarouselStyle.css";
+import React, { useState, useEffect } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import './CarouselStyle.css';
 
-import NewProductCard from "../ProductCard/NewProductCard";
-import api from "../../services/api";
+import NewProductCard from '../ProductCard/NewProductCard';
+import api from '../../services/api';
 
-import nextIcon from "../../images/nextIcon.png";
-import prevIcon from "../../images/prevIcon.png";
+import nextIcon from '../../images/nextIcon.png';
+import prevIcon from '../../images/prevIcon.png';
 
 export default function CarouselProducts() {
   const [index, setIndex] = useState(0);
@@ -26,14 +26,14 @@ export default function CarouselProducts() {
       if (aux > 5) aux = 5;
       if (aux > 0) setNumberElements(aux);
     }
-    window.addEventListener("resize", handleWindowSize);
+    window.addEventListener('resize', handleWindowSize);
   }, []);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
 
   let config;
   if (accessToken) {
@@ -43,22 +43,22 @@ export default function CarouselProducts() {
   }
 
   useEffect(() => {
-    api.get("products/?release=true", config).then((response) => {
+    api.get('products/?release=true', config).then((response) => {
       setInitProducts(response.data);
       const prod = response.data;
-      let auxArray = [];
+      const auxArray = [];
       const quotient = Math.floor(prod.length / numberElements);
       const remainder = prod.length % numberElements;
 
       for (let i = 0; i < quotient; i++) {
-        let elements = [];
+        const elements = [];
         for (let j = 0; j < numberElements; j++) {
           elements.push(prod[i * numberElements + j]);
         }
         auxArray.push(elements);
       }
 
-      let lastElements = [];
+      const lastElements = [];
       for (let i = 0; i < remainder; i++) {
         lastElements.push(prod[quotient * numberElements + i]);
       }
@@ -66,11 +66,11 @@ export default function CarouselProducts() {
 
       setProducts(auxArray);
     });
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [numberElements]);
 
   useEffect(() => {
-    let auxArray = [];
+    const auxArray = [];
     let quotient;
     let remainder;
 
@@ -79,14 +79,14 @@ export default function CarouselProducts() {
       remainder = initProducts.length % numberElements;
 
       for (let i = 0; i < quotient; i++) {
-        let elements = [];
+        const elements = [];
         for (let j = 0; j < numberElements; j++) {
           elements.push(initProducts[i * numberElements + j]);
         }
         auxArray.push(elements);
       }
 
-      let lastElements = [];
+      const lastElements = [];
       for (let i = 0; i < remainder; i++) {
         lastElements.push(initProducts[quotient * numberElements + i]);
       }
@@ -101,32 +101,28 @@ export default function CarouselProducts() {
       <Carousel
         activeIndex={index}
         onSelect={handleSelect}
-        nextIcon={
+        nextIcon={(
           <span aria-hidden="true" className="">
-            {" "}
+            {' '}
             <img src={nextIcon} />
           </span>
-        }
-        prevIcon={
+        )}
+        prevIcon={(
           <span aria-hidden="true" className="">
             <img src={prevIcon} />
           </span>
-        }
+        )}
       >
-        {products.map((elements, index) => {
-          return (
-            <Carousel.Item key={index}>
-              <div className="number">
-                {elements.map((product, index) => {
-                  return (
-                    // <CardProduct product={product}/>
-                    <NewProductCard product={product} key={index} />
-                  );
-                })}
-              </div>
-            </Carousel.Item>
-          );
-        })}
+        {products.map((elements, index) => (
+          <Carousel.Item key={index}>
+            <div className="number">
+              {elements.map((product, index) => (
+                // <CardProduct product={product}/>
+                <NewProductCard product={product} key={index} />
+              ))}
+            </div>
+          </Carousel.Item>
+        ))}
       </Carousel>
     </div>
   );

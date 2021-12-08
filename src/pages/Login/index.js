@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { FiMail, FiLock } from "react-icons/fi"; // importando o feather icons caso precise usar os icones do react
-import { TextField, InputAdornment, Button } from "@material-ui/core";
-import { FiArrowLeft } from "react-icons/fi";
-import Swal from "sweetalert2";
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FiMail, FiLock } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
+import { TextField, InputAdornment, Button } from '@material-ui/core';
+import { FiArrowLeft } from 'react-icons/fi';
+import Swal from 'sweetalert2';
 
-import { LoginContext } from "../../Contexts/LoginContext";
+import { LoginContext } from '../../Contexts/LoginContext';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import "./styles.css";
-import "../../global.css";
+import './styles.css';
+import '../../global.css';
 
-function Login(props) {
-  const [email, setEmail] = useState("");
-  const [passwd, setPasswd] = useState("");
+const Login = function (props) {
+  const [email, setEmail] = useState('');
+  const [passwd, setPasswd] = useState('');
   const [error, setError] = useState();
   const history = useHistory();
 
@@ -24,13 +24,13 @@ function Login(props) {
 
   useEffect(() => {
     if (changed) {
-      if(props.location.search) {
+      if (props.location.search) {
         const params = props.location.search.substring(1);
-        if(params === 'return-to-addresses') {
+        if (params === 'return-to-addresses') {
           history.push('/addresses');
         }
       }
-      history.push("/admin");
+      history.push('/admin');
       setChanged(false);
     }
   }, [changed]);
@@ -38,17 +38,16 @@ function Login(props) {
   async function handleLogin(e) {
     e.preventDefault();
 
-    
     try {
-      const response = await api.post("login", { email, password: passwd });
+      const response = await api.post('login', { email, password: passwd });
 
-      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem('accessToken', response.data.accessToken);
 
-      const user = response.data.user;
-      if (user.type === "wholesaler" && user.user_status !== "approved") {
+      const { user } = response.data;
+      if (user.type === 'wholesaler' && user.user_status !== 'approved') {
         let timerInterval;
         Swal.fire({
-          title: "Notificação de aprovação",
+          title: 'Notificação de aprovação',
           html: `Olá ${user.name}, lamentamos informar que seu usuário ainda não foi aprovado como atacadista. Você está acessando como varejista.`,
           timer: 5000,
           timerProgressBar: true,
@@ -57,7 +56,7 @@ function Login(props) {
             timerInterval = setInterval(() => {
               const content = Swal.getContent();
               if (content) {
-                const b = content.querySelector("b");
+                const b = content.querySelector('b');
                 if (b) {
                   b.textContent = Swal.getTimerLeft();
                 }
@@ -72,7 +71,7 @@ function Login(props) {
           if (result.dismiss === Swal.DismissReason.timer) {
           }
         });
-        user.type = "retailer";
+        user.type = 'retailer';
       }
 
       await Promise.all([
@@ -133,18 +132,19 @@ function Login(props) {
               />
 
               {error && <p className="errortext">{error}</p>}
-              
-                  <Button
-                    className="button"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    onClick={(e) => handleLogin(e)}
-                  >
-                    {" "}
-                    Entrar{" "}
-                  </Button>
-               
+
+              <Button
+                className="button"
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleLogin(e)}
+              >
+                {' '}
+                Entrar
+                {' '}
+              </Button>
+
             </div>
 
             <Link className="link" to="/register">
@@ -154,8 +154,9 @@ function Login(props) {
                 color="primary"
                 variant="outlined"
               >
-                {" "}
-                Cadastrar{" "}
+                {' '}
+                Cadastrar
+                {' '}
               </Button>
             </Link>
             <Link className="link" to="/ForgottenPassword">
@@ -165,8 +166,9 @@ function Login(props) {
                 color="primary"
                 variant="outlined"
               >
-                {" "}
-                Esqueci Minha Senha{" "}
+                {' '}
+                Esqueci Minha Senha
+                {' '}
               </Button>
             </Link>
           </section>
@@ -174,6 +176,6 @@ function Login(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

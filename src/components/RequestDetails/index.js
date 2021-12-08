@@ -1,21 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./styles.css";
-import { formatDate } from '../FormatDate/index'
-import api from "../../services/api";
-import { LoginContext } from "../../Contexts/LoginContext";
+import React, { useContext, useEffect, useState } from 'react';
+import './styles.css';
+import { formatDate } from '../FormatDate/index';
+import api from '../../services/api';
+import { LoginContext } from '../../Contexts/LoginContext';
 
 export default function RequestDetails(props) {
   function RequestProducts(props) {
-    return props.products.map((product) => {
-      return (
-        <div>
-          <strong className="request-name">{product.name}</strong>
-          <p>{`R$ ${product.price}`}</p>
-          <p>Quantidade: {product.product_quantity}</p>
+    return props.products.map((product) => (
+      <div>
+        <strong className="request-name">{product.name}</strong>
+        <p>{`R$ ${product.price}`}</p>
+        <p>
+          Quantidade:
+          {product.product_quantity}
+        </p>
 
-        </div>
-      );
-    });
+      </div>
+    ));
   }
 
   const [orderProducts, setOrderProducts] = useState();
@@ -33,7 +34,7 @@ export default function RequestDetails(props) {
   const [totalprice, setTotalPrice] = useState();
   const [track_price, setTrackPrice] = useState();
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
 
   const user = useContext(LoginContext);
   const url = `order/${user.id}?order_id=${props.match.params.id}`;
@@ -41,14 +42,14 @@ export default function RequestDetails(props) {
     headers: { authorization: `Bearer ${accessToken}` },
   };
 
-  function SumProducts(products){
+  function SumProducts(products) {
     let totalSum = 0;
-    products.forEach(product => {
-      totalSum += product.product_quantity * product.price
+    products.forEach((product) => {
+      totalSum += product.product_quantity * product.price;
     });
-    return(
-     totalSum
-    )
+    return (
+      totalSum
+    );
   }
 
   useEffect(() => {
@@ -145,15 +146,15 @@ export default function RequestDetails(props) {
             <h5>Resumo</h5>
             <div className="rd-product-item">
               <strong>Subtotal:</strong>
-              <p>{`R$ ${Math.round(totalprice * 100)/100}`}</p>
+              <p>{`R$ ${Math.round(totalprice * 100) / 100}`}</p>
             </div>
             <div className="rd-product-item">
               <strong>Frete:</strong>
-              <p>{`R$ ${Math.round(track_price * 100)/100}`}</p>
+              <p>{`R$ ${Math.round(track_price * 100) / 100}`}</p>
             </div>
             <div className="rd-product-item">
               <h6>Total:</h6>
-              <h6 className="rd-product-item-total">{`R$ ${Math.round((totalprice + track_price)* 100)/100}`}</h6>
+              <h6 className="rd-product-item-total">{`R$ ${Math.round((totalprice + track_price) * 100) / 100}`}</h6>
             </div>
           </div>
         </div>

@@ -1,1 +1,1 @@
-export {default} from "./SimpleSwitch";
+export { default } from './SimpleSwitch';

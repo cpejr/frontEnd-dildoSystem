@@ -1,39 +1,35 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
-import ImageLoader from "react-loading-image";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import loading from "../../images/Loading.gif";
-import api from '../../services/api';
+import React, { useState, useEffect } from 'react';
+import './style.css';
+import ImageLoader from 'react-loading-image';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import loading from '../../images/Loading.gif';
+import api from '../../services/api';
 
 import urlAWS from '../../services/imagesAWS';
 
-
-function CarouselImages(props) {
+const CarouselImages = function (props) {
   const [newPosition, setNewPosition] = useState();
   const [newLink, setNewLink] = useState();
 
   useEffect(() => {
-    if (!isNaN(props.image.position))
-      setNewPosition(props.image.position)
+    if (!isNaN(props.image.position)) setNewPosition(props.image.position);
   }, [props.image.position]);
 
   useEffect(() => {
-    setNewLink(props.image.link)
+    setNewLink(props.image.link);
   }, [props.image.link]);
 
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` },
-  }
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   async function handleDelete(e) {
-
     try {
-
-      await api.delete('/Carousel/' + props.image.id, config);
+      await api.delete(`/Carousel/${props.image.id}`, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -47,8 +43,6 @@ function CarouselImages(props) {
         },
       });
       props.setUpdate(!props.update);
-
-
     } catch (err) {
       console.error(err);
       notification.open({
@@ -64,7 +58,6 @@ function CarouselImages(props) {
       });
     }
   }
-
 
   return (
     <div className="EditCarousel-Container">
@@ -86,8 +79,8 @@ function CarouselImages(props) {
             type="text"
             value={newPosition}
             onChange={(e) => {
-              setNewPosition(e.target.value)
-              props.handlePositionChange(props.image.id, e.target.value)
+              setNewPosition(e.target.value);
+              props.handlePositionChange(props.image.id, e.target.value);
             }}
             className="form-control"
             id="validationDefaultUsername"
@@ -107,8 +100,8 @@ function CarouselImages(props) {
             type="text"
             value={newLink}
             onChange={(e) => {
-              setNewLink(e.target.value)
-              props.handleLinkChange(props.image.id, e.target.value)
+              setNewLink(e.target.value);
+              props.handleLinkChange(props.image.id, e.target.value);
             }}
             className="form-control"
             id="validationDefaultUsername"
@@ -122,11 +115,11 @@ function CarouselImages(props) {
 
         <button className="edit-delete" type="submit" onClick={handleDelete}>
           Excluir Imagem
-  <DeleteForeverIcon />
+          <DeleteForeverIcon />
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default CarouselImages;

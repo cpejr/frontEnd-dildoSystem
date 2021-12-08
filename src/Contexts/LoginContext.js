@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
-import useStateWithPromise from "./useStateWithPromise";
+import useStateWithPromise from './useStateWithPromise';
 
-import api from "../services/api";
+import api from '../services/api';
 
 import { useCart } from './CartContext';
 
 const LoginContext = React.createContext({});
 
-function LoginContextProvider(props) {
+const LoginContextProvider = function (props) {
   const [loggedIn, setLoggedIn] = useStateWithPromise(false);
-  const [username, setUsername] = useStateWithPromise("");
+  const [username, setUsername] = useStateWithPromise('');
   const [userId, setUserId] = useStateWithPromise(0);
-  const [userType, setUserType] = useStateWithPromise("retailer");
-  const [accessToken, setAccessToken] = useStateWithPromise("");
-  const [email, setEmail] = useStateWithPromise("");
+  const [userType, setUserType] = useStateWithPromise('retailer');
+  const [accessToken, setAccessToken] = useStateWithPromise('');
+  const [email, setEmail] = useStateWithPromise('');
   const [phonenumber, setPhonenumber] = useStateWithPromise(0);
 
   const history = useHistory();
@@ -26,7 +26,6 @@ function LoginContextProvider(props) {
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
-    console.log("login changed useEffect")
     if (changed) {
       history.push(location.pathname + location.search);
       setChanged(false);
@@ -34,24 +33,25 @@ function LoginContextProvider(props) {
   }, [changed]);
 
   useEffect(() => {
-    console.log("login loggingOut useEffect")
     if (loggingOut) {
       setLoggingOut(false);
     }
-  }, [loggingOut])
+  }, [loggingOut]);
 
   useEffect(() => {
-    console.log("login update token useEffect")
-    const newToken = localStorage.getItem("accessToken");
+    const newToken = localStorage.getItem('accessToken');
     if (newToken && !accessToken) {
       async function grabData() {
         const config = {
           headers: { authorization: `Bearer ${newToken}` },
         };
-        const resp = await api.get("verify", config);
+        const resp = await api.get('verify', config);
 
         if (resp.data.verified) {
-          const userType = (resp.data.user.type === "wholesaler" && resp.data.user.user_status !== "approved") ? "retailer" : resp.data.user.type;
+          const userType = resp.data.user.type === 'wholesaler'
+            && resp.data.user.user_status !== 'approved'
+            ? 'retailer'
+            : resp.data.user.type;
           await Promise.all([
             setUsername(resp.data.user.name),
             setUserId(resp.data.user.id),
@@ -59,20 +59,20 @@ function LoginContextProvider(props) {
             setLoggedIn(true),
             setAccessToken(newToken),
             setEmail(resp.data.user.email),
-            setPhonenumber(resp.data.user.phonenumber)
+            setPhonenumber(resp.data.user.phonenumber),
           ]);
           setChanged(true);
         } else {
           localStorage.removeItem('accessToken');
           window.location.reload();
           await Promise.all([
-            setUsername(""),
+            setUsername(''),
             setUserId(0),
-            setUserType("retailer"),
+            setUserType('retailer'),
             setLoggedIn(false),
-            setAccessToken(""),
-            setEmail(""),
-            setPhonenumber(0)
+            setAccessToken(''),
+            setEmail(''),
+            setPhonenumber(0),
           ]);
           setChanged(true);
         }
@@ -85,28 +85,28 @@ function LoginContextProvider(props) {
     setLoggingOut(true);
     setLoggedIn(false);
     setAccessToken('');
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
     api.defaults.headers.authorization = undefined;
     // history.push("/login");
-    window.location.href = "/"
+    window.location.href = '/';
   }
 
   const userInfo = {
-    loggedIn: loggedIn,
+    loggedIn,
     name: username,
     id: userId,
     type: userType,
-    accessToken: accessToken,
-    email: email,
+    accessToken,
+    email,
     phone: phonenumber,
-    loggingOut: loggingOut,
+    loggingOut,
 
-    setLoggedIn: setLoggedIn,
+    setLoggedIn,
     setName: setUsername,
     setId: setUserId,
     setType: setUserType,
-    setAccessToken: setAccessToken,
-    handleLogout
+    setAccessToken,
+    handleLogout,
   };
 
   return (
@@ -114,7 +114,7 @@ function LoginContextProvider(props) {
       {props.children}
     </LoginContext.Provider>
   );
-}
+};
 
 export default LoginContextProvider;
 

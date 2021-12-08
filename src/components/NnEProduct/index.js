@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 // import { useHistory } from "react-router-dom";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-import api from "../../services/api";
-import "./styles.css";
-import SimpleInput from "./SimpleInput";
-import SimpleSwitch from "./SimpleSwitch";
-import ImageUpload from '../../components/ImageUpload';
-import MultipleUploader from '../../components/MultipleUploader';
+import api from '../../services/api';
+import './styles.css';
+import SimpleInput from './SimpleInput';
+import SimpleSwitch from './SimpleSwitch';
+import ImageUpload from '../ImageUpload';
+import MultipleUploader from '../MultipleUploader';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function NnEProduct({ witchOne }) {
-
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [client_price, setClientPrice] = useState();
   const [client_sale_price, setClientSalePrice] = useState(1);
   const [wholesaler_price, setWholesalerPrice] = useState();
@@ -29,7 +28,7 @@ export default function NnEProduct({ witchOne }) {
   const [weight, setWeight] = useState();
   // const [image_id, setImageID] = useState();
   const [image, setImage] = useState();
-  const [images, setImages] = useState(null)
+  const [images, setImages] = useState(null);
   const [subcategory_id, setSubcategory] = useState(0);
   const [category_id, setCategoryId] = useState(0);
   const [height, setHeight] = useState();
@@ -51,24 +50,23 @@ export default function NnEProduct({ witchOne }) {
   // const history = useHistory();
 
   useEffect(() => {
-    api.get('categories').then(response => {
+    api.get('categories').then((response) => {
       setCategories(response.data);
-    })
+    });
   }, []);
 
   useEffect(() => {
-    if (witchOne === "editar") {
+    if (witchOne === 'editar') {
       setEditar(true);
     }
   }, []);
 
   function handleCategorySelection(event) {
-    const newCat = categories.find(cat => cat.id === event.target.value);
+    const newCat = categories.find((cat) => cat.id === event.target.value);
     if (newCat) {
       setCategoryId(newCat.id);
       setSubcategories(newCat.subcategories);
-    }
-    else {
+    } else {
       setCategoryId(0);
       setSubcategories('');
     }
@@ -77,42 +75,35 @@ export default function NnEProduct({ witchOne }) {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     // setVisible(!visible);
-    const source = event.target.name
+    const source = event.target.name;
     switch (source) {
-      case "checkedA":
+      case 'checkedA':
         setVisible(!visible);
         break;
-      case "checkedB":
+      case 'checkedB':
         setOnsaleClient(!on_sale_client);
         break;
-      case "checkedC":
+      case 'checkedC':
         setOnsaleWholesaler(!on_sale_wholesaler);
         break;
-      case "checkedD":
+      case 'checkedD':
         setRelease(!release);
         break;
-      case "checkedE":
+      case 'checkedE':
         setBest_Seller(!best_seller);
         break;
-      default: console.err("Erro de seleção de switch!");
+      default:
+        console.err('Erro de seleção de switch!');
     }
-  }
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== '')
-        data.append(key, value);
+      if (value !== undefined && value !== '') data.append(key, value);
     }
-
-    // if(client_sale_price === undefined || wholesaler_sale_price === undefined){
-    //   console.log('entrei no if')
-    //   setClientSalePrice(0);
-    //   setWholesalerSalePrice(0);
-    // }
-
 
     addToData('name', name);
     addToData('description', description);
@@ -129,9 +120,9 @@ export default function NnEProduct({ witchOne }) {
     addToData('release', release);
     addToData('imageFile', image);
     if (images) {
-      images.forEach(image => {
+      images.forEach((image) => {
         addToData('imageFiles', image);
-      })
+      });
     }
     addToData('subcategory_id', subcategory_id);
     addToData('weight', weight);
@@ -139,20 +130,16 @@ export default function NnEProduct({ witchOne }) {
     addToData('width', width);
     addToData('length', length);
 
-    /* console.log('dados enviados para cadastrar o produto: ', client_sale_price, name) */
-
-
     try {
-      await api.post("newProduct", data, {
+      await api.post('newProduct', data, {
         headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + localStorage.accessToken,
-        }
-      })
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.accessToken}`,
+        },
+      });
       notification.open({
         message: 'Sucesso!',
-        description:
-          'O registro do produto foi concluído com sucesso.',
+        description: 'O registro do produto foi concluído com sucesso.',
         className: 'ant-notification',
         top: '100px',
         icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
@@ -161,13 +148,11 @@ export default function NnEProduct({ witchOne }) {
         },
       });
     } catch (err) {
-      /* console.log(JSON.stringify(err)); */
       console.error(err.response);
       if (!image) {
         notification.open({
           message: 'Erro!',
-          description:
-            'Imagem requerida.',
+          description: 'Imagem requerida.',
           className: 'ant-notification',
           top: '100px',
           icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
@@ -175,12 +160,10 @@ export default function NnEProduct({ witchOne }) {
             width: 600,
           },
         });
-      }
-      else {
+      } else {
         notification.open({
           message: 'Erro!',
-          description:
-            'Falha no registro do produto.',
+          description: 'Falha no registro do produto.',
           className: 'ant-notification',
           top: '100px',
           icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
@@ -193,19 +176,18 @@ export default function NnEProduct({ witchOne }) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img);
+    const img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
 
   function handleImages(images) {
-    setImages(images)
+    setImages(images);
   }
 
   return (
     <div>
       <div className="new-product-all">
-
         <form onSubmit={handleSubmit}>
           <div className="product-title-page-create">
             <h3>Novo Produto</h3>
@@ -236,24 +218,40 @@ export default function NnEProduct({ witchOne }) {
                   <div className="price-form">
                     <div className="left-side">
                       <label htmlFor="client">Cliente</label>
-                      <SimpleInput name="R$" value={client_price} setValue={setClientPrice} />
+                      <SimpleInput
+                        name="R$"
+                        value={client_price}
+                        setValue={setClientPrice}
+                      />
 
                       <label htmlFor="promotional-price-r">
                         Preço Promocional (opcional)
                       </label>
-                      <SimpleInput name="R$" value={client_sale_price} setValue={setClientSalePrice}
-                        optional promotion
+                      <SimpleInput
+                        name="R$"
+                        value={client_sale_price}
+                        setValue={setClientSalePrice}
+                        optional
+                        promotion
                       />
                     </div>
                     <div className="right-side">
                       <label htmlFor="wholesale">Atacado</label>
-                      <SimpleInput name="R$" value={wholesaler_price} setValue={setWholesalerPrice} />
+                      <SimpleInput
+                        name="R$"
+                        value={wholesaler_price}
+                        setValue={setWholesalerPrice}
+                      />
 
                       <label htmlFor="promotional-price-l">
                         Preço Promocional (opcional)
                       </label>
-                      <SimpleInput name="R$" value={wholesaler_sale_price} setValue={setWholesalerSalePrice}
-                        optional promotion
+                      <SimpleInput
+                        name="R$"
+                        value={wholesaler_sale_price}
+                        setValue={setWholesalerSalePrice}
+                        optional
+                        promotion
                       />
                     </div>
                   </div>
@@ -262,37 +260,45 @@ export default function NnEProduct({ witchOne }) {
                     <p className="productTitle">Imagens</p>
                     <label className="images-label" htmlFor="main">
                       Principal
-                  </label>
+                    </label>
                     <div className="input-group mb-3">
-
-                      <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url} />
-
+                      <ImageUpload
+                        onChange={handleImage}
+                        fileName="imageFile"
+                        url={img_url}
+                      />
                     </div>
 
                     <label className="images-label" htmlFor="secondary">
                       Secudárias
-                  </label>
+                    </label>
                     <div className="input-group mb-3">
-
-                      <MultipleUploader onChange={handleImages} images={images} />
+                      <MultipleUploader
+                        onChange={handleImages}
+                        images={images}
+                      />
 
                       <div className="file-names">
-                        {images ? images.map((image) => { return <h6>{image.name}</h6> }) : <h1></h1>}
+                        {images ? (
+                          images.map((image) => <h6>{image.name}</h6>)
+                        ) : (
+                          <h1 />
+                        )}
                       </div>
-
                     </div>
                     <span className="images-label">
                       Formatos aceitos: JPG, PNG
-                  </span>
+                    </span>
                   </div>
                 </div>
-                <div className="separator-ne"></div>
+                <div className="separator-ne" />
                 <div className="right-form-dois">
                   <div className="right-form">
-                    <div className="config-form" >
+                    <div className="config-form">
                       <p className="productTitle">Configuração</p>
                       <SimpleSwitch
-                        value={visible} checked={state.checkedA}
+                        value={visible}
+                        checked={state.checkedA}
                         handleChange={handleChange}
                         name="checkedA"
                         id="switch_1"
@@ -333,12 +339,40 @@ export default function NnEProduct({ witchOne }) {
                     </div>
                     <div className="stock-form">
                       <p className="productTitle">Estoque</p>
-                      <SimpleInput name="Unidades" value={stock_quantity} setValue={setQuantity} />
-                      <SimpleInput name="Mínimo" value={min_stock} setValue={setMinimum} />
-                      <SimpleInput name="Peso" value={weight} setValue={setWeight} unit="g" />
-                      <SimpleInput name="Altura" value={height} setValue={setHeight} unit="cm" />
-                      <SimpleInput name="Largura" value={width} setValue={setWidth} unit="cm" />
-                      <SimpleInput name="Comprimento" value={length} setValue={setLength} unit="cm" />
+                      <SimpleInput
+                        name="Unidades"
+                        value={stock_quantity}
+                        setValue={setQuantity}
+                      />
+                      <SimpleInput
+                        name="Mínimo"
+                        value={min_stock}
+                        setValue={setMinimum}
+                      />
+                      <SimpleInput
+                        name="Peso"
+                        value={weight}
+                        setValue={setWeight}
+                        unit="g"
+                      />
+                      <SimpleInput
+                        name="Altura"
+                        value={height}
+                        setValue={setHeight}
+                        unit="cm"
+                      />
+                      <SimpleInput
+                        name="Largura"
+                        value={width}
+                        setValue={setWidth}
+                        unit="cm"
+                      />
+                      <SimpleInput
+                        name="Comprimento"
+                        value={length}
+                        setValue={setLength}
+                        unit="cm"
+                      />
                     </div>
                     <div className="category-form">
                       <p className="productTitle">Categorias</p>
@@ -351,12 +385,21 @@ export default function NnEProduct({ witchOne }) {
                             >
                               Principal:
                             </label>
-                            {/*DROPDOWNS*/}
-                            <select name="cars" id="cars" value={category_id} onChange={handleCategorySelection}>
-                              <option value="0" disabled>Selecionar</option>
-                              {categories.map(cat => {
-                                return <option value={cat.id} key={`cat-${cat.id}`}>{cat.name}</option>
-                              })}
+                            {/* DROPDOWNS */}
+                            <select
+                              name="cars"
+                              id="cars"
+                              value={category_id}
+                              onChange={handleCategorySelection}
+                            >
+                              <option value="0" disabled>
+                                Selecionar
+                              </option>
+                              {categories.map((cat) => (
+                                <option value={cat.id} key={`cat-${cat.id}`}>
+                                  {cat.name}
+                                </option>
+                              ))}
                             </select>
                           </div>
                           <div className="categoriesSelection">
@@ -365,12 +408,22 @@ export default function NnEProduct({ witchOne }) {
                               htmlFor="subcategory"
                             >
                               Subcategoria:
-                          </label>
-                            <select value={subcategory_id} onChange={(e) => setSubcategory(e.target.value)}>
-                              <option value="0" disabled>Selecionar</option>
-                              {subcategories.map(subcat => {
-                                return <option value={subcat.id} key={`subcat-${subcat.id}`}>{subcat.name}</option>
-                              })}
+                            </label>
+                            <select
+                              value={subcategory_id}
+                              onChange={(e) => setSubcategory(e.target.value)}
+                            >
+                              <option value="0" disabled>
+                                Selecionar
+                              </option>
+                              {subcategories.map((subcat) => (
+                                <option
+                                  value={subcat.id}
+                                  key={`subcat-${subcat.id}`}
+                                >
+                                  {subcat.name}
+                                </option>
+                              ))}
                             </select>
                           </div>
                         </div>
@@ -384,21 +437,21 @@ export default function NnEProduct({ witchOne }) {
                 <div className="edit-button">
                   <button className="edit-erase" type="submit">
                     Excluir Produto
-                  <DeleteForeverIcon />
+                    <DeleteForeverIcon />
                   </button>
                   <button className="edit-save" type="submit">
                     Enviar Alterações
-                </button>
+                  </button>
                 </div>
               ) : (
-                  <div className="product-button">
-                    <button type="submit">CRIAR</button>
-                  </div>
-                )}
+                <div className="product-button">
+                  <button type="submit">CRIAR</button>
+                </div>
+              )}
             </div>
           </div>
         </form>
       </div>
-    </div >
+    </div>
   );
 }

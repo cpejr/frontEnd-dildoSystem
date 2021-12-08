@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import "./styles.css";
-import Main from "./main.js";
+import React, { useEffect, useState } from 'react';
+import './styles.css';
+import Main from './main.js';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-function Orders(props) {
+const Orders = function (props) {
   const [Order, setOrder] = useState([]);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
   let url;
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
@@ -15,16 +15,12 @@ function Orders(props) {
   useEffect(() => {
     if (props.location.myCustomProps !== undefined) {
       setOrder([props.location.myCustomProps]);
-      // console.log('esse eh order: ', [props.location.myCustomProps])
-
     } else if (props.match.params.id !== undefined) {
-
-      url = `orders?byid=${props.match.params.id}`
+      url = `orders?byid=${props.match.params.id}`;
 
       if (accessToken) {
         api.get(url, config).then((response) => {
           setOrder(response.data);
-          // console.log('esse eh order: ', response.data)
         });
       }
     }
@@ -37,6 +33,6 @@ function Orders(props) {
       ))}
     </div>
   );
-}
+};
 
 export default Orders;

@@ -1,71 +1,62 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { notification } from "antd";
-import { Radio, Input } from "antd";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { notification, Radio, Input } from 'antd';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import "./styles.css";
+import './styles.css';
 
-function Testefrete({ products, totalprice }) {
-  const [cep, setCEP] = useState("");
+const Testefrete = function ({ products, totalprice }) {
+  const [cep, setCEP] = useState('');
   const [shipping, setShipping] = useState([]);
-  const [value, setValue] = useState("");
-  const [radio, setRadio] = useState("");
+  const [value, setValue] = useState('');
+  const [radio, setRadio] = useState('');
 
-  let produtos = [];
+  const produtos = [];
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!products)
+    if (!products) {
       return notification.error({
-        message: "Adicione produtos no carrinho para calcular o frete",
+        message: 'Adicione produtos no carrinho para calcular o frete',
       });
+    }
 
-    products.map((p) =>
-      produtos.push({
-        Weight: p.weight / 1000,
-        Height: p.height,
-        Width: p.width,
-        Length: p.length,
-        Quantity: p.quantity,
-      })
-    );
+    products.map((p) => produtos.push({
+      Weight: p.weight / 1000,
+      Height: p.height,
+      Width: p.width,
+      Length: p.length,
+      Quantity: p.quantity,
+    }));
 
     const freteData = {
-      SellerCEP: "75389334",
+      SellerCEP: '75389334',
       RecipientCEP: cep,
       ShipmentInvoiceValue: totalprice,
       ShippingServiceCode: null,
       ShippingItemArray: produtos,
-      RecipientCountry: "BR",
+      RecipientCountry: 'BR',
     };
 
     try {
-      const response = await api.post("frenet", freteData);
-      /* console.log(response); */
+      const response = await api.post('frenet', freteData);
       setShipping(response.data.ShippingSevicesArray);
     } catch (error) {
       console.error(error);
     }
   }
 
-  const handleClickDrop = (e) => {
-    // console.log(e.target.value)
-    setValue(e.target.value);
-  };
-
   function handleFreteError(envio) {
-    if (envio.ServiceDescription === "SEDEX" && envio.Error) {
-      // console.log(envio.ServiceDescription)
+    if (envio.ServiceDescription === 'SEDEX' && envio.Error) {
       notification.open({
-        message: "Erro",
+        message: 'Erro',
         description: envio.Msg,
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#DAA621" }} />,
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#DAA621' }} />,
         style: {
           width: 600,
         },
@@ -74,13 +65,12 @@ function Testefrete({ products, totalprice }) {
   }
 
   const radioStyle = {
-    display: "block",
-    height: "auto",
-    lineHeight: "30px",
+    display: 'block',
+    height: 'auto',
+    lineHeight: '30px',
   };
 
   function onChange(e) {
-    // console.log('radio checked', e.target.value);
     setRadio(e.target.value);
   }
 
@@ -102,30 +92,38 @@ function Testefrete({ products, totalprice }) {
           </div>
         </div>
       </form>
-      <span>{`Preço do frete: `}</span>
+      <span>{'Preço do frete: '}</span>
       {shipping ? (
         <div className="frete-options-area">
           <Radio.Group onChange={(e) => onChange(e)} value={radio}>
-            {shipping.map((envio, i) =>
-              envio.Error ? (
-                <option key={i} className="option-error">
-                  {" "}
-                  {handleFreteError(envio)} Nenhum
-                </option>
-              ) : (
-                <Radio style={radioStyle} value={i} key={i}>
-                  {envio.ServiceDescription} - R$ {envio.ShippingPrice} -{" "}
-                  {envio.DeliveryTime} dias úteis.
-                </Radio>
-              )
-            )}
+            {shipping.map((envio, i) => (envio.Error ? (
+              <option key={i} className="option-error">
+                {' '}
+                {handleFreteError(envio)}
+                {' '}
+                Nenhum
+              </option>
+            ) : (
+              <Radio style={radioStyle} value={i} key={i}>
+                {envio.ServiceDescription}
+                {' '}
+                - R$
+                {envio.ShippingPrice}
+                {' '}
+                -
+                {' '}
+                {envio.DeliveryTime}
+                {' '}
+                dias úteis.
+              </Radio>
+            )))}
           </Radio.Group>
         </div>
       ) : (
-        ""
+        ''
       )}
     </div>
   );
-}
+};
 
 export default Testefrete;

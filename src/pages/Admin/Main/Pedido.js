@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./styles.css";
-import CreateIcon from "@material-ui/icons/Create";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './styles.css';
+import CreateIcon from '@material-ui/icons/Create';
 
 import { Table, Tag, Space } from 'antd';
 import 'antd/dist/antd.css';
 
-function Pedido2(props) {
+const Pedido2 = function (props) {
   const data = [];
 
   const columns = [
@@ -19,7 +19,7 @@ function Pedido2(props) {
       title: 'Nome',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a>{text}</a>,
+      render: (text) => <a>{text}</a>,
     },
     {
       title: 'Email',
@@ -45,9 +45,9 @@ function Pedido2(props) {
       title: 'Status',
       key: 'tags',
       dataIndex: 'tags',
-      render: tags => (
+      render: (tags) => (
         <>
-          {tags.map(tag => {
+          {tags.map((tag) => {
             let color = tag.length > 5 ? 'geekblue' : 'green';
             if (tag === 'cancelado') {
               color = 'volcano';
@@ -70,9 +70,10 @@ function Pedido2(props) {
           <Link to={
             {
               pathname: `/admin/pendingorder/${text.action.id}`,
-              myCustomProps: text.action
+              myCustomProps: text.action,
             }
-          }>
+          }
+          >
             <CreateIcon size={20} color="#15425" />
           </Link>
         </Space>
@@ -82,20 +83,20 @@ function Pedido2(props) {
 
   props.orders.map((order, i) => {
     switch (order.order_status) {
-      case "paid":
-        order.order_status = "pago"
+      case 'paid':
+        order.order_status = 'pago';
         break;
-      case "pending":
-        order.order_status = "pendente"
+      case 'pending':
+        order.order_status = 'pendente';
         break;
-      case "delivered":
-        order.order_status = "entregue"
+      case 'delivered':
+        order.order_status = 'entregue';
         break;
-      case "mailed":
-        order.order_status = "enviado"
+      case 'mailed':
+        order.order_status = 'enviado';
         break;
-      case "cancelled":
-        order.order_status = "cancelado"
+      case 'cancelled':
+        order.order_status = 'cancelado';
       default:
     }
     return (
@@ -106,13 +107,12 @@ function Pedido2(props) {
         email: order.user.email,
         usertype: order.user.type,
         date: order.created_at,
-        value: `R$${order.totalPrice}`,
+        value: `R${order.totalPrice}`,
         tags: [`${order.order_status}`],
-        action: order
+        action: order,
       })
-    )
-  }
-  )
+    );
+  });
 
   return (
     <div>
@@ -120,6 +120,6 @@ function Pedido2(props) {
 
     </div>
   );
-}
+};
 
 export default Pedido2;

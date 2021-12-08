@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 
-//import api from '../services/api';
+// import api from '../services/api';
 
 const SearchContext = React.createContext({});
 
-function SearchContextProvider(props) {
-
+const SearchContextProvider = function (props) {
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
   const [orderBy, setOrderBy] = useState();
@@ -22,17 +21,26 @@ function SearchContextProvider(props) {
 
   const history = useHistory();
 
-  //Organiza informação quando pesquisa é feita
+  // Organiza informação quando pesquisa é feita
   function handleSearch(searchConfig) {
+    const {
+      minPrice, maxPrice, orderBy, search, categoryId, subcategoryId,
+    } = searchConfig;
 
-    const { minPrice, maxPrice, orderBy, search, categoryId, subcategoryId } = searchConfig;
-
-    let newFilters = { minPrice, maxPrice, orderBy, orderAscending: false, search, categoryId, subcategoryId };
+    const newFilters = {
+      minPrice,
+      maxPrice,
+      orderBy,
+      orderAscending: false,
+      search,
+      categoryId,
+      subcategoryId,
+    };
 
     if (search) {
       newFilters.search = search;
-      newFilters.search = newFilters.search.replace(/ /g, '+') //substitui espaços por %(+) *correção: com % não estava funcionando
-      // newFilters.search = newFilters.search.normalize('NFD'); //retira acentos 
+      newFilters.search = newFilters.search.replace(/ /g, '+'); // substitui espaços por %(+) *correção: com % não estava funcionando
+      // newFilters.search = newFilters.search.normalize('NFD'); //retira acentos
     }
 
     if (minPrice) newFilters.minPrice = Number(minPrice);
@@ -54,9 +62,9 @@ function SearchContextProvider(props) {
       }
     }
 
-    if (categoryId) newFilters.categoryId = (categoryId);
+    if (categoryId) newFilters.categoryId = categoryId;
 
-    if (subcategoryId) newFilters.subcategoryId = (subcategoryId);
+    if (subcategoryId) newFilters.subcategoryId = subcategoryId;
 
     setMinPrice(newFilters.minPrice);
     setMaxPrice(newFilters.maxPrice);
@@ -68,13 +76,11 @@ function SearchContextProvider(props) {
 
     setRawSearch(search);
 
-    setSearchToggler(!searchToggler)
-
+    setSearchToggler(!searchToggler);
   }
 
-  //Uma vez informação atualizada e organizada, monta nova URL e redireciona para ela
+  // Uma vez informação atualizada e organizada, monta nova URL e redireciona para ela
   useEffect(() => {
-    console.log("search mount url useEffect")
     if (initialLoad) {
       setInitialLoad(false);
     } else {
@@ -84,7 +90,7 @@ function SearchContextProvider(props) {
       if (minPrice) query += `min_price=${minPrice}&`;
       if (maxPrice) query += `max_price=${maxPrice}&`;
       if (orderBy) query += `order_by=${orderBy}&order_ascending=${orderAscending}&`;
-      //if (orderAscending) query += ``;
+      // if (orderAscending) query += ``;
       if (categoryId) query += `category_id=${categoryId}&`;
       if (subcategoryId) query += `subcategory_id=${subcategoryId}&`;
 
@@ -92,36 +98,46 @@ function SearchContextProvider(props) {
 
       history.push(`/search${query}`);
     }
+  }, [
+    search,
+    minPrice,
+    maxPrice,
+    orderBy,
+    orderAscending,
+    categoryId,
+    subcategoryId,
+    searchToggler,
+  ]);
 
-  }, [search, minPrice, maxPrice, orderBy, orderAscending, categoryId, subcategoryId, searchToggler]);
-
-  //Puxa pesquisa da url
+  // Puxa pesquisa da url
   useEffect(() => {
-    console.log("search grab results useEffect")
     let queries = props.location.search;
 
-    queries = queries.substring(1, queries.length); //retira ?
+    queries = queries.substring(1, queries.length); // retira ?
 
-    let queriesArray = queries.split('&');
+    const queriesArray = queries.split('&');
 
     let search;
 
     queriesArray.forEach((query) => {
       if (query.charAt(0) === 's' && query.charAt(1) === 'e') {
         search = query.substring(7);
-        search = search.replace(/%/g, ' ') //substitui % por espaços
+        search = search.replace(/%/g, ' '); // substitui % por espaços
         setRawSearch(search);
       }
-    })
-
-  }, [])
+    });
+  }, []);
 
   return (
-    <SearchContext.Provider value={{ handleSearch, rawSearch, categoryId, subcategoryId }}>
+    <SearchContext.Provider
+      value={{
+        handleSearch, rawSearch, categoryId, subcategoryId,
+      }}
+    >
       {props.children}
     </SearchContext.Provider>
-  )
-}
+  );
+};
 
 export { SearchContext };
 

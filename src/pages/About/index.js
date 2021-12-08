@@ -1,20 +1,20 @@
-import React from "react";
-import { GoVerified, GoMegaphone } from "react-icons/go";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { FaShippingFast } from "react-icons/fa";
-import Inst1 from "../../images/inst1.jpg";
-import Inst2 from "../../images/inst2.jpg";
-import Inst3 from "../../images/inst3.jpg";
-import Inst4 from "../../images/inst4.jpg";
-import Inst5 from "../../images/inst5.jpg";
+import React from 'react';
+import { GoVerified, GoMegaphone } from 'react-icons/go';
+import { RiMoneyDollarCircleLine } from 'react-icons/ri';
+import { FaShippingFast } from 'react-icons/fa';
+import Inst1 from '../../images/inst1.jpg';
+import Inst2 from '../../images/inst2.jpg';
+import Inst3 from '../../images/inst3.jpg';
+import Inst4 from '../../images/inst4.jpg';
+import Inst5 from '../../images/inst5.jpg';
 
-import "./styles.css";
+import './styles.css';
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import WhatsAppButton from '../../components/WhatsAppButton'
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import WhatsAppButton from '../../components/WhatsAppButton';
 
-function About() {
+const About = function () {
   return (
     <>
       <Header />
@@ -24,7 +24,7 @@ function About() {
           <div className="about-container">
             <div className="justified-about-container">
               <div className="inst-image">
-                <img src={Inst1} alt="institucional1"></img>
+                <img src={Inst1} alt="institucional1" />
               </div>
               <div className="about-paragraph">
                 <h3>Quem Somos</h3>
@@ -40,7 +40,7 @@ function About() {
                   planejada para trazer conforto e modernidade aos clientes, e
                   também estar presente no meio digital, tanto no site como nas
                   principais redes sociais.
-            </p>
+                </p>
               </div>
             </div>
 
@@ -51,7 +51,7 @@ function About() {
           <div className="about-container">
             <div className="justified-about-container">
               <div className="inst-image">
-                <img src={Inst5} alt="institucional1"></img>
+                <img src={Inst5} alt="institucional1" />
               </div>
               <div className="about-paragraph">
                 <h3>Missão</h3>
@@ -77,7 +77,7 @@ function About() {
           <div className="about-container">
             <div className="justified-about-container">
               <div className="inst-image">
-                <img src={Inst2} alt="institucional1"></img>
+                <img src={Inst2} alt="institucional1" />
               </div>
               <div className="about-paragraph">
                 <h3>Oferecemos aos clientes</h3>
@@ -99,7 +99,7 @@ function About() {
           <div className="about-container">
             <div className="justified-about-container">
               <div className="inst-image">
-                <img src={Inst3} alt="institucional1"></img>
+                <img src={Inst3} alt="institucional1" />
               </div>
               <div className="about-paragraph">
                 <h3>Nossos produtos</h3>
@@ -118,7 +118,7 @@ function About() {
           <div className="about-container">
             <div className="justified-about-container">
               <div className="inst-image">
-                <img src={Inst4} alt="institucional1"></img>
+                <img src={Inst4} alt="institucional1" />
               </div>
               <div className="about-paragraph">
                 <h3>Entregas</h3>
@@ -141,6 +141,6 @@ function About() {
       <Footer />
     </>
   );
-}
+};
 
 export default About;

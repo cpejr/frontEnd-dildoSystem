@@ -1,4 +1,3 @@
+const urlAWS = 'https://backend.lojacasulus.com.br/imagesAWS';
 
-const urlAWS = 'https://backend.lojacasulus.com.br/imagesAWS'
-
-export default urlAWS
+export default urlAWS;

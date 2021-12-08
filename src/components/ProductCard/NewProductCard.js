@@ -1,72 +1,77 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { FiHeart } from "react-icons/fi";
-import ImageLoader from "react-loading-image";
-import { FaHeart } from "react-icons/fa";
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { FiHeart } from 'react-icons/fi';
+import ImageLoader from 'react-loading-image';
+import { FaHeart } from 'react-icons/fa';
 
-import { LoginContext } from "../../Contexts/LoginContext";
-import "./newStyles.css";
-import loading from "../../images/Loading.gif";
+import { LoginContext } from '../../Contexts/LoginContext';
+import './newStyles.css';
+import loading from '../../images/Loading.gif';
 
-import api from "../../services/api";
-import ProductModal from "./ProductModal";
-import urlAWS from "../../services/imagesAWS";
+import api from '../../services/api';
+import ProductModal from './ProductModal';
+import urlAWS from '../../services/imagesAWS';
 
-export function PriceElement(props) {
-  const product = props.product;
+export var PriceElement = function (props) {
+  const { product } = props;
 
   if (product.wholesaler_price) {
     if (product.on_sale_wholesaler) {
       return (
         <div className="price-container">
-          <p className="preco-card cortado">{`R$ ${Number(
-            props.product.wholesaler_price
-          ).toFixed(2)}`}</p>
+          <p className="preco-card cortado">
+            {`R$ ${Number(
+              props.product.wholesaler_price,
+            ).toFixed(2)}`}
+          </p>
 
           <p className="preco-promocao">
             {`R$ ${Number(props.product.wholesaler_sale_price).toFixed(2)}`}
           </p>
         </div>
       );
-    } else {
-      return (
-        <div className="price-container">
-          <span className="preco-card">{`R$ ${Number(
-            props.product.wholesaler_price
-          ).toFixed(2)}`}</span>
-        </div>
-      );
     }
-  } else {
-    if (product.on_sale_client) {
-      return (
-        <div className="price-container">
-          <p className="preco-card cortado">{`R$ ${Number(
-            props.product.client_price
-          ).toFixed(2)}`}</p>
-
-          <p className="preco-promocao">
-            {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
-          </p>
-        </div>
-      );
-    } else {
-      return (
-        <span className="preco-card">{`R$ ${Number(
-          props.product.client_price
-        ).toFixed(2)}`}</span>
-      );
-    }
+    return (
+      <div className="price-container">
+        <span className="preco-card">
+          {`R$ ${Number(
+            props.product.wholesaler_price,
+          ).toFixed(2)}`}
+        </span>
+      </div>
+    );
   }
-}
+  if (product.on_sale_client) {
+    return (
+      <div className="price-container">
+        <p className="preco-card cortado">
+          {`R$ ${Number(
+            props.product.client_price,
+          ).toFixed(2)}`}
+        </p>
+
+        <p className="preco-promocao">
+          {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
+        </p>
+      </div>
+    );
+  }
+  return (
+    <span className="preco-card">
+      {`R$ ${Number(
+        props.product.client_price,
+      ).toFixed(2)}`}
+    </span>
+  );
+};
 
 export default function NewProductCard(props) {
   const [isWish, setIsWish] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
   const user = useContext(LoginContext);
-  const accessToken = localStorage.getItem("accessToken");
-  const product = props.product;
-  const subproducts = product.subproducts;
+  const accessToken = localStorage.getItem('accessToken');
+  const { product } = props;
+  const { subproducts } = product;
 
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
@@ -86,19 +91,19 @@ export default function NewProductCard(props) {
     const user_id = user.id;
     const config_2 = {
       headers: { authorization: `Bearer ${accessToken}` },
-      data: { user_id: user_id, product_id },
+      data: { user_id, product_id },
     };
-    api.delete("userwishlist", config_2).then((response) => {
+    api.delete('userwishlist', config_2).then((response) => {
       setIsWish(false);
     });
   };
 
   function buyButton() {
     if (
-      (subproducts &&
-        subproducts.length > 0 &&
-        subproducts.find((subp) => subp.stock_quantity > 0)) ||
-      product.stock_quantity > 0
+      (subproducts
+        && subproducts.length > 0
+        && subproducts.find((subp) => subp.stock_quantity > 0))
+      || product.stock_quantity > 0
     ) {
       return (
         <div id="botao-comprar" onClick={(e) => setVisibleModal(true)}>
@@ -120,73 +125,73 @@ export default function NewProductCard(props) {
     }
   }, []);
 
-  function DiscountElement(props) {
-    const product = props.product;
+  const DiscountElement = function (props) {
+    const { product } = props;
 
     if (
-      (subproducts &&
-        subproducts.length > 0 &&
-        subproducts.find((subp) => subp.stock_quantity > 0)) ||
-      product.stock_quantity > 0
+      (subproducts
+        && subproducts.length > 0
+        && subproducts.find((subp) => subp.stock_quantity > 0))
+      || product.stock_quantity > 0
     ) {
       if (product.wholesaler_price) {
         if (product.on_sale_wholesaler) {
           return (
             <div className="price-container">
-              <p className="preco-card discount">{`${Math.round(
-                Number(
-                  ((props.product.wholesaler_price -
-                    props.product.wholesaler_sale_price) /
-                    props.product.wholesaler_price) *
-                    100
-                )
-              )}% DESCONTO`}</p>
+              <p className="preco-card discount">
+                {`${Math.round(
+                  Number(
+                    ((props.product.wholesaler_price
+                    - props.product.wholesaler_sale_price)
+                    / props.product.wholesaler_price)
+                    * 100,
+                  ),
+                )}% DESCONTO`}
+              </p>
 
               {/* <p className="preco-promocao">
                             {`R$ ${Number(props.product.wholesaler_sale_price).toFixed(2)}`}
                         </p> */}
             </div>
           );
-        } else {
-          return (
-            <div className="price-container">
-              {/* <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span> */}
-            </div>
-          );
         }
-      } else {
-        if (product.on_sale_client) {
-          return (
-            <div className="price-container">
-              <p className="preco-card discount">{`${Math.round(
-                Number(
-                  ((props.product.client_price -
-                    props.product.client_sale_price) /
-                    props.product.client_price) *
-                    100
-                ).toFixed(2)
-              )}% DESCONTO`}</p>
+        return (
+          <div className="price-container">
+            {/* <span className="preco-card">{`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}</span> */}
+          </div>
+        );
+      }
+      if (product.on_sale_client) {
+        return (
+          <div className="price-container">
+            <p className="preco-card discount">
+              {`${Math.round(
+                  Number(
+                    ((props.product.client_price
+                    - props.product.client_sale_price)
+                    / props.product.client_price)
+                    * 100,
+                  ).toFixed(2),
+                )}% DESCONTO`}
+            </p>
 
-              {/* <p className="preco-promocao">
+            {/* <p className="preco-promocao">
                             {`R$ ${Number(props.product.client_sale_price).toFixed(2)}`}
                         </p> */}
-            </div>
-          );
-        } else {
-          return (
-            <div></div>
-            // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
-          );
-        }
+          </div>
+        );
       }
-    } else {
       return (
-        <div className="unavailable-label">
-          <p className="unavailable-product">INDISPONÍVEL</p>
-        </div>
+        <div />
+      // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
       );
     }
-  }
+    return (
+      <div className="unavailable-label">
+        <p className="unavailable-product">INDISPONÍVEL</p>
+      </div>
+    );
+  };
 
   return (
     <div className="Card" key={`product-${product.id}`}>

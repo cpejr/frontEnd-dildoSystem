@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import api from '../../services/api';
 
 import './styles.css';
@@ -6,23 +6,20 @@ import './styles.css';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function UsuariosPendentes(props) {
+  const { id } = props.pendingusers;
 
-  const id = props.pendingusers.id;
-
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
-    headers: { 'authorization': `Bearer ${accessToken}` },
-  }
+    headers: { authorization: `Bearer ${accessToken}` },
+  };
 
   async function handleAproved(e) {
-
     try {
-
-      await api.put('/user/' + id, { "user_status": 'approved' }, config);
+      await api.put(`/user/${id}`, { user_status: 'approved' }, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -36,8 +33,6 @@ export default function UsuariosPendentes(props) {
         },
       });
       props.setUpdate(!props.update);
-
-
     } catch (err) {
       console.error(err);
       notification.open({
@@ -55,10 +50,8 @@ export default function UsuariosPendentes(props) {
   }
 
   async function handleDenied(e) {
-
     try {
-
-      await api.put('/user/' + id, { "user_status": 'refused' }, config);
+      await api.put(`/user/${id}`, { user_status: 'refused' }, config);
 
       notification.open({
         message: 'Sucesso!',
@@ -72,7 +65,6 @@ export default function UsuariosPendentes(props) {
         },
       });
       props.setUpdate(!props.update);
-
     } catch (err) {
       console.error(err);
       notification.open({
@@ -88,7 +80,6 @@ export default function UsuariosPendentes(props) {
       });
     }
   }
-
 
   return (
     <div className="pending-users-content">
@@ -118,5 +109,5 @@ export default function UsuariosPendentes(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-import api from "../../../services/api";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Table, Tag, Space } from 'antd';
+import api from '../../../services/api';
+
 import 'antd/dist/antd.css';
 
-import Pedido from "./Pedido";
-import "./styles.css";
+import Pedido from './Pedido';
+import './styles.css';
 
-
-
-function Main(props) {
+const Main = function (props) {
   const [orders, setOrders] = useState([]);
   const [pendingorders, setPendingOrders] = useState([]);
   const [products, setProducts] = useState([]);
@@ -23,33 +21,31 @@ function Main(props) {
   const data = [];
 
   useEffect(() => {
-    api.get("orders?byStatus=pending", {
+    api.get('orders?byStatus=pending', {
       headers: {
-        authorization: "Bearer " + localStorage.accessToken,
+        authorization: `Bearer ${localStorage.accessToken}`,
       },
     })
       .then((response) => {
         setPendingOrders(response.data);
-
       });
   }, []);
 
   useEffect(() => {
-    api.get("orders", {
+    api.get('orders', {
       headers: {
-        authorization: "Bearer " + localStorage.accessToken,
+        authorization: `Bearer ${localStorage.accessToken}`,
       },
     })
       .then((response) => {
         setOrders(response.data);
-
       });
   }, []);
 
   useEffect(() => {
-    api.get("lowStock", {
+    api.get('lowStock', {
       headers: {
-        authorization: "Bearer " + localStorage.accessToken,
+        authorization: `Bearer ${localStorage.accessToken}`,
       },
     })
       .then((response) => {
@@ -58,9 +54,9 @@ function Main(props) {
   }, []);
 
   useEffect(() => {
-    api.get("users?user_status=pending", {
+    api.get('users?user_status=pending', {
       headers: {
-        authorization: "Bearer " + localStorage.accessToken,
+        authorization: `Bearer ${localStorage.accessToken}`,
       },
     })
       .then((response) => {
@@ -69,19 +65,18 @@ function Main(props) {
   }, []);
 
   function loadFollowingPage() {
-    const url = `orders?byStatus=pending&page=${page + 1}`
-    const accessToken = localStorage.accessToken;
+    const url = `orders?byStatus=pending&page=${page + 1}`;
+    const { accessToken } = localStorage;
     const config = {
       headers: {
-        authorization: "Bearer " + accessToken,
-      }
-    }
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
 
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-
       });
     }
   }
@@ -96,7 +91,7 @@ function Main(props) {
       title: 'Nome',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a>{text}</a>,
+      render: (text) => <a>{text}</a>,
     },
     {
       title: 'Email',
@@ -122,9 +117,9 @@ function Main(props) {
       title: 'Status',
       key: 'tags',
       dataIndex: 'tags',
-      render: tags => (
+      render: (tags) => (
         <>
-          {tags.map(tag => {
+          {tags.map((tag) => {
             let color = tag.length > 5 ? 'geekblue' : 'green';
             if (tag === 'loser') {
               color = 'volcano';
@@ -158,10 +153,9 @@ function Main(props) {
       usertype: order.user.type,
       date: order.created_at,
       value: order.totalPrice,
-      tags: [`${order.order_status}`]
+      tags: [`${order.order_status}`],
     })
-  ))
-
+  ));
 
   return (
     <div className="main-container">
@@ -175,7 +169,8 @@ function Main(props) {
         </Link>
         <Link to={
           `${props.match.path}/lowStock`
-        }>
+        }
+        >
           <div className="acabando">
             <h4>Produtos com pouco estoque:</h4>
             <h3>{products.length}</h3>
@@ -197,6 +192,6 @@ function Main(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Main;

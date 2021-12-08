@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import ImageLoader from "react-loading-image";
-import { FaPlusCircle, FaMinusCircle, FaHeart } from "react-icons/fa";
-import { FiArrowLeft, FiHeart } from "react-icons/fi";
-import "./styles.css";
-import loading from "../../images/Loading.gif";
-import { LoginContext } from "../../Contexts/LoginContext";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import api from "../../services/api";
-import cart from "../../services/cart";
-import { useCart } from "../../Contexts/CartContext";
-import WhatsAppButton from "../../components/WhatsAppButton";
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import ImageLoader from 'react-loading-image';
+import { FaPlusCircle, FaMinusCircle, FaHeart } from 'react-icons/fa';
+import { FiArrowLeft, FiHeart } from 'react-icons/fi';
+import './styles.css';
+import loading from '../../images/Loading.gif';
+import { LoginContext } from '../../Contexts/LoginContext';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import api from '../../services/api';
+import cart from '../../services/cart';
+import { useCart } from '../../Contexts/CartContext';
+import WhatsAppButton from '../../components/WhatsAppButton';
 
-import urlAWS from "../../services/imagesAWS";
+import urlAWS from '../../services/imagesAWS';
 
-function ProductPage(props) {
+const ProductPage = function (props) {
   const [productData, setProductData] = useState();
   const [images, setImages] = useState();
   const [bigImageIndex, setBigImageIndex] = useState(0);
@@ -35,10 +35,10 @@ function ProductPage(props) {
 
   const [isWish, setIsWish] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
   const { addItem } = useCart();
 
-  let config = accessToken
+  const config = accessToken
     ? { headers: { authorization: `Bearer ${accessToken}` } }
     : {};
 
@@ -58,16 +58,14 @@ function ProductPage(props) {
   async function getAndSetEveryImage(
     setImageFunction,
     currentData,
-    accessToken
+    accessToken,
   ) {
     let currentSecondaries = [];
     let currentSubproducts = [];
     let currentSubSecondaries = [];
 
     if (currentData.secondaries !== undefined) {
-      currentSecondaries = currentData.secondaries.map((secondary) => {
-        return `${urlAWS}/${secondary.id}`;
-      });
+      currentSecondaries = currentData.secondaries.map((secondary) => `${urlAWS}/${secondary.id}`);
     }
 
     let param_ids = [];
@@ -81,16 +79,14 @@ function ProductPage(props) {
 
     let subSecondary_response = { data: [] };
     if (param_ids.length > 0) {
-      param_ids = param_ids.join("-*-");
+      param_ids = param_ids.join('-*-');
       subSecondary_response = await api.get(`/images/${param_ids}`);
     }
 
     const subSecondary = subSecondary_response.data;
 
     if (subSecondary !== undefined) {
-      currentSubSecondaries = subSecondary.map((images) => {
-        return `${urlAWS}/${images.id}`;
-      });
+      currentSubSecondaries = subSecondary.map((images) => `${urlAWS}/${images.id}`);
     }
 
     if (images !== undefined) {
@@ -116,11 +112,11 @@ function ProductPage(props) {
       const partialData = await getProductData(
         props.match.params.id,
         setRelevantStock,
-        accessToken
+        accessToken,
       );
 
       let newDescription = partialData.description;
-      newDescription = newDescription.split("\n");
+      newDescription = newDescription.split('\n');
       setDescription(newDescription);
       setProductData(partialData);
 
@@ -132,16 +128,15 @@ function ProductPage(props) {
 
   useEffect(() => {
     if (productData) {
-      const price =
-        user.type === "wholesaler"
-          ? productData.wholesaler_price
-          : productData.client_price;
+      const price = user.type === 'wholesaler'
+        ? productData.wholesaler_price
+        : productData.client_price;
       let salePrice;
       let onSale = false;
-      if (productData.on_sale_wholesaler && user.type === "wholesaler") {
+      if (productData.on_sale_wholesaler && user.type === 'wholesaler') {
         salePrice = productData.wholesaler_sale_price;
         onSale = true;
-      } else if (productData.on_sale_client && user.type === "retailer") {
+      } else if (productData.on_sale_client && user.type === 'retailer') {
         salePrice = productData.client_sale_price;
         onSale = true;
       }
@@ -153,11 +148,11 @@ function ProductPage(props) {
   }, [productData]);
 
   function changeBigImage(event) {
-    setBigImageIndex(event.target.parentNode.getAttribute("data-index"));
+    setBigImageIndex(event.target.parentNode.getAttribute('data-index'));
   }
 
   function selectSubproduct(event) {
-    const newIndex = Number(event.target.getAttribute("data"));
+    const newIndex = Number(event.target.getAttribute('data'));
     setSelectedSubpIndex(newIndex);
     setRelevantStock(productData.subproducts[newIndex].stock_quantity);
     setQuantity(1);
@@ -185,20 +180,19 @@ function ProductPage(props) {
     const user_id = user.id;
     const config_2 = {
       headers: { authorization: `Bearer ${accessToken}` },
-      data: { user_id: user_id, product_id },
+      data: { user_id, product_id },
     };
-    api.delete("userwishlist", config_2).then((response) => {
+    api.delete('userwishlist', config_2).then((response) => {
       setIsWish(false);
     });
   };
 
   useEffect(() => {
-    console.log("product page use effect");
     if (productData) {
       const user_id = user.id;
       api.get(`userwishlist/${user_id}`, config).then((response) => {
         const result = response.data.find(
-          (product) => product.id === productData.id
+          (product) => product.id === productData.id,
         );
         if (result) {
           setIsWish(true);
@@ -229,24 +223,22 @@ function ProductPage(props) {
                         error={() => <div>Error</div>}
                       />
                     ) : (
-                      <div></div>
+                      <div />
                     )}
                   </div>
                   <div className="thumbnails">
-                    {images &&
-                      images.map((imgSrc, index) => {
-                        return (
-                          <div onClick={changeBigImage} data-index={index}>
-                            <ImageLoader
-                              src={imgSrc}
-                              loading={() => (
-                                <img src={loading} alt="Loading..." />
-                              )}
-                              error={() => <div>Error</div>}
-                            />
-                          </div>
-                        );
-                      })}
+                    {images
+                      && images.map((imgSrc, index) => (
+                        <div onClick={changeBigImage} data-index={index}>
+                          <ImageLoader
+                            src={imgSrc}
+                            loading={() => (
+                              <img src={loading} alt="Loading..." />
+                            )}
+                            error={() => <div>Error</div>}
+                          />
+                        </div>
+                      ))}
                   </div>
                 </div>
 
@@ -254,16 +246,20 @@ function ProductPage(props) {
                   <h2 className="title">{productData.name}</h2>
                   <div className="prices">
                     <h2
-                      className={`main-price ${onSale && "sale"}`}
-                    >{`${new Intl.NumberFormat("br-PT", {
-                      style: "currency",
-                      currency: "BRL",
-                    }).format(price)}`}</h2>
+                      className={`main-price ${onSale && 'sale'}`}
+                    >
+                      {`${new Intl.NumberFormat('br-PT', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(price)}`}
+                    </h2>
                     {onSale && (
-                      <h2 className="sale-price">{`${new Intl.NumberFormat(
-                        "br-PT",
-                        { style: "currency", currency: "BRL" }
-                      ).format(onSalePrice)}`}</h2>
+                      <h2 className="sale-price">
+                        {`${new Intl.NumberFormat(
+                          'br-PT',
+                          { style: 'currency', currency: 'BRL' },
+                        ).format(onSalePrice)}`}
+                      </h2>
                     )}
                   </div>
 
@@ -272,43 +268,42 @@ function ProductPage(props) {
                       <div className="option-selector">
                         <p>Opções: </p>
                         {productData.subproducts.length > 0 ? (
-                          productData.subproducts.map((subp, index) => {
-                            return (
-                              <div className="subproduct-wrapper">
-                                <img
-                                  alt="subproduct"
-                                  src={`${urlAWS}/${subp.image_id} `}
-                                  key={`option-${index + 1}`}
-                                  data={index}
-                                  className={
-                                    index === selectedSubpIndex && "selected"
+                          productData.subproducts.map((subp, index) => (
+                            <div className="subproduct-wrapper">
+                              <img
+                                alt="subproduct"
+                                src={`${urlAWS}/${subp.image_id} `}
+                                key={`option-${index + 1}`}
+                                data={index}
+                                className={
+                                    index === selectedSubpIndex && 'selected'
                                   }
-                                  onClick={selectSubproduct}
-                                />
-                                <div className="chosen-option">
-                                  <p
-                                    className={
-                                      index === selectedSubpIndex && "selected"
+                                onClick={selectSubproduct}
+                              />
+                              <div className="chosen-option">
+                                <p
+                                  className={
+                                      index === selectedSubpIndex && 'selected'
                                     }
-                                  >
-                                    {" "}
-                                    {subp.name}
-                                  </p>
-                                </div>
+                                >
+                                  {' '}
+                                  {subp.name}
+                                </p>
                               </div>
-                            );
-                          })
+                            </div>
+                          ))
                         ) : (
                           <p> Única</p>
                         )}
                       </div>
                       {productData.subproducts.length > 0 && (
                         <div className="chosen-option">
-                          <p style={{ "font-weight": "bold" }}>
-                            {"Selecionado:"}{" "}
+                          <p style={{ 'font-weight': 'bold' }}>
+                            Selecionado:
+                            {' '}
                           </p>
                           <p>
-                            {" "}
+                            {' '}
                             {productData.subproducts[selectedSubpIndex].name}
                           </p>
                         </div>
@@ -318,15 +313,15 @@ function ProductPage(props) {
                     <div className="quantity-options">
                       <FaMinusCircle
                         className={
-                          "quantity-changer " + (quantity <= 1 && "locked")
+                          `quantity-changer ${quantity <= 1 && 'locked'}`
                         }
                         onClick={decrementQuantity}
                       />
                       <p className="quantity-indicator">{quantity}</p>
                       <FaPlusCircle
                         className={
-                          "quantity-changer " +
-                          (quantity >= relevantStock && "locked")
+                          `quantity-changer ${
+                            quantity >= relevantStock && 'locked'}`
                         }
                         onClick={incrementQuantity}
                       />
@@ -339,12 +334,12 @@ function ProductPage(props) {
                         addItem(
                           productData.id,
                           quantity,
-                          productData.subproducts &&
-                            productData.subproducts.length > 0
+                          productData.subproducts
+                            && productData.subproducts.length > 0
                             ? productData.subproducts[selectedSubpIndex].id
-                            : undefined
+                            : undefined,
                         );
-                        history.push("/cart");
+                        history.push('/cart');
                       }}
                     >
                       ADICIONAR AO CARRINHO
@@ -384,6 +379,6 @@ function ProductPage(props) {
       <Footer />
     </>
   );
-}
+};
 
 export default ProductPage;

@@ -1,59 +1,53 @@
-import React, { useState, useEffect } from "react";
-import { notification } from 'antd';
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { Input } from 'antd'
+import React, { useState, useEffect } from 'react';
+import { notification, Input } from 'antd';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-import api from "../../services/api";
-import Pedido from "../../pages/Admin/Main/Pedido";
+import api from '../../services/api';
+import Pedido from '../../pages/Admin/Main/Pedido';
 
-import './styles.css'
+import './styles.css';
 
 export default function PendingOrders(props) {
   const [orders, setOrders] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const [page, setPage] = useState(1);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
 
   useEffect(() => {
-
-    const url = `orders?byStatus=pending`;
+    const url = 'orders?byStatus=pending';
 
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders(response.data);
-
       });
     }
   }, []);
 
   function loadFollowingPage() {
-    const url = `orders?byStatus=pending&page=${page + 1}`
+    const url = `orders?byStatus=pending&page=${page + 1}`;
 
     if (accessToken) {
       api.get(url, config).then((response) => {
         setOrders([...orders, ...response.data]);
         if (response.data && response.data.length > 0) setPage(page + 1);
-
       });
     }
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
-    const url = `order/${"abcd"}?order_id=${search}`
+    e.preventDefault();
+    const url = `order/${'abcd'}?order_id=${search}`;
     try {
       api.get(url, config).then((response) => {
         setOrders([response.data]);
         setPage(1);
-      }
-      )
-    }
-    catch (err) {
+      });
+    } catch (err) {
       console.error(err);
       notification.open({
         message: 'Erro!',

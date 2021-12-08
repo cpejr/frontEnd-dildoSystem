@@ -1,17 +1,16 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import "./styles.css";
-import api from '../../services/api';
-import ImageUpload from '../../components/ImageUpload';
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+
+import './styles.css';
+import { useParams } from 'react-router-dom';
 import { notification } from 'antd';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import ImageUpload from '../ImageUpload';
+import api from '../../services/api';
 
 export default function SubproductsCreate(props) {
-
   const { id } = useParams();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [visible, setVisible] = useState(true);
   const [stock_quantity, setQuantity] = useState(0);
   const [min_stock, setMinimum] = useState(0);
@@ -23,21 +22,18 @@ export default function SubproductsCreate(props) {
   const [updated, setUpdated] = useState(false);
   const [images, setImages] = useState([]);
 
-
   useEffect(() => {
-    if (props.wichOne === "editar") {
+    if (props.wichOne === 'editar') {
       setEditar(true);
     }
   }, []);
 
-
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== '')
-        data.append(key, value);
+      if (value !== undefined && value !== '') { data.append(key, value); }
     }
 
     addToData('name', name);
@@ -49,12 +45,12 @@ export default function SubproductsCreate(props) {
     addToData('product_id', id);
 
     try {
-      const response = await api.post("newSubproduct", data, {
+      const response = await api.post('newSubproduct', data, {
         headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + localStorage.accessToken,
-        }
-      })
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.accessToken}`,
+        },
+      });
       notification.open({
         message: 'Sucesso!',
         description:
@@ -81,8 +77,7 @@ export default function SubproductsCreate(props) {
             width: 600,
           },
         });
-      }
-      else {
+      } else {
         notification.open({
           message: 'Erro!',
           description:
@@ -99,7 +94,7 @@ export default function SubproductsCreate(props) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img);
+    const img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
@@ -133,7 +128,7 @@ export default function SubproductsCreate(props) {
                     id="inputGroupPrepend2"
                   >
                     Unidades
-          </span>
+                  </span>
                 </div>
                 <input
                   type="text"
@@ -155,7 +150,7 @@ export default function SubproductsCreate(props) {
                     id="inputGroupPrepend2"
                   >
                     Mínimo
-          </span>
+                  </span>
                 </div>
                 <input
                   type="text"
@@ -175,20 +170,20 @@ export default function SubproductsCreate(props) {
           <p className="productTitle">Imagens</p>
           <label className="images-label" htmlFor="main">
             Principal
-                  </label>
+          </label>
           <div className="input-group mb-3">
-            <ImageUpload onChange={handleImage} fileName={'imageFile'} url={img_url} />
+            <ImageUpload onChange={handleImage} fileName="imageFile" url={img_url} />
           </div>
           <span className="images-label">
             Formatos aceitos: JPG, PNG
-                  </span>
+          </span>
         </div>
         <div className="sub-buttons">
           <button className="sub-create-button" type="submit">
             Criar subproduto
-                </button>
+          </button>
         </div>
       </div>
     </form>
-  )
+  );
 }

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMail, FiShoppingBag, FiArrowLeft } from 'react-icons/fi'; // importando o feather icons caso precise usar os icones do react
-import { TextField, InputAdornment, Button } from '@material-ui/core'
+import { TextField, InputAdornment, Button } from '@material-ui/core';
 
 import api from '../../services/api';
 
 import '../../global.css';
 import './styles.css';
 
-function ForgottenPassword() {
+const ForgottenPassword = function () {
   const [email, setEmail] = useState('');
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
@@ -20,7 +20,7 @@ function ForgottenPassword() {
       setError('');
       setSuccess('E-mail enviado');
     } catch (err) {
-      setError("Usuário não encontrado")
+      setError('Usuário não encontrado');
       console.error(err.response.data.notification);
     }
   }
@@ -31,13 +31,13 @@ function ForgottenPassword() {
         <div className="return-buttons">
           <Link className="back-link" to="/login">
             <FiArrowLeft size={20} color="#a17402" />
-           Login
-        </Link>
+            Login
+          </Link>
 
           <Link className="back-link" to="/">
             <FiShoppingBag size={20} color="#a17402" />
-           Loja
-        </Link>
+            Loja
+          </Link>
         </div>
 
         <section className="form">
@@ -51,27 +51,31 @@ function ForgottenPassword() {
                 startAdornment: (
                   <InputAdornment position="start">
                     <FiMail size={20} />
-                  </InputAdornment>)
+                  </InputAdornment>),
               }}
               placeholder="E-mail"
               variant="outlined"
               value={email}
               type="email"
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Button className="button" type="submit" color="primary" variant="contained"> Enviar e-mail de recuperação </Button>
-            {error && <p className="errortext">
+            {error && (
+            <p className="errortext">
               {error}
-            </p>}
-            {success && <p className="successText">
+            </p>
+            )}
+            {success && (
+            <p className="successText">
               {success}
-            </p>}
+            </p>
+            )}
           </form>
         </section>
       </div>
     </div>
   );
-}
+};
 
 export default ForgottenPassword;

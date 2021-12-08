@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import "./styles.css";
-import ImageLoader from "react-loading-image";
-import loading from "../../images/Loading.gif";
+import React, { useState, useEffect, useContext } from 'react';
+import './styles.css';
+import ImageLoader from 'react-loading-image';
+import { MdDeleteForever } from 'react-icons/md';
+import { notification } from 'antd';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
+import loading from '../../images/Loading.gif';
 
-import api from "../../services/api";
-import cart from "../../services/cart";
-import urlAWS from "../../services/imagesAWS";
+import api from '../../services/api';
+import cart from '../../services/cart';
+import urlAWS from '../../services/imagesAWS';
 
-import { MdDeleteForever } from "react-icons/md";
-import { LoginContext } from "../../Contexts/LoginContext";
-import { useCart } from "../../Contexts/CartContext";
-import { notification } from "antd";
-
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { LoginContext } from '../../Contexts/LoginContext';
+import { useCart } from '../../Contexts/CartContext';
 
 export default function WishList(props) {
   const [list, setList] = useState([]);
@@ -21,13 +20,12 @@ export default function WishList(props) {
 
   const userInfo = useContext(LoginContext);
 
-  const newToken = localStorage.getItem("accessToken");
+  const newToken = localStorage.getItem('accessToken');
   const config = {
     headers: { authorization: `Bearer ${newToken}` },
   };
 
   useEffect(() => {
-    console.log("wishlist component useEffect");
     api.get(`userwishlist/${userInfo.id}`, config).then((response) => {
       setList(response.data);
     });
@@ -35,21 +33,21 @@ export default function WishList(props) {
   }, [userInfo.id]);
 
   const handleDeleteClick = (product_id) => {
-    const newToken = localStorage.getItem("accessToken");
+    const newToken = localStorage.getItem('accessToken');
     const config = {
       headers: { authorization: `Bearer ${newToken}` },
       data: { user_id: userInfo.id, product_id },
     };
-    api.delete("userwishlist", config).then((response) => {});
+    api.delete('userwishlist', config).then((response) => {});
   };
 
   function notifi() {
     notification.open({
-      message: "Sucesso!",
-      description: "O produto foi adicionado ao carrinho.",
-      className: "ant-notification",
-      top: "100px",
-      icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+      message: 'Sucesso!',
+      description: 'O produto foi adicionado ao carrinho.',
+      className: 'ant-notification',
+      top: '100px',
+      icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
       style: {
         width: 600,
       },
@@ -76,28 +74,28 @@ export default function WishList(props) {
                   {products.on_sale_client && products.on_sale_wholesaler ? (
                     <div>
                       <p>
-                        {new Intl.NumberFormat("br-PT", {
-                          style: "currency",
-                          currency: "BRL",
+                        {new Intl.NumberFormat('br-PT', {
+                          style: 'currency',
+                          currency: 'BRL',
                         }).format(products.client_price)}
                       </p>
                       <strong>
-                        {new Intl.NumberFormat("br-PT", {
-                          style: "currency",
-                          currency: "BRL",
+                        {new Intl.NumberFormat('br-PT', {
+                          style: 'currency',
+                          currency: 'BRL',
                         }).format(products.client_sale_price)}
                       </strong>
                     </div>
                   ) : (
                     <strong>
-                      {new Intl.NumberFormat("br-PT", {
-                        style: "currency",
-                        currency: "BRL",
+                      {new Intl.NumberFormat('br-PT', {
+                        style: 'currency',
+                        currency: 'BRL',
                       }).format(products.client_sale_price)}
                     </strong>
                   )}
                 </div>
-                <div className="wish-text"></div>
+                <div className="wish-text" />
               </div>
               <div className="wish-button-area">
                 <button

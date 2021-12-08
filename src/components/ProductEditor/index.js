@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles } from "@material-ui/core/styles";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-import ImageLoader from "react-loading-image";
-import loading from "../../images/Loading.gif";
-import { notification } from "antd";
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { Tag, Tooltip } from "antd";
-import SimpleInput from "../NnEProduct/SimpleInput";
-import SimpleSwitch from "../NnEProduct/SimpleSwitch";
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { withStyles } from '@material-ui/core/styles';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import ImageLoader from 'react-loading-image';
+import { notification, Tag, Tooltip } from 'antd';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import loading from '../../images/Loading.gif';
+import SimpleInput from '../NnEProduct/SimpleInput';
+import SimpleSwitch from '../NnEProduct/SimpleSwitch';
 
-import api from "../../services/api";
+import api from '../../services/api';
 import urlAWS from '../../services/imagesAWS';
-import "./styles.css";
-import ImageUpload from "../../components/ImageUpload";
-import Subedit from "./subedit.js";
-import SubproductsCreate from "./subcreate";
-import MultipleUploader from "../MultipleUploader";
+import './styles.css';
+import ImageUpload from '../ImageUpload';
+import Subedit from './subedit.js';
+import SubproductsCreate from './subcreate';
+import MultipleUploader from '../MultipleUploader';
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -31,18 +30,18 @@ const IOSSwitch = withStyles((theme) => ({
   },
   switchBase: {
     padding: 1,
-    "&$checked": {
-      transform: "translateX(16px)",
+    '&$checked': {
+      transform: 'translateX(16px)',
       color: theme.palette.common.white,
-      "& + $track": {
-        backgroundColor: "#52d869",
+      '& + $track': {
+        backgroundColor: '#52d869',
         opacity: 1,
-        border: "none",
+        border: 'none',
       },
     },
-    "&$focusVisible $thumb": {
-      color: "#52d869",
-      border: "6px solid #fff",
+    '&$focusVisible $thumb': {
+      color: '#52d869',
+      border: '6px solid #fff',
     },
   },
   thumb: {
@@ -54,31 +53,29 @@ const IOSSwitch = withStyles((theme) => ({
     border: `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: theme.palette.grey[50],
     opacity: 1,
-    transition: theme.transitions.create(["background-color", "border"]),
+    transition: theme.transitions.create(['background-color', 'border']),
   },
   checked: {},
   focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
+}))(({ classes, ...props }) => (
+  <Switch
+    focusVisibleClassName={classes.focusVisible}
+    disableRipple
+    classes={{
+      root: classes.root,
+      switchBase: classes.switchBase,
+      thumb: classes.thumb,
+      track: classes.track,
+      checked: classes.checked,
+    }}
+    {...props}
+  />
+));
 
 export default function ProductEditor(props) {
   const [products, setProducts] = useState([]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [client_price, setClientPrice] = useState(0);
   const [client_sale_price, setClientSalePrice] = useState(0);
   const [wholesaler_price, setWholesalerPrice] = useState(0);
@@ -115,16 +112,16 @@ export default function ProductEditor(props) {
     checkedE: true,
   });
 
-  const [editar, setEditar] = useState("editar");
+  const [editar, setEditar] = useState('editar');
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem('accessToken');
 
   const config = {
     headers: { authorization: `Bearer ${accessToken}` },
   };
 
   useEffect(() => {
-    api.get("categories").then((response) => {
+    api.get('categories').then((response) => {
       setCategories(response.data);
     });
   }, []);
@@ -137,8 +134,8 @@ export default function ProductEditor(props) {
       setSubcategoriesIds(newCat.subcategories_ids);
     } else {
       setCategoryId(0);
-      setSubcategories("");
-      setSubcategoriesIds("");
+      setSubcategories('');
+      setSubcategoriesIds('');
     }
   }
 
@@ -216,7 +213,7 @@ export default function ProductEditor(props) {
   }, [updated]);
 
   useEffect(() => {
-    if (props.wichOne === "editar") {
+    if (props.wichOne === 'editar') {
       setEditar(true);
     }
   }, []);
@@ -226,19 +223,19 @@ export default function ProductEditor(props) {
     // setVisible(!visible);
     const source = event.target.name;
     switch (source) {
-      case "checkedA":
+      case 'checkedA':
         setVisible(!visible);
         break;
-      case "checkedB":
+      case 'checkedB':
         setOnsaleClient(!on_sale_client);
         break;
-      case "checkedC":
+      case 'checkedC':
         setOnsaleWholesaler(!on_sale_wholesaler);
         break;
-      case "checkedD":
+      case 'checkedD':
         setRelease(!release);
         break;
-      case "checkedE":
+      case 'checkedE':
         setBest_Seller(!best_seller);
         break;
       default:
@@ -248,59 +245,58 @@ export default function ProductEditor(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    let data = new FormData();
+    const data = new FormData();
     function addToData(key, value) {
-      if (value !== undefined && value !== "") data.append(key, value);
+      if (value !== undefined && value !== '') data.append(key, value);
     }
 
-
-    addToData("name", name);
-    addToData("description", description);
-    addToData("client_price", client_price);
-    addToData("client_sale_price", client_sale_price);
-    addToData("wholesaler_price", wholesaler_price);
-    addToData("wholesaler_sale_price", wholesaler_sale_price);
-    addToData("stock_quantity", stock_quantity);
-    addToData("min_stock", min_stock);
-    addToData("visible", visible);
-    addToData("on_sale_client", on_sale_client);
-    addToData("on_sale_wholesaler", on_sale_wholesaler);
-    addToData("best_seller", best_seller);
-    addToData("release", release);
-    addToData("imageFile", image);
-    addToData("subcategory_id", subcategory_id);
-    addToData("weight", weight);
-    addToData("height", height);
-    addToData("width", width);
-    addToData("length", length);
+    addToData('name', name);
+    addToData('description', description);
+    addToData('client_price', client_price);
+    addToData('client_sale_price', client_sale_price);
+    addToData('wholesaler_price', wholesaler_price);
+    addToData('wholesaler_sale_price', wholesaler_sale_price);
+    addToData('stock_quantity', stock_quantity);
+    addToData('min_stock', min_stock);
+    addToData('visible', visible);
+    addToData('on_sale_client', on_sale_client);
+    addToData('on_sale_wholesaler', on_sale_wholesaler);
+    addToData('best_seller', best_seller);
+    addToData('release', release);
+    addToData('imageFile', image);
+    addToData('subcategory_id', subcategory_id);
+    addToData('weight', weight);
+    addToData('height', height);
+    addToData('width', width);
+    addToData('length', length);
 
     try {
       const response = await api.put(
         `updateProduct/${props.match.params.id}`,
         data,
-        config
+        config,
       );
       notification.open(
         {
-          message: "Sucesso!",
-          description: "Edição do produto concluída.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          message: 'Sucesso!',
+          description: 'Edição do produto concluída.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         },
-        response
+        response,
       );
     } catch (err) {
       console.error(err.response);
       notification.open({
-        message: "Erro!",
-        description: "Edição do produto impedida.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        message: 'Erro!',
+        description: 'Edição do produto impedida.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -309,7 +305,7 @@ export default function ProductEditor(props) {
   }
 
   function handleImage(img) {
-    let img_url = URL.createObjectURL(img);
+    const img_url = URL.createObjectURL(img);
     setImgURL(img_url);
     setImage(img);
   }
@@ -317,7 +313,7 @@ export default function ProductEditor(props) {
   function handleCloseTag(subcategory_id) {
     api.delete(
       `uncategorize/${props.match.params.id}/${subcategory_id}`,
-      config
+      config,
     );
   }
 
@@ -326,16 +322,16 @@ export default function ProductEditor(props) {
       .delete(`product/${props.match.params.id}`, config)
       .then((response) => {
         notification.open({
-          message: "Sucesso!",
-          description: "Produto deletado com sucesso.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          message: 'Sucesso!',
+          description: 'Produto deletado com sucesso.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         });
-        history.push("/admin/editproduct");
+        history.push('/admin/editproduct');
       })
       .catch((err) => {
         JSON.stringify(err.response);
@@ -343,23 +339,23 @@ export default function ProductEditor(props) {
         console.error(err.response);
         if (err.response.data.code === 527) {
           notification.open({
-            message: "Erro!",
+            message: 'Erro!',
             description:
-              "Produto não pode ser deletado pois está incluído em um pedido.",
-            className: "ant-notification",
-            top: "100px",
-            icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+              'Produto não pode ser deletado pois está incluído em um pedido.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
             style: {
               width: 600,
             },
           });
         } else {
           notification.open({
-            message: "Erro!",
-            description: "Falha em deletar o produto.",
-            className: "ant-notification",
-            top: "100px",
-            icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+            message: 'Erro!',
+            description: 'Falha em deletar o produto.',
+            className: 'ant-notification',
+            top: '100px',
+            icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
             style: {
               width: 600,
             },
@@ -373,25 +369,25 @@ export default function ProductEditor(props) {
       const response = api.delete(`image/${image}`, config).then((response) => { });
       notification.open(
         {
-          message: "Sucesso!",
-          description: "Imagem secundária deletada.",
-          className: "ant-notification",
-          top: "100px",
-          icon: <AiOutlineCheckCircle style={{ color: "#F9CE56" }} />,
+          message: 'Sucesso!',
+          description: 'Imagem secundária deletada.',
+          className: 'ant-notification',
+          top: '100px',
+          icon: <AiOutlineCheckCircle style={{ color: '#F9CE56' }} />,
           style: {
             width: 600,
           },
         },
-        response
+        response,
       );
     } catch (err) {
       console.error(err.response);
       notification.open({
-        message: "Erro!",
-        description: "Não foi possível excluir a imagem.",
-        className: "ant-notification",
-        top: "100px",
-        icon: <AiOutlineCloseCircle style={{ color: "#F9CE56" }} />,
+        message: 'Erro!',
+        description: 'Não foi possível excluir a imagem.',
+        className: 'ant-notification',
+        top: '100px',
+        icon: <AiOutlineCloseCircle style={{ color: '#F9CE56' }} />,
         style: {
           width: 600,
         },
@@ -401,7 +397,7 @@ export default function ProductEditor(props) {
   };
   useEffect(() => {
     if (subcategories_ids && subcategories_ids.length > 0) {
-      let categorizeData = { subcategories_ids: [subcategories_ids] };
+      const categorizeData = { subcategories_ids: [subcategories_ids] };
       api
         .put(`categorize/${props.match.params.id}`, categorizeData, config)
         .then((response) => {
@@ -491,9 +487,7 @@ export default function ProductEditor(props) {
                                 placeholder="00.00"
                                 aria-describedby="inputGroupPrepend2"
                                 value={client_sale_price}
-                                onChange={(e) =>
-                                  setClientSalePrice(e.target.value)
-                                }
+                                onChange={(e) => setClientSalePrice(e.target.value)}
                                 required
                               />
                             </div>
@@ -518,9 +512,7 @@ export default function ProductEditor(props) {
                                 placeholder="00.00"
                                 aria-describedby="inputGroupPrepend2"
                                 value={wholesaler_price}
-                                onChange={(e) =>
-                                  setWholesalerPrice(e.target.value)
-                                }
+                                onChange={(e) => setWholesalerPrice(e.target.value)}
                                 required
                               />
                             </div>
@@ -545,9 +537,7 @@ export default function ProductEditor(props) {
                                 placeholder="00.00"
                                 aria-describedby="inputGroupPrepend2"
                                 value={wholesaler_sale_price}
-                                onChange={(e) =>
-                                  setWholesalerSalePrice(e.target.value)
-                                }
+                                onChange={(e) => setWholesalerSalePrice(e.target.value)}
                                 required
                               />
                             </div>
@@ -572,14 +562,14 @@ export default function ProductEditor(props) {
                             )}
                           />
                         )}
-                        <br></br>
+                        <br />
                         <label className="images-label" htmlFor="main">
                           Principal
                         </label>
                         <div className="input-group mb-3">
                           <ImageUpload
                             onChange={handleImage}
-                            fileName={"imageFile"}
+                            fileName="imageFile"
                             url={img_url}
                           />
                         </div>
@@ -589,61 +579,58 @@ export default function ProductEditor(props) {
                         </label>
                         <div className="pres-imgs">
                           {images.map(
-                            (image, index) =>
-                              image.subproduct_id === null && (
-                                <div className="secimage-comp-loader-sub">
-                                  <DeleteForeverIcon
-                                    className="edit-delete-secimage"
-                                    type="button"
-                                    onClick={() =>
-                                      handleDeleteSecImage(image.id)
-                                    }
-                                  />
-                                  <ImageLoader
-                                    className="secimage-loader-sub"
-                                    src={`${urlAWS}/${image.id}`}
-                                    loading={() => (
-                                      <img src={loading} alt="Loading..." />
-                                    )}
-                                    error={() => <div>Error</div>}
-                                  />
-                                </div>
-                              )
+                            (image, index) => image.subproduct_id === null && (
+                            <div className="secimage-comp-loader-sub">
+                              <DeleteForeverIcon
+                                className="edit-delete-secimage"
+                                type="button"
+                                onClick={() => handleDeleteSecImage(image.id)}
+                              />
+                              <ImageLoader
+                                className="secimage-loader-sub"
+                                src={`${urlAWS}/${image.id}`}
+                                loading={() => (
+                                  <img src={loading} alt="Loading..." />
+                                )}
+                                error={() => <div>Error</div>}
+                              />
+                            </div>
+                            ),
                           )}
                         </div>
                         <MultipleUploader
-                          canSubmit={true}
-                          canDelete={true}
+                          canSubmit
+                          canDelete
                           productId={props.match.params.id}
                         />
                         <div className="input-group mb-3">
                           <label
                             className="file-label"
-                            for="inputGroupFile01"
+                            htmlFor="inputGroupFile01"
                             htmlFor="fileName"
-                          ></label>
+                          />
                         </div>
                         <span className="images-label">
                           Formatos aceitos: JPG, PNG
                         </span>
                       </div>
                     </div>
-                    <div className="edit-separator"></div>
+                    <div className="edit-separator" />
                     <div className="right-form-dois">
                       <div className="right-form">
                         <div className="config-form">
                           <p className="productTitle">Configuração</p>
-                          {/*SWITCHS...*/}
+                          {/* SWITCHS... */}
                           <div className="switchConfig">
                             <FormControlLabel
-                              control={
+                              control={(
                                 <IOSSwitch
                                   value={visible}
                                   checked={state.checkedA}
                                   onChange={handleChange}
                                   name="checkedA"
                                 />
-                              }
+                              )}
                               id="switch_1"
                             />
                             <label htmlFor="switch_1">
@@ -652,14 +639,14 @@ export default function ProductEditor(props) {
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
-                              control={
+                              control={(
                                 <IOSSwitch
                                   value={on_sale_client}
                                   checked={state.checkedB}
                                   onChange={handleChange}
                                   name="checkedB"
                                 />
-                              }
+                              )}
                               id="switch_2"
                             />
                             <label htmlFor="switch_2">
@@ -668,14 +655,14 @@ export default function ProductEditor(props) {
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
-                              control={
+                              control={(
                                 <IOSSwitch
                                   value={on_sale_wholesaler}
                                   checked={state.checkedC}
                                   onChange={handleChange}
                                   name="checkedC"
                                 />
-                              }
+                              )}
                               id="switch_3"
                             />
                             <label htmlFor="switch_3">
@@ -684,28 +671,28 @@ export default function ProductEditor(props) {
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
-                              control={
+                              control={(
                                 <IOSSwitch
                                   value={release}
                                   checked={state.checkedD}
                                   onChange={handleChange}
                                   name="checkedD"
                                 />
-                              }
+                              )}
                               id="switch_4"
                             />
                             <label htmlFor="switch_4">Lançamento</label>
                           </div>
                           <div className="switchConfig">
                             <FormControlLabel
-                              control={
+                              control={(
                                 <IOSSwitch
                                   value={best_seller}
                                   checked={state.checkedE}
                                   onChange={handleChange}
                                   name="checkedE"
                                 />
-                              }
+                              )}
                               id="switch_5"
                             />
                             <label htmlFor="switch_5">Mais Vendido</label>
@@ -887,9 +874,10 @@ export default function ProductEditor(props) {
                                   className="category-label"
                                   htmlFor="main-category"
                                 >
-                                  Principal:{" "}
+                                  Principal:
+                                  {' '}
                                 </label>
-                                {/*DROPDOWNS*/}
+                                {/* DROPDOWNS */}
                                 <select
                                   name="cars"
                                   id="cars"
@@ -899,16 +887,14 @@ export default function ProductEditor(props) {
                                   <option value="0" disabled>
                                     Selecionar
                                   </option>
-                                  {categories.map((cat) => {
-                                    return (
-                                      <option
-                                        value={cat.id}
-                                        key={`cat-${cat.id}`}
-                                      >
-                                        {cat.name}
-                                      </option>
-                                    );
-                                  })}
+                                  {categories.map((cat) => (
+                                    <option
+                                      value={cat.id}
+                                      key={`cat-${cat.id}`}
+                                    >
+                                      {cat.name}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                               <div className="categoriesSelection">
@@ -927,34 +913,28 @@ export default function ProductEditor(props) {
                                   <option value="0" disabled>
                                     Selecionar
                                   </option>
-                                  {subcategories.map((subcat) => {
-                                    return (
-                                      <option value={subcat.id} key={subcat.id}>
-                                        {subcat.name}
-                                      </option>
-                                    );
-                                  })}
+                                  {subcategories.map((subcat) => (
+                                    <option value={subcat.id} key={subcat.id}>
+                                      {subcat.name}
+                                    </option>
+                                  ))}
                                 </select>
 
                                 <div className="categoriesSelection">
                                   <label>Subcategorias</label>
                                 </div>
                                 <div>
-                                  {products.map((subcat, index) => {
-                                    return (
-                                      <Tag
-                                        className="edit-tag"
-                                        value={subcat.subcategory_id}
-                                        closable={index >= 0}
-                                        key={subcat.subcategory_id}
-                                        onClose={() =>
-                                          handleCloseTag(subcat.subcategory_id)
-                                        }
-                                      >
-                                        {subcat.subcategory_name}
-                                      </Tag>
-                                    );
-                                  })}
+                                  {products.map((subcat, index) => (
+                                    <Tag
+                                      className="edit-tag"
+                                      value={subcat.subcategory_id}
+                                      closable={index >= 0}
+                                      key={subcat.subcategory_id}
+                                      onClose={() => handleCloseTag(subcat.subcategory_id)}
+                                    >
+                                      {subcat.subcategory_name}
+                                    </Tag>
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -978,10 +958,10 @@ export default function ProductEditor(props) {
                       </button>
                     </div>
                   ) : (
-                      <div className="product-button">
-                        <button type="submit">ENVIAR ALTERAÇÕES</button>
-                      </div>
-                    )}
+                    <div className="product-button">
+                      <button type="submit">ENVIAR ALTERAÇÕES</button>
+                    </div>
+                  )}
                 </div>
               </form>
             </Tab>
@@ -994,10 +974,10 @@ export default function ProductEditor(props) {
                   ))}
                 </div>
               ) : (
-                  <div className="sub-form">
-                    <SubproductsCreate />
-                  </div>
-                )}
+                <div className="sub-form">
+                  <SubproductsCreate />
+                </div>
+              )}
             </Tab>
           </Tabs>
         </div>

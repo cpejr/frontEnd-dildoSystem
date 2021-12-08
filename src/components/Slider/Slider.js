@@ -14,7 +14,6 @@ export default function ControlledCarousel() {
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    console.log("slider component useEffect")
     const config = {
       headers: { authorization: `Bearer ${accessToken}` },
     };
