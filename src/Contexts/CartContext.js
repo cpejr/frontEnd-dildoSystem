@@ -45,6 +45,7 @@ function CartContextProvider({ children }) {
     }, [stringifiedMinCart])
 
     useEffect(() => { // PUXA CARRINHO DO LOCALSTORAGE INICIALMENTE E SETA MINIFICADO
+        console.log("init cart useEffect")
         if (localStorage.getItem('cart')) {
             const newStringifiedMinCart = localStorage.getItem('cart');
             const newMinCart = JSON.parse(newStringifiedMinCart);
@@ -59,7 +60,7 @@ function CartContextProvider({ children }) {
     window.onbeforeunload = updateLocalStorage;
 
     useEffect(() => { // TODA VEZ QUE MINIFICADO MUDA OU TIPO DE USUÁRIO MUDA, PUXA CARRINHO ESTRUTURADO DO BACK
-
+        console.log("update cart useEffect")
         async function grabCartFromBack() {
             const accessToken = localStorage.getItem('accessToken');
 
@@ -104,10 +105,12 @@ function CartContextProvider({ children }) {
     }, [minCart, update]);
 
     useEffect(() => {
+        console.log("cart update total price useEffect")
         updateTotalPrices(localCart);
     }, [userType, localCart])
 
     useEffect(() => { // RESPONSÁVEL PELO COMPORTAMENTO DO POPOVER
+        console.log("cart popover useEffect")
         if (lastAddedProduct) {
             setTimeout(() => {
                 setLastAddedProduct();
@@ -116,6 +119,7 @@ function CartContextProvider({ children }) {
     }, [lastAddedProduct]);
 
     useEffect(() => {
+        console.log("cart loggingOut useEffect")
         if (loggingOut) {
             clear();
         }

@@ -26,6 +26,7 @@ function LoginContextProvider(props) {
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
+    console.log("login changed useEffect")
     if (changed) {
       history.push(location.pathname + location.search);
       setChanged(false);
@@ -33,12 +34,14 @@ function LoginContextProvider(props) {
   }, [changed]);
 
   useEffect(() => {
+    console.log("login loggingOut useEffect")
     if (loggingOut) {
       setLoggingOut(false);
     }
   }, [loggingOut])
 
   useEffect(() => {
+    console.log("login update token useEffect")
     const newToken = localStorage.getItem("accessToken");
     if (newToken && !accessToken) {
       async function grabData() {

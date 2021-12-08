@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "./CarouselStyle.css";
-// import CardProduct from '../ProductCard/ProductCard';
+
 import NewProductCard from "../ProductCard/NewProductCard";
 import api from "../../services/api";
 
@@ -66,7 +66,8 @@ export default function CarouselProducts() {
 
       setProducts(auxArray);
     });
-  }, [config, numberElements]);
+    //eslint-disable-next-line
+  }, [numberElements]);
 
   useEffect(() => {
     let auxArray = [];

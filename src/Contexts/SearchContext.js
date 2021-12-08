@@ -74,7 +74,7 @@ function SearchContextProvider(props) {
 
   //Uma vez informação atualizada e organizada, monta nova URL e redireciona para ela
   useEffect(() => {
-
+    console.log("search mount url useEffect")
     if (initialLoad) {
       setInitialLoad(false);
     } else {
@@ -97,6 +97,7 @@ function SearchContextProvider(props) {
 
   //Puxa pesquisa da url
   useEffect(() => {
+    console.log("search grab results useEffect")
     let queries = props.location.search;
 
     queries = queries.substring(1, queries.length); //retira ?
