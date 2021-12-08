@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.dd2f44a7.chunk.css",
-    "main.js": "/static/js/main.4dd17475.chunk.js",
+    "main.css": "/static/css/main.cdf9d24d.chunk.css",
+    "main.js": "/static/js/main.f6e68acf.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.b03a7968.js",
-    "static/css/2.c9f73512.chunk.css": "/static/css/2.c9f73512.chunk.css",
-    "static/js/2.66d98ae9.chunk.js": "/static/js/2.66d98ae9.chunk.js",
+    "static/css/2.7c7f6b90.chunk.css": "/static/css/2.7c7f6b90.chunk.css",
+    "static/js/2.de7d73be.chunk.js": "/static/js/2.de7d73be.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.0e13a06a5247649bf87f1d39435e17e3.js": "/precache-manifest.0e13a06a5247649bf87f1d39435e17e3.js",
+    "precache-manifest.5ddce9b1156968484252b03d6ff98665.js": "/precache-manifest.5ddce9b1156968484252b03d6ff98665.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.66d98ae9.chunk.js.LICENSE.txt": "/static/js/2.66d98ae9.chunk.js.LICENSE.txt",
+    "static/js/2.de7d73be.chunk.js.LICENSE.txt": "/static/js/2.de7d73be.chunk.js.LICENSE.txt",
     "static/media/CASULUS_BORBOLETA_2_AMARELO.png": "/static/media/CASULUS_BORBOLETA_2_AMARELO.22703356.png",
     "static/media/CASULUS_BORBOLETA_4_AMARELO.png": "/static/media/CASULUS_BORBOLETA_4_AMARELO.e5c2c656.png",
     "static/media/CASULUS_LOGOTEXTO_PRETO.png": "/static/media/CASULUS_LOGOTEXTO_PRETO.ee7c1044.png",
@@ -24,9 +24,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.b03a7968.js",
-    "static/css/2.c9f73512.chunk.css",
-    "static/js/2.66d98ae9.chunk.js",
-    "static/css/main.dd2f44a7.chunk.css",
-    "static/js/main.4dd17475.chunk.js"
+    "static/css/2.7c7f6b90.chunk.css",
+    "static/js/2.de7d73be.chunk.js",
+    "static/css/main.cdf9d24d.chunk.css",
+    "static/js/main.f6e68acf.chunk.js"
   ]
 }
