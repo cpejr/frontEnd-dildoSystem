@@ -11,7 +11,6 @@ import prevIcon from "../../images/prevIcon.png";
 export default function CarouselProducts() {
   const [index, setIndex] = useState(0);
   const [products, setProducts] = useState([]);
-  const [initProducts, setInitProducts] = useState([]);
   const [numberElements, setNumberElements] = useState(() => {
     let aux;
     aux = Math.floor(window.innerWidth / 300);
@@ -44,7 +43,6 @@ export default function CarouselProducts() {
 
   useEffect(() => {
     api.get("products/?release=true", config).then((response) => {
-      setInitProducts(response.data);
       const prod = response.data;
       const auxArray = [];
       const quotient = Math.floor(prod.length / numberElements);
@@ -67,34 +65,7 @@ export default function CarouselProducts() {
       setProducts(auxArray);
     });
     // eslint-disable-next-line
-  }, [config, numberElements]);
-
-  useEffect(() => {
-    const auxArray = [];
-    let quotient;
-    let remainder;
-
-    if (quotient != NaN && remainder != NaN) {
-      quotient = Math.floor(initProducts.length / numberElements);
-      remainder = initProducts.length % numberElements;
-
-      for (let i = 0; i < quotient; i++) {
-        const elements = [];
-        for (let j = 0; j < numberElements; j++) {
-          elements.push(initProducts[i * numberElements + j]);
-        }
-        auxArray.push(elements);
-      }
-
-      const lastElements = [];
-      for (let i = 0; i < remainder; i++) {
-        lastElements.push(initProducts[quotient * numberElements + i]);
-      }
-      if (lastElements.length > 0) auxArray.push(lastElements);
-
-      setProducts(auxArray);
-    }
-  }, [initProducts, numberElements]);
+  }, [accessToken, numberElements]);
 
   return (
     <div className="Carousel-Products">
@@ -104,12 +75,12 @@ export default function CarouselProducts() {
         nextIcon={
           <span aria-hidden="true" className="">
             {" "}
-            <img src={nextIcon} />
+            <img src={nextIcon} alt="produtos anteriores" />
           </span>
         }
         prevIcon={
           <span aria-hidden="true" className="">
-            <img src={prevIcon} />
+            <img src={prevIcon} alt="próximos produtos" />
           </span>
         }
       >
@@ -117,7 +88,6 @@ export default function CarouselProducts() {
           <Carousel.Item key={index}>
             <div className="number">
               {elements.map((product, index) => (
-                // <CardProduct product={product}/>
                 <NewProductCard product={product} key={index} />
               ))}
             </div>

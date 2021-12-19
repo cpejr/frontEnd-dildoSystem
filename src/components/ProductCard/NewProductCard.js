@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { FiHeart } from 'react-icons/fi';
-import ImageLoader from 'react-loading-image';
-import { FaHeart } from 'react-icons/fa';
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
+import ImageLoader from "react-loading-image";
+import { FaHeart } from "react-icons/fa";
 
-import { LoginContext } from '../../Contexts/LoginContext';
-import './newStyles.css';
-import loading from '../../images/Loading.gif';
+import { LoginContext } from "../../Contexts/LoginContext";
+import "./newStyles.css";
+import loading from "../../images/Loading.gif";
 
-import api from '../../services/api';
-import ProductModal from './ProductModal';
-import urlAWS from '../../services/imagesAWS';
+import api from "../../services/api";
+import ProductModal from "./ProductModal";
+import urlAWS from "../../services/imagesAWS";
 
 export var PriceElement = function (props) {
   const { product } = props;
@@ -20,9 +20,7 @@ export var PriceElement = function (props) {
       return (
         <div className="price-container">
           <p className="preco-card cortado">
-            {`R$ ${Number(
-              props.product.wholesaler_price,
-            ).toFixed(2)}`}
+            {`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}
           </p>
 
           <p className="preco-promocao">
@@ -34,9 +32,7 @@ export var PriceElement = function (props) {
     return (
       <div className="price-container">
         <span className="preco-card">
-          {`R$ ${Number(
-            props.product.wholesaler_price,
-          ).toFixed(2)}`}
+          {`R$ ${Number(props.product.wholesaler_price).toFixed(2)}`}
         </span>
       </div>
     );
@@ -45,9 +41,7 @@ export var PriceElement = function (props) {
     return (
       <div className="price-container">
         <p className="preco-card cortado">
-          {`R$ ${Number(
-            props.product.client_price,
-          ).toFixed(2)}`}
+          {`R$ ${Number(props.product.client_price).toFixed(2)}`}
         </p>
 
         <p className="preco-promocao">
@@ -58,9 +52,7 @@ export var PriceElement = function (props) {
   }
   return (
     <span className="preco-card">
-      {`R$ ${Number(
-        props.product.client_price,
-      ).toFixed(2)}`}
+      {`R$ ${Number(props.product.client_price).toFixed(2)}`}
     </span>
   );
 };
@@ -69,7 +61,7 @@ export default function NewProductCard(props) {
   const [isWish, setIsWish] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
   const user = useContext(LoginContext);
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem("accessToken");
   const { product } = props;
   const { subproducts } = product;
 
@@ -93,17 +85,17 @@ export default function NewProductCard(props) {
       headers: { authorization: `Bearer ${accessToken}` },
       data: { user_id, product_id },
     };
-    api.delete('userwishlist', config_2).then((response) => {
+    api.delete("userwishlist", config_2).then((response) => {
       setIsWish(false);
     });
   };
 
   function buyButton() {
     if (
-      (subproducts
-        && subproducts.length > 0
-        && subproducts.find((subp) => subp.stock_quantity > 0))
-      || product.stock_quantity > 0
+      (subproducts &&
+        subproducts.length > 0 &&
+        subproducts.find((subp) => subp.stock_quantity > 0)) ||
+      product.stock_quantity > 0
     ) {
       return (
         <div id="botao-comprar" onClick={(e) => setVisibleModal(true)}>
@@ -123,16 +115,17 @@ export default function NewProductCard(props) {
         }
       });
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [accessToken]);
 
   const DiscountElement = function (props) {
     const { product } = props;
 
     if (
-      (subproducts
-        && subproducts.length > 0
-        && subproducts.find((subp) => subp.stock_quantity > 0))
-      || product.stock_quantity > 0
+      (subproducts &&
+        subproducts.length > 0 &&
+        subproducts.find((subp) => subp.stock_quantity > 0)) ||
+      product.stock_quantity > 0
     ) {
       if (product.wholesaler_price) {
         if (product.on_sale_wholesaler) {
@@ -141,11 +134,11 @@ export default function NewProductCard(props) {
               <p className="preco-card discount">
                 {`${Math.round(
                   Number(
-                    ((props.product.wholesaler_price
-                    - props.product.wholesaler_sale_price)
-                    / props.product.wholesaler_price)
-                    * 100,
-                  ),
+                    ((props.product.wholesaler_price -
+                      props.product.wholesaler_sale_price) /
+                      props.product.wholesaler_price) *
+                      100
+                  )
                 )}% DESCONTO`}
               </p>
 
@@ -166,13 +159,13 @@ export default function NewProductCard(props) {
           <div className="price-container">
             <p className="preco-card discount">
               {`${Math.round(
-                  Number(
-                    ((props.product.client_price
-                    - props.product.client_sale_price)
-                    / props.product.client_price)
-                    * 100,
-                  ).toFixed(2),
-                )}% DESCONTO`}
+                Number(
+                  ((props.product.client_price -
+                    props.product.client_sale_price) /
+                    props.product.client_price) *
+                    100
+                ).toFixed(2)
+              )}% DESCONTO`}
             </p>
 
             {/* <p className="preco-promocao">
@@ -183,7 +176,7 @@ export default function NewProductCard(props) {
       }
       return (
         <div />
-      // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
+        // <span className="preco-card">{`R$ ${Number(props.product.client_price).toFixed(2)}`}</span>
       );
     }
     return (
