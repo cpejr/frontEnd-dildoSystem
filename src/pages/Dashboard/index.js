@@ -37,7 +37,7 @@ const Dashboard = function (props) {
       </div>
       <div>
         {/* OBSERVAÇÃO: GRAÇAS A ERROS DE AUTENTICAÇÃO COM A API DO INSTAGRAM, NÃO ESTA SENDO POSSÍVEL EXIBIR AS ULTIMAS IMAGENS DO INSTAGARM  */}
-        <div className="insta-div">
+        {/* <div className="insta-div">
           <br />
           <h3>
             <img
@@ -49,8 +49,8 @@ const Dashboard = function (props) {
             Confira nosso Instagram:
           </h3>
           <Insta />
-        </div>
-        <br />
+        </div> */}
+        {/* <br /> */}
       </div>
       <div className="insta-footer">
         <Footer />
