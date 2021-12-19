@@ -33,9 +33,6 @@ export default withRouter((props) => {
     api
       .get("/products", {
         params,
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
       })
       .then((response) => {
         if (response.data.length === 0) return setHasMoreItems(false);
